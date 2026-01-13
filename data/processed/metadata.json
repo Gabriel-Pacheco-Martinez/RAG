@@ -1,0 +1,97 @@
+{
+  "documents": {
+    "1042": {
+      "title": "Cajas de Ahorro",
+      "author": "BNB",
+      "chapters": [1, 2]
+    }
+  },
+  "chapters": {
+    "1": {
+      "title": "Banca Joven",
+      "sections": [1, 2],
+      "document_id": 1042
+    },
+    "2": {
+      "title": "Banca Senior",
+      "sections": [3, 4],
+      "document_id": 1042
+    }
+  },
+  "sections": {
+    "1": {
+      "title": "Descripción",
+      "chapter_id": 1,
+      "chunks": [1],
+      "section_index": 1
+    },
+    "2": {
+      "title": "Requisitos",
+      "chapter_id": 1,
+      "chunks": [2, 3],
+      "section_index": 2
+    },
+    "3": {
+      "title": "Descripción",
+      "chapter_id": 2,
+      "chunks": [4],
+      "section_index": 1
+    },
+    "4": {
+      "title": "Requisitos",
+      "chapter_id": 2,
+      "chunks": [5, 6],
+      "section_index": 2
+    }
+  },
+  "chunks": {
+    "1": {
+      "chunk_id": 1,
+      "chunk_index": 1,
+      "section_id": 1,
+      "chapter_id": 1,
+      "document_id": 1042,
+      "text": "La Caja de Ahorros Banca Joven es un producto de captación que permite realizar depósitos y retiros de dinero y cuyos saldos devengan intereses diarios, los mismos que son capitalizados mensualmente. Dicho producto está dirigido a personas naturales del segmento joven, de entre 18 y 35 años, de nacionalidad boliviana o extranjera con residencia legal en el país."
+    },
+    "2": {
+      "chunk_id": 2,
+      "chunk_index": 2,
+      "section_id": 2,
+      "chapter_id": 1,
+      "document_id": 1042,
+      "text": "Personas naturales de 18 a 35 años."
+    },
+    "3": {
+      "chunk_id": 3,
+      "chunk_index": 3,
+      "section_id": 2,
+      "chapter_id": 1,
+      "document_id": 1042,
+      "text": "Monto mínimo de apertura de Bs 200."
+    },
+    "4": {
+      "chunk_id": 4,
+      "chunk_index": 1,
+      "section_id": 3,
+      "chapter_id": 2,
+      "document_id": 1042,
+      "text": "La Caja de Ahorros Banca Senior es un producto de captación que permite realizar depósitos y retiros de dinero, cuyos saldos devengan intereses diarios, los mismos que son capitalizados mensualmente. Dicho producto está dirigido a personas naturales del segmento de 60 años o más, de nacionalidad boliviana o extranjera con residencia legal en el país."
+    },
+    "5": {
+      "chunk_id": 5,
+      "chunk_index": 2,
+      "section_id": 4,
+      "chapter_id": 2,
+      "document_id": 1042,
+      "text": "Personas naturales de 60 años o más."
+    },
+    "6": {
+      "chunk_id": 6,
+      "chunk_index": 3,
+      "section_id": 4,
+      "chapter_id": 2,
+      "document_id": 1042,
+      "text": "Monto mínimo de apertura de Bs 400."
+    }
+  }
+}

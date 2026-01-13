@@ -1,0 +1,7 @@
+# Configuration for embedding model with HF
+EMBEDDING_MODEL: "all-MiniLM-L6-v2"
+EMBEDDING_BATCH_SIZE: 16
+EMBEDDING_N_DIMENSIONS: 384
+
+# Configuration for my large language model with OLLAMA
+LLM_MODEL: "gpt-3.5-turbo"
