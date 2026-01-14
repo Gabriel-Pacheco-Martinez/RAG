@@ -18,30 +18,39 @@ class FAISSSearcher(VectorSearcher):
         if os.path.exists(metadata_path):
             with open(metadata_path, "r", encoding="utf-8") as f:
                 self.metadata = json.load(f)
-            print(f"Loaded metadata with {len(self.metadata)} chunks")
+            # print(f"Loaded metadata with {len(self.metadata)} chunks")
         else:
             self.metadata = []
             print("Warning: metadata file not found!")
 
-    def search(self, query_embedding: np.ndarray, top_k: int = 5) -> list[dict]:
+    def search(self, query_embedding: np.ndarray, threshold: float = 0.5, top_k: int = 5) -> list[dict]:
         """
-        query_embedding: np.ndarray of shape (dim,) or (1, dim)
+        query_embedding: np.ndarray of shape(1, dim)
         top_k: number of nearest neighbors to retrieve
         """
-        # Ensure query is 2D
-        if query_embedding.ndim == 1:
-            query_embedding = np.expand_dims(query_embedding, axis=0)
-
+        # Convert embeddings to float32 as required by faiss
         query_embedding = query_embedding.astype(np.float32)
 
+        # Perform search
+        """
+        Both are 2D arrays
+        distances: shape (1, top_k) -> distances to nearest neighbors
+        indices: shape (1, top_k)   -> indices of nearest neighbors
+        """
         distances, indices = self.index.search(query_embedding, top_k)
 
-        results = []
-        for dist, idx in zip(distances[0], indices[0]):
-            if idx < len(self.metadata):
-                results.append({
+        # Select nearest vector neighbours
+        neighbour_vectors = []
+
+        for sim, idx in zip(distances[0], indices[0]):
+            # Check if similar enough and if index exists in metadata list
+            if sim > threshold and idx < len(self.metadata): 
+                neighbour_vectors.append({
                     "chunk_id": self.metadata[idx]['chunk_id'],
                     "text": self.metadata[idx]['text'],
-                    "distance": float(dist)
+                    "similarity": float(sim)
                 })
-        return results
+
+        # Say something
+        print(f"\033[34mRetrieved {len(neighbour_vectors)} vectors.\033[0m")
+        return neighbour_vectors

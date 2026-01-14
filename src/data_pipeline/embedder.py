@@ -1,6 +1,6 @@
-import json
 import torch
 import torch.nn.functional as F
+import numpy as np
 
 from transformers import AutoModel, AutoTokenizer
 
@@ -24,7 +24,7 @@ class ChunkEmbedder:
         except Exception as e:
             raise Exception(f"Error loading embedding model and tokenizer: {self.model_name}: {e}")
 
-    def embed_documents(self, chunks) -> list[dict]:
+    def embed_chunks(self, chunks) -> list[dict]:
         # Load model
         self.load_model()
 
@@ -101,7 +101,7 @@ class ChunkEmbedder:
         print(f"\033[92mEmbedded {len(chunk_embeddings)} chunks/sentences, each with {chunk_embeddings[0]['embedding'].shape[0]} dimensions.\033[0m")
         return chunk_embeddings
 
-    def embed_query(self, query: str):
+    def embed_query(self, query: str) -> np.ndarray: 
         # Load model
         self.load_model()
 
@@ -117,5 +117,8 @@ class ChunkEmbedder:
 
         # Normalize
         embeddings = F.normalize(embeddings, p=2, dim=1)
+        embeddings = embeddings.numpy()
 
-        return embeddings.numpy()
+        # Say something
+        print(f"\033[34mEmbedded number of queries: {embeddings.shape[0]}, each with {embeddings.shape[1]} dimensions\033[0m")
+        return embeddings

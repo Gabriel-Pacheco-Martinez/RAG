@@ -8,7 +8,12 @@ from config.settings import FAISS_METADATA_PATH
 
 from config import load_config
 
-if __name__ == "__main__":
+def run():
+    print("=" * 60)
+    print("💼 Ingestion Section:")
+    print("=" * 60)
+
+    # ======
     # Load configuration
     cfg = load_config()
     EMBEDDING_MODEL = cfg["EMBEDDING_MODEL"]
@@ -30,11 +35,14 @@ if __name__ == "__main__":
     # =======
     # Embed the chunks
     embedder = ChunkEmbedder(model_name=EMBEDDING_MODEL, batch_size=EMBEDDING_BATCH_SIZE)
-    embeddings = embedder.embed_documents(chunks)
+    embeddings_chunks = embedder.embed_chunks(chunks)
     print("✅ Successfull embedding")
 
     # =======
     # Index the embeddings
     indexer = FAISSIndexer(dim=EMBEDDING_N_DIMENSIONS, index_path=FAISS_INDEX_PATH, metadata_path=FAISS_METADATA_PATH)
-    indexer.index_embeddings(embeddings)
+    indexer.index_embeddings(embeddings_chunks)
     print("✅ Successfull FAISS indexing")
+
+if __name__ == "__main__":
+    run()

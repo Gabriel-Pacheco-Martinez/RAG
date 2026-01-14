@@ -9,7 +9,7 @@ class VectorIndexer(ABC):
         self.dim = dim                      # Vector dimension for embeddings
         self.index_path = index_path        # Path for db
         self.metadata_path = metadata_path  # Path for metadata (in case of FAISS) -> because it can't store metadata
-        self.index = faiss.IndexFlatL2(dim) # Using L2 distance for comparison
+        self.index = faiss.IndexFlatIP(dim) # Using Inner Product for comparison
         self.metadata = []  # List to store metadata of each vector
 
     @abstractmethod
