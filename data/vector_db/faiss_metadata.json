@@ -1,0 +1,26 @@
+[
+  {
+    "chunk_id": "1",
+    "text": "La Caja de Ahorros Banca Joven es un producto de captación que permite realizar depósitos y retiros de dinero y cuyos saldos devengan intereses diarios, los mismos que son capitalizados mensualmente. Dicho producto está dirigido a personas naturales del segmento joven, de entre 18 y 35 años, de nacionalidad boliviana o extranjera con residencia legal en el país."
+  },
+  {
+    "chunk_id": "2",
+    "text": "Personas naturales de 18 a 35 años."
+  },
+  {
+    "chunk_id": "3",
+    "text": "Monto mínimo de apertura de Bs 200."
+  },
+  {
+    "chunk_id": "4",
+    "text": "La Caja de Ahorros Banca Senior es un producto de captación que permite realizar depósitos y retiros de dinero, cuyos saldos devengan intereses diarios, los mismos que son capitalizados mensualmente. Dicho producto está dirigido a personas naturales del segmento de 60 años o más, de nacionalidad boliviana o extranjera con residencia legal en el país."
+  },
+  {
+    "chunk_id": "5",
+    "text": "Personas naturales de 60 años o más."
+  },
+  {
+    "chunk_id": "6",
+    "text": "Monto mínimo de apertura de Bs 400."
+  }
+]
