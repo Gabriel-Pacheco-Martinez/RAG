@@ -4,8 +4,8 @@ EMBEDDING_BATCH_SIZE: 16
 EMBEDDING_N_DIMENSIONS: 384
 
 # Configuration for my large language model with OLLAMA
-LLM_MODEL: "gpt-3.5-turbo"
+LLM_MODEL: "qwen3:8b"
 
 # Configuration for vector database
-TOP_K: 4
-THRESHOLD: 0.2
+TOP_K: 5
+THRESHOLD: 0.5

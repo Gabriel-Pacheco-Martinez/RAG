@@ -4,3 +4,4 @@ chunks.json
 main.py
 .DS_Store
 **/__pycache__/
+data/
