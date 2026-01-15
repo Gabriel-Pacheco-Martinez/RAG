@@ -1,7 +1,8 @@
 import json
 from collections import Counter
 from langchain_ollama import ChatOllama
-from langchain.prompts import (
+from langchain_groq import ChatGroq
+from langchain_core.prompts import (
     ChatPromptTemplate,
     SystemMessagePromptTemplate,
     HumanMessagePromptTemplate
@@ -10,7 +11,9 @@ from langchain.prompts import (
 from src.utils.prompts import load_prompt
 
 class LLM_Engine():
-    def __init__(self, metadata_path: str):
+    def __init__(self, LLM_ANSWER_MODEL: str, LLM_VERIFY_MODEL: str, metadata_path: str):
+        self.llm_answer_model = LLM_ANSWER_MODEL
+        self.llm_verify_model = LLM_VERIFY_MODEL
         with open(metadata_path, "r", encoding="utf-8") as f:
             self.metadata = json.load(f)
 
@@ -59,7 +62,22 @@ class LLM_Engine():
         # Say something
         print(f"\033[34mCreated a context of {len(context_for_llm.split())} words for the LLM.\033[0m")
         return context_for_llm
-        
+
+    def get_llm(model_name: str, temperature=0) -> object:
+        """
+        Return the appropiate LLM object based on
+        the model chosen. At the moment the options are:
+            * qwen3:8b  -> ChatOllama
+            * groq      -> ChatGroq
+            * gemini    -> ChatGoogleGenerativeAI
+        """
+        if model_name == "qwen3:8b":
+            return ChatOllama(model="qwen3:8b", temperature=temperature)
+        elif model_name == "groq":
+            return ChatOllama(model="groq", temperature=temperature)
+        elif model_name == "gemini":
+            pass
+
     def prompt_llm(self, context: str, user_query: str):
         # =======
         # 1. Load system prompts
@@ -73,7 +91,7 @@ class LLM_Engine():
             SystemMessagePromptTemplate.from_template("Contexto:\n{context}"), #These {} are placeholders only
             HumanMessagePromptTemplate.from_template("{question}")
         ])
-
+        
         # ======
         # 3. Build VERIFY prompt (role-aware)
         verify_prompt = ChatPromptTemplate.from_messages([
@@ -84,6 +102,10 @@ class LLM_Engine():
 
         # ======
         # 4. Initialize LLMs
+        answer_llm = self.get_llm(self.llm_answer_model)
+        verifier_llm = self.get_llm(self.llm_verify_model)
+
+
         answer_llm = ChatOllama(model="qwen3:8b", temperature=0)
         verifier_llm = ChatOllama(model="qwen2.5:7b", temperature=0) # Change to smaller model
 

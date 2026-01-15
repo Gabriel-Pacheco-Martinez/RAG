@@ -5,8 +5,6 @@ REGLAS ESTRICTAS:
 2. No agregues conocimiento externo.
 3. No hagas suposiciones.
 4. No inventes datos.
-5. Si la respuesta no se encuentra en el contexto, responde exactamente:
-   "No hay información suficiente en el contexto para responder."
 
 Contexto:
 {context}

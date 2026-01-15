@@ -7,7 +7,7 @@ REGLAS:
    Verdadero
 2. Si la respuesta contiene información que NO está en el contexto, responde:
    Falso
-3. No agregues explicaciones ni texto adicional.
+3. Agrega una explicacion de porque Verdadero o Falso.
 
 Contexto:
 {context}

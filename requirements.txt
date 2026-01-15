@@ -33,7 +33,7 @@ joblib==1.5.3
 jsonpatch==1.33
 jsonpointer==3.0.0
 kiwisolver==1.4.9
-langchain>=2.3.0
+langchain==1.2.4
 langchain-core==1.2.7
 langchain-ollama==1.0.1
 langdetect==1.0.9
@@ -92,7 +92,6 @@ safetensors==0.7.0
 scikit-learn==1.8.0
 scipy==1.17.0
 sentence-transformers==5.2.0
-setuptools==80.9.0
 six==1.17.0
 soupsieve==2.8.1
 sympy==1.14.0

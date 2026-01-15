@@ -7,9 +7,9 @@ from config.settings import FAISS_METADATA_PATH
 from config.settings import CHUNK_METADATA_PATH
 
 from config import load_config
+import pprint
 
 def run(query):
-    print("\n")
     print("=" * 60)
     print("🔎 Search Section:")
     print("=" * 60)
@@ -21,12 +21,14 @@ def run(query):
     EMBEDDING_BATCH_SIZE = cfg["EMBEDDING_BATCH_SIZE"]
     THRESHOLD = cfg["THRESHOLD"]
     TOP_K = cfg["TOP_K"]
+    LLM_ANSWER_MODEL = cfg["LLM_ANSWER_MODEL"]
+    LLM_VERIFY_MODEL = cfg["LLM_VERIFY_MODEL"]
 
     # =======
     # Embed the query
     embedder = ChunkEmbedder(model_name=EMBEDDING_MODEL, batch_size=EMBEDDING_BATCH_SIZE)
     embedding_query = embedder.embed_query(query)
-    print("✅ Successfull embedding")
+    print("✅ Successfull embedding of query")
     
     # =======
     # Search embeddings
@@ -37,26 +39,29 @@ def run(query):
     # =======
     # Print results
     print("=" * 60)
-    print("📄 Retrieved Context Chunks:")
+    print("💼 Retrieved Context Chunks:")
     print("=" * 60)
     for i, v in enumerate(vectors, start=1):
         print(f"🔹 \033[34mResult {i}:\033[0m")
         print(f"   • Chunk ID   : {v['chunk_id']}")
         print(f"   • Similarity : {v['similarity']:.2f}")
         print(f"   • Text       : {v['text']}")
+    print("✅ Successfull retrieval\n")
 
     # =======
     # Prompt generation and call llm
-    print("\n")
     print("=" * 60)
     print("🧠 LLM Interaction:")
     print("=" * 60)
 
-    llm = LLM_Engine(CHUNK_METADATA_PATH)
+    llm = LLM_Engine(LLM_ANSWER_MODEL, LLM_VERIFY_MODEL, metadata_path=CHUNK_METADATA_PATH)
     context = llm.generate_context(vectors)
     llm_response = llm.prompt_llm(context, query)
 
+    pprint.pprint(llm_response, indent=4, width=80)
+
 if __name__ == "__main__":
-    question = "Informacion relevante a banca joven. Tengo 18 años"
+    # question = "Informacion relevante a banca joven. Tengo 18 años"
     # question = "Informacion relevante a banca senior."
-    run(question)
+    # run(question)
+    pass
