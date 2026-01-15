@@ -3,9 +3,14 @@ EMBEDDING_MODEL: "all-MiniLM-L6-v2"
 EMBEDDING_BATCH_SIZE: 16
 EMBEDDING_N_DIMENSIONS: 384
 
-# Configuration for my large language model with OLLAMA
-LLM_ANSWER_MODEL: "groq"
-LLM_VERIFY_MODEL: "groq"
+# Configuration for LLM
+LLM_SOURCE: "gemini"
+LLM_ANSWER_MODEL_GEMINI: "gemini-3-flash-preview"
+LLM_VERIFY_MODEL_GEMINI: "gemini-3-flash-preview"
+LLM_ANSWER_MODEL_OLLAMA: "qwen3:8b"
+LLM_VERIFY_MODEL_OLLAMA: "qwen3:8b"
+LLM_ANSWER_MODEL_GROQ: "llama-3.1-8b-instant"
+LLM_VERIFY_MODEL_GROQ: "llama-3.1-8b-instant"
 
 # Configuration for vector database
 TOP_K: 5

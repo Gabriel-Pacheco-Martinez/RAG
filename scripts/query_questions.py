@@ -21,8 +21,7 @@ def run(query):
     EMBEDDING_BATCH_SIZE = cfg["EMBEDDING_BATCH_SIZE"]
     THRESHOLD = cfg["THRESHOLD"]
     TOP_K = cfg["TOP_K"]
-    LLM_ANSWER_MODEL = cfg["LLM_ANSWER_MODEL"]
-    LLM_VERIFY_MODEL = cfg["LLM_VERIFY_MODEL"]
+    LLM_SOURCE = cfg["LLM_SOURCE"]
 
     # =======
     # Embed the query
@@ -54,7 +53,7 @@ def run(query):
     print("🧠 LLM Interaction:")
     print("=" * 60)
 
-    llm = LLM_Engine(LLM_ANSWER_MODEL, LLM_VERIFY_MODEL, metadata_path=CHUNK_METADATA_PATH)
+    llm = LLM_Engine(LLM_SOURCE, cfg, metadata_path=CHUNK_METADATA_PATH)
     context = llm.generate_context(vectors)
     llm_response = llm.prompt_llm(context, query)
 
