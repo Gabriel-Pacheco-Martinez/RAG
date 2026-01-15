@@ -9,9 +9,9 @@ python -m app.cli -s # server to receive queries
 ## To-Do Prototype:
 1.- Create artificial chunks from document [Check]
 2.- Vinculate resulting chunks with related chunks through hierarchy [Check]
-3.- Prompt LLM with context
+3.- Prompt LLM with context [Check]
 4.- Give an endpoint to ask questions
-5.- Change to smaller model on verifier llm
+5.- Test with free API models for faster responses
 6.- Aumentar loading y chunking
 
 ## To-Do full project:

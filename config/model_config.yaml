@@ -4,8 +4,8 @@ EMBEDDING_BATCH_SIZE: 16
 EMBEDDING_N_DIMENSIONS: 384
 
 # Configuration for my large language model with OLLAMA
-LLM_ANSWER_MODEL: "qwen3:8b"
-LLM_VERIFY_MODEL: "qwen2.5:7b"
+LLM_ANSWER_MODEL: "groq"
+LLM_VERIFY_MODEL: "groq"
 
 # Configuration for vector database
 TOP_K: 5

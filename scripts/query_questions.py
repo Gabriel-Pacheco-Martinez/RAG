@@ -58,7 +58,10 @@ def run(query):
     context = llm.generate_context(vectors)
     llm_response = llm.prompt_llm(context, query)
 
+    # ======
+    # Say something
     pprint.pprint(llm_response, indent=4, width=80)
+    return llm_response
 
 if __name__ == "__main__":
     # question = "Informacion relevante a banca joven. Tengo 18 años"

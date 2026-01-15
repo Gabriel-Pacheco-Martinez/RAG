@@ -1,7 +1,9 @@
 import json
+import os
 from collections import Counter
 from langchain_ollama import ChatOllama
 from langchain_groq import ChatGroq
+from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain_core.prompts import (
     ChatPromptTemplate,
     SystemMessagePromptTemplate,
@@ -14,8 +16,27 @@ class LLM_Engine():
     def __init__(self, LLM_ANSWER_MODEL: str, LLM_VERIFY_MODEL: str, metadata_path: str):
         self.llm_answer_model = LLM_ANSWER_MODEL
         self.llm_verify_model = LLM_VERIFY_MODEL
+
         with open(metadata_path, "r", encoding="utf-8") as f:
             self.metadata = json.load(f)
+
+    @staticmethod
+    def get_llm(model_name: str, temperature=0) -> object:
+        """
+        Return the appropiate LLM object based on
+        the model chosen. At the moment the options are:
+            * qwen      -> ChatOllama
+            * groq      -> ChatGroq
+            * gemini    -> ChatGoogleGenerativeAI
+        """
+        if model_name == "qwen":
+            return ChatOllama(model="qwen3:8b", temperature=temperature)
+        elif model_name == "groq":
+            return ChatGroq(model="llama-3.1-8b-instant", temperature=temperature, api_key=os.environ["GROQ_API_KEY"])
+        elif model_name == "gemini":
+            return ChatGoogleGenerativeAI("gemini-3-pro-preview", temperature=temperature, google_api_key=os.environ["GEMINI_API_KEY"])
+        else:
+            raise ValueError(f"Model {model_name} not supported")
 
     def generate_context(self, context_vectors: list[dict]):
         # Get chunk_ids from retrieved vectors
@@ -62,21 +83,6 @@ class LLM_Engine():
         # Say something
         print(f"\033[34mCreated a context of {len(context_for_llm.split())} words for the LLM.\033[0m")
         return context_for_llm
-
-    def get_llm(model_name: str, temperature=0) -> object:
-        """
-        Return the appropiate LLM object based on
-        the model chosen. At the moment the options are:
-            * qwen3:8b  -> ChatOllama
-            * groq      -> ChatGroq
-            * gemini    -> ChatGoogleGenerativeAI
-        """
-        if model_name == "qwen3:8b":
-            return ChatOllama(model="qwen3:8b", temperature=temperature)
-        elif model_name == "groq":
-            return ChatOllama(model="groq", temperature=temperature)
-        elif model_name == "gemini":
-            pass
 
     def prompt_llm(self, context: str, user_query: str):
         # =======
