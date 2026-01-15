@@ -4,6 +4,9 @@ from scripts import ingest_documents
 from scripts import query_questions
 from app import endpoint
 
+from dotenv import load_dotenv
+load_dotenv()
+
 def main():
     parser = argparse.ArgumentParser(description="RAG Project CLI")
     parser.add_argument("-i", "--ingest", action="store_true", help="Ingest documents into FAISS")

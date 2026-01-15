@@ -30,11 +30,14 @@ class LLM_Engine():
             * gemini    -> ChatGoogleGenerativeAI
         """
         if model_name == "qwen":
+            print("Using qwen")
             return ChatOllama(model="qwen3:8b", temperature=temperature)
         elif model_name == "groq":
+            print("Using groq")
             return ChatGroq(model="llama-3.1-8b-instant", temperature=temperature, api_key=os.environ["GROQ_API_KEY"])
         elif model_name == "gemini":
-            return ChatGoogleGenerativeAI("gemini-3-pro-preview", temperature=temperature, google_api_key=os.environ["GEMINI_API_KEY"])
+            print("Using gemini")
+            return ChatGoogleGenerativeAI(model="gemini-1.5-pro", temperature=temperature, google_api_key=os.environ["GEMINI_API_KEY"])
         else:
             raise ValueError(f"Model {model_name} not supported")
 
@@ -110,10 +113,6 @@ class LLM_Engine():
         # 4. Initialize LLMs
         answer_llm = self.get_llm(self.llm_answer_model)
         verifier_llm = self.get_llm(self.llm_verify_model)
-
-
-        answer_llm = ChatOllama(model="qwen3:8b", temperature=0)
-        verifier_llm = ChatOllama(model="qwen2.5:7b", temperature=0) # Change to smaller model
 
         # ======
         # 5. Invoke Answer LLM
