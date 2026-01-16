@@ -55,7 +55,7 @@ class PDFDocumentLoader(DocumentLoader):
                 "fonts": doc_fonts
             }
            
-        documents.append(doc_info)
+            documents.append(doc_info)
 
         # Take docs to json to overview
         with open (self.processed_docs_folder_path/"documents.json", "w", encoding="utf-8") as f:

@@ -1,130 +1,454 @@
 [
   {
     "chunk_id": 1,
-    "text": "La Caja de Ahorros Banca Joven es un producto de captación que permite realizar depósitos y retiros de"
+    "text": "Son depósitos que luego de su constitución permanecen inmóviles por un plazo previamente pactado entre"
   },
   {
     "chunk_id": 2,
-    "text": "dinero y cuyos saldos devengan intereses diarios, los mismos que son capitalizados mensualmente. Dicho"
+    "text": "banco y el cliente. Al construir un DPF se establece el plazo, la tasas de interés y el periodo de capitalización."
   },
   {
     "chunk_id": 3,
-    "text": "producto está dirigido a personas naturales del segmento joven, de entre 18 y 35 años, de nacionalidad"
+    "text": "Los DPFs pueden ser cancelados en cualquier otra oﬁcina o sucursal del banco."
   },
   {
     "chunk_id": 4,
-    "text": "boliviana o extranjera con residencia legal en el país."
+    "text": "Permite ahorrar de una manera segura y cómoda, percibiendo intereses más altos que los de una"
   },
   {
     "chunk_id": 5,
-    "text": "Retiros de efectivo en plataforma de cajas o a través de cajeros automáticos mediante cualquiera"
+    "text": "caja de ahorros."
   },
   {
     "chunk_id": 6,
-    "text": "de los diversos diseños de tarjetas de débito Banca Joven BNB."
+    "text": "Pueden garantizar operaciones crediticias en el banco."
   },
   {
     "chunk_id": 7,
-    "text": "Posibilidad de débitos automáticos en cuenta para el pago de servicios básicos, cuotas de créditos,"
+    "text": "Los DPFs constituidos en efectivo se encuentran exentos del Impuesto a la Transacciones"
   },
   {
     "chunk_id": 8,
-    "text": "impuestos y otros, previa instrucción escrita del titular de la cuenta."
+    "text": "Financieras.(ITF)"
   },
   {
     "chunk_id": 9,
-    "text": "Cuenta unipersonal."
+    "text": "Los DPFs en moneda extranjera con plazo mayor a 1090 días no gravan el Impuesto al Valor"
   },
   {
     "chunk_id": 10,
-    "text": "Es una cuenta para ahorro en bolivianos."
+    "text": "Agregado (IVA)."
   },
   {
     "chunk_id": 11,
-    "text": "Las cajas de ahorro del BNB son de convertibilidad automática, permitiendo efectuar depósitos o"
+    "text": "La emisión de depósitos a plazo ﬁjo será representada mediante anotación en"
   },
   {
     "chunk_id": 12,
-    "text": "retiros de dinero en cualquier moneda."
+    "text": "cuenta(desmaterializados)."
   },
   {
     "chunk_id": 13,
-    "text": "Personas naturales de 18 a 35 años."
+    "text": "Solamente se entregará una constancia de Constitución de Depósito a Plazo Fijo de forma impresa."
   },
   {
     "chunk_id": 14,
-    "text": "Cédula de identidad u otro documento a requerimiento del banco."
+    "text": "La constancia de Constitución de Depósito a Plazo Fijo no tiene ningún valor comercial, no es"
   },
   {
     "chunk_id": 15,
-    "text": "Consultas al Contact Center: 7878 7272."
+    "text": "transferible ni negociable, la titularidad del Certiﬁcado de Depósito a Plazo Fijo será validada en los"
   },
   {
     "chunk_id": 16,
-    "text": "Monto mínimo de apertura: Bs 200."
+    "text": "registros del Banco con la sola presentación de la cédula de identidad del cliente o con la"
   },
   {
     "chunk_id": 17,
-    "text": "La Caja de Ahorros Banca Senior es un producto de captación que permite realizar depósitos y retiros de"
+    "text": "documentación legal que respalde la titularidad(para personas jurídicas)."
   },
   {
     "chunk_id": 18,
-    "text": "dinero, cuyos saldos devengan intereses diarios, los mismos que son capitalizados mensualmente. Dicho"
+    "text": "Generan intereses en función al plazo del depósito, que pueden ser pagados de manera periódica o"
   },
   {
     "chunk_id": 19,
-    "text": "producto está dirigido a personas naturales del segmento de 60 años o más, de nacionalidad boliviana o"
+    "text": "al vencimiento del plazo especiﬁcado."
   },
   {
     "chunk_id": 20,
-    "text": "extranjera con residencia legal en el país"
+    "text": "Los DPF con plazo hasta 30 días y mayor a 360 días no son redimibles."
   },
   {
     "chunk_id": 21,
-    "text": "Caja de ahorros en bolivianos."
+    "text": "Se requiere un depósito inicial de $us 1.000."
   },
   {
     "chunk_id": 22,
-    "text": "Emisión de tarjeta de débito sin costo."
+    "text": "Personas Naturales: Completar el Formulario de Registro de Cliente Persona Natural."
   },
   {
     "chunk_id": 23,
-    "text": "Acceso al Portal Transaccional."
+    "text": "Personas Naturales: Completar el Formulario de Registro de Firmas."
   },
   {
     "chunk_id": 24,
-    "text": "Acceso a la App."
+    "text": "Personas Naturales: Cédula de Identidad, Pasaporte u otro documento a requerimiento del Banco."
   },
   {
     "chunk_id": 25,
-    "text": "Uso de Cajeros Automáticos del BNB."
+    "text": "Personas Naturales: Fotocopia legalizada del NIT (si corresponde)."
   },
   {
     "chunk_id": 26,
-    "text": "Recepción de giros del exterior sin costo."
+    "text": "Persona Jurídica: Documentos legales de Constitución de la Sociedad, debidamente registrados en"
   },
   {
     "chunk_id": 27,
-    "text": "Uso de cajeros automáticos en el extranjero."
+    "text": "FUNDEMPRESA."
   },
   {
     "chunk_id": 28,
-    "text": "Transferencias a cuentas de otras entidades financieras sin costo."
+    "text": "Persona Jurídica: Poderes de Administración debidamente registrados en FUNDEMPRESA."
   },
   {
     "chunk_id": 29,
-    "text": "Personas Naturales de 60 años o más."
+    "text": "Persona Jurídica: Completar el Formulario de Registro de Cliente Persona Jurídica."
   },
   {
     "chunk_id": 30,
-    "text": "Cédula de Identidad u otro documento a requerimiento del banco."
+    "text": "Persona Jurídica: Fotocopia legalizada del NIT."
   },
   {
     "chunk_id": 31,
-    "text": "Consultas al Call Center: 7878 7272."
+    "text": "Persona Jurídica: Cédulas de Identidad, Pasaporte u otro documento a requerimiento del Banco de"
   },
   {
     "chunk_id": 32,
+    "text": "las ﬁrmas autorizadas"
+  },
+  {
+    "chunk_id": 33,
+    "text": "Persona Institucional: Documentos legales de Constitución de la Sociedad, debidamente"
+  },
+  {
+    "chunk_id": 34,
+    "text": "registrados en FUNDEMPRESA."
+  },
+  {
+    "chunk_id": 35,
+    "text": "Persona Institucional: Poderes de Administración debidamente registrados en FUNDEMPRESA."
+  },
+  {
+    "chunk_id": 36,
+    "text": "Persona Institucional: Completar el Formulario de Registro de Cliente Persona Jurídica."
+  },
+  {
+    "chunk_id": 37,
+    "text": "Persona Institucional: Fotocopia legalizada del NIT."
+  },
+  {
+    "chunk_id": 38,
+    "text": "Persona Institucional: Cédulas de Identidad, Pasaporte u otro documento a requerimiento del Banco"
+  },
+  {
+    "chunk_id": 39,
+    "text": "de las ﬁrmas autorizadas"
+  },
+  {
+    "chunk_id": 40,
+    "text": "Consultas al Call Center: 7878 7272."
+  },
+  {
+    "chunk_id": 41,
+    "text": "Son depósitos que luego de su constitución permanecen inmóviles por un plazo previamente pactado entre"
+  },
+  {
+    "chunk_id": 42,
+    "text": "banco y el cliente. Al construir un DPF se establece el plazo, la tasas de interés y el periodo de capitalización."
+  },
+  {
+    "chunk_id": 43,
+    "text": "Los DPFs pueden ser cancelados en cualquier otra oﬁcina o sucursal del banco."
+  },
+  {
+    "chunk_id": 44,
+    "text": "Permite ahorrar de una manera segura y cómoda, percibiendo intereses más altos que los de una"
+  },
+  {
+    "chunk_id": 45,
+    "text": "caja de ahorros."
+  },
+  {
+    "chunk_id": 46,
+    "text": "Pueden garantizar operaciones crediticias en el banco."
+  },
+  {
+    "chunk_id": 47,
+    "text": "Los DPFs constituidos en efectivo se encuentran exentos del Impuesto a la Transacciones"
+  },
+  {
+    "chunk_id": 48,
+    "text": "Financieras.(ITF)"
+  },
+  {
+    "chunk_id": 49,
+    "text": "Los DPFs en moneda nacional con plazo a partir de 31 días no gravan el Impuesto al Valor Agregado"
+  },
+  {
+    "chunk_id": 50,
+    "text": "(IVA)sobre los intereses ganados."
+  },
+  {
+    "chunk_id": 51,
+    "text": "La emisión de depósitos a plazo ﬁjo será representada mediante anotación en"
+  },
+  {
+    "chunk_id": 52,
+    "text": "cuenta(desmaterializados)."
+  },
+  {
+    "chunk_id": 53,
+    "text": "Solamente se entregará una constancia de Constitución de Depósito a Plazo Fijo de forma impresa."
+  },
+  {
+    "chunk_id": 54,
+    "text": "La constancia de Constitución de Depósito a Plazo Fijo no tiene ningún valor comercial, no es"
+  },
+  {
+    "chunk_id": 55,
+    "text": "transferible ni negociable, la titularidad del Certiﬁcado de Depósito a Plazo Fijo será validada en los"
+  },
+  {
+    "chunk_id": 56,
+    "text": "registros del Banco con la sola presentación de la cédula de identidad del cliente o con la"
+  },
+  {
+    "chunk_id": 57,
+    "text": "documentación legal que respalde la titularidad(para personas jurídicas)."
+  },
+  {
+    "chunk_id": 58,
+    "text": "Generan intereses en función al plazo del depósito, que pueden ser pagados de manera periódica o"
+  },
+  {
+    "chunk_id": 59,
+    "text": "al vencimiento del plazo especiﬁcado."
+  },
+  {
+    "chunk_id": 60,
+    "text": "Los DPF con plazo hasta 30 días y mayor a 360 días no son redimibles."
+  },
+  {
+    "chunk_id": 61,
+    "text": "Se requiere un depósito inicial del equivalente a $us 1.000 al tipo de cambio en el momento de la"
+  },
+  {
+    "chunk_id": 62,
+    "text": "transacción."
+  },
+  {
+    "chunk_id": 63,
+    "text": "Personas Naturales: Completar el Formulario de Registro de Cliente Persona Natural."
+  },
+  {
+    "chunk_id": 64,
+    "text": "Personas Naturales: Completar el Formulario de Registro de Firmas."
+  },
+  {
+    "chunk_id": 65,
+    "text": "Personas Naturales: Cédula de Identidad, Pasaporte u otro documento a requerimiento del Banco."
+  },
+  {
+    "chunk_id": 66,
+    "text": "Personas Naturales: Fotocopia legalizada del NIT (si corresponde)."
+  },
+  {
+    "chunk_id": 67,
+    "text": "Persona Jurídica: Documentos legales de Constitución de la Sociedad, debidamente registrados en"
+  },
+  {
+    "chunk_id": 68,
+    "text": "FUNDEMPRESA."
+  },
+  {
+    "chunk_id": 69,
+    "text": "Persona Jurídica: Poderes de Administración debidamente registrados en FUNDEMPRESA."
+  },
+  {
+    "chunk_id": 70,
+    "text": "Persona Jurídica: Completar el Formulario de Registro de Cliente Persona Jurídica."
+  },
+  {
+    "chunk_id": 71,
+    "text": "Persona Jurídica: Fotocopia legalizada del NIT."
+  },
+  {
+    "chunk_id": 72,
+    "text": "Persona Jurídica: Cédulas de Identidad, Pasaporte u otro documento a requerimiento del Banco de"
+  },
+  {
+    "chunk_id": 73,
+    "text": "las ﬁrmas autorizadas."
+  },
+  {
+    "chunk_id": 74,
+    "text": "Persona Institucional: Documentos legales de Constitución de la Sociedad, debidamente"
+  },
+  {
+    "chunk_id": 75,
+    "text": "registrados en FUNDEMPRESA."
+  },
+  {
+    "chunk_id": 76,
+    "text": "Persona Institucional: Poderes de Administración debidamente registrados en FUNDEMPRESA."
+  },
+  {
+    "chunk_id": 77,
+    "text": "Persona Institucional: Completar el Formulario de Registro de Cliente Persona Jurídica."
+  },
+  {
+    "chunk_id": 78,
+    "text": "Persona Institucional: Fotocopia legalizada del NIT."
+  },
+  {
+    "chunk_id": 79,
+    "text": "Persona Institucional: Cédulas de Identidad, Pasaporte u otro documento a requerimiento del Banco"
+  },
+  {
+    "chunk_id": 80,
+    "text": "de las ﬁrmas autorizadas."
+  },
+  {
+    "chunk_id": 81,
+    "text": "Consultas al Call Center: 7878 7272."
+  },
+  {
+    "chunk_id": 82,
+    "text": "La Caja de Ahorros Banca Joven es un producto de captación que permite realizar depósitos y retiros de"
+  },
+  {
+    "chunk_id": 83,
+    "text": "dinero y cuyos saldos devengan intereses diarios, los mismos que son capitalizados mensualmente. Dicho"
+  },
+  {
+    "chunk_id": 84,
+    "text": "producto está dirigido a personas naturales del segmento joven, de entre 18 y 35 años, de nacionalidad"
+  },
+  {
+    "chunk_id": 85,
+    "text": "boliviana o extranjera con residencia legal en el país."
+  },
+  {
+    "chunk_id": 86,
+    "text": "Retiros de efectivo en plataforma de cajas o a través de cajeros automáticos mediante cualquiera"
+  },
+  {
+    "chunk_id": 87,
+    "text": "de los diversos diseños de tarjetas de débito Banca Joven BNB."
+  },
+  {
+    "chunk_id": 88,
+    "text": "Posibilidad de débitos automáticos en cuenta para el pago de servicios básicos, cuotas de créditos,"
+  },
+  {
+    "chunk_id": 89,
+    "text": "impuestos y otros, previa instrucción escrita del titular de la cuenta."
+  },
+  {
+    "chunk_id": 90,
+    "text": "Cuenta unipersonal."
+  },
+  {
+    "chunk_id": 91,
+    "text": "Es una cuenta para ahorro en bolivianos."
+  },
+  {
+    "chunk_id": 92,
+    "text": "Las cajas de ahorro del BNB son de convertibilidad automática, permitiendo efectuar depósitos o"
+  },
+  {
+    "chunk_id": 93,
+    "text": "retiros de dinero en cualquier moneda."
+  },
+  {
+    "chunk_id": 94,
+    "text": "Personas naturales de 18 a 35 años."
+  },
+  {
+    "chunk_id": 95,
+    "text": "Cédula de identidad u otro documento a requerimiento del banco."
+  },
+  {
+    "chunk_id": 96,
+    "text": "Consultas al Contact Center: 7878 7272."
+  },
+  {
+    "chunk_id": 97,
+    "text": "Monto mínimo de apertura: Bs 200."
+  },
+  {
+    "chunk_id": 98,
+    "text": "La Caja de Ahorros Banca Senior es un producto de captación que permite realizar depósitos y retiros de"
+  },
+  {
+    "chunk_id": 99,
+    "text": "dinero, cuyos saldos devengan intereses diarios, los mismos que son capitalizados mensualmente. Dicho"
+  },
+  {
+    "chunk_id": 100,
+    "text": "producto está dirigido a personas naturales del segmento de 60 años o más, de nacionalidad boliviana o"
+  },
+  {
+    "chunk_id": 101,
+    "text": "extranjera con residencia legal en el país"
+  },
+  {
+    "chunk_id": 102,
+    "text": "Caja de ahorros en bolivianos."
+  },
+  {
+    "chunk_id": 103,
+    "text": "Emisión de tarjeta de débito sin costo."
+  },
+  {
+    "chunk_id": 104,
+    "text": "Acceso al Portal Transaccional."
+  },
+  {
+    "chunk_id": 105,
+    "text": "Acceso a la App."
+  },
+  {
+    "chunk_id": 106,
+    "text": "Uso de Cajeros Automáticos del BNB."
+  },
+  {
+    "chunk_id": 107,
+    "text": "Recepción de giros del exterior sin costo."
+  },
+  {
+    "chunk_id": 108,
+    "text": "Uso de cajeros automáticos en el extranjero."
+  },
+  {
+    "chunk_id": 109,
+    "text": "Transferencias a cuentas de otras entidades financieras sin costo."
+  },
+  {
+    "chunk_id": 110,
+    "text": "Personas Naturales de 60 años o más."
+  },
+  {
+    "chunk_id": 111,
+    "text": "Cédula de Identidad u otro documento a requerimiento del banco."
+  },
+  {
+    "chunk_id": 112,
+    "text": "Consultas al Call Center: 7878 7272."
+  },
+  {
+    "chunk_id": 113,
     "text": "Monto mínimo de apertura: Bs 400."
   }
 ]
