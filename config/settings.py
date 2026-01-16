@@ -14,7 +14,8 @@ FAISS_METADATA_PATH = "data/vector_db/faiss_metadata.json"
 
 # =====
 # Input data
-DOCUMENTS_PATH = "data/raw/"
+ORIGINAL_DOCUMENTS_PATH = "data/raw/"
+PROCESSED_DOCUMENTS_PATH = "data/processed/"
 METADATA_PATH = "data/processed/metadata_new.json"
 
 # =====

@@ -6,7 +6,8 @@ from src.data_pipeline.indexer import FAISSIndexer
 from config.settings import FAISS_INDEX_PATH
 from config.settings import FAISS_METADATA_PATH
 from config.settings import METADATA_PATH
-from config.settings import DOCUMENTS_PATH
+from config.settings import ORIGINAL_DOCUMENTS_PATH
+from config.settings import PROCESSED_DOCUMENTS_PATH
 
 from config import load_config
 import json
@@ -25,11 +26,9 @@ def run():
 
     # =======
     # Load the PDF document
-    loader = PDFDocumentLoader(DOCUMENTS_PATH)
+    loader = PDFDocumentLoader(ORIGINAL_DOCUMENTS_PATH, PROCESSED_DOCUMENTS_PATH)
     documents_info = loader.load_documents()
     print("✅ Successfull loading")
-    with open ("documents.json", "w", encoding="utf-8") as f:
-        json.dump(documents_info, f, ensure_ascii=False, indent=4)
     
     # =======
     # Chunk the document
