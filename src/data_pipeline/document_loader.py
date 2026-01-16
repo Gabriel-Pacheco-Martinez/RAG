@@ -57,4 +57,3 @@ class PDFDocumentLoader(DocumentLoader):
         # Say something
         print(f"\033[92mLoaded {doc_count} documents\033[0m")
         return documents
-        

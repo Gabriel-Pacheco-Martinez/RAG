@@ -1,5 +1,5 @@
 from src.data_pipeline.document_loader import PDFDocumentLoader
-from src.data_pipeline.chunker import PDFDocumentChunker
+from src.data_pipeline.chunker import DocumentChunker
 from src.data_pipeline.embedder import ChunkEmbedder
 from src.data_pipeline.indexer import FAISSIndexer
 
@@ -33,8 +33,9 @@ def run():
     
     # =======
     # Chunk the document
-    chunker = PDFDocumentChunker(METADATA_PATH)
-    chunks = chunker.chunk_document(documents_info)
+    chunker = DocumentChunker(METADATA_PATH)
+    metadata = chunker.metadata_generator(documents_info)
+    chunks = chunker.grab_chunks(metadata)
     print("✅ Successfull chunking")
 
     # =======

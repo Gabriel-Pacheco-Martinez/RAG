@@ -1,110 +1,130 @@
 [
   {
-    "chunk_id": "1",
-    "text": "La Caja de Ahorros Banca Joven es un producto de captación que permite realizar depósitos y retiros de dinero"
+    "chunk_id": 1,
+    "text": "La Caja de Ahorros Banca Joven es un producto de captación que permite realizar depósitos y retiros de"
   },
   {
-    "chunk_id": "2",
-    "text": "y cuyos saldos devengan intereses diarios, los mismos que son capitalizados mensualmente"
+    "chunk_id": 2,
+    "text": "dinero y cuyos saldos devengan intereses diarios, los mismos que son capitalizados mensualmente. Dicho"
   },
   {
-    "chunk_id": "3",
-    "text": "Dicho producto está dirigido a personas naturales del segmento joven"
+    "chunk_id": 3,
+    "text": "producto está dirigido a personas naturales del segmento joven, de entre 18 y 35 años, de nacionalidad"
   },
   {
-    "chunk_id": "4",
-    "text": "de entre 18 y 35 años, de nacionalidad boliviana o extranjera con residencia legal en el país"
+    "chunk_id": 4,
+    "text": "boliviana o extranjera con residencia legal en el país."
   },
   {
-    "chunk_id": "5",
-    "text": "Retiros de efectivo en plataforma de cajas o a través de cajeros automáticos mediante cualquiera de los diversos diseños de tarjetas de débito Banca Joven BNB"
+    "chunk_id": 5,
+    "text": "Retiros de efectivo en plataforma de cajas o a través de cajeros automáticos mediante cualquiera"
   },
   {
-    "chunk_id": "6",
-    "text": "Posibilidad de débitos automáticos en cuenta para el pago de servicios básicos, cuotas de créditos, impuestos y otros, previa instrucción escrita del titular de la cuenta."
+    "chunk_id": 6,
+    "text": "de los diversos diseños de tarjetas de débito Banca Joven BNB."
   },
   {
-    "chunk_id": "7",
+    "chunk_id": 7,
+    "text": "Posibilidad de débitos automáticos en cuenta para el pago de servicios básicos, cuotas de créditos,"
+  },
+  {
+    "chunk_id": 8,
+    "text": "impuestos y otros, previa instrucción escrita del titular de la cuenta."
+  },
+  {
+    "chunk_id": 9,
     "text": "Cuenta unipersonal."
   },
   {
-    "chunk_id": "8",
+    "chunk_id": 10,
     "text": "Es una cuenta para ahorro en bolivianos."
   },
   {
-    "chunk_id": "9",
-    "text": "Las cajas de ahorro del BNB son de convertibilidad automática, permitiendo efectuar depósitos o retiros de dinero en cualquier moneda."
+    "chunk_id": 11,
+    "text": "Las cajas de ahorro del BNB son de convertibilidad automática, permitiendo efectuar depósitos o"
   },
   {
-    "chunk_id": "10",
+    "chunk_id": 12,
+    "text": "retiros de dinero en cualquier moneda."
+  },
+  {
+    "chunk_id": 13,
     "text": "Personas naturales de 18 a 35 años."
   },
   {
-    "chunk_id": "11",
+    "chunk_id": 14,
     "text": "Cédula de identidad u otro documento a requerimiento del banco."
   },
   {
-    "chunk_id": "12",
-    "text": "Monto mínimo de apertura: Bs 200.."
+    "chunk_id": 15,
+    "text": "Consultas al Contact Center: 7878 7272."
   },
   {
-    "chunk_id": "13",
-    "text": "La Caja de Ahorros Banca Senior es un producto de captación que permite realizar depósitos y retiros de dinero"
+    "chunk_id": 16,
+    "text": "Monto mínimo de apertura: Bs 200."
   },
   {
-    "chunk_id": "14",
-    "text": "cuyos saldos devengan intereses diarios, los mismos que son capitalizados mensualmente"
+    "chunk_id": 17,
+    "text": "La Caja de Ahorros Banca Senior es un producto de captación que permite realizar depósitos y retiros de"
   },
   {
-    "chunk_id": "15",
-    "text": "Dicho producto está dirigido a personas naturales del segmento de 60 años o más"
+    "chunk_id": 18,
+    "text": "dinero, cuyos saldos devengan intereses diarios, los mismos que son capitalizados mensualmente. Dicho"
   },
   {
-    "chunk_id": "16",
-    "text": "de nacionalidad boliviana o extranjera con residencia legal en el país"
+    "chunk_id": 19,
+    "text": "producto está dirigido a personas naturales del segmento de 60 años o más, de nacionalidad boliviana o"
   },
   {
-    "chunk_id": "17",
+    "chunk_id": 20,
+    "text": "extranjera con residencia legal en el país"
+  },
+  {
+    "chunk_id": 21,
     "text": "Caja de ahorros en bolivianos."
   },
   {
-    "chunk_id": "18",
+    "chunk_id": 22,
     "text": "Emisión de tarjeta de débito sin costo."
   },
   {
-    "chunk_id": "19",
+    "chunk_id": 23,
     "text": "Acceso al Portal Transaccional."
   },
   {
-    "chunk_id": "20",
+    "chunk_id": 24,
     "text": "Acceso a la App."
   },
   {
-    "chunk_id": "21",
+    "chunk_id": 25,
     "text": "Uso de Cajeros Automáticos del BNB."
   },
   {
-    "chunk_id": "22",
+    "chunk_id": 26,
     "text": "Recepción de giros del exterior sin costo."
   },
   {
-    "chunk_id": "23",
+    "chunk_id": 27,
     "text": "Uso de cajeros automáticos en el extranjero."
   },
   {
-    "chunk_id": "24",
+    "chunk_id": 28,
     "text": "Transferencias a cuentas de otras entidades financieras sin costo."
   },
   {
-    "chunk_id": "25",
-    "text": "Personas Naturales de 60 años o más"
+    "chunk_id": 29,
+    "text": "Personas Naturales de 60 años o más."
   },
   {
-    "chunk_id": "26",
+    "chunk_id": 30,
     "text": "Cédula de Identidad u otro documento a requerimiento del banco."
   },
   {
-    "chunk_id": "27",
+    "chunk_id": 31,
+    "text": "Consultas al Call Center: 7878 7272."
+  },
+  {
+    "chunk_id": 32,
     "text": "Monto mínimo de apertura: Bs 400."
   }
 ]
