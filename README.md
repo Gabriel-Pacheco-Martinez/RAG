@@ -14,7 +14,7 @@ python -m app.cli -s # server to receive queries
 - 5.- Test with free API models for faster responses [Check]
 - 6.- Refactor code for multiple LLMs [Check]
 - 7.- Aumentar loading [Check]
-- 8.- Aumentar chunking
+- 8.- Aumentar chunking [Check]
 - 8.- Test with two documents
 
 ## To-Do full project:
