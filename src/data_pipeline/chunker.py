@@ -20,7 +20,7 @@ class PDFDocumentChunker(DocumentChunker):
         self.author = author
         self.date = date
     
-    def chunk_document(self) -> Dict[str, Dict[str, Any]]:
+    def chunk_document(self, documents_info) -> Dict[str, Dict[str, Any]]:
         """Placeholder code just to illustrate structure of output"""
         with open("data/processed/metadata.json", "r", encoding="utf-8") as f:
             data = json.load(f)

@@ -4,7 +4,7 @@ from src.generation.llm_client import LLM_Engine
 
 from config.settings import FAISS_INDEX_PATH
 from config.settings import FAISS_METADATA_PATH
-from config.settings import CHUNK_METADATA_PATH
+from config.settings import METADATA_PATH
 
 from config import load_config
 import pprint
@@ -53,7 +53,7 @@ def run(query):
     print("🧠 LLM Interaction:")
     print("=" * 60)
 
-    llm = LLM_Engine(LLM_SOURCE, cfg, metadata_path=CHUNK_METADATA_PATH)
+    llm = LLM_Engine(LLM_SOURCE, cfg, metadata_path=METADATA_PATH)
     context = llm.generate_context(vectors)
     llm_response = llm.prompt_llm(context, query)
 

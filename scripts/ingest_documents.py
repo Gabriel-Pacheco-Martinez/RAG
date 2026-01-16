@@ -5,8 +5,11 @@ from src.data_pipeline.indexer import FAISSIndexer
 
 from config.settings import FAISS_INDEX_PATH
 from config.settings import FAISS_METADATA_PATH
+from config.settings import METADATA_PATH
+from config.settings import DOCUMENTS_PATH
 
 from config import load_config
+import json
 
 def run():
     print("=" * 60)
@@ -21,15 +24,17 @@ def run():
     EMBEDDING_N_DIMENSIONS = cfg["EMBEDDING_N_DIMENSIONS"]
 
     # =======
-    # # Load the PDF document
-    # loader = PDFDocumentLoader("data/raw/documento.pdf")
-    # text = loader.load_document()
-    # print(text)
+    # Load the PDF document
+    loader = PDFDocumentLoader(DOCUMENTS_PATH)
+    documents_info = loader.load_documents()
+    print("✅ Successfull loading")
+    with open ("documents.json", "w", encoding="utf-8") as f:
+        json.dump(documents_info, f, ensure_ascii=False, indent=4)
     
     # =======
     # Chunk the document
-    chunker = PDFDocumentChunker(document_id=1042, author="BNB")
-    chunks = chunker.chunk_document()
+    chunker = PDFDocumentChunker(METADATA_PATH)
+    chunks = chunker.chunk_document(documents_info)
     print("✅ Successfull chunking")
 
     # =======

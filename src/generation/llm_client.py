@@ -10,7 +10,7 @@ from langchain_core.prompts import (
     HumanMessagePromptTemplate
 )
 
-from src.utils.prompts import load_prompt
+from src.utils.prompts_utils import load_prompt
 
 class LLM_Engine():
     def __init__(self, LLM_SOURCE: str, config: dict, metadata_path: str, temperature: float = 0):

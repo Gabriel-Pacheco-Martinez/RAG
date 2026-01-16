@@ -1,24 +1,21 @@
-import pdfplumber
-import os
-
-from unstructured.partition.pdf import partition_pdf
-from abc import ABC, abstractmethod
-
-import pymupdf
-import pymupdf4llm  # for the markdown conversion
+import fitz
 from pathlib import Path
+from abc import ABC, abstractmethod
+from collections import defaultdict
+from typing import Dict, List
 
-import PyPDF2
+from src.utils.pdf_utils import extract_blocks_from_page
+
 
 class DocumentLoader(ABC):
     # Abstract base class for document loaders
-    def __init__(self, file_path: str):
-        self.file_path = Path(file_path)
-        if not self.file_path.exists():
-            raise FileNotFoundError(f"The file {file_path} does not exist.")
+    def __init__(self, folder_path: str):
+        self.folder_path = Path(folder_path)
+        if not self.folder_path.exists():
+            raise FileNotFoundError(f"❌ The folder {folder_path} does not exist.")
 
     @abstractmethod
-    def load_document(self):
+    def load_documents(self):
         pass
 
 class PDFDocumentLoader(DocumentLoader):
@@ -26,51 +23,38 @@ class PDFDocumentLoader(DocumentLoader):
         super().__init__(file_path)
 
     # Concrete implementation for loading PDF documents
-    def load_document(self, output_dir: str = None):
-        text = ""
+    def load_documents(self) -> List[Dict[List,Dict]]:
+        documents = []
+        doc_count = 0
+
+        for file_object in self.folder_path.iterdir():
+            if not file_object.is_file():
+                continue  # Skip non-files
+            if not file_object.suffix.lower() == ".pdf":
+                continue  # skip non-pdfs
+
+            # Grab current file
+            file_str = str(file_object)
+            doc = fitz.open(file_str)
+            
+            # Extract blocks from each file
+            doc_lines = []
+            doc_fonts = defaultdict(int)
+            for page in doc:
+                page_lines, page_fonts = extract_blocks_from_page(page, file_object.name)
+                doc_lines.extend(page_lines)
+                for size, count in page_fonts.items():
+                    doc_fonts[size] += count
+            
+            # Text and fonts for curr document
+            doc_count += 1
+            doc_info = {
+                "lines": doc_lines,
+                "fonts": doc_fonts
+            }
+           
+        documents.append(doc_info)
+        # Say something
+        print(f"\033[92mLoaded {doc_count} documents\033[0m")
+        return documents
         
-        try:
-            with open(self.file_path, 'rb') as file:
-                pdf_reader = PyPDF2.PdfReader(file)
-                
-                for page in pdf_reader.pages:
-                    text += page.extract_text() + "\n"
-            
-            return text.strip()
-            
-        except Exception as e:
-            raise Exception(f"Error loading PDF document: {str(e)}")
-
-    
-# class PDFDocumentLoader(DocumentLoader):
-#     # Concrete implementation for loading PDF documents
-#     def load_document(self, output_dir: str = None):
-#         if output_dir:
-#             output_dir = Path(output_dir)
-#             output_dir.mkdir(parents=True, exist_ok=True)
-#         else:
-#             output_dir = self.file_path.parent
-
-#         output_path = output_dir / f"{self.file_path.stem}.md"
-
-#         # Open PDF
-#         doc = pymupdf.open(self.file_path)
-
-#         # Convert to Markdown
-#         md = pymupdf4llm.to_markdown(
-#             doc,
-#             header=False,
-#             footer=False,
-#             page_separators=True,
-#             ignore_images=True,
-#             write_images=False,
-#             image_path=None
-#         )
-
-#         # Clean encoding
-#         md_cleaned = md.encode('utf-8', errors='surrogatepass').decode('utf-8', errors='ignore')
-
-#         # Save to file
-#         output_path.write_text(md_cleaned, encoding='utf-8')
-
-#         return output_path

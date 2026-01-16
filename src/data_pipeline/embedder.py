@@ -1,7 +1,7 @@
 import torch
 import torch.nn.functional as F
 import numpy as np
-
+from typing import Dict, Any
 from transformers import AutoModel, AutoTokenizer
 
 def _mean_pooling(model_output, attention_mask):
@@ -24,7 +24,7 @@ class ChunkEmbedder:
         except Exception as e:
             raise Exception(f"Error loading embedding model and tokenizer: {self.model_name}: {e}")
 
-    def embed_chunks(self, chunks) -> list[dict]:
+    def embed_chunks(self, chunks: Dict[str, Dict[str, Any]]) -> list[Dict]:
         # Load model
         self.load_model()
 

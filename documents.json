@@ -1,0 +1,762 @@
+[
+    {
+        "lines": [
+            {
+                "text": "CAJAS DE AHORRO",
+                "font_size": 19.920000076293945,
+                "font": "AptosDisplay",
+                "bold": false,
+                "y0": 90.01513671875,
+                "y1": 114.33745574951172,
+                "page": 0,
+                "file": "documento.pdf"
+            },
+            {
+                "text": "Haz crecer tu dinero. Elige la forma que mejor se adecue a tus necesidades. Desde cajas de ahorros",
+                "font_size": 10.079999923706055,
+                "font": "Aptos",
+                "bold": false,
+                "y0": 118.21490478515625,
+                "y1": 130.5225830078125,
+                "page": 0,
+                "file": "documento.pdf"
+            },
+            {
+                "text": "hasta fondos de inversión. Te asesoramos para que tomes la mejor decisión.",
+                "font_size": 10.079999923706055,
+                "font": "Aptos",
+                "bold": false,
+                "y0": 130.45489501953125,
+                "y1": 142.7625732421875,
+                "page": 0,
+                "file": "documento.pdf"
+            },
+            {
+                "text": "",
+                "font_size": 10.079999923706055,
+                "font": "TimesNewRomanPSMT",
+                "bold": false,
+                "y0": 143.17874145507812,
+                "y1": 154.33729553222656,
+                "page": 0,
+                "file": "documento.pdf"
+            },
+            {
+                "text": "BANCA JOVEN",
+                "font_size": 16.079999923706055,
+                "font": "AptosDisplay",
+                "bold": false,
+                "y0": 162.26089477539062,
+                "y1": 181.8945770263672,
+                "page": 0,
+                "file": "documento.pdf"
+            },
+            {
+                "text": "La Caja de Ahorros Banca Joven es un producto de captación que permite realizar depósitos y retiros de",
+                "font_size": 10.079999923706055,
+                "font": "Aptos",
+                "bold": false,
+                "y0": 185.65489196777344,
+                "y1": 197.9625701904297,
+                "page": 0,
+                "file": "documento.pdf"
+            },
+            {
+                "text": "dinero y cuyos saldos devengan intereses diarios, los mismos que son capitalizados mensualmente.",
+                "font_size": 10.079999923706055,
+                "font": "Aptos",
+                "bold": false,
+                "y0": 197.8948974609375,
+                "y1": 210.20257568359375,
+                "page": 0,
+                "file": "documento.pdf"
+            },
+            {
+                "text": "",
+                "font_size": 10.079999923706055,
+                "font": "TimesNewRomanPSMT",
+                "bold": false,
+                "y0": 210.61874389648438,
+                "y1": 221.7772979736328,
+                "page": 0,
+                "file": "documento.pdf"
+            },
+            {
+                "text": "Descripción",
+                "font_size": 13.920000076293945,
+                "font": "AptosDisplay",
+                "bold": false,
+                "y0": 229.80914306640625,
+                "y1": 246.8054656982422,
+                "page": 0,
+                "file": "documento.pdf"
+            },
+            {
+                "text": "La Caja de Ahorros Banca Joven es un producto de captación que permite realizar depósitos y retiros de",
+                "font_size": 10.079999923706055,
+                "font": "Aptos",
+                "bold": false,
+                "y0": 250.69491577148438,
+                "y1": 263.0025939941406,
+                "page": 0,
+                "file": "documento.pdf"
+            },
+            {
+                "text": "dinero y cuyos saldos devengan intereses diarios, los mismos que son capitalizados mensualmente. Dicho",
+                "font_size": 10.079999923706055,
+                "font": "Aptos",
+                "bold": false,
+                "y0": 262.9349060058594,
+                "y1": 275.2425842285156,
+                "page": 0,
+                "file": "documento.pdf"
+            },
+            {
+                "text": "producto está dirigido a personas naturales del segmento joven, de entre 18 y 35 años, de nacionalidad",
+                "font_size": 10.079999923706055,
+                "font": "Aptos",
+                "bold": false,
+                "y0": 275.1748962402344,
+                "y1": 287.4825744628906,
+                "page": 0,
+                "file": "documento.pdf"
+            },
+            {
+                "text": "boliviana o extranjera con residencia legal en el país.",
+                "font_size": 10.079999923706055,
+                "font": "Aptos",
+                "bold": false,
+                "y0": 287.4148864746094,
+                "y1": 299.7225646972656,
+                "page": 0,
+                "file": "documento.pdf"
+            },
+            {
+                "text": "",
+                "font_size": 10.079999923706055,
+                "font": "TimesNewRomanPSMT",
+                "bold": false,
+                "y0": 300.13873291015625,
+                "y1": 311.29730224609375,
+                "page": 0,
+                "file": "documento.pdf"
+            },
+            {
+                "text": "Características",
+                "font_size": 13.920000076293945,
+                "font": "AptosDisplay",
+                "bold": false,
+                "y0": 319.3291320800781,
+                "y1": 336.3254699707031,
+                "page": 0,
+                "file": "documento.pdf"
+            },
+            {
+                "text": "•",
+                "font_size": 10.079999923706055,
+                "font": "SymbolMT",
+                "bold": false,
+                "y0": 350.109619140625,
+                "y1": 362.4576110839844,
+                "page": 0,
+                "file": "documento.pdf"
+            },
+            {
+                "text": "Retiros de efectivo en plataforma de cajas o a través de cajeros automáticos mediante cualquiera",
+                "font_size": 10.079999923706055,
+                "font": "Aptos",
+                "bold": false,
+                "y0": 350.77490234375,
+                "y1": 363.08258056640625,
+                "page": 0,
+                "file": "documento.pdf"
+            },
+            {
+                "text": "de los diversos diseños de tarjetas de débito Banca Joven BNB.",
+                "font_size": 10.079999923706055,
+                "font": "Aptos",
+                "bold": false,
+                "y0": 363.014892578125,
+                "y1": 375.32257080078125,
+                "page": 0,
+                "file": "documento.pdf"
+            },
+            {
+                "text": "•",
+                "font_size": 10.079999923706055,
+                "font": "SymbolMT",
+                "bold": false,
+                "y0": 389.2296142578125,
+                "y1": 401.5776062011719,
+                "page": 0,
+                "file": "documento.pdf"
+            },
+            {
+                "text": "Posibilidad de débitos automáticos en cuenta para el pago de servicios básicos, cuotas de créditos,",
+                "font_size": 10.079999923706055,
+                "font": "Aptos",
+                "bold": false,
+                "y0": 389.8948974609375,
+                "y1": 402.20257568359375,
+                "page": 0,
+                "file": "documento.pdf"
+            },
+            {
+                "text": "impuestos y otros, previa instrucción escrita del titular de la cuenta.",
+                "font_size": 10.079999923706055,
+                "font": "Aptos",
+                "bold": false,
+                "y0": 402.1348876953125,
+                "y1": 414.44256591796875,
+                "page": 0,
+                "file": "documento.pdf"
+            },
+            {
+                "text": "•",
+                "font_size": 10.079999923706055,
+                "font": "SymbolMT",
+                "bold": false,
+                "y0": 428.349609375,
+                "y1": 440.6976013183594,
+                "page": 0,
+                "file": "documento.pdf"
+            },
+            {
+                "text": "Cuenta unipersonal.",
+                "font_size": 10.079999923706055,
+                "font": "Aptos",
+                "bold": false,
+                "y0": 429.014892578125,
+                "y1": 441.32257080078125,
+                "page": 0,
+                "file": "documento.pdf"
+            },
+            {
+                "text": "•",
+                "font_size": 10.079999923706055,
+                "font": "SymbolMT",
+                "bold": false,
+                "y0": 455.2296142578125,
+                "y1": 467.5776062011719,
+                "page": 0,
+                "file": "documento.pdf"
+            },
+            {
+                "text": "Es una cuenta para ahorro en bolivianos.",
+                "font_size": 10.079999923706055,
+                "font": "Aptos",
+                "bold": false,
+                "y0": 455.8948974609375,
+                "y1": 468.20257568359375,
+                "page": 0,
+                "file": "documento.pdf"
+            },
+            {
+                "text": "•",
+                "font_size": 10.079999923706055,
+                "font": "SymbolMT",
+                "bold": false,
+                "y0": 482.109619140625,
+                "y1": 494.4576110839844,
+                "page": 0,
+                "file": "documento.pdf"
+            },
+            {
+                "text": "Las cajas de ahorro del BNB son de convertibilidad automática, permitiendo efectuar depósitos o",
+                "font_size": 10.079999923706055,
+                "font": "Aptos",
+                "bold": false,
+                "y0": 482.77490234375,
+                "y1": 495.08258056640625,
+                "page": 0,
+                "file": "documento.pdf"
+            },
+            {
+                "text": "retiros de dinero en cualquier moneda.",
+                "font_size": 10.079999923706055,
+                "font": "Aptos",
+                "bold": false,
+                "y0": 495.014892578125,
+                "y1": 507.32257080078125,
+                "page": 0,
+                "file": "documento.pdf"
+            },
+            {
+                "text": "Requisitos",
+                "font_size": 13.920000076293945,
+                "font": "AptosDisplay",
+                "bold": false,
+                "y0": 521.4091186523438,
+                "y1": 538.4053955078125,
+                "page": 0,
+                "file": "documento.pdf"
+            },
+            {
+                "text": "•",
+                "font_size": 10.079999923706055,
+                "font": "SymbolMT",
+                "bold": false,
+                "y0": 552.4296264648438,
+                "y1": 564.777587890625,
+                "page": 0,
+                "file": "documento.pdf"
+            },
+            {
+                "text": "Personas naturales de 18 a 35 años.",
+                "font_size": 10.079999923706055,
+                "font": "Aptos",
+                "bold": false,
+                "y0": 553.0948486328125,
+                "y1": 565.402587890625,
+                "page": 0,
+                "file": "documento.pdf"
+            },
+            {
+                "text": "•",
+                "font_size": 10.079999923706055,
+                "font": "SymbolMT",
+                "bold": false,
+                "y0": 579.0696411132812,
+                "y1": 591.4176025390625,
+                "page": 0,
+                "file": "documento.pdf"
+            },
+            {
+                "text": "Cédula de identidad u otro documento a requerimiento del banco.",
+                "font_size": 10.079999923706055,
+                "font": "Aptos",
+                "bold": false,
+                "y0": 579.73486328125,
+                "y1": 592.0426025390625,
+                "page": 0,
+                "file": "documento.pdf"
+            },
+            {
+                "text": "•",
+                "font_size": 10.079999923706055,
+                "font": "SymbolMT",
+                "bold": false,
+                "y0": 605.9496459960938,
+                "y1": 618.297607421875,
+                "page": 0,
+                "file": "documento.pdf"
+            },
+            {
+                "text": "Consultas al Contact Center: 7878 7272.",
+                "font_size": 10.079999923706055,
+                "font": "Aptos",
+                "bold": false,
+                "y0": 606.6148681640625,
+                "y1": 618.922607421875,
+                "page": 0,
+                "file": "documento.pdf"
+            },
+            {
+                "text": "•",
+                "font_size": 10.079999923706055,
+                "font": "SymbolMT",
+                "bold": false,
+                "y0": 632.8296508789062,
+                "y1": 645.1776123046875,
+                "page": 0,
+                "file": "documento.pdf"
+            },
+            {
+                "text": "Monto mínimo de apertura: Bs 200.",
+                "font_size": 10.079999923706055,
+                "font": "Aptos",
+                "bold": false,
+                "y0": 633.494873046875,
+                "y1": 645.8026123046875,
+                "page": 0,
+                "file": "documento.pdf"
+            },
+            {
+                "text": "BANCA SENIOR",
+                "font_size": 16.079999923706055,
+                "font": "AptosDisplay",
+                "bold": false,
+                "y0": 659.7808837890625,
+                "y1": 679.41455078125,
+                "page": 0,
+                "file": "documento.pdf"
+            },
+            {
+                "text": "La Caja de Ahorros Banca Senior es un producto de captación que permite realizar depósitos y retiros",
+                "font_size": 10.079999923706055,
+                "font": "Aptos",
+                "bold": false,
+                "y0": 683.1748657226562,
+                "y1": 695.4826049804688,
+                "page": 0,
+                "file": "documento.pdf"
+            },
+            {
+                "text": "de dinero, cuyos saldos devengan intereses diarios, los mismos que son capitalizados mensualmente.",
+                "font_size": 10.079999923706055,
+                "font": "Aptos",
+                "bold": false,
+                "y0": 695.4148559570312,
+                "y1": 707.7225952148438,
+                "page": 0,
+                "file": "documento.pdf"
+            },
+            {
+                "text": "Dicho producto está dirigido a personas naturales",
+                "font_size": 10.079999923706055,
+                "font": "Aptos",
+                "bold": false,
+                "y0": 707.6548461914062,
+                "y1": 719.9625854492188,
+                "page": 0,
+                "file": "documento.pdf"
+            },
+            {
+                "text": "",
+                "font_size": 10.079999923706055,
+                "font": "TimesNewRomanPSMT",
+                "bold": false,
+                "y0": 72.37873840332031,
+                "y1": 83.53729248046875,
+                "page": 1,
+                "file": "documento.pdf"
+            },
+            {
+                "text": "Descripción",
+                "font_size": 13.920000076293945,
+                "font": "AptosDisplay",
+                "bold": false,
+                "y0": 91.56914520263672,
+                "y1": 108.56546020507812,
+                "page": 1,
+                "file": "documento.pdf"
+            },
+            {
+                "text": "La Caja de Ahorros Banca Senior es un producto de captación que permite realizar depósitos y retiros de",
+                "font_size": 10.079999923706055,
+                "font": "Aptos",
+                "bold": false,
+                "y0": 112.45490264892578,
+                "y1": 124.76258087158203,
+                "page": 1,
+                "file": "documento.pdf"
+            },
+            {
+                "text": "dinero, cuyos saldos devengan intereses diarios, los mismos que son capitalizados mensualmente. Dicho",
+                "font_size": 10.079999923706055,
+                "font": "Aptos",
+                "bold": false,
+                "y0": 124.69490051269531,
+                "y1": 137.00257873535156,
+                "page": 1,
+                "file": "documento.pdf"
+            },
+            {
+                "text": "producto está dirigido a personas naturales del segmento de 60 años o más, de nacionalidad boliviana o",
+                "font_size": 10.079999923706055,
+                "font": "Aptos",
+                "bold": false,
+                "y0": 136.93490600585938,
+                "y1": 149.24258422851562,
+                "page": 1,
+                "file": "documento.pdf"
+            },
+            {
+                "text": "extranjera con residencia legal en el país",
+                "font_size": 10.079999923706055,
+                "font": "Aptos",
+                "bold": false,
+                "y0": 149.17489624023438,
+                "y1": 161.48257446289062,
+                "page": 1,
+                "file": "documento.pdf"
+            },
+            {
+                "text": "",
+                "font_size": 10.079999923706055,
+                "font": "Aptos",
+                "bold": false,
+                "y0": 161.17489624023438,
+                "y1": 173.48257446289062,
+                "page": 1,
+                "file": "documento.pdf"
+            },
+            {
+                "text": "Carácterísticas",
+                "font_size": 13.920000076293945,
+                "font": "AptosDisplay",
+                "bold": false,
+                "y0": 181.5691375732422,
+                "y1": 198.56546020507812,
+                "page": 1,
+                "file": "documento.pdf"
+            },
+            {
+                "text": "•",
+                "font_size": 10.079999923706055,
+                "font": "SymbolMT",
+                "bold": false,
+                "y0": 212.82962036132812,
+                "y1": 225.17762756347656,
+                "page": 1,
+                "file": "documento.pdf"
+            },
+            {
+                "text": "Caja de ahorros en bolivianos.",
+                "font_size": 10.079999923706055,
+                "font": "Aptos",
+                "bold": false,
+                "y0": 213.49490356445312,
+                "y1": 225.80258178710938,
+                "page": 1,
+                "file": "documento.pdf"
+            },
+            {
+                "text": "•",
+                "font_size": 10.079999923706055,
+                "font": "SymbolMT",
+                "bold": false,
+                "y0": 239.46961975097656,
+                "y1": 251.817626953125,
+                "page": 1,
+                "file": "documento.pdf"
+            },
+            {
+                "text": "Emisión de tarjeta de débito sin costo.",
+                "font_size": 10.079999923706055,
+                "font": "Aptos",
+                "bold": false,
+                "y0": 240.13490295410156,
+                "y1": 252.4425811767578,
+                "page": 1,
+                "file": "documento.pdf"
+            },
+            {
+                "text": "•",
+                "font_size": 10.079999923706055,
+                "font": "SymbolMT",
+                "bold": false,
+                "y0": 266.349609375,
+                "y1": 278.6976013183594,
+                "page": 1,
+                "file": "documento.pdf"
+            },
+            {
+                "text": "Acceso al Portal Transaccional.",
+                "font_size": 10.079999923706055,
+                "font": "Aptos",
+                "bold": false,
+                "y0": 267.014892578125,
+                "y1": 279.32257080078125,
+                "page": 1,
+                "file": "documento.pdf"
+            },
+            {
+                "text": "•",
+                "font_size": 10.079999923706055,
+                "font": "SymbolMT",
+                "bold": false,
+                "y0": 293.2296142578125,
+                "y1": 305.5776062011719,
+                "page": 1,
+                "file": "documento.pdf"
+            },
+            {
+                "text": "Acceso a la App.",
+                "font_size": 10.079999923706055,
+                "font": "Aptos",
+                "bold": false,
+                "y0": 293.8948974609375,
+                "y1": 306.20257568359375,
+                "page": 1,
+                "file": "documento.pdf"
+            },
+            {
+                "text": "•",
+                "font_size": 10.079999923706055,
+                "font": "SymbolMT",
+                "bold": false,
+                "y0": 320.109619140625,
+                "y1": 332.4576110839844,
+                "page": 1,
+                "file": "documento.pdf"
+            },
+            {
+                "text": "Uso de Cajeros Automáticos del BNB.",
+                "font_size": 10.079999923706055,
+                "font": "Aptos",
+                "bold": false,
+                "y0": 320.77490234375,
+                "y1": 333.08258056640625,
+                "page": 1,
+                "file": "documento.pdf"
+            },
+            {
+                "text": "•",
+                "font_size": 10.079999923706055,
+                "font": "SymbolMT",
+                "bold": false,
+                "y0": 346.9895935058594,
+                "y1": 359.33758544921875,
+                "page": 1,
+                "file": "documento.pdf"
+            },
+            {
+                "text": "Recepción de giros del exterior sin costo.",
+                "font_size": 10.079999923706055,
+                "font": "Aptos",
+                "bold": false,
+                "y0": 347.6548767089844,
+                "y1": 359.9625549316406,
+                "page": 1,
+                "file": "documento.pdf"
+            },
+            {
+                "text": "•",
+                "font_size": 10.079999923706055,
+                "font": "SymbolMT",
+                "bold": false,
+                "y0": 373.8695983886719,
+                "y1": 386.21759033203125,
+                "page": 1,
+                "file": "documento.pdf"
+            },
+            {
+                "text": "Uso de cajeros automáticos en el extranjero.",
+                "font_size": 10.079999923706055,
+                "font": "Aptos",
+                "bold": false,
+                "y0": 374.5348815917969,
+                "y1": 386.8425598144531,
+                "page": 1,
+                "file": "documento.pdf"
+            },
+            {
+                "text": "•",
+                "font_size": 10.079999923706055,
+                "font": "SymbolMT",
+                "bold": false,
+                "y0": 400.7496032714844,
+                "y1": 413.09759521484375,
+                "page": 1,
+                "file": "documento.pdf"
+            },
+            {
+                "text": "Transferencias a cuentas de otras entidades financieras sin costo.",
+                "font_size": 10.079999923706055,
+                "font": "Aptos",
+                "bold": false,
+                "y0": 401.4148864746094,
+                "y1": 413.7225646972656,
+                "page": 1,
+                "file": "documento.pdf"
+            },
+            {
+                "text": "Requisitos",
+                "font_size": 13.920000076293945,
+                "font": "AptosDisplay",
+                "bold": false,
+                "y0": 427.8091125488281,
+                "y1": 444.8054504394531,
+                "page": 1,
+                "file": "documento.pdf"
+            },
+            {
+                "text": "•",
+                "font_size": 10.079999923706055,
+                "font": "SymbolMT",
+                "bold": false,
+                "y0": 458.8296203613281,
+                "y1": 471.1776123046875,
+                "page": 1,
+                "file": "documento.pdf"
+            },
+            {
+                "text": "Personas Naturales de 60 años o más.",
+                "font_size": 10.079999923706055,
+                "font": "Aptos",
+                "bold": false,
+                "y0": 459.4949035644531,
+                "y1": 471.8025817871094,
+                "page": 1,
+                "file": "documento.pdf"
+            },
+            {
+                "text": "•",
+                "font_size": 10.079999923706055,
+                "font": "SymbolMT",
+                "bold": false,
+                "y0": 485.7095947265625,
+                "y1": 498.0575866699219,
+                "page": 1,
+                "file": "documento.pdf"
+            },
+            {
+                "text": "Cédula de Identidad u otro documento a requerimiento del banco.",
+                "font_size": 10.079999923706055,
+                "font": "Aptos",
+                "bold": false,
+                "y0": 486.3748779296875,
+                "y1": 498.68255615234375,
+                "page": 1,
+                "file": "documento.pdf"
+            },
+            {
+                "text": "•",
+                "font_size": 10.079999923706055,
+                "font": "SymbolMT",
+                "bold": false,
+                "y0": 512.349609375,
+                "y1": 524.6975708007812,
+                "page": 1,
+                "file": "documento.pdf"
+            },
+            {
+                "text": "Consultas al Call Center: 7878 7272.",
+                "font_size": 10.079999923706055,
+                "font": "Aptos",
+                "bold": false,
+                "y0": 513.0148315429688,
+                "y1": 525.3225708007812,
+                "page": 1,
+                "file": "documento.pdf"
+            },
+            {
+                "text": "•",
+                "font_size": 10.079999923706055,
+                "font": "SymbolMT",
+                "bold": false,
+                "y0": 539.2296142578125,
+                "y1": 551.5775756835938,
+                "page": 1,
+                "file": "documento.pdf"
+            },
+            {
+                "text": "Monto mínimo de apertura: Bs 400.",
+                "font_size": 10.079999923706055,
+                "font": "Aptos",
+                "bold": false,
+                "y0": 539.8948364257812,
+                "y1": 552.2025756835938,
+                "page": 1,
+                "file": "documento.pdf"
+            },
+            {
+                "text": "",
+                "font_size": 10.079999923706055,
+                "font": "TimesNewRomanPSMT",
+                "bold": false,
+                "y0": 566.5387573242188,
+                "y1": 577.6973266601562,
+                "page": 1,
+                "file": "documento.pdf"
+            }
+        ],
+        "fonts": {
+            "19.920000076293945": 1,
+            "10.079999923706055": 66,
+            "16.079999923706055": 2,
+            "13.920000076293945": 6
+        }
+    }
+]
