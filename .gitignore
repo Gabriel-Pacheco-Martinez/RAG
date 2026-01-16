@@ -7,3 +7,4 @@ main.py
 data/
 .python-version
 ragvenv/
+**/.DS_Store
