@@ -4,7 +4,7 @@ EMBEDDING_BATCH_SIZE: 16
 EMBEDDING_N_DIMENSIONS: 384
 
 # Configuration for LLM
-LLM_SOURCE: "gemini"
+LLM_SOURCE: "groq"
 LLM_ANSWER_MODEL_GEMINI: "gemini-3-flash-preview"
 LLM_VERIFY_MODEL_GEMINI: "gemini-3-flash-preview"
 LLM_ANSWER_MODEL_OLLAMA: "qwen3:8b"

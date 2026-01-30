@@ -9,7 +9,7 @@ from config.settings import METADATA_PATH
 from config import load_config
 import pprint
 
-def run(query):
+def run(query) -> dict:
     print("=" * 60)
     print("🔎 Search Section:")
     print("=" * 60)
