@@ -1,3 +1,7 @@
+# General
+import logging
+from colorama import Fore, Style
+
 import faiss
 import numpy as np
 import json
@@ -52,5 +56,5 @@ class FAISSSearcher(VectorSearcher):
                 })
 
         # Say something
-        print(f"\033[34mRetrieved {len(neighbour_vectors)} vectors.\033[0m")
+        logging.info(Fore.BLUE + f"Retrieved {len(neighbour_vectors)} vectors." + Style.RESET_ALL)
         return neighbour_vectors

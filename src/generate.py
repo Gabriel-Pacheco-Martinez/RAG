@@ -1,0 +1,67 @@
+# General
+import logging
+import pprint
+from colorama import Fore, Style
+
+# Classes
+from src.indexing.embedder import Embedder
+from src.generation.searcher import FAISSSearcher
+from src.generation.client import LLM_Engine
+
+# Configuration
+from config.settings import FAISS_INDEX_PATH, FAISS_METADATA_PATH
+from config.settings import PDF_METADATA_FILE_PATH, WEBSITE_METADATA_FILE_PATH
+
+from config import load_config
+logger = logging.getLogger(__name__)
+
+def run(query) -> dict:
+    # =========
+    # Logging
+    logger.info(Fore.GREEN + "="*50)
+    logger.info("[💼] GENERATION")
+    logger.info("="*50 + Style.RESET_ALL)
+
+    # ======
+    # Load configuration
+    cfg = load_config()
+    EMBEDDING_MODEL = cfg["EMBEDDING_MODEL"]
+    EMBEDDING_BATCH_SIZE = cfg["EMBEDDING_BATCH_SIZE"]
+    THRESHOLD = cfg["THRESHOLD"]
+    TOP_K = cfg["TOP_K"]
+    LLM_SOURCE = cfg["LLM_SOURCE"]
+
+    # =======
+    # Embed the query
+    embedder = Embedder(model_name=EMBEDDING_MODEL, batch_size=EMBEDDING_BATCH_SIZE)
+    embedded_query = embedder.embed_query(query)
+    print("✅ Successfull embedding of query")
+
+    # =======
+    # Search embeddings
+    searcher = FAISSSearcher(index_path=FAISS_INDEX_PATH, metadata_path=FAISS_METADATA_PATH)
+    vectors = searcher.search(embedded_query, THRESHOLD, TOP_K)
+    print("✅ Successfull search")
+
+    # =======
+    # Print results
+    logger.info("=" * 60)
+    logger.info("💼 Retrieved Context Chunks:")
+    logger.info("=" * 60)
+    for i, v in enumerate(vectors, start=1):
+        logger.info(Fore.MAGENTA + f"Result {i}:" + Style.RESET_ALL)
+        logger.info(f"   • Chunk ID   : {v['chunk_id']}")
+        logger.info(f"   • Similarity : {v['similarity']:.2f}")
+        logger.info(f"   • Text       : {v['text']}")
+    print("✅ Successfull retrieval")
+
+    # =======
+    # Prompt generation and call llm
+    llm = LLM_Engine(LLM_SOURCE, cfg, metadata_path=PDF_METADATA_FILE_PATH)
+    context = llm.generate_context(vectors)
+    llm_response = llm.prompt_llm(context, query)
+
+    # ======
+    # Say something
+    pprint.pprint(llm_response, indent=4, width=80)
+    return llm_response

@@ -1,3 +1,8 @@
+# General
+import logging
+import pprint
+from colorama import Fore, Style
+
 import json
 import os
 from collections import Counter
@@ -10,7 +15,7 @@ from langchain_core.prompts import (
     HumanMessagePromptTemplate
 )
 
-from src.utils.prompts_utils import load_prompt
+from src.utils.io import load_prompt
 
 class LLM_Engine():
     def __init__(self, LLM_SOURCE: str, config: dict, metadata_path: str, temperature: float = 0):
@@ -75,7 +80,7 @@ class LLM_Engine():
         context_for_llm = f"Capitulo: {chapter_title}\nSecciones incluidas: {', '.join(section_titles)}\n\n{chapter_context}"
 
         # Say something
-        print(f"\033[34mCreated a context of {len(context_for_llm.split())} words for the LLM.\033[0m")
+        logging.info(Fore.BLUE + f"Created a context of {len(context_for_llm.split())} words for the LLM." + Style.RESET_ALL)
         return context_for_llm
 
     def prompt_gemini(self, context, user_query):
@@ -157,7 +162,7 @@ class LLM_Engine():
 
         # ======
         # 7. Say something
-        print(f"\033[34mLLMs prompted and responses returned.\033[0m")
+        logging.info(Fore.BLUE + f"LLMs prompted and responses returned." + Style.RESET_ALL)
         return {
             "answer": answer_response,
             "verify": verify_response,

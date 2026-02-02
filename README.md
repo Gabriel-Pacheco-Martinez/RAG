@@ -6,6 +6,9 @@ python -m app.cli -q "query" # query code
 python -m app.cli -s # server to receive queries
 ```
 
+## Important remarks
+- The metadata file a json, but when converted to an object is a map with keys "documents, capitulos, subcapitulos, tabs, secciones, subsecciones, chunks".
+
 ## To-Do full project:
 - 1.- Aumentar errores cuando no encuentra vectores (poca similitud)
 - 2.- Add tries/catches

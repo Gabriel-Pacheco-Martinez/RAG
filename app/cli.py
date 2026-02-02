@@ -1,8 +1,8 @@
 # Centralized entry point for commands
 import argparse
-from scripts import ingest_documents
-from scripts import query_questions
 from app import endpoint
+from src import index, generate, logger
+
 
 from dotenv import load_dotenv
 load_dotenv()
@@ -17,11 +17,11 @@ def main():
 
     if args.ingest:
         print("🚀 Document ingestion:")
-        ingest_documents.run()
+        index.run()
     elif args.query:
         question = args.query
         print("🚀 Answering question:")
-        query_questions.run(question)
+        generate.run(question)
     elif args.server:
         print("🚀 Starting server at localhost:8000")
         endpoint.start_server()

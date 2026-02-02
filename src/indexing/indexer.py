@@ -1,8 +1,14 @@
+# General
+import logging
+from colorama import Fore, Style
+
 import faiss
 import numpy as np
 import json
 import os
 from abc import ABC, abstractmethod
+
+logger = logging.getLogger(__name__)
 
 class VectorIndexer(ABC):
     def __init__(self, dim: int, index_path: str, metadata_path: str):
@@ -48,4 +54,4 @@ class FAISSIndexer(VectorIndexer):
             json.dump(self.metadata, f, ensure_ascii=False, indent=2)
 
         # Say something
-        print(f"\033[92mIndexed {embeddings.shape[0]} chunks, each with {embeddings.shape[1]} dimensions\033[0m")
+        logging.info(Fore.BLUE + f"Created {len(chunks)} chunks." + Style.RESET_ALL)

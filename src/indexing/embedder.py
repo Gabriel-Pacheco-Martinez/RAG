@@ -1,15 +1,20 @@
+import logging
+from colorama import Fore, Style
+
 import torch
 import torch.nn.functional as F
 import numpy as np
 from typing import Dict, Any
 from transformers import AutoModel, AutoTokenizer
 
+logger = logging.getLogger(__name__)
+
 def _mean_pooling(model_output, attention_mask):
     token_embeddings = model_output[0] #First element of model_output contains all token embeddings
     input_mask_expanded = attention_mask.unsqueeze(-1).expand(token_embeddings.size()).float()
     return torch.sum(token_embeddings * input_mask_expanded, 1) / torch.clamp(input_mask_expanded.sum(1), min=1e-9)
 
-class ChunkEmbedder:
+class Embedder:
     def __init__(self, model_name: str, batch_size: int):
         self.model_name = model_name
         self.batch_size = batch_size
@@ -98,7 +103,7 @@ class ChunkEmbedder:
                 })
 
         # Say something
-        print(f"\033[92mEmbedded {len(chunk_embeddings)} chunks/sentences, each with {chunk_embeddings[0]['embedding'].shape[0]} dimensions.\033[0m")
+        logging.info(Fore.BLUE + f"Embedded {len(chunk_embeddings)} chunks/sentences, each with {chunk_embeddings[0]['embedding'].shape[0]} dimensions" + Style.RESET_ALL)
         return chunk_embeddings
 
     def embed_query(self, query: str) -> np.ndarray: 
@@ -120,5 +125,5 @@ class ChunkEmbedder:
         embeddings = embeddings.numpy()
 
         # Say something
-        print(f"\033[34mEmbedded number of queries: {embeddings.shape[0]}, each with {embeddings.shape[1]} dimensions\033[0m")
+        logging.info(Fore.BLUE + f"Embedded number of queries: {embeddings.shape[0]}, each with {embeddings.shape[1]} dimensions" + Style.RESET_ALL)
         return embeddings

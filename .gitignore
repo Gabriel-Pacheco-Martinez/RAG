@@ -8,3 +8,7 @@ data/
 .python-version
 ragvenv/
 **/.DS_Store
+delete.py
+delete.json
+src_2/
+.vscode/

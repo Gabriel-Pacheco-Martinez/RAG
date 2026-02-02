@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from pydantic import BaseModel, Field, validator
-from scripts import query_questions
+from src import generate
 import uvicorn
 
 from fastapi.responses import JSONResponse
@@ -12,7 +12,7 @@ class QueryRequest(BaseModel):
 
 @app.post("/pregunta")
 def query_endpoint(request: QueryRequest):
-    llm_response = query_questions.run(request.pregunta)
+    llm_response = generate.run(request.pregunta)
 
     response_payload = {
         "pregunta": request.pregunta,
