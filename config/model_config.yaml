@@ -13,5 +13,5 @@ LLM_GENERATOR_MODEL_GROQ: "llama-3.1-8b-instant"
 LLM_VERIFY_MODEL_GROQ: "llama-3.1-8b-instant"
 
 # Configuration for vector database
-TOP_K: 12
+TOP_K: 5
 THRESHOLD: 0.5

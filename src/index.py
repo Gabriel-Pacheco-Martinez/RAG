@@ -30,25 +30,25 @@ def run():
     EMBEDDING_BATCH_SIZE = cfg["EMBEDDING_BATCH_SIZE"]
     EMBEDDING_N_DIMENSIONS = cfg["EMBEDDING_N_DIMENSIONS"]
 
-    # =======
-    # Load the PDF Document
-    loader = PDFDocumentLoader(PDF_RAW_DOCS_PATH, PDF_LOADED_FILE_PATH)
-    documents_info = loader.load_documents()
-    print("✅ Successfull loading")
-
-    # =======
-    # Chunk the PDF document
-    chunker = PDFChunker()
-    metadata = chunker.chunk_document(documents_info)
-    chunks = chunker.get_and_save_chunks(PDF_METADATA_FILE_PATH, metadata)
-    print("✅ Successfull chunking")
+    # # =======
+    # # Load the PDF Document
+    # loader = PDFDocumentLoader(PDF_RAW_DOCS_PATH, PDF_LOADED_FILE_PATH)
+    # documents_info = loader.load_documents()
+    # print("✅ Successfull loading")
 
     # # =======
-    # # Chunk WEBSITE document
-    # chunker: object = WebsiteChunker()
-    # metadata: map =chunker.chunk_document(WEBSITE_LOADED_FILE_PATH)
-    # chunks: map = chunker.get_and_save_chunks(WEBSITE_METADATA_FILE_PATH, metadata) 
+    # # Chunk the PDF document
+    # chunker = PDFChunker()
+    # metadata = chunker.chunk_document(documents_info)
+    # chunks = chunker.get_and_save_chunks(PDF_METADATA_FILE_PATH, metadata)
     # print("✅ Successfull chunking")
+
+    # =======
+    # Chunk WEBSITE document
+    chunker: object = WebsiteChunker()
+    metadata: map =chunker.chunk_document(WEBSITE_LOADED_FILE_PATH)
+    chunks: map = chunker.get_and_save_chunks(WEBSITE_METADATA_FILE_PATH, metadata) 
+    print("✅ Successfull chunking")
 
     # =======
     # Embed the chunks

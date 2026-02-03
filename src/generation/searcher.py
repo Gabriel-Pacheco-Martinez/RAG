@@ -8,6 +8,8 @@ import json
 import os
 from abc import ABC, abstractmethod
 
+logger = logging.getLogger(__name__)
+
 class VectorSearcher(ABC):
     def __init__(self, index_path: str, metadata_path: str):
         self.index_path = index_path

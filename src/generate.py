@@ -6,7 +6,7 @@ from colorama import Fore, Style
 # Classes
 from src.indexing.embedder import Embedder
 from src.generation.searcher import FAISSSearcher
-from src.generation.client import LLM_Engine_PDFs
+from src.generation.client import LLM_Engine_PDFs, LLM_Engine_WEBSITEs
 
 # Configuration
 from config.settings import FAISS_INDEX_PATH, FAISS_METADATA_PATH
@@ -49,7 +49,7 @@ def run(query) -> dict:
     logger.info(Fore.MAGENTA + "💼 Retrieved Context Chunks:" + Style.RESET_ALL)
     logger.info(Fore.MAGENTA + "=" * 60 + Style.RESET_ALL)
     for i, v in enumerate(vectors, start=1):
-        logger.info(Fore.MAGENTA + f"Result {i}:" + Style.RESET_ALL)
+        logger.info(Fore.BLUE + f"Result {i}:" + Style.RESET_ALL)
         logger.info(f"   • Chunk ID   : {v['chunk_id']}")
         logger.info(f"   • Similarity : {v['similarity']:.2f}")
         logger.info(f"   • Text       : {v['text']}")
@@ -57,11 +57,10 @@ def run(query) -> dict:
 
     # =======
     # Prompt generation and call llm
-    llm = LLM_Engine_PDFs(LLM_SOURCE, cfg, metadata_file_path=PDF_METADATA_FILE_PATH)
+    llm = LLM_Engine_WEBSITEs(LLM_SOURCE, cfg, metadata_file_path=WEBSITE_METADATA_FILE_PATH)
     context = llm.generate_context(vectors)
     llm_response = llm.prompt_llm(query, context)
 
-    # # ======
-    # # Say something
-    # pprint.pprint(llm_response, indent=4, width=80)
+    # ======
+    # Say something
     return llm_response

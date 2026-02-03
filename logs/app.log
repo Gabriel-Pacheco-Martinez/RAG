@@ -1,0 +1,36 @@
+2026-02-03 15:16:28 - INFO - src.generate - [32m==================================================
+2026-02-03 15:16:28 - INFO - src.generate - [💼] GENERATION
+2026-02-03 15:16:28 - INFO - src.generate - ==================================================[0m
+2026-02-03 15:16:30 - INFO - root - Embedded number of queries: 1, each with 384 dimensions
+2026-02-03 15:16:30 - INFO - root - Retrieved 5 vectors.
+2026-02-03 15:16:30 - INFO - src.generate - [35m============================================================[0m
+2026-02-03 15:16:30 - INFO - src.generate - [35m💼 Retrieved Context Chunks:[0m
+2026-02-03 15:16:30 - INFO - src.generate - [35m============================================================[0m
+2026-02-03 15:16:30 - INFO - src.generate - [34mResult 1:[0m
+2026-02-03 15:16:30 - INFO - src.generate -    • Chunk ID   : 1067
+2026-02-03 15:16:30 - INFO - src.generate -    • Similarity : 0.87
+2026-02-03 15:16:30 - INFO - src.generate -    • Text       : Simulación de depósitos a plazo fijo.
+2026-02-03 15:16:30 - INFO - src.generate - [34mResult 2:[0m
+2026-02-03 15:16:30 - INFO - src.generate -    • Chunk ID   : 1549
+2026-02-03 15:16:30 - INFO - src.generate -    • Similarity : 0.71
+2026-02-03 15:16:30 - INFO - src.generate -    • Text       : La emisión de depósitos a plazo fijo será representada mediante anotación en cuenta(desmaterializados).
+2026-02-03 15:16:30 - INFO - src.generate - [34mResult 3:[0m
+2026-02-03 15:16:30 - INFO - src.generate -    • Chunk ID   : 678
+2026-02-03 15:16:30 - INFO - src.generate -    • Similarity : 0.71
+2026-02-03 15:16:30 - INFO - src.generate -    • Text       : La emisión de depósitos a plazo fijo será representada mediante anotación en cuenta(desmaterializados).
+2026-02-03 15:16:30 - INFO - src.generate - [34mResult 4:[0m
+2026-02-03 15:16:30 - INFO - src.generate -    • Chunk ID   : 624
+2026-02-03 15:16:30 - INFO - src.generate -    • Similarity : 0.71
+2026-02-03 15:16:30 - INFO - src.generate -    • Text       : La emisión de depósitos a plazo fijo será representada mediante anotación en cuenta(desmaterializados).
+2026-02-03 15:16:30 - INFO - src.generate - [34mResult 5:[0m
+2026-02-03 15:16:30 - INFO - src.generate -    • Chunk ID   : 679
+2026-02-03 15:16:30 - INFO - src.generate -    • Similarity : 0.69
+2026-02-03 15:16:30 - INFO - src.generate -    • Text       : Solamente se entregará una constancia de Constitución de Depósito a Plazo Fijo de forma impresa.
+2026-02-03 15:16:30 - INFO - src.generation.client - [35m============================================================[0m
+2026-02-03 15:16:30 - INFO - src.generation.client - [35m💼 CONTEXT:[0m
+2026-02-03 15:16:30 - INFO - src.generation.client - [35m============================================================[0m
+2026-02-03 15:16:30 - INFO - src.generation.client - [34mORIGEN CONTEXTO:[0m
+2026-02-03 15:16:30 - INFO - src.generation.client -    • subcapitulo con id 24 y score: 1.41
+2026-02-03 15:16:31 - INFO - httpx - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-03 15:16:32 - INFO - httpx - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-03 15:16:32 - INFO - root - LLMs prompted and responses returned
