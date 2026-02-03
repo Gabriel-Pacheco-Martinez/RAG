@@ -56,5 +56,5 @@ class FAISSSearcher(VectorSearcher):
                 })
 
         # Say something
-        logging.info(Fore.BLUE + f"Retrieved {len(neighbour_vectors)} vectors." + Style.RESET_ALL)
+        logging.info(f"Retrieved {len(neighbour_vectors)} vectors.")
         return neighbour_vectors

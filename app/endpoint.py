@@ -16,7 +16,7 @@ def query_endpoint(request: QueryRequest):
 
     response_payload = {
         "pregunta": request.pregunta,
-        **llm_response  # Unpack the dictionary
+        "llm": llm_response
     }
 
     return JSONResponse(content=response_payload)

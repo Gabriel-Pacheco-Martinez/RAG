@@ -2,7 +2,7 @@ import logging
 from colorama import Fore, Style
 from abc import ABC, abstractmethod
 from src.utils.io import read_json, write_json
-from src.utils.pdf_helpers import get_fonts
+from src.utils.pdf import get_fonts
 from typing import Tuple, Any
 import re
 from itertools import count

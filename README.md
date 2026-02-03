@@ -9,17 +9,15 @@ python -m app.cli -s # server to receive queries
 ## Important remarks
 - The metadata file a json, but when converted to an object is a map with keys "documents, capitulos, subcapitulos, tabs, secciones, subsecciones, chunks".
 
-## To-Do full project:
-- 1.- Aumentar errores cuando no encuentra vectores (poca similitud)
-- 2.- Add tries/catches
-    - A veces los modelos no dan respuestas
-- 3.- Ver temas de memoria, caching, latency y system design.
-- 4.- Empezar a aumentar infra
 
 ## To-Do
-- Confidence score to see if retry with LLM rewritten query
-- Hybrid search (BM25 + Vectors)
-- Re-ranking. HOW??
-- Finetuning. How do we select our parameters?
-- Maybe separate databases by area for better document retreival:
-        - Could have sections like: chatbot, human resources, finance, credits, marketing.
+- 1. Do retreival
+- 2. Connect both projects
+- 3. Add memory
+- 4. Improve retreival (BM25+Vectors) + Re raking
+
+## To-Do long term
+- 1. Make asynchronous. Only initialize objects once
+- 2. Aumentar errores cuando no encuentra vectores (poca similitud)
+- 3. Add tries/catches
+- 4. Infra (caching, latency, system design)

@@ -7,7 +7,4 @@ REGLAS ESTRICTAS:
 4. No inventes datos.
 
 Contexto:
-{context}
-
-Pregunta:
-{question}
+{contexto}

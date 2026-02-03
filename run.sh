@@ -1,1 +1,1 @@
-python -m app.cli -s
+python -m app.cli -q ""

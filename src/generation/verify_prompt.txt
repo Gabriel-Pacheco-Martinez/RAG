@@ -10,7 +10,4 @@ REGLAS:
 3. Agrega una explicacion de porque Verdadero o Falso.
 
 Contexto:
-{context}
-
-Respuesta:
-{llm_answer}
+{contexto}

@@ -10,7 +10,7 @@ from src.utils.io import read_json, write_json
 import logging
 from colorama import Fore, Style
 
-from src.utils.pdf_helpers import extract_blocks_from_page
+from src.utils.pdf import extract_blocks_from_page
 
 
 class DocumentLoader(ABC):

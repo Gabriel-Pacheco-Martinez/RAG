@@ -125,5 +125,5 @@ class Embedder:
         embeddings = embeddings.numpy()
 
         # Say something
-        logging.info(Fore.BLUE + f"Embedded number of queries: {embeddings.shape[0]}, each with {embeddings.shape[1]} dimensions" + Style.RESET_ALL)
+        logging.info(f"Embedded number of queries: {embeddings.shape[0]}, each with {embeddings.shape[1]} dimensions")
         return embeddings

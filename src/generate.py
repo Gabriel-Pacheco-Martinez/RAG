@@ -6,7 +6,7 @@ from colorama import Fore, Style
 # Classes
 from src.indexing.embedder import Embedder
 from src.generation.searcher import FAISSSearcher
-from src.generation.client import LLM_Engine
+from src.generation.client import LLM_Engine_PDFs
 
 # Configuration
 from config.settings import FAISS_INDEX_PATH, FAISS_METADATA_PATH
@@ -40,14 +40,14 @@ def run(query) -> dict:
     # =======
     # Search embeddings
     searcher = FAISSSearcher(index_path=FAISS_INDEX_PATH, metadata_path=FAISS_METADATA_PATH)
-    vectors = searcher.search(embedded_query, THRESHOLD, TOP_K)
+    vectors: list[dict] = searcher.search(embedded_query, THRESHOLD, TOP_K)
     print("✅ Successfull search")
 
     # =======
     # Print results
-    logger.info("=" * 60)
-    logger.info("💼 Retrieved Context Chunks:")
-    logger.info("=" * 60)
+    logger.info(Fore.MAGENTA + "=" * 60 + Style.RESET_ALL)
+    logger.info(Fore.MAGENTA + "💼 Retrieved Context Chunks:" + Style.RESET_ALL)
+    logger.info(Fore.MAGENTA + "=" * 60 + Style.RESET_ALL)
     for i, v in enumerate(vectors, start=1):
         logger.info(Fore.MAGENTA + f"Result {i}:" + Style.RESET_ALL)
         logger.info(f"   • Chunk ID   : {v['chunk_id']}")
@@ -57,11 +57,11 @@ def run(query) -> dict:
 
     # =======
     # Prompt generation and call llm
-    llm = LLM_Engine(LLM_SOURCE, cfg, metadata_path=PDF_METADATA_FILE_PATH)
+    llm = LLM_Engine_PDFs(LLM_SOURCE, cfg, metadata_file_path=PDF_METADATA_FILE_PATH)
     context = llm.generate_context(vectors)
-    llm_response = llm.prompt_llm(context, query)
+    llm_response = llm.prompt_llm(query, context)
 
-    # ======
-    # Say something
-    pprint.pprint(llm_response, indent=4, width=80)
+    # # ======
+    # # Say something
+    # pprint.pprint(llm_response, indent=4, width=80)
     return llm_response

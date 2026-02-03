@@ -12,3 +12,4 @@ delete.py
 delete.json
 src_2/
 .vscode/
+logs/
