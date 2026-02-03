@@ -1,0 +1,26 @@
+{
+  "intenciones":{
+    "saludos":{
+      "slots requeridos": []
+    },
+    "cobre con qr":{
+      "slots requeridos": ["monto", "destinatario"]
+    },
+    "pague con qr":{
+      "slots requeridos": ["monto", "destinatario"]
+    },
+    "mi saldo":{
+      "slots requeridos": []
+    },
+    "tutoriales":{
+      "slots requeridos": []
+    },
+    "menu":{
+      "slots requeridos": []
+    },
+    "conversation":{
+      "slots requeridos": [],
+      "rag_context": true
+    }
+  }
+}

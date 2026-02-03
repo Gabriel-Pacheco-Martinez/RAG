@@ -12,6 +12,7 @@ from langchain_ollama import ChatOllama
 from langchain_groq import ChatGroq
 from langchain_google_genai import ChatGoogleGenerativeAI
 from src.utils.prompts import build_generator_prompt, build_verifier_prompt
+from config.settings import PROMPTS_GENERATION_PATH
 
 
 from src.utils.io import read_json, load_prompt
@@ -59,8 +60,8 @@ class LLM_Engine(ABC):
         return response
 
     def prompt_llm(self, user_message: str, contexto: str):
-        generator_base_prompt = load_prompt("generate_prompt.txt")
-        verifier_base_prompt = load_prompt("verify_prompt.txt")
+        generator_base_prompt = load_prompt(PROMPTS_GENERATION_PATH, "generate_prompt.txt")
+        verifier_base_prompt = load_prompt(PROMPTS_GENERATION_PATH, "verify_prompt.txt")
 
         generator_prompt = build_generator_prompt(generator_base_prompt, user_message, contexto)
         verifier_prompt = build_verifier_prompt(verifier_base_prompt, user_message, contexto)

@@ -6,7 +6,7 @@ from colorama import Fore, Style
 # Classes
 from src.indexing.embedder import Embedder
 from src.generation.searcher import FAISSSearcher
-from src.generation.client import LLM_Engine_PDFs, LLM_Engine_WEBSITEs
+from src.generation.generation_client import LLM_Engine_PDFs, LLM_Engine_WEBSITEs
 
 # Configuration
 from config.settings import FAISS_INDEX_PATH, FAISS_METADATA_PATH
