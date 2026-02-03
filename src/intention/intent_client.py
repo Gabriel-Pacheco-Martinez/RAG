@@ -14,7 +14,7 @@ from src.utils.io import load_schema
 from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain_groq import ChatGroq
 from langchain_core.prompts import ChatPromptTemplate, SystemMessagePromptTemplate, HumanMessagePromptTemplate
-
+from config.settings import PROMPTS_INTENT_PATH
 
 
 class Client(ABC):
@@ -54,8 +54,8 @@ class GeminiClient(Client):
         self.llm_model = ChatGroq(model=MODEL, temperature=0.3, api_key=KEY)
 
     def _llm_intent(self, user_message: str, memory: dict) -> Dict[str, Any]:
-        system_prompt = load_prompt("systemPrompt.txt")
-        answer_schema = load_schema("schema_respuesta.json")
+        system_prompt = load_prompt(PROMPTS_INTENT_PATH, "intent_prompt.txt")
+        answer_schema = load_schema("schema_respuestas.json")
         intenciones_schema = load_schema("schema_intenciones.json")
 
         # Build prompt

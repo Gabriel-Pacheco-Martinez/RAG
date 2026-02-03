@@ -3,7 +3,7 @@ EMBEDDING_MODEL: "all-MiniLM-L6-v2"
 EMBEDDING_BATCH_SIZE: 16
 EMBEDDING_N_DIMENSIONS: 384
 
-# Configuration for LLM
+# Configuration for Generation LLM
 LLM_SOURCE: "groq"
 LLM_GENERATOR_MODEL_GEMINI: "gemini-3-flash-preview"
 LLM_VERIFY_MODEL_GEMINI: "gemini-3-flash-preview"
@@ -11,6 +11,21 @@ LLM_GENERATOR_MODEL_OLLAMA: "qwen3:8b"
 LLM_VERIFY_MODEL_OLLAMA: "qwen3:8b"
 LLM_GENERATOR_MODEL_GROQ: "llama-3.1-8b-instant"
 LLM_VERIFY_MODEL_GROQ: "llama-3.1-8b-instant"
+
+# Configuration for Intent LLM
+GEMINI_MODEL: "gemini-2.5-flash"
+GROQ_MODEL: "llama-3.1-8b-instant"
+
+# Chatbot menu topics
+CHATBOT:
+  MENU:
+    - Saludos
+    - Cobre con QR
+    - Pague con QR
+    - Mi saldo
+    - Tutoriales
+    - Menu
+    - Conversation
 
 # Configuration for vector database
 TOP_K: 5

@@ -2,11 +2,10 @@
 from typing import Set, Any, Dict
 
 # Created classes
-from src.intent.session_manager import SessionManager
-from src.intent.validator import TextValidator, AudioValidator
-from src.intent.converter import AudioConverter
-from src.intent.intent_client import GeminiClient
-
+from src.intention.session_manager import SessionManager
+from src.intention.validator import TextValidator, AudioValidator
+from src.intention.converter import AudioConverter
+from src.intention.intent_client import GeminiClient
 
 # Configuration 
 from config.settings import REDIS_CLIENT
@@ -52,7 +51,7 @@ def run(user_message_raw: object, format: str) -> str:
     # Interaction with LLM
     gemini_client = GeminiClient(GROQ_MODEL, GROQ_API_KEY, CHATBOT_MENU_SET)
     # llm_answer: Dict[str, Any] = gemini_client.get_intent(user_message_text, memory)
-    llm_answer: Dict[str, Any] = gemini_client.get_intent(user_message_text)
+    llm_answer: Dict[str, Any] = gemini_client.get_intent(user_message_text, {})
     print("✅ Successfull llm retreival")
 
     return llm_answer
