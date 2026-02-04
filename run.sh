@@ -1,1 +1,1 @@
-python -m app.cli -q "Requisitos depositos a plazo fijo."
+python -m app.cli -s

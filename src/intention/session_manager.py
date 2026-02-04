@@ -16,6 +16,7 @@ class SessionManager():
                 "slots": json.dumps({}), #redis can't handle python objects
                 "slots_faltantes": json.dumps(["todos"]),
                 "historial_de_mensajes": json.dumps([]),
+                "context": ""
             })
 
             # Set TTL

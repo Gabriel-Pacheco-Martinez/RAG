@@ -9,9 +9,13 @@ python -m app.cli -s # server to receive queries
 ## Important remarks
 - The metadata file a json, but when converted to an object is a map with keys "documents, capitulos, subcapitulos, tabs, secciones, subsecciones, chunks".
 
+## Todays task
+- Add memory to the conversation
+- Should i add like a little title to each section?
+
 ## To-Do
 - 1. Do retreival [CHECK]
-- 2. Connect both projects
+- 2. Connect both projects [CHECK]
 - 3. Add memory
 - 4. Improve retreival (BM25+Vectors) + Re raking
 

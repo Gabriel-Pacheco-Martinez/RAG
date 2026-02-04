@@ -18,7 +18,7 @@
     "menu":{
       "slots requeridos": []
     },
-    "conversation":{
+    "preguntas":{
       "slots requeridos": [],
       "rag_context": true
     }

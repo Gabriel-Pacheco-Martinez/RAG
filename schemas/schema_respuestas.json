@@ -1,26 +1,43 @@
 {
-  "intenciones":{
-    "saludos":{
-      "slots requeridos": []
-    },
-    "cobre con qr":{
-      "slots requeridos": ["monto", "destinatario"]
-    },
-    "pague con qr":{
-      "slots requeridos": ["monto", "destinatario"]
-    },
-    "mi saldo":{
-      "slots requeridos": []
-    },
-    "tutoriales":{
-      "slots requeridos": []
-    },
-    "menu":{
-      "slots requeridos": []
-    },
-    "conversation":{
-      "slots requeridos": [],
+  "ejemplo 1": {
+    "user_message": "Quiero cobrar 50 pesos con qr",
+    "nlu_result": {
+      "intencion_previa": "",
+      "intencion_actual": "cobrar qr",
+      "confianza_en_la_intencion": 0.9,
+      "slots_requeridos": {
+        "monto": "50",
+        "destinatario": ""
+      }
+    }
+  },
+  "ejemplo 2": {
+    "user_message": "Informacion sobre depositos a plazo fijo del banco",
+    "nlu_result": {
+      "intencion_previa": "",
+      "intencion_actual": "preguntas",
+      "confianza_en_la_intencion": 0.8,
+      "slots_requeridos": {},
       "rag_context": true
+    }
+  },
+  "ejemplo 3":{
+    "user_message": "Mas informacion",
+    "nlu_result": {
+      "intencion_previa": "preguntas",
+      "intencion_actual": "preguntas",
+      "confianza_en_la_intencion": 0.9,
+      "slots_requeridos": {},
+      "rag_context": false
+    }
+  },
+  "ejemplo 4":{
+    "user_message": "Informacion",
+    "nlu_result": {
+      "intencion_previa": "",
+      "intencion_actual": "menu",
+      "confianza_en_la_intencion": 0.9,
+      "slots_requeridos": {}
     }
   }
 }
