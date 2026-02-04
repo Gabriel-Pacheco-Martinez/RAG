@@ -22,6 +22,7 @@ REDIS_CLIENT = redis.StrictRedis(
 # Constraints
 MAX_AUDIO_SIZE = 200000
 MAX_TEXT_SIZE = 75
+MAX_MESSAGE_HISTORY_MEMORY = 6
 
 # =====
 # WEBSITE DATA: needs file path as single file

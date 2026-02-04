@@ -1,5 +1,6 @@
 # General
 import json
+import ast
 import logging
 import re
 from typing import Dict, Any
@@ -46,7 +47,8 @@ class Client(ABC):
                 pass
 
         # Fallback if nothing worked
-        return {"intencion": "nula", "entidades": {}}
+        logger.warning(f"Could not parse LLM answer: {llm_answer}")
+        return {"intencion": "menu", "entidades": {}}
         
 class GeminiClient(Client):
     def __init__(self, MODEL: str, KEY: str, LLM_SOURCE: str = "groq"):
@@ -68,8 +70,8 @@ class GeminiClient(Client):
 
         system_prompt = build_intention_prompt(system_base_prompt, intenciones_schema, memory, answer_example, user_message)
         
-        intent_response = self.call_intent_llm(system_prompt)
-        intent_response = self._parse_llm_answer(intent_response)
+        intent_response = self.call_intent_llm(system_prompt) 
+        intent_response = self._parse_llm_answer(intent_response) # parse
 
         logging.info(f"LLMs prompted and responses returned")
         return intent_response
