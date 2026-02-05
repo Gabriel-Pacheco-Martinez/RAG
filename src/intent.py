@@ -54,19 +54,31 @@ def run(user_message_object: object, format: str) -> Tuple[str, str]:
     # Interaction with Intent LLM
     gemini_client = GeminiClient(GROQ_MODEL, GROQ_API_KEY)
     intention_answer: Dict[str, Any] = gemini_client.get_intent(user_message_text, memory)
-    print(intention_answer)
+    print("✅ Successfull intent detection") 
+
+    # =======
+    # Interaction with LLM
+    llm_answer = {}
+    if intention_answer["intencion_actual"] == "preguntas":
+        if intention_answer["slots_requeridos"]["rag_context"] == True:
+            llm_answer = generate.run(user_message_text)
+        else:
+            llm_answer = {
+                "answer": ""
+            }
+
+    print("✅ Successfull call to generation LLM") 
 
     # =======
     # Manage memory
     response_manager = MemoryManager(REDIS_CLIENT, TTL_SECONDS)
     intention_answer = response_manager.review_response(intention_answer)
-    session_data = response_manager.update_session_data(intention_answer, user_message_object.session_id, user_message_text)
-    
+    session_data = response_manager.update_session_data(intention_answer, user_message_object.session_id, user_message_text, llm_answer)
+    print("✅ Successfull memory management")
+
     # =======
     # Interaction with Generation LLM if needed
     if intention_answer["intencion_actual"] == "preguntas":
-        if intention_answer["slots_requeridos"]["rag_context"] == True:
-            llm_answer = generate.run(user_message_text)
-            return user_message_text, llm_answer
-        else:
-            return user_message_text, ""
+        return intention_answer, llm_answer, session_data
+
+    return intention_answer, "system_response", session_data

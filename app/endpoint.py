@@ -29,12 +29,13 @@ def query_endpoint(request: GeneratorQueryRequest):
 
 @app.post("/pregunta_intent")
 def query_endpoint(request: QueryRequest):
-    intention, system_response  = intent.run(request, "text")
+    intention, system_response, memoria  = intent.run(request, "text")
 
     response_payload = {
         "mensaje": request.mensaje,
-        "intencion del usuario": intention,
-        "system response": system_response
+        "system response": system_response,
+        "memoria": memoria,
+        "intencion del usuario": intention
     }
 
     return JSONResponse(content=response_payload)

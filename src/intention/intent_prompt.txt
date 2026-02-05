@@ -61,8 +61,8 @@ El slot `rag_context` SOLO aplica a la intención **"preguntas"**.
 
 - Establece `"rag_context": false` SI:
   - La intención previa es "preguntas", Y
-  - El mensaje es una continuación genérica o referencial del tema ya tratado,
-    por ejemplo: "más información", "detalles", "explícame mejor", "y eso?".
+  - El mensaje es una continuación al tema previamente tratado que debe 
+  ser respondido con el contexto de la anterior pregunta.
 
 No se debe activar RAG nuevamente si el usuario solo solicita ampliación
 sobre información ya recuperada en la sesión.

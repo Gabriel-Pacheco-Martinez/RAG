@@ -30,7 +30,7 @@ class MemoryManager():
 
         return status
 
-    def update_session_data(self, intention_answer: dict, session_id: int, user_message_text: str):
+    def update_session_data(self, intention_answer: dict, session_id: int, user_message_text: str, llm_answer: dict):
         # Read session data
         session_data = self.redis_client.hgetall(session_id)
         session_data: dict = deserialize_session_data(session_data)
@@ -39,7 +39,6 @@ class MemoryManager():
         tmp_intencion = session_data["intencion_actual"]
         session_data["intencion_previa"] = tmp_intencion
         session_data["intencion_actual"] = intention_answer["intencion_actual"]
-        print(session_data)
 
         # Update confianza
         session_data["confianza_en_la_intencion_actual"] = intention_answer["confianza_en_la_intencion"]
@@ -72,8 +71,17 @@ class MemoryManager():
             session_data["slots"]["rag_context"] = "false"
             session_data["status"] = "completo"
 
+        # Update llm answer if needed
+        if llm_answer:
+            historial_de_mensajes.append("LLM:" + llm_answer["answer"])
+            if len(historial_de_mensajes) > 6:
+                historial_de_mensajes = historial_de_mensajes[-6:]
+                session_data["historial_de_mensajes"] = json.dumps(historial_de_mensajes)
+            if llm_answer["context"]:
+                session_data["context"] = llm_answer["context"]
+
         # Update data on REDIS
-        serialize_session_data(session_data)
+        session_data = serialize_session_data(session_data)
         self.redis_client.hset(session_id, mapping=session_data)
 
         # Reset TTL every time we update

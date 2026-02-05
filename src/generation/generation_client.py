@@ -158,7 +158,7 @@ class LLM_Engine_WEBSITEs(LLM_Engine):
             if "tabs" in capitulo_data:
                 for tab in capitulo_data["tabs"]:
                     self._process_tab(tab, lines)
-            if "subcapitulos" in capitulo_data:
+            elif "subcapitulos" in capitulo_data:
                 for subcapitulo in capitulo_data["subcapitulos"]:
                     self._process_subcapitulo(subcapitulo, lines)
             else:
