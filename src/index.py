@@ -60,7 +60,7 @@ def run():
     # Embed the chunks
     embedder = EmbedderHierarchical(model_name=EMBEDDING_MODEL, batch_size=EMBEDDING_BATCH_SIZE)
     embeddings_chunks = embedder.embed_chunks(chunks)
-    return embeddings_chunks
+    print(embeddings_chunks)
     print("✅ Successfull embedding")
 
     # # =======

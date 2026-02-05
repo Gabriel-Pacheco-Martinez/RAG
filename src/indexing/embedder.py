@@ -30,7 +30,7 @@ class EmbedderHierarchical:
         
     def embed_chunks(self, chunks: dict) -> dict[str, list]:
         # Load model
-        self.load_model()
+        self._load_model()
         chunk_embeddings = {
             "documentos": [],
             "capitulos": [],
@@ -41,7 +41,6 @@ class EmbedderHierarchical:
             # Prepare inputs
             chunk_ids = []
             chunk_texts = []
-            chunk_embeddings = []
 
             # Break apart the chunk tuple
             for id, text in chunk_data.items(): 
@@ -78,7 +77,7 @@ class EmbedderHierarchical:
     
     def embed_query(self, query: str) -> np.ndarray: 
         # Load model
-        self.load_model()
+        self._load_model()
 
         # Tokenize the query
         query_tokens = self.tokenizer(query, padding=True, truncation=True, return_tensors="pt")
@@ -103,7 +102,7 @@ class Embedder:
         self.model_name = model_name
         self.batch_size = batch_size
 
-    def load_model(self):
+    def _load_model(self):
         try:
             # Use HF to load model and tokenizer
             self.tokenizer = AutoTokenizer.from_pretrained(f'sentence-transformers/{self.model_name}')
@@ -116,7 +115,7 @@ class Embedder:
 
     def embed_chunks(self, chunks: Dict[str, Dict[str, Any]]) -> list[Dict]:
         # Load model
-        self.load_model()
+        self._load_model()
 
         # Prepare inputs
         chunk_ids = []
@@ -193,7 +192,7 @@ class Embedder:
 
     def embed_query(self, query: str) -> np.ndarray: 
         # Load model
-        self.load_model()
+        self._load_model()
 
         # Tokenize the query
         query_tokens = self.tokenizer(query, padding=True, truncation=True, return_tensors="pt")
