@@ -18,6 +18,161 @@ class DocumentChunker(ABC):
     def get_and_save_chunks(self):
         pass
 
+class WebsiteChunkerHierarchical(DocumentChunker):
+    def __init__(self):
+        # ID counters
+        self.doc_id = 1
+        self.cap_id = 1
+        self.doc_chunk_id = 1
+        self.cap_chunk_id = 1
+        self.text_chunk_id = 1
+
+        # Maps
+        self.documentos = {}
+        self.capitulos = {}
+        self.chunks = {
+            "documentos": {},
+            "capitulos": {},
+            "textos": {}
+        }
+
+    def _process_attributes(self, data: dict, prefix: str) -> str:
+        # Attributes ID
+        text_id = self.text_chunk_id
+        self.text_chunk_id += 1
+
+        # Construct attributes text chunk
+        sections = []
+        for key, value in data.items():
+            # Skip resumen_capitulo
+            if key == "resumen_capitulo":
+                continue
+            # Construct section
+            section = (
+                f"### SUBTITLE: {key}\n"
+                f"### TEXT: {value.strip()}\n"
+            )
+            sections.append(section)
+        text = prefix + "\n\n".join(sections)
+        self.chunks["textos"][str(text_id)] = text
+        return str(text_id)
+    
+    def _process_tabs(self, tabs: dict, prefix):
+        textos_ids = []
+        for tab_key, tab_data in tabs.items():
+            texto = f"### TITULO: {tab_key}\n"
+            textos_ids.extend(self._process_attributes(tab_data, prefix+texto))
+
+        return textos_ids
+
+    def _process_subcapitulos(self, subcapitulos: dict):
+        textos_ids = []
+        for subcap_key, subcap_data in subcapitulos.items():
+            texto = f"### SUBCAPITULO: {subcap_key}\n"
+            # If inside subcapitulo there are tabs
+            if "tabs" in subcap_data:
+                tabs:dict = subcap_data["tabs"]
+                textos_ids.extend(self._process_tabs(tabs, texto))
+
+            # If inside subcapitulo there is simply text
+            else:
+                textos_ids.extend(self._process_attributes(subcap_data, texto))
+
+        return textos_ids
+
+    def _process_textos(self, cap_data: dict):
+        textos_ids = []
+        # If inside capitulo there are subcapitulos
+        if "subcapitulos" in cap_data:
+            subcapitulos:dict = cap_data["subcapitulos"]
+            textos_ids.extend(self._process_subcapitulos(subcapitulos))
+
+        # If inside capitulo there are tabs
+        elif "tabs" in cap_data:
+            tabs:dict = cap_data["tabs"]
+            textos_ids.extend(self._process_tabs(tabs, prefix=""))
+
+        # If inside capitulo there is simply text
+        else:
+            textos_ids.extend(self._process_attributes(cap_data, prefix=""))
+
+        return textos_ids
+
+    def _process_capitulos(self, capitulos: dict):
+        cap_ids = []
+        for cap_key, cap_data in capitulos.items():
+            # Capitulo ID
+            cap_id = self.cap_id
+            self.cap_id += 1
+            cap_chunk_id = self.cap_chunk_id
+            self.cap_chunk_id += 1
+            cap_ids.append(str(cap_id))
+
+            # Capitulo chunk
+            capitulo_chunk = cap_data["resumen_capitulo"]
+            self.chunks["capitulos"][str(cap_chunk_id)] = capitulo_chunk
+
+            # Related textos
+            textos_ids:list = self._process_textos(cap_data)
+
+            # Update capitulos map
+            self.capitulos[str(cap_id)] = {
+                "titulo": cap_key,
+                "textos_ids": textos_ids
+            }
+
+        return cap_ids
+
+    def _process_documentos(self, documentos_personas: dict):
+        for doc_key, doc_data in documentos_personas.items():
+            # Document IDs
+            doc_id = self.doc_id
+            self.doc_id += 1
+            doc_chunk_id = self.doc_chunk_id
+            self.doc_chunk_id += 1
+
+            # Title chunk
+            document_chunk = doc_data["resumen_documento"]
+            self.chunks["documentos"][str(doc_chunk_id)] = document_chunk
+
+            # Related capitulos
+            capitulos = doc_data["capitulos"]
+            cap_ids:list = self._process_capitulos(capitulos)
+            
+            # Update documents map
+            self.documentos[str(doc_id)] = {
+                "titulo": doc_key,
+                "capitulos_ids": cap_ids
+            }
+            
+    def chunk_document(self, WEBSITE_LOADED_FILE_PATH:str) -> dict:
+        # Load file
+        input_data = read_json(WEBSITE_LOADED_FILE_PATH)
+        
+        # Process personas
+        if 'personas' in input_data:
+            self._process_documentos(input_data['personas'])
+
+        # Process empresas
+        if 'empresas' in input_data:
+            self._process_documentos(input_data['empresas'])
+        
+        map = {
+            "documentos": self.documentos,
+            "capitulos": self.capitulos,
+            "chunks": self.chunks
+        }
+
+        return map
+
+    def get_and_save_chunks(self, WEBSITE_METADATA_FILE_PATH:str ,metadata:dict) -> dict[str, dict[str, Any]]:
+        write_json(metadata, WEBSITE_METADATA_FILE_PATH)
+
+        chunks = metadata["chunks"]
+        logging.info(Fore.BLUE + f"Created {len(chunks)} chunks." + Style.RESET_ALL)
+
+        return chunks
+
 class WebsiteChunker(DocumentChunker):
     def __init__(self):
         # ID counters

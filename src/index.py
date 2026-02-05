@@ -4,8 +4,8 @@ from colorama import Fore, Style
 
 # Classes
 from src.indexing.loader import PDFDocumentLoader
-from src.indexing.chunker import WebsiteChunker, PDFChunker
-from src.indexing.embedder import Embedder
+from src.indexing.chunker import WebsiteChunkerHierarchical
+from src.indexing.embedder import EmbedderHierarchical
 from src.indexing.indexer import FAISSIndexer
 
 # Configuration
@@ -51,22 +51,23 @@ def run():
 
     # =======
     # Chunk WEBSITE document
-    chunker: object = WebsiteChunker()
+    chunker: object = WebsiteChunkerHierarchical()
     metadata: map =chunker.chunk_document(WEBSITE_LOADED_FILE_PATH)
-    chunks: map = chunker.get_and_save_chunks(WEBSITE_METADATA_FILE_PATH, metadata) 
+    chunks: map = chunker.get_and_save_chunks(WEBSITE_METADATA_FILE_PATH, metadata)
     print("✅ Successfull chunking")
 
     # =======
     # Embed the chunks
-    embedder = Embedder(model_name=EMBEDDING_MODEL, batch_size=EMBEDDING_BATCH_SIZE)
+    embedder = EmbedderHierarchical(model_name=EMBEDDING_MODEL, batch_size=EMBEDDING_BATCH_SIZE)
     embeddings_chunks = embedder.embed_chunks(chunks)
+    return embeddings_chunks
     print("✅ Successfull embedding")
 
-    # =======
-    # Index the embeddings
-    indexer = FAISSIndexer(dim=EMBEDDING_N_DIMENSIONS, index_path=FAISS_INDEX_PATH, metadata_path=FAISS_METADATA_PATH)
-    indexer.index_embeddings(embeddings_chunks)
-    print("✅ Successfull FAISS indexing")
+    # # =======
+    # # Index the embeddings
+    # indexer = FAISSIndexer(dim=EMBEDDING_N_DIMENSIONS, index_path=FAISS_INDEX_PATH, metadata_path=FAISS_METADATA_PATH)
+    # indexer.index_embeddings(embeddings_chunks)
+    # print("✅ Successfull FAISS indexing")
 
 if __name__ == "__main__":
     run()
