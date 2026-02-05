@@ -17,7 +17,7 @@ from config import load_config
 logger = logging.getLogger(__name__)
 
 def run():
-        # =========
+    # =========
     # Logging
     print(Fore.GREEN + "="*50)
     print("[💼] ESTAS EN RAG")
