@@ -1,12 +1,16 @@
 # General
+import os
 import logging
+import json
 from colorama import Fore, Style
+from abc import ABC, abstractmethod
 
+# Important
 import faiss
 import numpy as np
-import json
-import os
-from abc import ABC, abstractmethod
+from qdrant_client.models import Distance, VectorParams, PointStruct
+from qdrant_client import QdrantClient
+
 
 logger = logging.getLogger(__name__)
 
@@ -55,3 +59,94 @@ class FAISSIndexer(VectorIndexer):
 
         # Say something
         logging.info(Fore.BLUE + f"Created {len(chunks)} chunks." + Style.RESET_ALL)
+
+class FAISSIndexerHierarchical(VectorIndexer):
+    def __init__(self, client:QdrantClient, dim:int):
+        self.client = client
+        self.dim = dim
+
+    def _create_collection(self, name: str):
+        if self.client.collection_exists(name):
+            return
+        
+        self.client.recreate_collection(
+            collection_name=name,
+            vectors_config=VectorParams(size=self.dim, distance=Distance.COSINE)
+        )
+
+    def _setup_collections(self):
+        self._create_collection("documentos")
+        self._create_collection("capitulos")
+        self._create_collection("textos")
+
+    def _index_texto(self, doc_id:str, cap_id:str, texto_id: str, embedding: np.ndarray, texto: str):
+        self.client.upsert(
+            collection_name="textos",
+            points=[
+                PointStruct(
+                    id=int(texto_id),
+                    vector=embedding,
+                    payload={
+                        "texto_id": texto_id,
+                        "cap_id": cap_id,
+                        "doc_id": doc_id,
+                        "texto": texto
+                    }
+                )
+            ]
+        )
+
+    def _index_capitulo(self, doc_id:str, cap_id:str, embedding: np.ndarray, texto: str, cap_metadata: dict):
+        self.client.upsert(
+            collection_name="capitulos",
+            points=[
+                PointStruct(
+                    id=int(cap_id),
+                    vector=embedding,
+                    payload={
+                        "cap_id": cap_id,
+                        "doc_id": doc_id,
+                        "titulo": cap_metadata["titulo"], 
+                        "texto": texto
+                    }
+                )
+            ]
+        )
+
+    def _index_documento(self, doc_id:str, embedding: np.ndarray, texto: str, doc_metadata: dict):
+        self.client.upsert(
+            collection_name="documentos",
+            points=[
+                PointStruct(
+                    id=int(doc_id),
+                    vector=embedding,
+                    payload={
+                        "doc_id": doc_id,
+                        "titulo": doc_metadata["titulo"], 
+                        "texto": texto
+                    }
+                )
+            ]
+        )
+
+    def index_embeddings(self, metadata: dict, embeddings: dict):
+        self._setup_collections()
+
+        # Index documentos
+        for doc_id, doc_metadata in metadata["documentos"].items():
+            embedding = embeddings["documentos"][doc_id]["embedding"]
+            texto = embeddings["documentos"][doc_id]["text"]
+            self._index_documento(doc_id, embedding, texto, doc_metadata)
+
+            # Index capitulos dentro de documentos
+            for cap_id in doc_metadata["capitulos_ids"]:
+                embedding = embeddings["capitulos"][cap_id]["embedding"]
+                texto = embeddings["capitulos"][cap_id]["text"]
+                cap_metadata = metadata["capitulos"][cap_id]
+                self._index_capitulo(doc_id, cap_id, embedding, texto, cap_metadata)
+
+                # Index textos dentro de capitulos
+                for texto_id in cap_metadata["textos_ids"]:
+                    embedding = embeddings["textos"][texto_id]["embedding"]
+                    texto = embeddings["textos"][texto_id]["text"]
+                    self._index_texto(doc_id, cap_id, texto_id, embedding, texto)

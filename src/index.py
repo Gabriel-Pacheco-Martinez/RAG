@@ -6,12 +6,13 @@ from colorama import Fore, Style
 from src.indexing.loader import PDFDocumentLoader
 from src.indexing.chunker import WebsiteChunkerHierarchical
 from src.indexing.embedder import EmbedderHierarchical
-from src.indexing.indexer import FAISSIndexer
+from src.indexing.indexer import FAISSIndexerHierarchical
 
 # Configuration
 from config.settings import PDF_RAW_DOCS_PATH, PDF_LOADED_FILE_PATH, PDF_METADATA_FILE_PATH
 from config.settings import WEBSITE_LOADED_FILE_PATH, WEBSITE_METADATA_FILE_PATH
 from config.settings import FAISS_INDEX_PATH, FAISS_METADATA_PATH
+from config.settings import QDRANT_CLIENT
 
 from config import load_config
 logger = logging.getLogger(__name__)
@@ -60,14 +61,13 @@ def run():
     # Embed the chunks
     embedder = EmbedderHierarchical(model_name=EMBEDDING_MODEL, batch_size=EMBEDDING_BATCH_SIZE)
     embeddings_chunks = embedder.embed_chunks(chunks)
-    print(embeddings_chunks)
     print("✅ Successfull embedding")
 
-    # # =======
-    # # Index the embeddings
-    # indexer = FAISSIndexer(dim=EMBEDDING_N_DIMENSIONS, index_path=FAISS_INDEX_PATH, metadata_path=FAISS_METADATA_PATH)
-    # indexer.index_embeddings(embeddings_chunks)
-    # print("✅ Successfull FAISS indexing")
+    # =======
+    # Index the embeddings
+    indexer = FAISSIndexerHierarchical(client=QDRANT_CLIENT, dim=EMBEDDING_N_DIMENSIONS)
+    indexer.index_embeddings(metadata, embeddings_chunks)
+    print("✅ Successfull FAISS indexing")
 
 if __name__ == "__main__":
     run()

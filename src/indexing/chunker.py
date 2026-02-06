@@ -55,7 +55,7 @@ class WebsiteChunkerHierarchical(DocumentChunker):
             sections.append(section)
         text = prefix + "\n\n".join(sections)
         self.chunks["textos"][str(text_id)] = text
-        return str(text_id)
+        return [str(text_id)]
     
     def _process_tabs(self, tabs: dict, prefix):
         textos_ids = []

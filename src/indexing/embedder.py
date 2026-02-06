@@ -32,9 +32,9 @@ class EmbedderHierarchical:
         # Load model
         self._load_model()
         chunk_embeddings = {
-            "documentos": [],
-            "capitulos": [],
-            "textos": []
+            "documentos": {},
+            "capitulos": {},
+            "textos": {}
         }
 
         for chunk_type, chunk_data in chunks.items():
@@ -67,11 +67,11 @@ class EmbedderHierarchical:
 
                 # Construct results
                 for chunk_id, text, emb in zip(batch_chunk_ids, batch_chunk_texts, embeddings):
-                    chunk_embeddings[chunk_type].append({
+                    chunk_embeddings[chunk_type][chunk_id] = {
                         "chunk_id": chunk_id,
                         "text": text,
                         "embedding": emb.numpy() # from tensor to np.array
-                    })
+                    }
 
         return chunk_embeddings
     
