@@ -66,21 +66,21 @@ class FAISSIndexerHierarchical(VectorIndexer):
         self.dim = dim
 
     def _create_collection(self, name: str):
+        # Delete if it exists
         try:
-            self.client.get_collection(name)
-            exists = True
+            self.client.delete_collection(name)
         except Exception:
-            exists = False
+            pass  # collection did not exist
 
-        if not exists:
-            self.client.create_collection(
-                collection_name=name,
-                vectors_config=VectorParams(
-                    size=self.dim,
-                    distance=Distance.COSINE
-                )
+        # Recreate
+        self.client.create_collection(
+            collection_name=name,
+            vectors_config=VectorParams(
+                size=self.dim,
+                distance=Distance.COSINE
             )
-        
+        )
+
     def _setup_collections(self):
         self._create_collection("documentos")
         self._create_collection("capitulos")

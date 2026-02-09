@@ -29,4 +29,4 @@ CHATBOT:
 
 # Configuration for vector database
 TOP_K: 5
-THRESHOLD: 0.5
+THRESHOLD: 0.3

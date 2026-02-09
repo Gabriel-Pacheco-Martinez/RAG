@@ -50,18 +50,6 @@ def run(query) -> dict:
     print("✅ Successfull search")
 
     # # =======
-    # # Print results
-    # logger.info(Fore.MAGENTA + "=" * 60 + Style.RESET_ALL)
-    # logger.info(Fore.MAGENTA + "💼 Retrieved Context Chunks:" + Style.RESET_ALL)
-    # logger.info(Fore.MAGENTA + "=" * 60 + Style.RESET_ALL)
-    # for i, v in enumerate(vectors, start=1):
-    #     logger.info(Fore.BLUE + f"Result {i}:" + Style.RESET_ALL)
-    #     logger.info(f"   • Chunk ID   : {v['chunk_id']}")
-    #     logger.info(f"   • Similarity : {v['similarity']:.2f}")
-    #     logger.info(f"   • Text       : {v['text']}")
-    # print("✅ Successfull retrieval")
-
-    # # =======
     # # Prompt generation and call llm
     # llm = LLM_Engine_WEBSITEs(LLM_SOURCE, cfg, metadata_file_path=WEBSITE_METADATA_FILE_PATH)
     # context = llm.generate_context(vectors)
@@ -72,4 +60,4 @@ def run(query) -> dict:
     # return llm_response
 
 if __name__ == "__main__":
-    run("Informacion depositos a plazo fijo")
+    run("Beneficios credito vehiculo usado")
