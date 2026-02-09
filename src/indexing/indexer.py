@@ -66,14 +66,21 @@ class FAISSIndexerHierarchical(VectorIndexer):
         self.dim = dim
 
     def _create_collection(self, name: str):
-        if self.client.collection_exists(name):
-            return
-        
-        self.client.recreate_collection(
-            collection_name=name,
-            vectors_config=VectorParams(size=self.dim, distance=Distance.COSINE)
-        )
+        try:
+            self.client.get_collection(name)
+            exists = True
+        except Exception:
+            exists = False
 
+        if not exists:
+            self.client.create_collection(
+                collection_name=name,
+                vectors_config=VectorParams(
+                    size=self.dim,
+                    distance=Distance.COSINE
+                )
+            )
+        
     def _setup_collections(self):
         self._create_collection("documentos")
         self._create_collection("capitulos")
@@ -85,7 +92,7 @@ class FAISSIndexerHierarchical(VectorIndexer):
             points=[
                 PointStruct(
                     id=int(texto_id),
-                    vector=embedding,
+                    vector=embedding.tolist(), # Qdrant requires list, not np.array
                     payload={
                         "texto_id": texto_id,
                         "cap_id": cap_id,
@@ -102,7 +109,7 @@ class FAISSIndexerHierarchical(VectorIndexer):
             points=[
                 PointStruct(
                     id=int(cap_id),
-                    vector=embedding,
+                    vector=embedding.tolist(), # Qdrant requires list, not np.array
                     payload={
                         "cap_id": cap_id,
                         "doc_id": doc_id,
@@ -119,7 +126,7 @@ class FAISSIndexerHierarchical(VectorIndexer):
             points=[
                 PointStruct(
                     id=int(doc_id),
-                    vector=embedding,
+                    vector=embedding.tolist(), # Qdrant requires list, not np.array
                     payload={
                         "doc_id": doc_id,
                         "titulo": doc_metadata["titulo"], 

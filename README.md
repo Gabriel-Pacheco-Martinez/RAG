@@ -9,6 +9,9 @@ python -m app.cli -s # server to receive queries
 ## Important remarks
 - The metadata file a json, but when converted to an object is a map with keys "documents, capitulos, subcapitulos, tabs, secciones, subsecciones, chunks".
 
+
+docker run -p 6333:6333 -p 6334:6334 qdrant/qdrant
+
 ## Todays task
 - Add memory to the conversation
 - Should i add like a little title to each section?

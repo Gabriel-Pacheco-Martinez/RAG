@@ -1,21 +1,42 @@
 # General
 import logging
+from xmlrpc import client
 from colorama import Fore, Style
-
-import faiss
-import numpy as np
 import json
 import os
-from abc import ABC, abstractmethod
+
+# Databases
+import faiss
+import numpy as np
+from qdrant_client.models import Distance, VectorParams, PointStruct
+from qdrant_client import QdrantClient
+        # info = self.client.get_collection("documentos")
+        # print(info.config.params.vectors)
+        # return info
 
 logger = logging.getLogger(__name__)
 
-class VectorSearcher(ABC):
-    def __init__(self, index_path: str, metadata_path: str):
-        self.index_path = index_path
-        self.metadata_path = metadata_path
+class FAISSSeacherHierarchical():
+    def __init__(self, client: QdrantClient, threshold: float, top_k: int):
+        self.client = client
+        self.threshold = threshold
+        self.top_k = top_k
 
-class FAISSSearcher(VectorSearcher):
+    def retrieve_best_documento(self, embedded_query: np.ndarray):
+        hits = self.client.search(  # Changed from query_points to search
+            collection_name="documentos",
+            query_vector=embedded_query.flatten().tolist(),  # Changed from query to query_vector
+            limit=1,
+            score_threshold=self.threshold  # Optional: filter by threshold
+        )
+        print(hits)
+        return hits[0].payload["doc_id"] if hits else None
+
+    def search(self,embedded_query: np.ndarray) -> list[dict]:
+        best_doc_id = self.retrieve_best_documento(embedded_query)
+        print(f"Best doc id: {best_doc_id}")
+
+class FAISSSearcher():
     def __init__(self, index_path: str, metadata_path: str):
         super().__init__(index_path, metadata_path)
         self.index = faiss.read_index(index_path)
