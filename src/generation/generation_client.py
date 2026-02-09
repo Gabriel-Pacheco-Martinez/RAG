@@ -76,180 +76,25 @@ class LLM_Engine(ABC):
             "context": contexto
         }
 
-class LLM_Engine_WEBSITEs(LLM_Engine):
-    def __init__(self, LLM_SOURCE: str, config: dict,  metadata_file_path: str,temperature: float = 0):
+class LLM_Engine(LLM_Engine):
+    def __init__(self, LLM_SOURCE: str, config: dict, temperature: float = 0):
         super().__init__(LLM_SOURCE, config, temperature)
-        self.metadata = read_json(metadata_file_path)
 
-    def _pick_most_relevant_block(self, tab_scores, subcap_scores, cap_scores):
-        candidates = []
+    def generate_context(self, vector: dict) -> str:
+        payload = vector.payload
 
-        for tab_id, score in tab_scores.items():
-            candidates.append((tab_id, score, "tab"))
+        context = f"""
+        DOCUMENTO: {payload.get('doc_titulo', '').upper()}
+        Resumen del documento:
+        {payload.get('doc_texto', '')}
 
-        for subcap_id, score in subcap_scores.items():
-            candidates.append((subcap_id, score, "subcapitulo"))
+        CAPÍTULO: {payload.get('cap_titulo', '').upper()}
+        Descripción del capítulo:
+        {payload.get('cap_texto', '')}
 
-        for cap_id, score in cap_scores.items():
-            candidates.append((cap_id, score, "capitulo"))
+        CONTENIDO RELEVANTE:
+        {payload.get('texto', '')}
 
-        if not candidates:
-            return None
+        """.strip()
 
-        max_candidate = max(candidates, key=lambda x: x[1])
-        return max_candidate
-
-    def _process_subsection(self, subseccion_id, lines):
-        subseccion_id = str(subseccion_id)
-        subseccion_data = self.metadata["subsecciones"][subseccion_id]
-        lines.append(f"**{subseccion_data['titulo']}**")
-
-        for chunk_id in subseccion_data["chunks"]:
-            chunk_id = str(chunk_id)
-            chunk_data = self.metadata["chunks"][chunk_id]
-            lines.append(f"CHUNK DATA: {chunk_data['text']}")
-
-    def _process_section(self, seccion_id, lines):
-        seccion_id = str(seccion_id)
-        seccion_data = self.metadata["secciones"][seccion_id]
-        lines.append(f"SECCION DATA: {seccion_data['titulo']}")
-
-        if "subsecciones" in seccion_data:
-            for subseccion_id in seccion_data["subsecciones"]:
-                self._process_subsection(subseccion_id, lines)
-        elif "chunks" in seccion_data:
-            for chunk_id in seccion_data["chunks"]:
-                chunk_id = str(chunk_id)
-                chunk_data = self.metadata["chunks"][chunk_id]
-                lines.append(f"CHUNK DATA: {chunk_data['text']}")
-
-    def _process_tab(self, tab_id, lines):
-        tab_id = str(tab_id)
-        tab_data = self.metadata["tabs"][tab_id]
-        lines.append(f"TAB DATA: {tab_data['titulo']}")
-        
-        for seccion in tab_data["secciones"]:
-            self._process_section(seccion, lines)
-        
-    def _process_subcapitulo(self, subcapitulo_id, lines):
-        subcapitulo_id = str(subcapitulo_id)
-        subcapitulo_data = self.metadata["subcapitulos"][subcapitulo_id]
-        lines.append(f"SUBCAPITULO DATA: {subcapitulo_data['titulo']}")
-
-        if "tabs" in subcapitulo_data:
-            for tab_id in subcapitulo_data["tabs"]:
-                self._process_tab(tab_id, lines)
-        else:
-            for seccion_id in subcapitulo_data["secciones"]:
-                self._process_section(seccion_id, lines)
-
-    def _reconstruct_complete_context(self, candidate):
-        lines = []
-
-        if candidate[2] == "tab":
-            self._process_tab(candidate[0], lines)
-
-        elif candidate[2] == "subcapitulo":
-            self._process_subcapitulo(candidate[0], lines)
-
-        elif candidate[2] == "capitulo":
-            capitulo_id = str(candidate[0])
-            capitulo_data = self.metadata["capitulos"][capitulo_id]
-            if "tabs" in capitulo_data:
-                for tab in capitulo_data["tabs"]:
-                    self._process_tab(tab, lines)
-            elif "subcapitulos" in capitulo_data:
-                for subcapitulo in capitulo_data["subcapitulos"]:
-                    self._process_subcapitulo(subcapitulo, lines)
-            else:
-                for seccion in capitulo_data["secciones"]:
-                    self._process_section(seccion, lines)
-
-        return "\n".join(lines)
-
-    def generate_context(self, context_vectors: list[dict]):
-        tab_scores: dict = {}
-        subcap_scores: dict = {}
-        cap_scores: dict = {}
-
-        # Agarrar score por cada chunk
-        for i, cv in enumerate(context_vectors):
-            cid = str(cv["chunk_id"])
-            score = cv["similarity"]
-
-            meta = self.metadata["chunks"][cid]
-
-            if "tab_id" in meta:
-                tab_scores[meta["tab_id"]] = tab_scores.get(meta["tab_id"], 0) + score
-
-            if "subcapitulo_id" in meta:
-                subcap_scores[meta["subcapitulo_id"]] = subcap_scores.get(meta["subcapitulo_id"], 0) + score
-                continue
-
-            if "capitulo_id" in meta:
-                cap_scores[meta["capitulo_id"]] = cap_scores.get(meta["capitulo_id"], 0) + score
-                continue
-            
-        # Agarrar seccion con mayor score y juntar todo el context
-        most_relevant_block = self._pick_most_relevant_block(tab_scores, subcap_scores, cap_scores)
-        context_for_llm:str = self._reconstruct_complete_context(most_relevant_block)
-
-        logger.info(Fore.MAGENTA + "=" * 60 + Style.RESET_ALL)
-        logger.info(Fore.MAGENTA + "💼 CONTEXT:" + Style.RESET_ALL)
-        logger.info(Fore.MAGENTA + "=" * 60 + Style.RESET_ALL)
-        logger.info(Fore.BLUE + "ORIGEN CONTEXTO:" + Style.RESET_ALL)
-        logger.info(f"   • {most_relevant_block[2]} con id {most_relevant_block[0]} y score: {most_relevant_block[1]:.2f}")
-
-        return context_for_llm
-
-
-class LLM_Engine_PDFs(LLM_Engine):
-    def __init__(self, LLM_SOURCE: str, config: dict,  metadata_file_path: str,temperature: float = 0):
-        super().__init__(LLM_SOURCE, config, temperature)
-        self.metadata = read_json(metadata_file_path)
-
-    def generate_context(self, context_vectors: list[dict]):
-        # Get chunk_ids from retrieved vectors
-        chunk_ids = [cv["chunk_id"] for cv in context_vectors]
-
-        # Get metadata 
-        chunks = self.metadata["chunks"]
-        sections = self.metadata["sections"]
-        chapters = self.metadata["chapters"]
-
-        # Get chapter_id and section_id for vectors
-        chapter_ids = []
-        section_ids = []
-        for cid in chunk_ids:
-            chunk = chunks[str(cid)]
-            chapter_ids.append(chunk["chapter_id"])
-            section_ids.append(chunk["section_id"])
-                    
-        # Get the most common chapter and section
-        most_common_chapter = Counter(chapter_ids).most_common(1)[0][0]
-        most_common_section = Counter(section_ids).most_common(1)[0][0]
-
-         # Get chapter title
-        chapter_title = chapters[str(most_common_chapter)]["title"]
-
-        # Get all section titles for that chapter
-        section_titles = [
-            sections[str(sid)]["title"] 
-            for sid in chapters[str(most_common_chapter)]["sections"]
-        ]
-
-        # List of text for most common chapter
-        chapter_chunks = [ 
-            c["text"] for c in chunks.values()
-            if c["chapter_id"] == most_common_chapter
-        ]
-
-        # Join all text for most common chapter
-        chapter_context = " ".join(chapter_chunks)
-
-        # Chapter title + section title + chapter context for LLM 
-        context_for_llm = f"Capitulo: {chapter_title}\nSecciones incluidas: {', '.join(section_titles)}\n\n{chapter_context}"
-
-        # Say something
-        logging.info(Fore.BLUE + f"Created a context of {len(context_for_llm.split())} words for the LLM." + Style.RESET_ALL)
-        return context_for_llm
+        return context

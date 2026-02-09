@@ -2,6 +2,7 @@ import os
 import redis
 from dotenv import load_dotenv
 from colorama import Fore, Style
+from qdrant_client import QdrantClient
 
 # Load .env secrets
 load_dotenv()
@@ -16,6 +17,12 @@ REDIS_CLIENT = redis.StrictRedis(
     port=6379,          # Docker exposed port
     db=0,               # This goes from 0 to 15 
     decode_responses=True
+)
+
+# =====
+# Qdrant client
+QDRANT_CLIENT = QdrantClient(
+    url="http://localhost:6333",  # Docker exposed port
 )
 
 # =====

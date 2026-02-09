@@ -8,7 +8,7 @@ LLM_SOURCE: "groq"
 LLM_GENERATOR_MODEL_GEMINI: "gemini-3-flash-preview"
 LLM_VERIFY_MODEL_GEMINI: "gemini-3-flash-preview"
 LLM_GENERATOR_MODEL_OLLAMA: "qwen3:8b"
-LLM_VERIFY_MODEL_OLLAMA: "qwen3:8b"
+LLM_VERIFY_MODEL_OLLAMA: "qwen3:8b" 
 LLM_GENERATOR_MODEL_GROQ: "llama-3.1-8b-instant"
 LLM_VERIFY_MODEL_GROQ: "llama-3.1-8b-instant"
 
@@ -29,4 +29,4 @@ CHATBOT:
 
 # Configuration for vector database
 TOP_K: 5
-THRESHOLD: 0.5
+THRESHOLD: 0.3

@@ -4,23 +4,30 @@ from colorama import Fore, Style
 
 # Classes
 from src.indexing.loader import PDFDocumentLoader
-from src.indexing.chunker import WebsiteChunker, PDFChunker
+from src.indexing.chunker import WebsiteChunker
 from src.indexing.embedder import Embedder
-from src.indexing.indexer import FAISSIndexer
+from src.indexing.indexer import Indexer
 
 # Configuration
 from config.settings import PDF_RAW_DOCS_PATH, PDF_LOADED_FILE_PATH, PDF_METADATA_FILE_PATH
 from config.settings import WEBSITE_LOADED_FILE_PATH, WEBSITE_METADATA_FILE_PATH
 from config.settings import FAISS_INDEX_PATH, FAISS_METADATA_PATH
+from config.settings import QDRANT_CLIENT
 
 from config import load_config
 logger = logging.getLogger(__name__)
 
 def run():
     # =========
+    # Printing
+    print(Fore.GREEN + "="*50)
+    print("[📚] INGESTION")
+    print("="*50 + Style.RESET_ALL)
+
+    # =========
     # Logging
     logger.info(Fore.GREEN + "="*50)
-    logger.info("[💼] INGESTION")
+    logger.info("[📚] INGESTION")
     logger.info("="*50 + Style.RESET_ALL)
 
     # ======
@@ -47,7 +54,7 @@ def run():
     # Chunk WEBSITE document
     chunker: object = WebsiteChunker()
     metadata: map =chunker.chunk_document(WEBSITE_LOADED_FILE_PATH)
-    chunks: map = chunker.get_and_save_chunks(WEBSITE_METADATA_FILE_PATH, metadata) 
+    chunks: map = chunker.get_and_save_chunks(WEBSITE_METADATA_FILE_PATH, metadata)
     print("✅ Successfull chunking")
 
     # =======
@@ -58,9 +65,9 @@ def run():
 
     # =======
     # Index the embeddings
-    indexer = FAISSIndexer(dim=EMBEDDING_N_DIMENSIONS, index_path=FAISS_INDEX_PATH, metadata_path=FAISS_METADATA_PATH)
-    indexer.index_embeddings(embeddings_chunks)
-    print("✅ Successfull FAISS indexing")
+    indexer = Indexer(client=QDRANT_CLIENT, dim=EMBEDDING_N_DIMENSIONS)
+    indexer.index_embeddings(metadata, embeddings_chunks)
+    print("✅ Successfull indexing")
 
 if __name__ == "__main__":
     run()
