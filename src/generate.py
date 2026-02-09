@@ -9,7 +9,6 @@ from src.generation.searcher import Searcher
 from src.generation.generation_client import LLM_Engine
 
 # Configuration
-from config.settings import WEBSITE_METADATA_FILE_PATH
 from config.settings import QDRANT_CLIENT
 
 from config import load_config
