@@ -5,11 +5,11 @@ from colorama import Fore, Style
 
 # Classes
 from src.indexing.embedder import Embedder
-from src.generation.searcher import FAISSSearcher, FAISSSeacherHierarchical
-from src.generation.generation_client import LLM_Engine_PDFs, LLM_Engine_WEBSITEs
+from src.generation.searcher import Searcher
+from src.generation.generation_client import LLM_Engine
 
 # Configuration
-from config.settings import PDF_METADATA_FILE_PATH, WEBSITE_METADATA_FILE_PATH
+from config.settings import WEBSITE_METADATA_FILE_PATH
 from config.settings import QDRANT_CLIENT
 
 from config import load_config
@@ -17,15 +17,15 @@ logger = logging.getLogger(__name__)
 
 def run(query) -> dict:
     # =========
-    # Logging
+    # Printing
     print(Fore.GREEN + "="*50)
-    print("[💼] GENERATION")
+    print("[⚙️ ] GENERATION")
     print("="*50 + Style.RESET_ALL)
 
     # =========
     # Logging
     logger.info(Fore.GREEN + "="*50)
-    logger.info("[💼] GENERATION")
+    logger.info("[⚙️] GENERATION")
     logger.info("="*50 + Style.RESET_ALL)
 
     # ======
@@ -45,19 +45,19 @@ def run(query) -> dict:
 
     # =======
     # Search embeddings
-    searcher = FAISSSeacherHierarchical(QDRANT_CLIENT, THRESHOLD, TOP_K)
-    vectors: list[dict] = searcher.search(embedded_query)
+    searcher = Searcher(QDRANT_CLIENT, THRESHOLD, TOP_K)
+    vector: list[dict] = searcher.search(embedded_query)
     print("✅ Successfull search")
 
-    # # =======
-    # # Prompt generation and call llm
-    # llm = LLM_Engine_WEBSITEs(LLM_SOURCE, cfg, metadata_file_path=WEBSITE_METADATA_FILE_PATH)
-    # context = llm.generate_context(vectors)
-    # llm_response = llm.prompt_llm(query, context)
+    # =======
+    # Prompt generation and call llm
+    llm = LLM_Engine(LLM_SOURCE, cfg)
+    context = llm.generate_context(vector)
+    llm_response = llm.prompt_llm(query, context)
 
-    # # ======
-    # # Say something
-    # return llm_response
+    # ======
+    # Say something
+    return llm_response
 
 if __name__ == "__main__":
     run("Beneficios credito vehiculo usado")

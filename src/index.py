@@ -4,9 +4,9 @@ from colorama import Fore, Style
 
 # Classes
 from src.indexing.loader import PDFDocumentLoader
-from src.indexing.chunker import WebsiteChunkerHierarchical
-from src.indexing.embedder import EmbedderHierarchical
-from src.indexing.indexer import FAISSIndexerHierarchical
+from src.indexing.chunker import WebsiteChunker
+from src.indexing.embedder import Embedder
+from src.indexing.indexer import Indexer
 
 # Configuration
 from config.settings import PDF_RAW_DOCS_PATH, PDF_LOADED_FILE_PATH, PDF_METADATA_FILE_PATH
@@ -19,15 +19,15 @@ logger = logging.getLogger(__name__)
 
 def run():
     # =========
-    # Logging
+    # Printing
     print(Fore.GREEN + "="*50)
-    print("[💼] ESTAS EN RAG")
+    print("[📚] INGESTION")
     print("="*50 + Style.RESET_ALL)
 
     # =========
     # Logging
     logger.info(Fore.GREEN + "="*50)
-    logger.info("[💼] INGESTION")
+    logger.info("[📚] INGESTION")
     logger.info("="*50 + Style.RESET_ALL)
 
     # ======
@@ -52,22 +52,22 @@ def run():
 
     # =======
     # Chunk WEBSITE document
-    chunker: object = WebsiteChunkerHierarchical()
+    chunker: object = WebsiteChunker()
     metadata: map =chunker.chunk_document(WEBSITE_LOADED_FILE_PATH)
     chunks: map = chunker.get_and_save_chunks(WEBSITE_METADATA_FILE_PATH, metadata)
     print("✅ Successfull chunking")
 
     # =======
     # Embed the chunks
-    embedder = EmbedderHierarchical(model_name=EMBEDDING_MODEL, batch_size=EMBEDDING_BATCH_SIZE)
+    embedder = Embedder(model_name=EMBEDDING_MODEL, batch_size=EMBEDDING_BATCH_SIZE)
     embeddings_chunks = embedder.embed_chunks(chunks)
     print("✅ Successfull embedding")
 
     # =======
     # Index the embeddings
-    indexer = FAISSIndexerHierarchical(client=QDRANT_CLIENT, dim=EMBEDDING_N_DIMENSIONS)
+    indexer = Indexer(client=QDRANT_CLIENT, dim=EMBEDDING_N_DIMENSIONS)
     indexer.index_embeddings(metadata, embeddings_chunks)
-    print("✅ Successfull FAISS indexing")
+    print("✅ Successfull indexing")
 
 if __name__ == "__main__":
     run()
