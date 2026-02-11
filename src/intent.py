@@ -31,6 +31,7 @@ def run(user_message_object: object, format: str) -> Tuple[str, str]:
     # Manage session
     session_manager = SessionManager(REDIS_CLIENT, TTL_SECONDS)
     memory = session_manager.get_or_create_session_data(user_message_object)
+    print("✅ Successfull memory creation") 
 
     # =======
     # Validate input
@@ -60,13 +61,13 @@ def run(user_message_object: object, format: str) -> Tuple[str, str]:
     # Interaction with LLM
     llm_answer = {}
     if intention_answer["intencion_actual"] == "preguntas":
-        if intention_answer["slots_requeridos"]["rag_context"] == True:
-            llm_answer = generate.run(user_message_text)
-        else:
-            llm_answer = {
-                "answer": ""
-            }
-
+        llm_answer = generate.run(user_message_text)
+        # if intention_answer["slots_requeridos"]["rag_context"] == True:
+        #     llm_answer = generate.run(user_message_text)
+        # else:
+        #     llm_answer = {
+        #         "answer": ""
+        #     }
     print("✅ Successfull call to generation LLM") 
 
     # =======

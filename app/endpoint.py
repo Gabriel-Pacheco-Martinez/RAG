@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from pydantic import BaseModel, Field, validator
 from src import generate, intent
+from core import conversation
 import uvicorn
 
 from fastapi.responses import JSONResponse
@@ -13,6 +14,17 @@ class GeneratorQueryRequest(BaseModel):
 class QueryRequest(BaseModel):
     session_id: int
     mensaje: str
+
+
+@app.post("/conversation")
+def query_endpoint(request: QueryRequest):
+    response = conversation.run(request)
+
+    response_payload = {
+        "mensaje": request.mensaje,
+        "response": response
+    }
+    return JSONResponse(content=response_payload)
 
 
 @app.post("/pregunta_generation")
@@ -39,6 +51,7 @@ def query_endpoint(request: QueryRequest):
     }
 
     return JSONResponse(content=response_payload)
+
 
 
 def start_server(host: str = "0.0.0.0", port: int = 8000):

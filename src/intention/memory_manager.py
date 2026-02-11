@@ -49,36 +49,39 @@ class MemoryManager():
         
         if len(historial_de_mensajes) > 6:
             historial_de_mensajes = historial_de_mensajes[-6:]
+
+        if llm_answer:
+            print("HELLO!!")
+            historial_de_mensajes.append("LLM:" + llm_answer["answer"])
+            if len(historial_de_mensajes) > 6:
+                historial_de_mensajes = historial_de_mensajes[-6:]
         session_data["historial_de_mensajes"] = json.dumps(historial_de_mensajes)
+
+        # Update context
+        if llm_answer:
+            session_data["context"] = llm_answer["context"]
 
         # Update slots and status
         intent = intention_answer["intencion_actual"]
         session_data["slots_faltantes"] = []
         if intent == "cobre con qr":
             status_cobre = self._process_qr_slots(["monto", "destinatario"], intention_answer["slots_requeridos"], session_data)
-            session_data["slots"]["rag_context"] = "false"
+            # session_data["slots"]["rag_context"] = "false"
             session_data["status"] = status_cobre
 
         elif intent == "pague con qr":
             status_pague = self._process_qr_slots(["monto", "destinatario"], intention_answer["slots_requeridos"], session_data)
-            session_data["slots"]["rag_context"] = "false"
+            # session_data["slots"]["rag_context"] = "false"
             session_data["status"] = status_pague
 
         elif intent == "preguntas":
-            session_data["slots"]["rag_context"] = intention_answer["slots_requeridos"]["rag_context"]
+            # session_data["slots"]["rag_context"] = intention_answer["slots_requeridos"]["rag_context"]
             session_data["status"] = "en proceso"
         else:
-            session_data["slots"]["rag_context"] = "false"
+            # session_data["slots"]["rag_context"] = "false"
             session_data["status"] = "completo"
 
-        # Update llm answer if needed
-        if llm_answer:
-            historial_de_mensajes.append("LLM:" + llm_answer["answer"])
-            if len(historial_de_mensajes) > 6:
-                historial_de_mensajes = historial_de_mensajes[-6:]
-                session_data["historial_de_mensajes"] = json.dumps(historial_de_mensajes)
-            if llm_answer["context"]:
-                session_data["context"] = llm_answer["context"]
+
 
         # Update data on REDIS
         session_data = serialize_session_data(session_data)
