@@ -4,34 +4,41 @@ from colorama import Fore, Style
 
 # LangGraph
 from langgraph.graph import StateGraph
-from core.models.lang import ChatState
+from core.models.state import ChatState
 
 # Nodes
-from core.nodes.classification.classification import topic_classification
+from core.nodes.memoria.read import read_memory
+from core.nodes.classify.classify import classify_query
 
 # Configuration
-from config import load_config
 logger = logging.getLogger(__name__)
 
 
-def run(request: object) -> str:
-    
+def run(user_message: object) -> str:
+    # Create the graph
     graph = StateGraph(ChatState)
+    user_session_id = user_message.session_id
+    user_message_text = user_message.mensaje
 
-    # graph.add_node("load_state", load_state_from_redis)
+    # Add nodes
+    graph.add_node("read_memory", read_memory)
+    graph.add_node("classify_query", classify_query)
 
-    graph.add_node("topic_classification", topic_classification)
+    # Add entry and finish nodes
+    graph.set_entry_point("read_memory")
+    graph.add_edge("read_memory", "classify_query")
+    graph.set_finish_point("classify_query")
 
-    # graph.add_node("rewrite_query", rewrite_query)
+    # Compile the graph
+    app = graph.compile()
 
-    # graph.add_node("decide_rag", decide_rag_vs_memory)
+    # Invoke the graph
+    final_state = app.invoke({
+        "user_session_id": user_session_id,
+        "user_message": user_message_text,
+    })
 
-    # graph.add_node("retrieve", retrieve_documents)
-    # graph.add_node("rerank", cross_encoder_rerank)
+    return final_state
 
-    # graph.add_node("confidence_gate", pre_answer_confidence_gate)
-
-    # graph.add_node("build_prompt", build_prompt)
-    # graph.add_node("answer", llm_answer)
-
-    # graph.add_node("save_state", save_state_to_redis)
+if __name__ == "__main__":
+    run()

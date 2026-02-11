@@ -1,17 +1,25 @@
+# General
 import os 
-import redis
-from dotenv import load_dotenv
 from colorama import Fore, Style
+
+# Redis & Qdrant
+import redis
 from qdrant_client import QdrantClient
 
+# Langchain
+from langchain_ollama import ChatOllama
+from langchain_groq import ChatGroq
+from langchain_google_genai import ChatGoogleGenerativeAI
+
 # Load .env secrets
+from dotenv import load_dotenv
 load_dotenv()
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 GROQ_API_KEY = os.getenv("GROQ_API_KEY")
 
 # =====
 # Redis communication
-TTL_SECONDS = 900
+REDIS_TTL_SECONDS = 900
 REDIS_CLIENT = redis.StrictRedis(
     host="localhost",
     port=6379,          # Docker exposed port
@@ -24,6 +32,14 @@ REDIS_CLIENT = redis.StrictRedis(
 QDRANT_CLIENT = QdrantClient(
     url="http://localhost:6333",  # Docker exposed port
 )
+
+# =====
+# LLM Models
+LLM_SOURCE = "groq"
+GROQ_GENERATOR_MODEL = ChatGroq(model="llama-3.1-8b-instant", temperature=0, api_key=GROQ_API_KEY)
+GEMINI_GENERATOR_MODEL = ChatGoogleGenerativeAI(model="gemini-3-flash-preview", temperature=0, google_api_key=GEMINI_API_KEY)
+OLLAMA_GENERATOR_MODEL = ChatOllama(model="qwen3:8b", temperature=0)
+GEMINI_MULTIMODAL_MODEL = ChatGoogleGenerativeAI(model="gemini-2.5-flash", temperature=0, google_api_key=GEMINI_API_KEY)
 
 # =====
 # Constraints
@@ -56,4 +72,5 @@ FAISS_METADATA_PATH = "vector_db/faiss_metadata.json"
 # Prompts and schemas path
 PROMPTS_GENERATION_PATH = "src/generation/"
 PROMPTS_INTENT_PATH = "src/intention/"
+PROMPTS_PATH = "prompts/"
 SCHEMAS_PATH = "schemas/"

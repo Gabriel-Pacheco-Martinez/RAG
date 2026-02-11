@@ -13,7 +13,7 @@ from src import generate
 
 # Configuration 
 from config.settings import REDIS_CLIENT
-from config.settings import TTL_SECONDS
+from config.settings import REDIS_TTL_SECONDS
 from config.settings import GEMINI_API_KEY
 from config.settings import GROQ_API_KEY
 from config.settings import MAX_TEXT_SIZE
@@ -29,7 +29,7 @@ def run(user_message_object: object, format: str) -> Tuple[str, str]:
 
     # =======
     # Manage session
-    session_manager = SessionManager(REDIS_CLIENT, TTL_SECONDS)
+    session_manager = SessionManager(REDIS_CLIENT, REDIS_TTL_SECONDS)
     memory = session_manager.get_or_create_session_data(user_message_object)
     print("✅ Successfull memory creation") 
 
@@ -72,7 +72,7 @@ def run(user_message_object: object, format: str) -> Tuple[str, str]:
 
     # =======
     # Manage memory
-    response_manager = MemoryManager(REDIS_CLIENT, TTL_SECONDS)
+    response_manager = MemoryManager(REDIS_CLIENT, REDIS_TTL_SECONDS)
     intention_answer = response_manager.review_response(intention_answer)
     session_data = response_manager.update_session_data(intention_answer, user_message_object.session_id, user_message_text, llm_answer)
     print("✅ Successfull memory management")

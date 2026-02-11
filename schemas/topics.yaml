@@ -1,0 +1,73 @@
+topics:
+
+  creditos:
+    descripción: Productos de financiamiento solo para personas naturales.
+    keywords:
+      - prestamo
+      - credito
+      - financiamiento
+      - hipotecario
+      - vehicular
+      - consumo
+
+  ahorro_inversion:
+    descripción: Productos para ahorro o inversión de dinero.
+    keywords:
+      - caja de ahorro
+      - cuenta corriente
+      - plazo fijo
+      - inversion
+      - intereses
+
+  servicios:
+    descripción: Servicios bancarios y canales digitales.
+    keywords_subcatergorias:
+      nacionales:
+        - giros locales
+        - cheques
+        - pago impuestos
+        - fideicomisos
+      internacionales:
+        - transferencias al exterior
+        - cartas de credito
+        - cobranzas documentarias
+        - cheques
+      digitales:
+        - app movil
+        - pagina web
+        - ATM
+        - billetera movil
+        - chatbot
+
+  seguros:
+    descripción: Productos de seguros ofrecidos por el banco.
+    keywords:
+      - seguro
+      - salud
+      - accidentes
+      - fraude
+      - robo
+      - proteccion
+
+  corporativa:
+    descripción: Productos y servicios para empresas grandes.
+    keywords:
+      - empresa
+      - corporativo
+      - banca corporativa
+
+  mype:
+    descripción: Productos y servicios para micro y pequeña empresa.
+    keywords:
+      - microempresa
+      - pequeña empresa
+      - negocio pequeño
+      - mype
+      - capital de trabajo
+
+  pyme:
+    descripción: Productos y servicios para pequeña y mediana empresa.
+    keywords:
+      - mediana empresa
+      - pyme
+      - empresa mediana
