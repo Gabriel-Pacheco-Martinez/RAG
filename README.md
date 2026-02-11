@@ -1,80 +1,62 @@
-## Instructions/Instrucciones
-Please use the following commands to run the code
+<!-- PROJECT HEADER -->
+<h1>
+<p align="center">
+  <img src="images/carlitosBNB.png" alt="Project Logo">
+  <br> Chatbot Carlitos BNB
+</p>
+</h1>
+
+<p align="center">
+  Sistema RAG agentico distribuido for LangGraph para crear un Chatbot conversacional.
+  <br />
+  <a href="#about">About</a>
+  ·
+  <a href="#requirements">Requirements</a>
+  ·
+  <a href="#instructions">Instructions</a>
+  ·
+  <a href="#report">Report</a>
+</p>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/Python-3.11.10-blue?style=flat-square" alt="Python Version">
+  <img src="https://img.shields.io/badge/Docker-27.5.1-lightblue?style=flat-square" alt="Docker Version">
+  <img src="https://img.shields.io/badge/Qdrant-1.16.3-red?style=flat-square" alt="Qdrant Version">
+  <img src="https://img.shields.io/badge/Redis-7.4.7-orange?style=flat-square" alt="Redis Version">
+  <img src="https://img.shields.io/badge/License-Apache%202.0-green?style=flat-square" alt="License">
+</p>
+
+
+<!--  DESCRIPTION -->
+## About
+
+## Requirements
+
+
+## Instructions
+Please use the following shell script to initialize the server that can receive API requests at http://127.0.0.1:8000/conversation.
 ```bash
-python -m app.cli -i. # ingest code
-python -m app.cli -q "query" # query code
-python -m app.cli -s # server to receive queries
+# Add the requirements.txt installation stuff and probably docker stuff too
+./run.sh
 ```
 
-## Important remarks
-- The metadata file a json, but when converted to an object is a map with keys "documents, capitulos, subcapitulos, tabs, secciones, subsecciones, chunks".
+The schema of the request sent in the HTTP request has to follow:
+```bash
+{
+    session_id: int
+    mensaje: str
+}
+```
 
+### Redis and Qdrant
+The project requires the use of REDIS and Qdrant in order to work. REDIS holds the memory of the session, while Qdrant works as the vector DB for the project. Both require DOCKER to work.
 
+- Installation of Qdrant through Docker. A GUI can be accessed at localhost:6333
+```bash
 docker run -p 6333:6333 -p 6334:6334 qdrant/qdrant
-
-## Todays task
-- Add memory to the conversation
-- Should i add like a little title to each section?
-
-## To-Do
-- 1. Do retreival [CHECK]
-- 2. Connect both projects [CHECK]
-- 3. Add memory
-- 4. Improve retreival (BM25+Vectors) + Re raking
-
-## To-Do long term
-- 1. Make asynchronous. Only initialize objects once
-- 2. Aumentar errores cuando no encuentra vectores (poca similitud)
-- 3. Add tries/catches
-- 4. Infra (caching, latency, system design)
-
-## TO-DO
-- Response manager:
-    - Si se dio informacion para todos los slots marcar como completado.
-    - Si falta un slot, mandar un mensaje pidiendo ese slot.
-    - Si la confianza es muy baja. Pedir otro mensaje
-- Añadir un hook que diga gracias se completo la sesion cuando se acabe el cache de REDIS.
-- Debe guardar una memoria en disk con la informacion del cliente actual. Puede estar relacionado con su numero.
-
-## Running the program
-### Batch file
-This method allows you to run the program with a single query for testing purposes:
-
-```bash
-./run_detect.sh
 ```
 
-## REDIS
-Redis is used to store session data for conversations with each user, effectively providing memory for the chatbot.
-
-##### First time setup
-To create the Redis Docker container along with the RedisInsight GUI for the first time, run:
-
+- Installation of REDIS through Docker. A GUI can be accessed at localhost:8001
 ```bash
 docker run -d --name redis-stack -p 6379:6379 -p 8001:8001 redis/redis-stack:latest
 ```
-
-##### Managing the container
-Once the container has been created, you can use the following commands:
-```bash
-docker start redis-stack           # Start the container
-docker stop redis-stack            # Stop the container
-docker rm redis-stack              # Remove the container
-docker exec -it redis-stack redis-cli  # Access Redis CLI inside the container
-```
-
-###### GUI
-The GUI for the DB can be accessed in localhost:8001.
-
-## LLM
-Lo que deberia entrar al LLM es lo siguiente.
-
-- Eres Carlitos, un asistente lógico de un sistema de pagos móviles. Tu objetivo es clasificar la intención de un mensaje y extraer entidades (monto, destinatario, concepto).
-
-- Explicacion de QR y reglas de respuesta.
-
-- Memoria: lo que se extrae de REDIS. 
-
-- Slots por intencion
-
-- Schema de respuesta

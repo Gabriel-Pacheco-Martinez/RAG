@@ -86,7 +86,7 @@ class LLM_Engine(LLM_Engine):
         context = f"""
         DOCUMENTO: {payload.get('doc_titulo', '').upper()}
         Resumen del documento:
-        {payload.get('doc_texto', '')}
+        {payload.get('doc_resumen', '')}
 
         CAPÍTULO: {payload.get('cap_titulo', '').upper()}
         Descripción del capítulo:
