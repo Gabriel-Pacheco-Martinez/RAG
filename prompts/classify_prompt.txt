@@ -104,7 +104,7 @@ Ejemplo incorrecto:
 {{
     "topic": "<uno de los temas o null>",
     "topic_confidence": 0.0,
-    "user_message_ambiguity": true | false,
+    "user_message_ambiguos": true | false,
     "is_follow_up": true | false,
     "rewritten_query": "<consulta optimizada para RAG o null>",
 }}

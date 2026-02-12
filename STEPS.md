@@ -1,3 +1,5 @@
+## Steps
+
 **READ REDIS MEMORY**: Leer la memoria de REDIS y asignarla al state de LangGraph.
 
 **TOPIC CLASSIFICATION**: La pregunta tiene relevancia a banca? A que topic va alineada la pregunta? O es la pregunta muy ambigua? 
@@ -47,3 +49,7 @@
     # graph.add_node("answer", llm_answer)
 
     # graph.add_node("save_state", save_state_to_redis)
+
+## Weakness points
+- Security layer for user messages
+- Que el JSON que devuelve el LLM siempre este en el mismo formato. Como se puede hacer?

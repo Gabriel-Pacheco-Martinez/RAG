@@ -25,14 +25,12 @@ def read_memory(state: ChatState) -> dict:
     if not session_data:
         # Redis
         REDIS_CLIENT.hset(session_id, mapping={
-            "user_message_previous_missing_info": json.dumps([]),
             "topic_previous": json.dumps(""),
             "conversation_history": json.dumps([]),
             "context": json.dumps("")
         })
 
         # State
-        state["user_message_previous_missing_info"] = []
         state["topic_previous"] = ""
         state["conversation_history"] = ""
         state["context"] = ""
@@ -44,7 +42,6 @@ def read_memory(state: ChatState) -> dict:
     else:
         # State
         session_data_obj = deserialize_session_data(session_data)
-        state["user_message_previous_missing_info"] = session_data_obj.get("user_message_previous_missing_info")
         state["topic_previous"] = session_data_obj.get("topic_previous", "")
         state["conversation_history"] = session_data_obj.get("conversation_history", "")
         state["context"] = session_data_obj.get("context", "")

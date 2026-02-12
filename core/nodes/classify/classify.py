@@ -18,11 +18,15 @@ import logging
 logger = logging.getLogger(__name__)
 
 def _extract_json_from_response(text: str) -> dict:
-    match = re.search(r"\{.*\}", text, re.DOTALL)
+    match = re.search(r"\{.*?\}", text, re.DOTALL)
     if not match:
         raise ValueError("No JSON object found")
     
     json_str = match.group(0)
+
+    # Remove trailing commas before } or ]
+    json_str = re.sub(r",\s*([}\]])", r"\1", json_str)
+
     return json.loads(json_str)
 
 def _call_llm(state: ChatState, prompt: str) -> str:
@@ -50,7 +54,7 @@ def _build_classify_prompt(state: ChatState, _classify_base_prompt: str) -> str:
 def _update_state(state: ChatState, response: str):
     state["topic"] = response["topic"]
     state["topic_confidence"] = response["topic_confidence"]
-    state["user_message_ambiguity"] = response["user_message_ambiguity"]
+    state["user_message_ambiguos"] = response["user_message_ambiguos"]
     state["is_follow_up"] = response["is_follow_up"]
     state["rewritten_query"] = response["rewritten_query"]
     return state
@@ -62,7 +66,9 @@ def classify_query(state: ChatState) -> dict:
 
     # Llamar al LLM
     response_raw = _call_llm(state, classify_prompt)
+    print(response_raw)
     response_obj = _extract_json_from_response(response_raw)
+    print(response_obj)
     state["llm_topic_response"] = response_obj["rewritten_query"]
     logger.info(f"LLM Topic llamado. La respuesta es: {response_raw}")
     
