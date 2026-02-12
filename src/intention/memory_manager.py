@@ -1,4 +1,4 @@
-from src.utils.redis import deserialize_session_data, serialize_session_data
+from core.utils.redis import deserialize_session_data, serialize_session_data
 import json
 
 class MemoryManager():
@@ -80,7 +80,6 @@ class MemoryManager():
         else:
             # session_data["slots"]["rag_context"] = "false"
             session_data["status"] = "completo"
-
 
 
         # Update data on REDIS

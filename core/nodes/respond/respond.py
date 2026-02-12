@@ -16,24 +16,13 @@ from config.settings import GROQ_GENERATOR_MODEL
 from config.settings import GEMINI_GENERATOR_MODEL
 from config.settings import LLM_SOURCE
 
-def use_rag(state: ChatState):
-    # Query
-    state["llm_clarify_response"] = "We will use rag"
-    query = state["user_message"]
 
-    # Embedd query
-    embedder = Embedder(EMBEDDING_MODEL, EMBEDDING_BATCH_SIZE)
-    embedded_query = embedder.embed_query(query)
-
-    # Search embeddings
-    searcher = Searcher(QDRANT_CLIENT, THRESHOLD, TOP_K)
-    vector: list[dict] = searcher.search(embedded_query)
-
+def respond_query(state: ChatState) -> dict:
     # Prompt generation
     llm = LLM_Engine(LLM_SOURCE, GROQ_GENERATOR_MODEL, GEMINI_GENERATOR_MODEL)
-    context = llm.generate_context(vector)
+    llm_response = llm.prompt_llm(state["user_message"], state["context"])
 
     # Update state
-    state["context"] = context
+    state["llm_query_response"] = llm_response
 
     return state

@@ -20,23 +20,18 @@ from src.utils.io import read_json, load_prompt
 logger = logging.getLogger(__name__)
 
 class LLM_Engine(ABC):
-    def __init__(self, LLM_SOURCE: str, config: dict, temperature: float = 0):
+    def __init__(self, LLM_SOURCE: str, groq_model: str, gemini_model: str, temperature: float = 0):
         self.llm_source = LLM_SOURCE.lower()
         
         # ChatGoogleGenerativeAI
         if self.llm_source == "gemini":     
-            self.generator_model = ChatGoogleGenerativeAI(model=config["LLM_GENERATOR_MODEL_GEMINI"], temperature=temperature, google_api_key=os.environ["GEMINI_API_KEY"])
-            self.verifier_model = ChatGoogleGenerativeAI(model=config["LLM_VERIFY_MODEL_GEMINI"], temperature=temperature, google_api_key=os.environ["GEMINI_API_KEY"])
-        
-        # ChatOllama
-        elif self.llm_source == "ollama":   
-            self.generator_model = ChatOllama(model=config["LLM_GENERATOR_MODEL_OLLAMA"], temperature=temperature)
-            self.verifier_model = ChatOllama(model=config["LLM_VERIFY_MODEL_OLLAMA"], temperature=temperature)
+            self.generator_model = gemini_model
+            self.verifier_model = gemini_model
         
         # ChatGroq
         elif self.llm_source == "groq":     
-            self.generator_model = ChatGroq(model=config["LLM_GENERATOR_MODEL_GROQ"], temperature=temperature, api_key=os.environ["GROQ_API_KEY"])
-            self.verifier_model = ChatGroq(model=config["LLM_VERIFY_MODEL_GROQ"], temperature=temperature, api_key=os.environ["GROQ_API_KEY"])
+            self.generator_model = groq_model
+            self.verifier_model = groq_model
         
         else:
             raise ValueError(f"Model {self.llm_source} not supported")
@@ -70,11 +65,7 @@ class LLM_Engine(ABC):
         verifier_response = self.call_verifier_llm(verifier_prompt)
 
         logging.info(f"LLMs prompted and responses returned")
-        return {
-            "answer": generator_response,
-            "verify": verifier_response,
-            "context": contexto
-        }
+        return generator_response
 
 class LLM_Engine(LLM_Engine):
     def __init__(self, LLM_SOURCE: str, config: dict, temperature: float = 0):

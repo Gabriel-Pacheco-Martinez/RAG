@@ -32,6 +32,8 @@ REDIS_CLIENT = redis.StrictRedis(
 QDRANT_CLIENT = QdrantClient(
     url="http://localhost:6333",  # Docker exposed port
 )
+TOP_K = 5
+THRESHOLD = 0.3
 
 # =====
 # LLM Models
@@ -40,6 +42,12 @@ GROQ_GENERATOR_MODEL = ChatGroq(model="llama-3.1-8b-instant", temperature=0, api
 GEMINI_GENERATOR_MODEL = ChatGoogleGenerativeAI(model="gemini-3-flash-preview", temperature=0, google_api_key=GEMINI_API_KEY)
 OLLAMA_GENERATOR_MODEL = ChatOllama(model="qwen3:8b", temperature=0)
 GEMINI_MULTIMODAL_MODEL = ChatGoogleGenerativeAI(model="gemini-2.5-flash", temperature=0, google_api_key=GEMINI_API_KEY)
+
+# =====
+# Embeddings
+EMBEDDING_MODEL = "all-MiniLM-L6-v2"
+EMBEDDING_BATCH_SIZE = 16
+EMBEDDING_N_DIMENSIONS = 384
 
 # =====
 # Constraints

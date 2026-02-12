@@ -1,34 +1,34 @@
+# General
 import json
-from src.utils.redis import deserialize_session_data
 
-class SessionManager():
-    def __init__(self, REDIS_CLIENT: object, TTL_SECONDS: int):
-        self.redis_client = REDIS_CLIENT
-        self.ttl_seconds = TTL_SECONDS
+# LangGraph
+from core.models.state import ChatState
 
-    def get_or_create_session_data(self, user_message_object: object):
-        session_data = self.redis_client.hgetall(user_message_object.session_id)
-        if not session_data:
-            # Crear sesion.
-            self.redis_client.hset(user_message_object.session_id, mapping={
-                "intencion_previa": "",
-                "intencion_actual": "desconocida",
-                "confianza_en_la_intencion_actual": 0.0,
-                "status": "empezando",
-                "slots": json.dumps({}),
-                "slots_faltantes": json.dumps([]),
-                "historial_de_mensajes": json.dumps([]),
-                "context": ""
-            })
+# Helpers
+from core.utils.redis import deserialize_session_data,serialize_session_data
 
-            # Set TTL
-            self.redis_client.expire(user_message_object.session_id, self.ttl_seconds)  
+# Configuration
+from config.settings import REDIS_CLIENT
+from config.settings import REDIS_TTL_SECONDS
 
-            # Return session data
-            session_data = self.redis_client.hgetall(user_message_object.session_id) #Refetch
-            deserialize_session_data(session_data)
-            return session_data
-        else:
-            # Return session data
-            deserialize_session_data(session_data)
-            return session_data
+# Logging 
+import logging
+logger = logging.getLogger(__name__)
+
+def update_memory(state: ChatState) -> None:
+    # Read Redis data
+    session_id = str(state["user_session_id"])
+    session_ttl = REDIS_TTL_SECONDS
+    session_data = REDIS_CLIENT.hgetall(session_id)
+    session_data_obj = deserialize_session_data(session_data)
+
+    # Update states
+    session_data_obj["topic_previous"] = state["topic"]
+    session_data_obj["context"] = state["context"]
+    session_data_obj["conversation_history"].append(f"User:{state['user_message']}")
+    session_data_obj["conversation_history"].append(f"User:{state['llm_query_response']}")
+
+    # Update redis data
+    session_data = serialize_session_data(session_data_obj)
+    REDIS_CLIENT.hset(session_id, mapping=session_data)
+    REDIS_CLIENT.expire(session_id, session_ttl)

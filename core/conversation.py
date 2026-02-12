@@ -8,10 +8,11 @@ from core.models.state import ChatState
 
 # Nodes
 from core.nodes.memoria.read import read_memory
+from core.nodes.memoria.update import update_memory
 from core.nodes.classify.classify import classify_query
 from core.nodes.clarify.clarify import ask_clarification
-from core.nodes.retrieval.memory import use_memory
 from core.nodes.retrieval.rag import use_rag
+from core.nodes.respond.respond import respond_query
 
 # Configuration
 logger = logging.getLogger(__name__)
@@ -21,8 +22,10 @@ def _route_after_classification(state: ChatState) -> str:
     if state["user_message_ambiguos"] or state["topic_confidence"]<0.75:
         return "ask_clarification"
     if state["is_follow_up"]:
-        return "use_memory"
+        state["llm_clarify_response"] = "use_memory"
+        return "respond_query"
     else:
+        state["llm_clarify_response"] = "use_rag"
         return "use_rag"
 
 def run(user_message: object) -> str:
@@ -36,7 +39,8 @@ def run(user_message: object) -> str:
     graph.add_node("classify_query", classify_query)
     graph.add_node("ask_clarification", ask_clarification)
     graph.add_node("use_rag", use_rag)
-    graph.add_node("use_memory", use_memory)
+    graph.add_node("respond_query", respond_query)
+    graph.add_node("update_memory", update_memory)
 
     # Leer memoria y clasificar la pregunta del usuario
     graph.set_entry_point("read_memory")
@@ -49,8 +53,11 @@ def run(user_message: object) -> str:
     graph.set_finish_point("ask_clarification")
 
     # Se necesita usar RAG
-    graph.set_finish_point("use_memory")
-    graph.set_finish_point("use_rag")
+    graph.add_edge("use_rag", "respond_query")
+
+    # Se necesita usar memoria
+    graph.add_edge("respond_query", "update_memory")
+    graph.set_finish_point("update_memory")
 
     # Compile the graph
     app = graph.compile()

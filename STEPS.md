@@ -53,3 +53,4 @@
 ## Weakness points
 - Security layer for user messages
 - Que el JSON que devuelve el LLM siempre este en el mismo formato. Como se puede hacer?
+- Agregar un confidence fallback

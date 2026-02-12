@@ -17,7 +17,7 @@ import logging
 logger = logging.getLogger(__name__)
 
 def read_memory(state: ChatState) -> dict:
-    session_id = state["user_session_id"]
+    session_id = str(state["user_session_id"])
     session_ttl = REDIS_TTL_SECONDS
     session_data = REDIS_CLIENT.hgetall(session_id)
     

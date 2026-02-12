@@ -13,9 +13,8 @@ class ChatState(TypedDict):
     is_follow_up: bool
     rewritten_query: str
 
-    # Memory
-    conversation_history: list[str]
-    context: str
+    # Retrieval
+    retreival_confidence: float
 
     # LLM
     llm_topic_response: str
@@ -24,3 +23,8 @@ class ChatState(TypedDict):
 
     # Redis
     redis_ttl: int
+
+    # Memory
+    context: str
+    conversation_history: list[str]
+    
