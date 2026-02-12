@@ -2,9 +2,9 @@
 from core.models.state import ChatState
 
 # Classes
-from src.indexing.embedder import Embedder
-from src.generation.searcher import Searcher
-from src.generation.generation_client import LLM_Engine
+from core.indexing.embedder import Embedder
+from core.generation.searcher import Searcher
+from core.generation.client import LLM_Engine
 
 # Configuration
 from config.settings import EMBEDDING_MODEL

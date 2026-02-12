@@ -78,7 +78,7 @@ FAISS_METADATA_PATH = "vector_db/faiss_metadata.json"
 
 # =====
 # Prompts and schemas path
-PROMPTS_GENERATION_PATH = "src/generation/"
-PROMPTS_INTENT_PATH = "src/intention/"
+PROMPTS_GENERATION_PATH = "core/generation/"
+PROMPTS_INTENT_PATH = "core/intention/"
 PROMPTS_PATH = "prompts/"
 SCHEMAS_PATH = "schemas/"

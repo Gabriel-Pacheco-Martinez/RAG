@@ -7,9 +7,9 @@ from typing import Dict, Any
 from abc import ABC, abstractmethod
 
 # Methods
-from src.utils.io import load_prompt
-from src.utils.io import load_schema
-from src.utils.prompts import build_intention_prompt
+from core.utils.io import load_prompt
+from core.utils.io import load_json_schema
+from core.utils.prompts import build_intention_prompt
 
 # Imports
 from langchain_google_genai import ChatGoogleGenerativeAI
@@ -65,8 +65,8 @@ class GeminiClient(Client):
 
     def _llm_intent(self, user_message: str, memory: dict) -> Dict[str, Any]:
         system_base_prompt = load_prompt(PROMPTS_INTENT_PATH, "intent_prompt.txt")
-        answer_example = load_schema("schema_respuestas.json")
-        intenciones_schema = load_schema("schema_intenciones.json")
+        answer_example = load_json_schema("schema_respuestas.json")
+        intenciones_schema = load_json_schema("schema_intenciones.json")
 
         system_prompt = build_intention_prompt(system_base_prompt, intenciones_schema, memory, answer_example, user_message)
         

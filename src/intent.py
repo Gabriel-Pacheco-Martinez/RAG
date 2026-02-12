@@ -4,12 +4,9 @@ from typing import Tuple
 from pprint import pprint
 
 # Created classes
-from src.intention.session_manager import SessionManager
-from src.intention.memory_manager import MemoryManager
-from src.intention.validator import TextValidator, AudioValidator
+from core.intention.validator import TextValidator, AudioValidator
 from src.intention.converter import AudioConverter
 from src.intention.intent_client import GeminiClient
-from src import generate
 
 # Configuration 
 from config.settings import REDIS_CLIENT
@@ -27,11 +24,6 @@ def run(user_message_object: object, format: str) -> Tuple[str, str]:
     GEMINI_MODEL: str = config["GEMINI_MODEL"]
     GROQ_MODEL: str = config["GROQ_MODEL"]
 
-    # =======
-    # Manage session
-    session_manager = SessionManager(REDIS_CLIENT, REDIS_TTL_SECONDS)
-    memory = session_manager.get_or_create_session_data(user_message_object)
-    print("✅ Successfull memory creation") 
 
     # =======
     # Validate input
@@ -51,35 +43,3 @@ def run(user_message_object: object, format: str) -> Tuple[str, str]:
         user_message_text: str = converter.convert_audio_to_text(user_message_audio)
         print("✅ Successfull audio to text conversion") 
 
-    # =======
-    # Interaction with Intent LLM
-    gemini_client = GeminiClient(GROQ_MODEL, GROQ_API_KEY)
-    intention_answer: Dict[str, Any] = gemini_client.get_intent(user_message_text, memory)
-    print("✅ Successfull intent detection") 
-
-    # =======
-    # Interaction with LLM
-    llm_answer = {}
-    if intention_answer["intencion_actual"] == "preguntas":
-        llm_answer = generate.run(user_message_text)
-        # if intention_answer["slots_requeridos"]["rag_context"] == True:
-        #     llm_answer = generate.run(user_message_text)
-        # else:
-        #     llm_answer = {
-        #         "answer": ""
-        #     }
-    print("✅ Successfull call to generation LLM") 
-
-    # =======
-    # Manage memory
-    response_manager = MemoryManager(REDIS_CLIENT, REDIS_TTL_SECONDS)
-    intention_answer = response_manager.review_response(intention_answer)
-    session_data = response_manager.update_session_data(intention_answer, user_message_object.session_id, user_message_text, llm_answer)
-    print("✅ Successfull memory management")
-
-    # =======
-    # Interaction with Generation LLM if needed
-    if intention_answer["intencion_actual"] == "preguntas":
-        return intention_answer, llm_answer, session_data
-
-    return intention_answer, "system_response", session_data

@@ -1,7 +1,7 @@
 # Centralized entry point for commands
 import argparse
 from app import endpoint
-from src import index, generate, logger
+from core import index, logger
 
 
 from dotenv import load_dotenv
@@ -18,10 +18,6 @@ def main():
     if args.ingest:
         print("🚀 Document ingestion:")
         index.run()
-    elif args.query:
-        question = args.query
-        print("🚀 Answering question:")
-        generate.run(question)
     elif args.server:
         print("🚀 Starting server at localhost:8000")
         endpoint.start_server()

@@ -1,16 +1,15 @@
 # General
-import logging
-from xmlrpc import client
 from colorama import Fore, Style
-import json
-import os
 
-# Databases
-import faiss
+# Numpy 
 import numpy as np
-from qdrant_client.models import Distance, VectorParams, PointStruct, Filter, FieldCondition, MatchValue
-from qdrant_client import QdrantClient
 
+# Qdrant
+from qdrant_client import QdrantClient
+from qdrant_client.models import Filter, FieldCondition, MatchValue
+
+# Logging
+import logging
 logger = logging.getLogger(__name__)
 
 class Searcher():

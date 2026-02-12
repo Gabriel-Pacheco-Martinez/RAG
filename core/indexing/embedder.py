@@ -1,12 +1,17 @@
-import logging
+# General
 from colorama import Fore, Style
+from typing import Dict, Any
 
+# Torch and numpy
 import torch
 import torch.nn.functional as F
 import numpy as np
-from typing import Dict, Any
+
+# Huggingface
 from transformers import AutoModel, AutoTokenizer
 
+# Logging
+import logging
 logger = logging.getLogger(__name__)
 
 def _mean_pooling(model_output, attention_mask):

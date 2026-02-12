@@ -1,13 +1,19 @@
-import logging
+# General
+import re
 from colorama import Fore, Style
 from abc import ABC, abstractmethod
-from src.utils.io import read_json, write_json
-from src.utils.pdf import get_fonts
 from typing import Tuple, Any
-import re
 from itertools import count
 
+# Helpers
+from core.utils.io import read_json
+from core.utils.io import write_json
+from core.utils.pdf import get_fonts
+
+# Logging
+import logging
 logger = logging.getLogger(__name__)
+
 
 class DocumentChunker(ABC):
     @abstractmethod

@@ -19,8 +19,7 @@
       "slots requeridos": []
     },
     "preguntas":{
-      "slots requeridos": [],
-      "rag_context": true
+      "slots requeridos": []
     }
   }
 }

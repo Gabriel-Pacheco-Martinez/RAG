@@ -2,9 +2,14 @@ from typing import TypedDict
 
 class ChatState(TypedDict):
     # User message
+    user_message: str | bytes
     user_session_id: int
-    user_message: str
+    user_message_str: str 
+    user_message_format: str
     user_message_ambiguos: bool
+
+    # Intencion
+    user_intent: str
 
     # Topic
     topic: str
@@ -17,6 +22,7 @@ class ChatState(TypedDict):
     retreival_confidence: float
 
     # LLM
+    llm_intent_response: str
     llm_topic_response: str
     llm_clarify_response: str
     llm_query_response: str

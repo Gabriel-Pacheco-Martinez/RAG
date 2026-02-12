@@ -51,30 +51,6 @@ Devuelve solo los slots definidos en este JSON:
 
 ---
 
-### LÓGICA ESPECÍFICA PARA RAG (`rag_context`):
-
-El slot `rag_context` SOLO aplica a la intención **"preguntas"**.
-
-- Establece `"rag_context": true` SI Y SOLO SI:
-  - El mensaje introduce un tema bancario nuevo, Y
-  - La intención previa es distinta de "preguntas".
-
-- Establece `"rag_context": false` SI:
-  - La intención previa es "preguntas", Y
-  - El mensaje es una continuación al tema previamente tratado que debe 
-  ser respondido con el contexto de la anterior pregunta.
-
-No se debe activar RAG nuevamente si el usuario solo solicita ampliación
-sobre información ya recuperada en la sesión.
-
----
-
-### MEMORIA DE SESIÓN:
-Utiliza el contexto general de la conversación. 
-{memoria}
-
----
-
 ### TAREA:
 Analiza el mensaje del usuario y devuelve **únicamente** un JSON rellenando correctamente:
 - "intencion_actual": la intención detectada

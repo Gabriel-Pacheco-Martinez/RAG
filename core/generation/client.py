@@ -1,22 +1,14 @@
 # General
-import logging
-import pprint
 from colorama import Fore, Style
-
 from abc import ABC, abstractmethod
 
-import json
-import os
-from collections import Counter
-from langchain_ollama import ChatOllama
-from langchain_groq import ChatGroq
-from langchain_google_genai import ChatGoogleGenerativeAI
-from src.utils.prompts import build_generator_prompt, build_verifier_prompt
-from config.settings import PROMPTS_GENERATION_PATH
+# Helpers
+from core.utils.prompts import build_generator_prompt
+from core.utils.prompts import build_verifier_prompt
+from core.utils.io import load_prompt
 
-
-from src.utils.io import read_json, load_prompt
-
+# Logging
+import logging
 logger = logging.getLogger(__name__)
 
 class LLM_Engine(ABC):
@@ -36,10 +28,6 @@ class LLM_Engine(ABC):
         else:
             raise ValueError(f"Model {self.llm_source} not supported")
         
-    @abstractmethod
-    def generate_context(self, context_vectors: list[dict]):
-        pass
-
     def call_generator_llm(self, prompt):
         if self.llm_source == "gemini":
             response = self.generator_model.invoke(prompt).content[0]["text"].strip()
@@ -55,8 +43,8 @@ class LLM_Engine(ABC):
         return response
 
     def prompt_llm(self, user_message: str, contexto: str):
-        generator_base_prompt = load_prompt(PROMPTS_GENERATION_PATH, "generate_prompt.txt")
-        verifier_base_prompt = load_prompt(PROMPTS_GENERATION_PATH, "verify_prompt.txt")
+        generator_base_prompt = load_prompt("generate_prompt.txt")
+        verifier_base_prompt = load_prompt("verify_prompt.txt")
 
         generator_prompt = build_generator_prompt(generator_base_prompt, user_message, contexto)
         verifier_prompt = build_verifier_prompt(verifier_base_prompt, user_message, contexto)
@@ -67,9 +55,6 @@ class LLM_Engine(ABC):
         logging.info(f"LLMs prompted and responses returned")
         return generator_response
 
-class LLM_Engine(LLM_Engine):
-    def __init__(self, LLM_SOURCE: str, config: dict, temperature: float = 0):
-        super().__init__(LLM_SOURCE, config, temperature)
 
     def generate_context(self, vector: dict) -> str:
         payload = vector.payload
@@ -89,3 +74,4 @@ class LLM_Engine(LLM_Engine):
         """.strip()
 
         return context
+

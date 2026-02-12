@@ -23,17 +23,6 @@
     }
   },
   "ejemplo 3":{
-    "user_message": "Mas informacion",
-    "intencion_previa": "preguntas",
-    "nlu_result": {
-      "intencion_actual": "preguntas",
-      "confianza_en_la_intencion": 0.9,
-      "slots_requeridos": {
-        "rag_context": false
-      }
-    }
-  },
-  "ejemplo 4":{
     "user_message": "Informacion",
     "intencion_previa": "",
     "nlu_result": {

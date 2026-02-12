@@ -1,20 +1,20 @@
 # General
-import logging
 from colorama import Fore, Style
 
 # Classes
-from src.indexing.loader import PDFDocumentLoader
-from src.indexing.chunker import WebsiteChunker
-from src.indexing.embedder import Embedder
-from src.indexing.indexer import Indexer
+from core.indexing.loader import PDFDocumentLoader
+from core.indexing.chunker import WebsiteChunker
+from core.indexing.embedder import Embedder
+from core.indexing.indexer import Indexer
 
 # Configuration
 from config.settings import PDF_RAW_DOCS_PATH, PDF_LOADED_FILE_PATH, PDF_METADATA_FILE_PATH
 from config.settings import WEBSITE_LOADED_FILE_PATH, WEBSITE_METADATA_FILE_PATH
-from config.settings import FAISS_INDEX_PATH, FAISS_METADATA_PATH
 from config.settings import QDRANT_CLIENT
+from config.settings import EMBEDDING_MODEL, EMBEDDING_BATCH_SIZE, EMBEDDING_N_DIMENSIONS
 
-from config import load_config
+# Logging
+import logging
 logger = logging.getLogger(__name__)
 
 def run():
@@ -23,19 +23,6 @@ def run():
     print(Fore.GREEN + "="*50)
     print("[📚] INGESTION")
     print("="*50 + Style.RESET_ALL)
-
-    # =========
-    # Logging
-    logger.info(Fore.GREEN + "="*50)
-    logger.info("[📚] INGESTION")
-    logger.info("="*50 + Style.RESET_ALL)
-
-    # ======
-    # Load configuration
-    cfg = load_config()
-    EMBEDDING_MODEL = cfg["EMBEDDING_MODEL"]
-    EMBEDDING_BATCH_SIZE = cfg["EMBEDDING_BATCH_SIZE"]
-    EMBEDDING_N_DIMENSIONS = cfg["EMBEDDING_N_DIMENSIONS"]
 
     # # =======
     # # Load the PDF Document
@@ -59,13 +46,13 @@ def run():
 
     # =======
     # Embed the chunks
-    embedder = Embedder(model_name=EMBEDDING_MODEL, batch_size=EMBEDDING_BATCH_SIZE)
+    embedder = Embedder(EMBEDDING_MODEL, EMBEDDING_BATCH_SIZE)
     embeddings_chunks = embedder.embed_chunks(chunks)
     print("✅ Successfull embedding")
 
     # =======
     # Index the embeddings
-    indexer = Indexer(client=QDRANT_CLIENT, dim=EMBEDDING_N_DIMENSIONS)
+    indexer = Indexer(QDRANT_CLIENT, EMBEDDING_N_DIMENSIONS)
     indexer.index_embeddings(metadata, embeddings_chunks)
     print("✅ Successfull indexing")
 

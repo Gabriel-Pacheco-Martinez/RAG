@@ -25,7 +25,6 @@ class AudioConverter():
             )
             
             # Print the Price Test / Usage Report
-            self._print_price_report(response)
             print(response.text)
             return response.text
             
@@ -33,19 +32,3 @@ class AudioConverter():
             print(f"Error calling Gemini: {e}")
             return None
         
-    def _print_price_report(self, response):
-        usage = response.usage_metadata
-        in_tokens = usage.prompt_token_count
-        out_tokens = usage.candidates_token_count
-        
-        # 2026 Pricing Estimates (Flash Model)
-        # Input: $0.10 per 1M tokens | Output: $0.40 per 1M tokens
-        cost = (in_tokens * 0.00000010) + (out_tokens * 0.00000040)
-        
-        print("\n" + "═" * 55)
-        print(f"\n--- PRECIO POR USAR EL MODELO PARA EL AUDIO ---")
-        print("═" * 55)
-        print(f"Input (Audio + Prompt): {in_tokens} tokens")
-        print(f"Output (Transcript):    {out_tokens} tokens")
-        print(f"Costo estimado:         ${cost:.6f}")
-        print("═" * 55 + "\n")

@@ -1,32 +1,18 @@
 # General
-import os
-import logging
-import json
 from colorama import Fore, Style
-from abc import ABC, abstractmethod
 
-# Important
-import faiss
+# Numpy
 import numpy as np
+
+# Qdrant
 from qdrant_client.models import Distance, VectorParams, PointStruct
 from qdrant_client import QdrantClient
 
-
+# Logging
+import logging
 logger = logging.getLogger(__name__)
 
-class VectorIndexer(ABC):
-    def __init__(self, dim: int, index_path: str, metadata_path: str):
-        self.dim = dim                      # Vector dimension for embeddings
-        self.index_path = index_path        # Path for db
-        self.metadata_path = metadata_path  # Path for metadata (in case of FAISS) -> because it can't store metadata
-        self.index = faiss.IndexFlatIP(dim) # Using Inner Product for comparison
-        self.metadata = []  # List to store metadata of each vector
-
-    @abstractmethod
-    def index_embeddings(self, chunks: list[dict]):
-        pass
-
-class Indexer(VectorIndexer):
+class Indexer():
     def __init__(self, client:QdrantClient, dim:int):
         self.client = client
         self.dim = dim
