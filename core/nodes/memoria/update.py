@@ -25,8 +25,7 @@ def update_memory(state: ChatState) -> None:
     # Update states
     session_data_obj["topic_previous"] = state["topic"]
     session_data_obj["context"] = state["context"]
-    session_data_obj["conversation_history"].append(f"User:{state['user_message']}")
-    session_data_obj["conversation_history"].append(f"User:{state['llm_query_response']}")
+    session_data_obj["conversation_history"] = state["conversation_history"]
 
     # Update redis data
     session_data = serialize_session_data(session_data_obj)

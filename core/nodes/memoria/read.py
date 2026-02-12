@@ -32,7 +32,7 @@ def read_memory(state: ChatState) -> dict:
 
         # State
         state["topic_previous"] = ""
-        state["conversation_history"] = ""
+        state["conversation_history"] = []
         state["context"] = ""
 
         # Set TTL

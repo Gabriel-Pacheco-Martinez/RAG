@@ -24,5 +24,7 @@ def respond_query(state: ChatState) -> dict:
 
     # Update state
     state["llm_query_response"] = llm_response
+    state["conversation_history"].append(f"User:{state['user_message']}")
+    state["conversation_history"].append(f"System:{state['llm_query_response']}")
 
     return state
