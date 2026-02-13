@@ -23,11 +23,9 @@ logger = logging.getLogger(__name__)
 def _route_after_classification(state: ChatState) -> str:
     if state["user_message_ambiguos"] or state["topic_confidence"]<0.75:
         return "ask_clarification"
-    if state["is_follow_up"]:
-        state["llm_clarify_response"] = "use_memory"
+    if state["info_source"] == "memory":
         return "respond_query"
-    else:
-        state["llm_clarify_response"] = "use_rag"
+    elif state["info_source"] == "rag":
         return "use_rag"
 
 def _route_after_intention(state: ChatState) -> str:

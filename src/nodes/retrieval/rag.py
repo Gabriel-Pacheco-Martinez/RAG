@@ -21,7 +21,6 @@ from config.settings import LLM_SOURCE
 
 def use_rag(state: ChatState):
     # Query
-    state["llm_clarify_response"] = "We will use rag"
     query = state["user_message"]
 
     # Embedd query

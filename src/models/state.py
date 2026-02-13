@@ -21,11 +21,11 @@ class ChatState(TypedDict):
 
     # Retrieval
     retreival_confidence: float
+    info_source: str
 
     # LLM
     llm_intent_response: str
     llm_topic_response: str
-    llm_clarify_response: str
     llm_query_response: str
 
     # Redis

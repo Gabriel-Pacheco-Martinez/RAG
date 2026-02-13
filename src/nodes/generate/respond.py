@@ -27,14 +27,16 @@ def respond_query(state: ChatState) -> dict:
     state["conversation_history"].append(f"User:{state['user_message']}")
     state["conversation_history"].append(f"System:{state['llm_query_response']}")
 
-    print(state)
+    # Keep only the last 6 messages
+    state["conversation_history"] = state["conversation_history"][-6:]
 
     # UPDATE FINAL STATE
     state["final_answer"] = {
         "topic": state["topic"],
-        "context": state["llm_clarify_response"],
+        "info_source": state["info_source"],
         "response": state["llm_query_response"],
-        "context": state["context"]
+        "context": state["context"],
+        "conversation_history": state["conversation_history"]
     }
 
     return state
