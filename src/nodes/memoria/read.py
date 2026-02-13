@@ -3,10 +3,10 @@ from colorama import Fore, Style
 import json
 
 # LangGraph
-from core.models.state import ChatState
+from src.models.state import ChatState
 
 # Helpers
-from core.utils.redis import deserialize_session_data
+from src.utils.redis import deserialize_session_data
 
 # Configuration
 from config.settings import REDIS_CLIENT

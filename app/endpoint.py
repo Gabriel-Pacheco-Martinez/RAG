@@ -1,7 +1,7 @@
 from fastapi import FastAPI, UploadFile, Form, File
 from pydantic import BaseModel
 from pydantic import BaseModel, Field, validator
-from core import graph
+from src import graph
 import uvicorn
 
 from fastapi.responses import JSONResponse

@@ -4,16 +4,17 @@ from colorama import Fore, Style
 
 # LangGraph
 from langgraph.graph import StateGraph
-from core.models.state import ChatState
+from src.models.state import ChatState
 
 # Nodes
-from core.nodes.intent.intent import identify_intent
-from core.nodes.memoria.read import read_memory
-from core.nodes.memoria.update import update_memory
-from core.nodes.classify.classify import classify_query
-from core.nodes.clarify.clarify import ask_clarification
-from core.nodes.retrieval.rag import use_rag
-from core.nodes.respond.respond import respond_query
+from src.nodes.intent.intent import identify_intent
+from src.nodes.intent.respond import respond_intent
+from src.nodes.memoria.read import read_memory
+from src.nodes.memoria.update import update_memory
+from src.nodes.classify.classify import classify_query
+from src.nodes.clarify.clarify import ask_clarification
+from src.nodes.retrieval.rag import use_rag
+from src.nodes.respond.respond import respond_query
 
 # Configuration
 logger = logging.getLogger(__name__)
@@ -29,6 +30,12 @@ def _route_after_classification(state: ChatState) -> str:
         state["llm_clarify_response"] = "use_rag"
         return "use_rag"
 
+def _route_after_intention(state: ChatState) -> str:
+    if state["llm_intent_response"] == "preguntas":
+        return "read_memory"
+    else:
+        return "respond_intent"
+
 def run(user_message: object) -> str:
     # Create the graph
     graph = StateGraph(ChatState)
@@ -37,6 +44,7 @@ def run(user_message: object) -> str:
 
     # Add nodes
     graph.add_node("intent_analysis", identify_intent)
+    graph.add_node("respond_intent", respond_intent)
     graph.add_node("read_memory", read_memory)
     graph.add_node("classify_query", classify_query)
     graph.add_node("ask_clarification", ask_clarification)
@@ -44,28 +52,20 @@ def run(user_message: object) -> str:
     graph.add_node("respond_query", respond_query)
     graph.add_node("update_memory", update_memory)
 
-
-
+    # Identificar que quiere el usuario
     graph.set_entry_point("intent_analysis")
-    graph.set_finish_point("intent_analysis")
+    graph.add_conditional_edges("intent_analysis", _route_after_intention)
+    graph.set_finish_point("respond_intent")
 
+    # Clasificar la pregunta del usuario
+    graph.add_edge("read_memory", "classify_query")
+    graph.add_conditional_edges("classify_query", _route_after_classification)
+    graph.set_finish_point("ask_clarification")
 
-    # # Leer memoria y clasificar la pregunta del usuario
-    # graph.set_entry_point("validate_input")
-    # graph.add_edge("read_memory", "classify_query")
-    
-    # # Decidir: Preguntar clarificacion, rag o memoria
-    # graph.add_conditional_edges("classify_query", _route_after_classification)
-
-    # # Se necesita preguntar clarificacion
-    # graph.set_finish_point("ask_clarification")
-
-    # # Se necesita usar RAG
-    # graph.add_edge("use_rag", "respond_query")
-
-    # # Se necesita usar memoria
-    # graph.add_edge("respond_query", "update_memory")
-    # graph.set_finish_point("update_memory")
+    # Contestar la pregunta con contexto
+    graph.add_edge("use_rag", "respond_query")
+    graph.add_edge("respond_query", "update_memory")
+    graph.set_finish_point("update_memory")
 
     # Compile the graph
     app = graph.compile()

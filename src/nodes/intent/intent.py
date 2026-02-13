@@ -4,16 +4,16 @@ import json
 from typing import Any
 
 # LangGraph
-from core.models.state import ChatState
+from src.models.state import ChatState
 
 # Helpers
-from core.nodes.intent.converter import convert_audio_to_text
-from core.utils.io import load_prompt
-from core.utils.io import load_json_schema
-from core.utils.prompts import build_intention_prompt
+from src.nodes.intent.converter import convert_audio_to_text
+from src.utils.io import load_prompt
+from src.utils.io import load_json_schema
+from src.utils.prompts import build_intention_prompt
 
 # Classes
-from core.intention.validator import TextValidator, AudioValidator
+from src.validation.validator import TextValidator, AudioValidator
 
 # Configution
 from config.settings import MAX_TEXT_SIZE
@@ -22,16 +22,21 @@ from config.settings import LLM_SOURCE
 from config.settings import GROQ_GENERATOR_MODEL, GEMINI_GENERATOR_MODEL
 
 def _extract_json_from_response(text: str) -> dict:
-    match = re.search(r"\{.*?\}", text, re.DOTALL)
-    if not match:
+    start = text.find("{")
+    if start == -1:
         raise ValueError("No JSON object found")
-    
-    json_str = match.group(0)
 
-    # Remove trailing commas before } or ]
-    json_str = re.sub(r",\s*([}\]])", r"\1", json_str)
+    brace_count = 0
+    for i in range(start, len(text)):
+        if text[i] == "{":
+            brace_count += 1
+        elif text[i] == "}":
+            brace_count -= 1
+            if brace_count == 0:
+                json_str = text[start:i+1]
+                return json.loads(json_str)
 
-    return json.loads(json_str)
+    raise ValueError("No complete JSON object found")
 
 def _call_llm(prompt: str) -> str:
     if LLM_SOURCE == "groq":
@@ -66,10 +71,11 @@ def identify_intent(state: ChatState):
     # build prompt and call llm
     intent_prompt: str = _build_prompt(user_message_text)
     response_raw: str = _call_llm(intent_prompt)
-    # response_obj: object = _extract_json_from_response(response_raw)
-    print(response_raw)
+    response_obj: object = _extract_json_from_response(response_raw)
 
     # update el estado
-    
+    state["llm_intent_response"] = response_obj["intencion_actual"]
+    state["intent_confidence"] = response_obj["confianza_en_la_intencion"]
+    state["slots"] = response_obj["slots_requeridos"]
 
-    return state 
+    return state

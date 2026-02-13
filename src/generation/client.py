@@ -3,9 +3,9 @@ from colorama import Fore, Style
 from abc import ABC, abstractmethod
 
 # Helpers
-from core.utils.prompts import build_generator_prompt
-from core.utils.prompts import build_verifier_prompt
-from core.utils.io import load_prompt
+from src.utils.prompts import build_generator_prompt
+from src.utils.prompts import build_verifier_prompt
+from src.utils.io import load_prompt
 
 # Logging
 import logging

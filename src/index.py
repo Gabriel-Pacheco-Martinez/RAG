@@ -2,10 +2,10 @@
 from colorama import Fore, Style
 
 # Classes
-from core.indexing.loader import PDFDocumentLoader
-from core.indexing.chunker import WebsiteChunker
-from core.indexing.embedder import Embedder
-from core.indexing.indexer import Indexer
+from src.indexing.loader import PDFDocumentLoader
+from src.indexing.chunker import WebsiteChunker
+from src.indexing.embedder import Embedder
+from src.indexing.indexer import Indexer
 
 # Configuration
 from config.settings import PDF_RAW_DOCS_PATH, PDF_LOADED_FILE_PATH, PDF_METADATA_FILE_PATH

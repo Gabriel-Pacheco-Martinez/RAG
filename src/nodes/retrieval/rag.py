@@ -2,12 +2,12 @@
 from colorama import Fore, Style
 
 # LangGraph
-from core.models.state import ChatState
+from src.models.state import ChatState
 
 # Classes
-from core.indexing.embedder import Embedder
-from core.generation.searcher import Searcher
-from core.generation.client import LLM_Engine
+from src.indexing.embedder import Embedder
+from src.generation.searcher import Searcher
+from src.generation.client import LLM_Engine
 
 # Configuration
 from config.settings import EMBEDDING_MODEL

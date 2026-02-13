@@ -1,14 +1,14 @@
 # LangGraph
 import re
 import json
-from core.models.state import ChatState
+from src.models.state import ChatState
 
 # LangChain
 from langchain_core.prompts import ChatPromptTemplate, SystemMessagePromptTemplate, HumanMessagePromptTemplate
 
 # Helpers
-from core.utils.io import load_prompt
-from core.utils.prompts import build_classify_prompt
+from src.utils.io import load_prompt
+from src.utils.prompts import build_classify_prompt
 
 # Configuration
 from config.settings import LLM_SOURCE

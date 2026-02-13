@@ -6,9 +6,9 @@ from typing import Tuple, Any
 from itertools import count
 
 # Helpers
-from core.utils.io import read_json
-from core.utils.io import write_json
-from core.utils.pdf import get_fonts
+from src.utils.io import read_json
+from src.utils.io import write_json
+from src.utils.pdf import get_fonts
 
 # Logging
 import logging

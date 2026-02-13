@@ -9,7 +9,8 @@ class ChatState(TypedDict):
     user_message_ambiguos: bool
 
     # Intencion
-    user_intent: str
+    intent_confidence: float
+    slots: dict[str, str]
 
     # Topic
     topic: str

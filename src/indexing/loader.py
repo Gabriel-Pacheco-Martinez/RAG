@@ -7,9 +7,9 @@ from typing import Dict, List
 from colorama import Fore, Style
 
 # Helpers
-from core.utils.io import read_json
-from core.utils.io import write_json
-from core.utils.pdf import extract_blocks_from_page
+from src.utils.io import read_json
+from src.utils.io import write_json
+from src.utils.pdf import extract_blocks_from_page
 
 # Logging
 import logging

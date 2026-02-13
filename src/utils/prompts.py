@@ -2,10 +2,10 @@
 import json
 
 # Classes
-from core.models.state import ChatState
+from src.models.state import ChatState
 
 # Helpers
-from core.utils.io import load_yaml_schema
+from src.utils.io import load_yaml_schema
 
 # LangChain
 from langchain_core.prompts import ChatPromptTemplate
