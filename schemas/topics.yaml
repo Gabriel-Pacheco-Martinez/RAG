@@ -10,8 +10,8 @@ topics:
       - vehicular
       - consumo
 
-  ahorro_inversion:
-    descripción: Productos para ahorro o inversión de dinero.
+  ahorro_e_inversion:
+    descripción: Productos para ahorro o inversión de dinero. Incluye la banca joven.
     keywords:
       - caja de ahorro
       - cuenta corriente

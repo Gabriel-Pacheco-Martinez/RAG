@@ -27,4 +27,14 @@ def respond_query(state: ChatState) -> dict:
     state["conversation_history"].append(f"User:{state['user_message']}")
     state["conversation_history"].append(f"System:{state['llm_query_response']}")
 
+    print(state)
+
+    # UPDATE FINAL STATE
+    state["final_answer"] = {
+        "topic": state["topic"],
+        "context": state["llm_clarify_response"],
+        "response": state["llm_query_response"],
+        "context": state["context"]
+    }
+
     return state

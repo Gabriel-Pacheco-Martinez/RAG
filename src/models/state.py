@@ -35,3 +35,5 @@ class ChatState(TypedDict):
     context: str
     conversation_history: list[str]
     
+    # Final answer
+    final_answer: dict

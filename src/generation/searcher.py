@@ -65,8 +65,26 @@ class Searcher():
         logging.info(hits[0].payload["doc_id"])
         return hits[0].payload["doc_id"] if hits else None
 
-    def search(self,embedded_query: np.ndarray) -> list[dict]:
-        best_doc_id = self.retrieve_best_documento(embedded_query)
+    def retreive_doc_id_from_topic(self, topic: str):
+        hits = self.client.scroll(
+            collection_name="documentos",
+            scroll_filter=Filter(
+                must=[
+                    FieldCondition(
+                        key="titulo",
+                        match=MatchValue(value=topic)
+                    )
+                ]
+            ),
+            limit=1
+        )
+        print(hits)
+        return hits[0][0].payload["doc_id"] if hits[0] else None
+
+    def search(self,embedded_query: np.ndarray, topic: str) -> list[dict]:
+        # best_doc_id = self.retrieve_best_documento(embedded_query)
+        best_doc_id = self.retreive_doc_id_from_topic(topic)
+        print(best_doc_id)
         best_capitulo_id = self.retreive_best_capitulo(embedded_query, best_doc_id)
         texto_most_relevant_vector = self.retreive_best_texto(embedded_query, best_capitulo_id)
         return texto_most_relevant_vector

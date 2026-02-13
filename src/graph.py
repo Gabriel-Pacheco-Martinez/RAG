@@ -14,7 +14,7 @@ from src.nodes.memoria.update import update_memory
 from src.nodes.classify.classify import classify_query
 from src.nodes.clarify.clarify import ask_clarification
 from src.nodes.retrieval.rag import use_rag
-from src.nodes.respond.respond import respond_query
+from src.nodes.generate.respond import respond_query
 
 # Configuration
 logger = logging.getLogger(__name__)
@@ -55,12 +55,10 @@ def run(user_message: object) -> str:
     # Identificar que quiere el usuario
     graph.set_entry_point("intent_analysis")
     graph.add_conditional_edges("intent_analysis", _route_after_intention)
-    graph.set_finish_point("respond_intent")
 
     # Clasificar la pregunta del usuario
     graph.add_edge("read_memory", "classify_query")
     graph.add_conditional_edges("classify_query", _route_after_classification)
-    graph.set_finish_point("ask_clarification")
 
     # Contestar la pregunta con contexto
     graph.add_edge("use_rag", "respond_query")
@@ -77,7 +75,7 @@ def run(user_message: object) -> str:
         "user_message_format": "text"
     })
 
-    return final_state
+    return final_state["final_answer"]
 
 if __name__ == "__main__":
     run()

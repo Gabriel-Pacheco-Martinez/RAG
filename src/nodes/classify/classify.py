@@ -53,9 +53,10 @@ def classify_query(state: ChatState) -> dict:
     # Llamar al LLM
     response_raw: str = _call_llm(classify_prompt)
     response_obj: object = _extract_json_from_response(response_raw)
+    print(response_raw)
     state["llm_topic_response"] = response_obj["rewritten_query"]
     logger.info(f"LLM Topic llamado. La respuesta es: {response_raw}")
-    
+
     # Update el estado
     state = _update_state(state, response_obj)
 
