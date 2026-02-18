@@ -1,58 +1,13 @@
 ## Steps
-
-**READ REDIS MEMORY**: Leer la memoria de REDIS y asignarla al state de LangGraph.
-
-**TOPIC CLASSIFICATION**: La pregunta tiene relevancia a banca? A que topic va alineada la pregunta? O es la pregunta muy ambigua? 
-- Necesitara un pequeño esquema de los topics
-- Necesitara la ventana de contexto actual del RAG
-- Necesitara los ultimos 6 mensajes
-- Si la pregunta es muy ambigua volver al usuario, si no lo es rewrite query so that I can do RAG.
-
-  * RAG_CONTEXT
-
-**DECIDE RAG**: Con el query que esta re escrito, analizar si se deberia utilizar el RAG system una vez mas o si se puede responder con lo que existe en el context hasta el momento
-  - Ahora se hara con un LLM. Se puede cambiar en el futuro por un embedding comparison.
-
-**RETRIEVE and RERANK**: Hacer el retrieve de los top 5 chunks con Hybrid search (Dense vectors + BM25). Perform cross encoder re rank on the resulting top 5 chunks.
-
-**CONFIDENCE GATE**: Si el confidence score de nuestros chunks es muy bajo. Se debe devolver un mensaje al usuario pidiendo un query nuevo mas detallado. "Borrar contexto actual y memoria".
+- 1. **Confidence gate**: Si el confidence score de los chunks es muy bajo se debe:
   - Borrar el contexto actual y memoria
-  - Indicar al usuario que se esta borrando el contexto actual y la memoria.
+  - Indicar al usuario que se esta borrando contexto actual y memoria
+  - Devolver un mensaje al usuario pidiendo un query nuevo
 
-**BUILD PROMPT**: Utilizar el context retrieved borrando el anterior si se utilizo rag, o utilizar el context ya existente si no se utilizo rag y armar el prompt.
+- 2. **Unit tests**: Crear unit tests que revise si se está retrieving la parte correcta del contexto.
 
-**PROMPT LLM**: Prompt LLM con el contexto y los ultimos mensajes.
+- 3. **REDIS**: Avisar después de 15 minutos que se cerró la sesión de REDIS.
 
-**UPDATE REDIS MEMORY**: Updatear el memory de REDIS utilizando lo obtenido en LangGraph hasta el momento.
+- 4. **Price costing**: Ver cuanto va a costar cada llamada.
 
-
-
-
-    # graph.add_node("clasificacion_temas", temas_clasificacion)
-
-
-
-    # graph.add_node("load_state", load_state_from_redis)
-
-    # graph.add_node("topic_classification", topic_classification)
-
-    # graph.add_node("rewrite_query", rewrite_query)
-
-    # graph.add_node("decide_rag", decide_rag_vs_memory)
-
-    # graph.add_node("retrieve", retrieve_documents)
-    # graph.add_node("rerank", cross_encoder_rerank)
-
-    # graph.add_node("confidence_gate", pre_answer_confidence_gate)
-
-    # graph.add_node("build_prompt", build_prompt)
-    # graph.add_node("answer", llm_answer)
-
-    # graph.add_node("save_state", save_state_to_redis)
-
-## Weakness points
-- Security layer for user messages
-- Que el JSON que devuelve el LLM siempre este en el mismo formato. Como se puede hacer?
-- Agregar un confidence fallback
-- Tengo que corregir lo de buscar con el elemento que indica el llm. No con embedding
-- Hay que avisar cuando la sesion se cierre desde el REDIS
+- 5. **Security layer**: Security filtering layer for user messages.
