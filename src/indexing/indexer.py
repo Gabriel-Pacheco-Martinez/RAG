@@ -5,7 +5,7 @@ from colorama import Fore, Style
 import numpy as np
 
 # Qdrant
-from qdrant_client.models import Distance, VectorParams, PointStruct
+from qdrant_client.models import Distance, VectorParams, SparseVectorParams, PointStruct, Modifier, Document
 from qdrant_client import QdrantClient
 
 # Logging
@@ -27,10 +27,17 @@ class Indexer():
         # Recreate
         self.client.create_collection(
             collection_name=name,
-            vectors_config=VectorParams(
-                size=self.dim,
-                distance=Distance.COSINE
-            )
+            vectors_config={    
+                "dense": VectorParams(
+                    distance=Distance.COSINE,
+                    size=self.dim
+                )
+            },
+            sparse_vectors_config={
+                "sparse": SparseVectorParams(
+                    modifier=Modifier.IDF
+                )
+            }
         )
 
     def _setup_collections(self):
@@ -44,7 +51,13 @@ class Indexer():
             points=[
                 PointStruct(
                     id=int(texto_id),
-                    vector=embedding.tolist(), # Qdrant requires list, not np.array
+                    vector={
+                        "dense": embedding.tolist(), # Qdrant requires list, not np.array
+                        "sparse": Document(
+                            text=texto,
+                            model="Qdrant/bm25"
+                        )
+                    },
                     payload={
                         "texto_id": texto_id,
                         "texto": texto,
@@ -65,7 +78,13 @@ class Indexer():
             points=[
                 PointStruct(
                     id=int(cap_id),
-                    vector=embedding.tolist(), # Qdrant requires list, not np.array
+                    vector={
+                        "dense": embedding.tolist(), # Qdrant requires list, not np.array
+                        "sparse": Document(
+                            text=texto,
+                            model="Qdrant/bm25"
+                        )
+                    },
                     payload={
                         "cap_id": cap_id,
                         "doc_id": doc_id,
@@ -82,7 +101,13 @@ class Indexer():
             points=[
                 PointStruct(
                     id=int(doc_id),
-                    vector=embedding.tolist(), # Qdrant requires list, not np.array
+                    vector={
+                        "dense": embedding.tolist(), # Qdrant requires list, not np.array
+                        "sparse": Document(
+                            text=texto,
+                            model="Qdrant/bm25"
+                        )
+                    },
                     payload={
                         "doc_id": doc_id,
                         "titulo": doc_metadata["titulo"], 
@@ -115,4 +140,3 @@ class Indexer():
                     embedding = embeddings["textos"][texto_id]["embedding"]
                     texto = embeddings["textos"][texto_id]["text"]
                     self._index_texto(doc_id, cap_id, texto_id, embedding, texto, doc_titulo, cap_titulo, doc_texto, cap_texto)
-

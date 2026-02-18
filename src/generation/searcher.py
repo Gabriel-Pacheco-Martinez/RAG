@@ -6,7 +6,10 @@ import numpy as np
 
 # Qdrant
 from qdrant_client import QdrantClient
-from qdrant_client.models import Filter, FieldCondition, MatchValue
+from qdrant_client.models import Filter, FieldCondition, MatchValue, Prefetch, Query, QueryRequest, FusionQuery, Fusion, SparseVector, Document
+
+# Sparse embedder
+from fastembed import SparseTextEmbedding
 
 # Logging
 import logging
@@ -15,13 +18,39 @@ logger = logging.getLogger(__name__)
 class Searcher():
     def __init__(self, client: QdrantClient, threshold: float, top_k: int):
         self.client = client
+        self.sparse_model = SparseTextEmbedding("Qdrant/bm25")
         self.threshold = threshold
         self.top_k = top_k
 
-    def retreive_best_texto(self, embedded_query: np.ndarray, cap_id: int):
-        hits = self.client.search(
+    def _to_sparse_vector(self, query_text: str):
+        sparse_query_object = next(self.sparse_model.embed(query_text)) # We use next because it returns a generator
+        sparse_vector = SparseVector(
+            indices=sparse_query_object.indices.tolist(),
+            values=sparse_query_object.values.tolist()
+        )
+        return sparse_vector
+    
+    def _retreive_best_texto(self, embedded_query: np.ndarray, query_text:str, cap_id: int):
+        hits = self.client.query_points(
             collection_name="textos",
-            query_vector=embedded_query.flatten().tolist(),
+            prefetch=[
+                # Dense vector search
+                Prefetch(
+                    query=embedded_query.flatten().tolist(),
+                    using="dense", 
+                    limit=3
+                ),
+                # Sparse vector search
+                Prefetch(
+                    query=Document(
+                        text=query_text,
+                        model="Qdrant/bm25"
+                    ),
+                    using="sparse",
+                    limit=3
+                )
+            ],
+            query=FusionQuery(fusion=Fusion.RRF),
             query_filter=Filter(
                 must=[
                     FieldCondition(
@@ -30,17 +59,37 @@ class Searcher():
                     )
                 ]
             ),
-            limit=3,
-            score_threshold=0.1
+            limit=1, # We can change this if we want Reranking
         )
-        logging.info(hits[0].payload["texto_id"])
-        logging.info(hits[0].payload["texto"])
-        return hits[0] if hits else None
+        if hits and hits.points:
+            logging.info(hits.points[0].payload["texto_id"])
+            return hits.points[0]
+        return None
 
-    def retreive_best_capitulo(self, embedded_query: np.ndarray, doc_id: int):
-        hits = self.client.search(
+    def _retreive_best_capitulo(self, embedded_query: np.ndarray, query_text:str, doc_id: str):
+        if query_text == None:
+            print("Query is empty")
+            query_text = "Credito Emprendedor Banca Activa."
+        hits = self.client.query_points(
             collection_name="capitulos",
-            query_vector=embedded_query.flatten().tolist(),
+            prefetch=[
+                # Dense vector search
+                Prefetch(
+                    query=embedded_query.flatten().tolist(),
+                    using="dense",
+                    limit=3,
+                ),
+                # Sparse vector search
+                Prefetch(
+                    query=Document(
+                        text=query_text,
+                        model="Qdrant/bm25"
+                    ),
+                    using="sparse",
+                    limit=3
+                )
+            ],
+            query=FusionQuery(fusion=Fusion.RRF),
             query_filter=Filter(
                 must=[
                     FieldCondition(
@@ -49,23 +98,14 @@ class Searcher():
                     )
                 ]
             ),
-            limit=3,
-            score_threshold=0.3
+            limit=1, # We can change this if we want Reranking.
         )
-        logging.info(hits[0].payload["cap_id"])
-        return hits[0].payload["cap_id"] if hits else None
+        if hits and hits.points:
+            logging.info(hits.points[0].payload["cap_id"])
+            return hits.points[0].payload["cap_id"]
+        return 0
 
-    def retrieve_best_documento(self, embedded_query: np.ndarray):
-        hits = self.client.search(  # Changed from query_points to search
-            collection_name="documentos",
-            query_vector=embedded_query.flatten().tolist(),  # Changed query
-            limit=3,
-            score_threshold=0.3  # Threshold muy bajo para general
-        )
-        logging.info(hits[0].payload["doc_id"])
-        return hits[0].payload["doc_id"] if hits else None
-
-    def retreive_doc_id_from_topic(self, topic: str):
+    def _retreive_doc_id_from_topic(self, topic: str):
         hits = self.client.scroll(
             collection_name="documentos",
             scroll_filter=Filter(
@@ -78,13 +118,11 @@ class Searcher():
             ),
             limit=1
         )
-        print(hits)
         return hits[0][0].payload["doc_id"] if hits[0] else None
 
-    def search(self,embedded_query: np.ndarray, topic: str) -> list[dict]:
+    def search(self, embedded_query: np.ndarray, query_text: str, topic: str) -> list[dict]:
         # best_doc_id = self.retrieve_best_documento(embedded_query)
-        best_doc_id = self.retreive_doc_id_from_topic(topic)
-        print(best_doc_id)
-        best_capitulo_id = self.retreive_best_capitulo(embedded_query, best_doc_id)
-        texto_most_relevant_vector = self.retreive_best_texto(embedded_query, best_capitulo_id)
-        return texto_most_relevant_vector
+        best_doc_id = self._retreive_doc_id_from_topic(topic)
+        best_capitulo_id = self._retreive_best_capitulo(embedded_query, query_text, best_doc_id)
+        best_texto_vector = self._retreive_best_texto(embedded_query, query_text, best_capitulo_id)
+        return best_texto_vector
