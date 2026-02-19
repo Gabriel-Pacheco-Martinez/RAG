@@ -1,4 +1,8 @@
 ## Steps
+
+- **Capitulos que habria que remover o necesita algo para que el RAG lo agarre mejor**:
+  - **linea de credito**: es muy general no se entiende.
+
 - **Confidence gate**: Si el confidence score de los chunks es muy bajo se debe:
   - Borrar el contexto actual y memoria
   - Indicar al usuario que se esta borrando contexto actual y memoria
@@ -7,6 +11,11 @@
 - **Unit tests**: Crear unit tests que revise si se está retrieving la parte correcta del contexto.
 
   - PYTHONPATH=. pytest -s
+  - PYTHONPATH=. pytest -vv
+  - PYTHONPATH=. pytest -vv tests/test_my_file.py # Specific file
+
+  - Para capitulos el testing salió bien 34/35.
+  - Para textos el testing salió bien .
 
 - **RETRIEVAL**: Tal vez necesito agarrar todo el capitulo, subcapitulo. Pero va a ser mas caro, porque se necesitaran mas tokens. Tal vez le puedo avisar al usuario que la informacion salio de tal capitulo de la pagina web para que se guien. Tal vez le puedo poner un resumen a cada pedaso de texto tambien.
 

@@ -9,7 +9,7 @@ from src.nodes.retrieval.rag import use_rag
 from src.models.query import QueryRequest
 
 # Load test cases
-with open("tests/tests.json", "r", encoding="utf-8") as f:
+with open("tests/textos.json", "r", encoding="utf-8") as f:
     tests = json.load(f)
 
 # Run tests
@@ -21,10 +21,16 @@ def test_rag(case):
         "topic": case["topic"]
     }
 
-    # Run rag
+    # Run rag chapg
     vector = use_rag(state)
     texto_id = vector.payload["texto_id"]
     
     # Evaluate
-    result = texto_id == case["texto_id"]
+    # Evaluate
+    expected = case["texto_id"]
+
+    if isinstance(expected, list):
+        result = texto_id in expected
+    else:
+        result = texto_id == expected
     assert result, f"Message: {case['mensaje']}, esperado: {case['texto_id']}, recibimos: {texto_id}"

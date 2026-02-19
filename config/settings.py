@@ -57,8 +57,8 @@ MAX_MESSAGE_HISTORY_MEMORY = 6
 
 # =====
 # WEBSITE DATA: needs file path as single file
-WEBSITE_LOADED_FILE_PATH = "data/loaded/website/website_loaded.json" 
-WEBSITE_METADATA_FILE_PATH = "data/metadata/website/website_metadata.json"
+WEBSITE_LOADED_FILE_PATH = "data/loaded/website/website_loaded-new.json" 
+WEBSITE_METADATA_FILE_PATH = "data/metadata/website/website_metadata-new.json"
 
 # =====
 # PDF DATA: needs folder path as multiple files

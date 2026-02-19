@@ -14,3 +14,5 @@ src_2/
 .vscode/
 logs/
 temp.py
+tests/tests.json
+tests/.pytest_cache
