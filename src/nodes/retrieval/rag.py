@@ -31,6 +31,7 @@ def use_rag(state: ChatState):
     topic = state["topic"] # Select topic by classify
     searcher = Searcher(QDRANT_CLIENT, THRESHOLD, TOP_K)
     vector: list[dict] = searcher.search(embedded_query, query, topic)
+    # return vector # For testing
 
     # Prompt generation
     llm = LLM_Engine(LLM_SOURCE, GROQ_GENERATOR_MODEL, GEMINI_GENERATOR_MODEL)
