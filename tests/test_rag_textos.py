@@ -26,7 +26,6 @@ def test_rag(case):
     texto_id = vector.payload["texto_id"]
     
     # Evaluate
-    # Evaluate
     expected = case["texto_id"]
 
     if isinstance(expected, list):

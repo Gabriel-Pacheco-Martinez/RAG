@@ -50,7 +50,9 @@ class Searcher():
                     limit=3
                 )
             ],
-            query=FusionQuery(fusion=Fusion.RRF),
+            query=FusionQuery(
+                fusion=Fusion.RRF,
+            ),
             query_filter=Filter(
                 must=[
                     FieldCondition(
@@ -67,9 +69,6 @@ class Searcher():
         return None
 
     def _retreive_best_capitulo(self, embedded_query: np.ndarray, query_text:str, doc_id: str):
-        if query_text == None:
-            print("Query is empty")
-            query_text = "Credito Emprendedor Banca Activa."
         hits = self.client.query_points(
             collection_name="capitulos",
             prefetch=[
@@ -125,4 +124,4 @@ class Searcher():
         best_doc_id = self._retreive_doc_id_from_topic(topic)
         best_capitulo_id = self._retreive_best_capitulo(embedded_query, query_text, best_doc_id)
         best_texto_vector = self._retreive_best_texto(embedded_query, query_text, best_capitulo_id)
-        return best_capitulo_id
+        return best_texto_vector

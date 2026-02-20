@@ -21,7 +21,11 @@ class DocumentChunker(ABC):
         pass
 
     @abstractmethod
-    def get_and_save_chunks(self):
+    def save_chunks(self):
+        pass
+
+    @abstractmethod
+    def get_chunks(self):
         pass
 
 class WebsiteChunker(DocumentChunker):
@@ -187,13 +191,18 @@ class WebsiteChunker(DocumentChunker):
 
         return map
 
-    def get_and_save_chunks(self, WEBSITE_METADATA_FILE_PATH:str ,metadata:dict) -> dict[str, dict[str, Any]]:
+    def save_chunks(self, WEBSITE_METADATA_FILE_PATH:str ,metadata:dict) -> dict[str, dict[str, Any]]:
         write_json(metadata, WEBSITE_METADATA_FILE_PATH)
 
         chunks = metadata["chunks"]
         logging.info(Fore.BLUE + f"Created {len(chunks)} chunks." + Style.RESET_ALL)
 
         return chunks
+    
+    def get_chunks(self, WEBSITE_METADATA_FILE_PATH:str):
+        data = read_json(WEBSITE_METADATA_FILE_PATH)
+        chunks = data["chunks"]
+        return data, chunks
 
 class PDFChunker(DocumentChunker):
     def __init__(self):
@@ -286,10 +295,13 @@ class PDFChunker(DocumentChunker):
 
         return metadata
 
-    def get_and_save_chunks(self, PDF_METADATA_FILE_PATH:str , metadata: dict) -> dict[str, dict[str, Any]]:
+    def save_chunks(self, PDF_METADATA_FILE_PATH:str , metadata: dict) -> dict[str, dict[str, Any]]:
         write_json(metadata, PDF_METADATA_FILE_PATH)
 
         chunks = metadata["chunks"]
         logging.info(Fore.BLUE + f"Created {len(chunks)} chunks." + Style.RESET_ALL)
 
         return chunks
+    
+    def get_chunks(self, PDF_METADATA_FILE_PATH:str):
+        pass

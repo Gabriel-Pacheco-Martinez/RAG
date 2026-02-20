@@ -40,8 +40,9 @@ def run():
     # =======
     # Chunk WEBSITE document
     chunker: object = WebsiteChunker()
-    metadata: map =chunker.chunk_document(WEBSITE_LOADED_FILE_PATH)
-    chunks: map = chunker.get_and_save_chunks(WEBSITE_METADATA_FILE_PATH, metadata)
+    # metadata: map =chunker.chunk_document(WEBSITE_LOADED_FILE_PATH)
+    # chunks: map = chunker.save_chunks(WEBSITE_METADATA_FILE_PATH, metadata)
+    metadata, chunks = chunker.get_chunks(WEBSITE_METADATA_FILE_PATH)
     print("✅ Successfull chunking")
 
     # =======

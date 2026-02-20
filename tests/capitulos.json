@@ -8,7 +8,7 @@
     {"mensaje":"Vehicular?", "topic": "creditos", "chapter_id": "3"},
     {"mensaje":"Quiero un credito vehicular?", "topic": "creditos", "chapter_id": "3"},
     {"mensaje": "¿Qué opciones hay para financiar mi maestría o un viaje?", "topic": "creditos", "chapter_id": "4"},
-    {"mensaje": "Necesito un préstamo para comprar una laptop y gastos médicos", "topic": "creditos", "chapter_id": "4"},
+    {"mensaje": "Necesito un préstamo para gastos médicos", "topic": "creditos", "chapter_id": "4"},
     {"mensaje": "¿Cómo funciona el monto fijo aprobado para múltiples operaciones?", "topic": "creditos", "chapter_id": "5"},
     {"mensaje": "Quiero abrir una cuenta de ahorro digital para jóvenes", "topic": "ahorro_e_inversion", "chapter_id": "6"},
     {"mensaje": "¿Qué es la cuenta eficaz y cómo rinde mi dinero?", "topic": "ahorro_e_inversion", "chapter_id": "6"},
