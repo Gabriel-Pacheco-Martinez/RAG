@@ -125,4 +125,4 @@ class Searcher():
         best_doc_id = self._retreive_doc_id_from_topic(topic)
         best_capitulo_id = self._retreive_best_capitulo(embedded_query, query_text, best_doc_id)
         best_texto_vector = self._retreive_best_texto(embedded_query, query_text, best_capitulo_id)
-        return best_texto_vector
+        return best_capitulo_id
