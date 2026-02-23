@@ -6,7 +6,7 @@ class ChatState(TypedDict):
     user_session_id: int
     user_message_str: str 
     user_message_format: str
-    user_message_ambiguos: bool
+    user_message_ambiguous: bool
 
     # Intencion
     intent_confidence: float
@@ -25,7 +25,6 @@ class ChatState(TypedDict):
 
     # LLM
     llm_intent_response: str
-    llm_topic_response: str
     llm_query_response: str
 
     # Redis

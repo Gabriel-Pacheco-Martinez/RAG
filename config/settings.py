@@ -46,6 +46,7 @@ GEMINI_MULTIMODAL_MODEL = ChatGoogleGenerativeAI(model="gemini-2.5-flash", tempe
 # =====
 # Embeddings
 EMBEDDING_MODEL = "all-MiniLM-L6-v2"
+RERANKER_MODEL = "cross-encoder/ms-marco-MiniLM-L-6-v2"
 EMBEDDING_BATCH_SIZE = 16
 EMBEDDING_N_DIMENSIONS = 384
 
@@ -57,8 +58,8 @@ MAX_MESSAGE_HISTORY_MEMORY = 6
 
 # =====
 # WEBSITE DATA: needs file path as single file
-WEBSITE_LOADED_FILE_PATH = "data/loaded/website/website_loaded-new.json" 
-WEBSITE_METADATA_FILE_PATH = "data/metadata/website/website_metadata-new.json"
+WEBSITE_LOADED_FILE_PATH = "data/loaded/website/website_loaded.json" 
+WEBSITE_METADATA_FILE_PATH = "data/metadata/website/website_metadata.json"
 
 # =====
 # PDF DATA: needs folder path as multiple files

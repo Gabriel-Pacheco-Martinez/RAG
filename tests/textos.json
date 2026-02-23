@@ -63,7 +63,7 @@
     {"mensaje": "Préstamos para jóvenes emprendedores.", "topic": "creditos", "texto_id": ["1", "12", "18", "20"]},
     {"mensaje": "Información sobre el servicio de fideicomiso.", "topic": "servicios", "texto_id": ["32", "33", "34"]},
     {"mensaje": "Cómo recibir plata del exterior?", "topic": "servicios", "texto_id": ["42", "50", "73", "76"]},
-    {"mensaje": "Qué opciones hay para la tercera edad?", "topic": "varios", "texto_id": ["14", "63"]},
+    {"mensaje": "Qué opciones hay para la tercera edad?", "topic": "seguros", "texto_id": ["14", "63"]},
     {"mensaje": "Cómo funcionan los giros?", "topic": "servicios", "texto_id": ["31"]},
     {"mensaje": "Información sobre banca digital.", "topic": "servicios", "texto_id": ["23","54","55","58"]},
     {"mensaje": "Quiero comprar una casa.", "topic": "creditos", "texto_id": ["2"]},

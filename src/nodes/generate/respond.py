@@ -33,6 +33,7 @@ def respond_query(state: ChatState) -> dict:
     # UPDATE FINAL STATE
     state["final_answer"] = {
         "topic": state["topic"],
+        "rewritten_query": state["rewritten_query"],
         "info_source": state["info_source"],
         "response": state["llm_query_response"],
         "context": state["context"],

@@ -9,7 +9,7 @@ from src.nodes.retrieval.rag import use_rag
 from src.models.query import QueryRequest
 
 # Load test cases
-with open("tests/textos.json", "r", encoding="utf-8") as f:
+with open("tests/textos2.json", "r", encoding="utf-8") as f:
     tests = json.load(f)
 
 # Run tests
@@ -22,14 +22,23 @@ def test_rag(case):
     }
 
     # Run rag chapg
-    vector = use_rag(state)
-    texto_id = vector.payload["texto_id"]
-    
-    # Evaluate
+    vectors = use_rag(state)
+
+    # Collect returned texto_ids
+    ids = [vector.payload["texto_id"] for vector in vectors]
+
+    # Expected value(s)
     expected = case["texto_id"]
 
     if isinstance(expected, list):
-        result = texto_id in expected
+        # True if ANY returned id is in expected list
+        result = any(i in expected for i in ids)
     else:
-        result = texto_id == expected
-    assert result, f"Message: {case['mensaje']}, esperado: {case['texto_id']}, recibimos: {texto_id}"
+        # True if expected id is inside returned ids
+        result = expected in ids
+
+    assert result, (
+        f"Message: {case['mensaje']}, "
+        f"esperado: {expected}, "
+        f"recibimos: {ids}"
+    )

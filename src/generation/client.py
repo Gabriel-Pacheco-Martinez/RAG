@@ -7,6 +7,9 @@ from src.utils.prompts import build_generator_prompt
 from src.utils.prompts import build_verifier_prompt
 from src.utils.io import load_prompt
 
+# Qdrant
+from qdrant_client.models import ScoredPoint
+
 # Logging
 import logging
 logger = logging.getLogger(__name__)
@@ -56,22 +59,31 @@ class LLM_Engine(ABC):
         return generator_response
 
 
-    def generate_context(self, vector: dict) -> str:
-        payload = vector.payload
-
+    def generate_context(self, vectors: list[ScoredPoint], textos: dict[str, str]) -> str:
+        # General information for all chunks
+        general_payload = vectors[0].payload
         context = f"""
-        DOCUMENTO: {payload.get('doc_titulo', '').upper()}
-        Resumen del documento:
-        {payload.get('doc_resumen', '')}
+            DOCUMENTO: {general_payload.get('doc_titulo', '').upper()}
+            Resumen del documento: {general_payload.get('doc_resumen', '')}
 
-        CAPÍTULO: {payload.get('cap_titulo', '').upper()}
-        Descripción del capítulo:
-        {payload.get('cap_texto', '')}
+            CAPÍTULO: {general_payload.get('cap_titulo', '').upper()}
+            Descripción del capítulo: {general_payload.get('cap_texto', '')}
+        """
+        
+        # Merge chunk information
+        paragraphs = []
+        for index, vector in enumerate(vectors):
+            payload = vector.payload
 
-        CONTENIDO RELEVANTE:
-        {payload.get('texto', '')}
+            paragraph = f"""
+            ---
+            CHUNK {index+1}:
 
-        """.strip()
 
-        return context
+            TEXTO: {textos[payload["texto_id"]]}
+            """.strip()
+
+            paragraphs.append(paragraph)
+
+        return context + "\n\n".join(paragraphs)
 

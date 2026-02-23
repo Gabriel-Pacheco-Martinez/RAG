@@ -1,6 +1,12 @@
 # General
 from colorama import Fore, Style
 
+# Helpers
+from src.utils.printing import pretty_print_hits
+
+# HuggingFace
+from sentence_transformers import CrossEncoder
+
 # Numpy 
 import numpy as np
 
@@ -16,19 +22,38 @@ import logging
 logger = logging.getLogger(__name__)
 
 class Searcher():
-    def __init__(self, client: QdrantClient, threshold: float, top_k: int):
+    def __init__(self, client: QdrantClient, threshold: float, top_k: int, RERANKER_MODEL: str):
         self.client = client
         self.sparse_model = SparseTextEmbedding("Qdrant/bm25")
+        self.reranker_model = CrossEncoder(RERANKER_MODEL)
         self.threshold = threshold
         self.top_k = top_k
 
-    def _to_sparse_vector(self, query_text: str):
-        sparse_query_object = next(self.sparse_model.embed(query_text)) # We use next because it returns a generator
-        sparse_vector = SparseVector(
-            indices=sparse_query_object.indices.tolist(),
-            values=sparse_query_object.values.tolist()
-        )
-        return sparse_vector
+    def _rerank_vectors(self, hits: object, query_text: str):
+        # Check where the model is running
+        # print(self.reranker_model.model.device)
+
+        # Prepare query-document pairs
+        pairs = [
+            (query_text, p.payload["texto"])
+            for p in hits.points
+        ]
+
+        # Rerank
+        scores = self.reranker_model.predict(pairs)
+
+        # Attach new scores
+        rescored = list(zip(hits.points, scores))
+
+        # Sort by cross-encoder score
+        rescored.sort(key=lambda x: x[1], reverse=True)
+
+        # Get the top 3 points
+        top_points = [point for point, _ in rescored[:3]]
+
+        # Return best
+        # print(f"Best points: {top_points}")
+        return top_points
     
     def _retreive_best_texto(self, embedded_query: np.ndarray, query_text:str, cap_id: int):
         hits = self.client.query_points(
@@ -47,7 +72,7 @@ class Searcher():
                         model="Qdrant/bm25"
                     ),
                     using="sparse",
-                    limit=3
+                    limit=5
                 )
             ],
             query=FusionQuery(
@@ -61,12 +86,19 @@ class Searcher():
                     )
                 ]
             ),
-            limit=1, # We can change this if we want Reranking
+            limit=10, # We can change this if we want Reranking
         )
-        if hits and hits.points:
-            logging.info(hits.points[0].payload["texto_id"])
-            return hits.points[0]
-        return None
+        # No hits found
+        if not hits or not hits.points:
+            return None
+        
+        # Print hits
+        # pretty_print_hits(hits, "HITS TEXTOS")
+        logging.info(hits.points[0].payload["texto_id"])
+
+        # Rerank
+        best_text_vectors =self._rerank_vectors(hits, query_text)
+        return best_text_vectors
 
     def _retreive_best_capitulo(self, embedded_query: np.ndarray, query_text:str, doc_id: str):
         hits = self.client.query_points(
@@ -97,12 +129,20 @@ class Searcher():
                     )
                 ]
             ),
-            limit=1, # We can change this if we want Reranking.
+            limit=3, # We can change this if we want Reranking.
         )
-        if hits and hits.points:
-            logging.info(hits.points[0].payload["cap_id"])
-            return hits.points[0].payload["cap_id"]
-        return 0
+        # No hits found
+        if not hits or not hits.points:
+            return None
+        
+        # Print hits
+        # pretty_print_hits(hits, "HITS CAPITULOS")
+        logging.info(hits.points[0].payload["cap_id"])
+
+        # Rerank
+        best_cap_ids =self._rerank_vectors(hits, query_text)
+        best_cap_id = best_cap_ids[0].payload["cap_id"]
+        return best_cap_id
 
     def _retreive_doc_id_from_topic(self, topic: str):
         hits = self.client.scroll(
@@ -123,5 +163,5 @@ class Searcher():
         # best_doc_id = self.retrieve_best_documento(embedded_query)
         best_doc_id = self._retreive_doc_id_from_topic(topic)
         best_capitulo_id = self._retreive_best_capitulo(embedded_query, query_text, best_doc_id)
-        best_texto_vector = self._retreive_best_texto(embedded_query, query_text, best_capitulo_id)
-        return best_texto_vector
+        best_texto_vectors = self._retreive_best_texto(embedded_query, query_text, best_capitulo_id)
+        return best_texto_vectors
