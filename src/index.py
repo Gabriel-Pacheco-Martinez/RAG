@@ -41,7 +41,8 @@ def run():
     # Chunk WEBSITE document
     chunker: object = WebsiteChunker()
     metadata: map =chunker.chunk_document(WEBSITE_LOADED_FILE_PATH)
-    chunks: map = chunker.get_and_save_chunks(WEBSITE_METADATA_FILE_PATH, metadata)
+    chunks: map = chunker.save_chunks(WEBSITE_METADATA_FILE_PATH, metadata)
+    metadata, chunks = chunker.get_chunks(WEBSITE_METADATA_FILE_PATH)
     print("✅ Successfull chunking")
 
     # =======
@@ -51,7 +52,7 @@ def run():
     print("✅ Successfull embedding")
 
     # =======
-    # Index the embeddings
+    # Index the embeddings with their metadata
     indexer = Indexer(QDRANT_CLIENT, EMBEDDING_N_DIMENSIONS)
     indexer.index_embeddings(metadata, embeddings_chunks)
     print("✅ Successfull indexing")

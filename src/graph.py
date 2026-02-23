@@ -21,7 +21,7 @@ logger = logging.getLogger(__name__)
 
 
 def _route_after_classification(state: ChatState) -> str:
-    if state["user_message_ambiguos"] or state["topic_confidence"]<0.75:
+    if state["user_message_ambiguous"] or state["topic_confidence"]<0.75:
         return "ask_clarification"
     if state["info_source"] == "memory":
         return "respond_query"

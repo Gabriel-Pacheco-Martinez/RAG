@@ -1,16 +1,8 @@
 .env
-venv/
-chunks.json
-main.py
-.DS_Store
 **/__pycache__/
 data/
 .python-version
 ragvenv/
 **/.DS_Store
-delete.py
-delete.json
-src_2/
-.vscode/
 logs/
-temp.py
+tests/.pytest_cache

@@ -21,7 +21,11 @@ class DocumentChunker(ABC):
         pass
 
     @abstractmethod
-    def get_and_save_chunks(self):
+    def save_chunks(self):
+        pass
+
+    @abstractmethod
+    def get_chunks(self):
         pass
 
 class WebsiteChunker(DocumentChunker):
@@ -29,6 +33,7 @@ class WebsiteChunker(DocumentChunker):
         # ID counters
         self.doc_id = 1
         self.cap_id = 1
+        self.text_id = 1
         self.doc_chunk_id = 1
         self.cap_chunk_id = 1
         self.text_chunk_id = 1
@@ -36,6 +41,7 @@ class WebsiteChunker(DocumentChunker):
         # Maps
         self.documentos = {}
         self.capitulos = {}
+        self.textos = {}
         self.chunks = {
             "documentos": {},
             "capitulos": {},
@@ -44,14 +50,20 @@ class WebsiteChunker(DocumentChunker):
 
     def _process_attributes(self, data: dict, prefix: str) -> str:
         # Attributes ID
-        text_id = self.text_chunk_id
+        text_id = self.text_id
+        self.text_id += 1
+
+        text_chunk_id = self.text_chunk_id
         self.text_chunk_id += 1
 
-        # Construct attributes text chunk
+        # Construct attributes text metadata
         sections = []
         for key, value in data.items():
             # Skip resumen_capitulo
             if key == "resumen_capitulo":
+                continue
+            # Skip resumen_rag
+            if key == "resumen_rag":
                 continue
             # Construct section
             section = (
@@ -60,9 +72,16 @@ class WebsiteChunker(DocumentChunker):
             )
             sections.append(section)
         text = prefix + "\n\n".join(sections)
-        self.chunks["textos"][str(text_id)] = text
-        return [str(text_id)]
-    
+        self.textos[str(text_id)] = text
+        
+        # Provide attributes rag chunk. THIS CAN BE DONE BY AN LLM
+        if "resumen_rag" in data:
+            chunk = data["resumen_rag"]
+            self.chunks["textos"][str(text_chunk_id)] = chunk
+
+        # Return
+        return [str(text_chunk_id)]
+
     def _process_tabs(self, tabs: dict, prefix):
         textos_ids = []
         for tab_key, tab_data in tabs.items():
@@ -154,7 +173,7 @@ class WebsiteChunker(DocumentChunker):
     def chunk_document(self, WEBSITE_LOADED_FILE_PATH:str) -> dict:
         # Load file
         input_data = read_json(WEBSITE_LOADED_FILE_PATH)
-        
+
         # Process personas
         if 'personas' in input_data:
             self._process_documentos(input_data['personas'])
@@ -166,18 +185,24 @@ class WebsiteChunker(DocumentChunker):
         map = {
             "documentos": self.documentos,
             "capitulos": self.capitulos,
+            "textos": self.textos,
             "chunks": self.chunks
         }
 
         return map
 
-    def get_and_save_chunks(self, WEBSITE_METADATA_FILE_PATH:str ,metadata:dict) -> dict[str, dict[str, Any]]:
+    def save_chunks(self, WEBSITE_METADATA_FILE_PATH:str ,metadata:dict) -> dict[str, dict[str, Any]]:
         write_json(metadata, WEBSITE_METADATA_FILE_PATH)
 
         chunks = metadata["chunks"]
         logging.info(Fore.BLUE + f"Created {len(chunks)} chunks." + Style.RESET_ALL)
 
         return chunks
+    
+    def get_chunks(self, WEBSITE_METADATA_FILE_PATH:str):
+        data = read_json(WEBSITE_METADATA_FILE_PATH)
+        chunks = data["chunks"]
+        return data, chunks
 
 class PDFChunker(DocumentChunker):
     def __init__(self):
@@ -270,10 +295,13 @@ class PDFChunker(DocumentChunker):
 
         return metadata
 
-    def get_and_save_chunks(self, PDF_METADATA_FILE_PATH:str , metadata: dict) -> dict[str, dict[str, Any]]:
+    def save_chunks(self, PDF_METADATA_FILE_PATH:str , metadata: dict) -> dict[str, dict[str, Any]]:
         write_json(metadata, PDF_METADATA_FILE_PATH)
 
         chunks = metadata["chunks"]
         logging.info(Fore.BLUE + f"Created {len(chunks)} chunks." + Style.RESET_ALL)
 
         return chunks
+    
+    def get_chunks(self, PDF_METADATA_FILE_PATH:str):
+        pass

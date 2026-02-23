@@ -22,7 +22,7 @@ logger = logging.getLogger(__name__)
 def _update_state(state: ChatState, response: str):
     state["topic"] = response["topic"]
     state["topic_confidence"] = response["topic_confidence"]
-    state["user_message_ambiguos"] = response["user_message_ambiguos"]
+    state["user_message_ambiguous"] = response["user_message_ambiguous"]
     state["is_follow_up"] = response["is_follow_up"]
     state["rewritten_query"] = response["rewritten_query"]
     if state["is_follow_up"]:
@@ -57,7 +57,6 @@ def classify_query(state: ChatState) -> dict:
     # Llamar al LLM
     response_raw: str = _call_llm(classify_prompt)
     response_obj: object = _extract_json_from_response(response_raw)
-    state["llm_topic_response"] = response_obj["rewritten_query"]
     logger.info(f"LLM Topic llamado. La respuesta es: {response_raw}")
 
     # Update el estado

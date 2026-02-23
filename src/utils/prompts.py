@@ -37,7 +37,6 @@ def build_classify_prompt(state: ChatState, _classify_base_prompt: str) -> str:
         "temas": json.dumps(load_yaml_schema("topics.yaml")), # dict
         "tema_previo": state["topic_previous"],
         "memoria_conversacion": json.dumps(state["conversation_history"]), # list
-        "contexto_rag": state["context"],
         "user_message_ph": state["user_message"],
     })
 
