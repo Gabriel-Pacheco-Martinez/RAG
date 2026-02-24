@@ -18,6 +18,8 @@ class ChatState(TypedDict):
     topic_confidence: float
     is_follow_up: bool
     rewritten_query: str
+    document: str
+    chapter: str
 
     # Retrieval
     retreival_confidence: float

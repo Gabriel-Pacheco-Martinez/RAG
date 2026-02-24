@@ -39,6 +39,8 @@ def use_rag(state: ChatState):
     topic = state["topic"] # Select topic by classify
     searcher = Searcher(QDRANT_CLIENT, THRESHOLD, TOP_K, RERANKER_MODEL)
     vectors: list[ScoredPoint] = searcher.search(embedded_query, query, topic)
+    state["document"] = vectors[0].payload.get('doc_titulo', '').upper()
+    state["chapter"] = vectors[0].payload.get('cap_titulo', '').upper()
         # return vectors # For testing
 
     # Load metadata

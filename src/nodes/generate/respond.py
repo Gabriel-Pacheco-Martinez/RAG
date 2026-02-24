@@ -23,7 +23,11 @@ def respond_query(state: ChatState) -> dict:
     llm_response = llm.prompt_llm(state["user_message"], state["context"])
 
     # Update state
-    state["llm_query_response"] = llm_response
+    state["llm_query_response"] = f"""
+        Informacion obtenida de la sección {state["document"]} del capítulo {state["chapter"]}:
+        {llm_response}
+        """
+    
     state["conversation_history"].append(f"User:{state['user_message']}")
     state["conversation_history"].append(f"System:{state['llm_query_response']}")
 

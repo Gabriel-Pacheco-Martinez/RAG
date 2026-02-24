@@ -1,64 +1,34 @@
-## Steps
+# STEPS 
 
-- **Capitulos que habria que remover o necesita algo para que el RAG lo agarre mejor**:
-  - **linea de credito**: es muy general no se entiende.
+## 📘 TO-DO (POSSIBLE)
+- Mostrar de donde se obtuvo la informacion en el output
+- Confidence gate: Si el confidence score de los chunks es muy bajo se debe borrar el contexto actual y memoria, indicar al usuario que se esta borrando contexto actual y memoria, devolver un mensaje al usuario pidiendo un query nuevo.
+- Tal vez el reranker pueda cambiar el numero de top-K chunks dependiendo de los scores.
+- Avisar despues de 15 minutos si se cerró la sesión de REDIS.
+- Security layer for user messages.
 
-- **Confidence gate**: Si el confidence score de los chunks es muy bajo se debe:
-  - Borrar el contexto actual y memoria
-  - Indicar al usuario que se esta borrando contexto actual y memoria
-  - Devolver un mensaje al usuario pidiendo un query nuevo
+## 📔 REVISAR CAPITULOS
+- **linea de credito**: es muy general no se entiende.
 
-- **Unit tests**: Crear unit tests que revise si se está retrieving la parte correcta del contexto.
-
+## 🧪 UNIT TESTS
+Los unit tests se pueden correr con los siguientes comandos.
   - PYTHONPATH=. pytest -s  # Show prints on successful runs
-  - PYTHONPATH=. pytest -vv # Specific file
   - PYTHONPATH=. pytest -vv tests/test_my_file.py # Specific file
 
-  - Para capitulos el testing salió bien 34/35.
-  - Para textos el testing salió bien .
+## 💵 PRICES
+Asumiendo que vamos a usar [GPT-5 nano](https://developers.openai.com/api/docs/models/gpt-5-nano). Estamos calculando utilizando el siguiente [tokenizer](https://platform.openai.com/tokenizer) para el modelo GPT-5x.
 
-- **RETRIEVAL**: Aumentar un reranker. PERO Tal vez necesito tener una mejor computadora que pueda correr el reranker localmente. Maybe reranker can change amount of top k chunks depending on the scores.
+### Input
+- Token count: 942 + 1693 + 1501 = 4136
+- Precio: *0.05* por *4,136* dividido *1,000,000*
+  - **USD:** 0.0002068 $
+  - **Bs (1 USD = 10 Bs):** 0.002068 Bs 
 
-FALTA DECIR DE QUE SECCION SE OBTUVO LA INFORMACION.
+### Output:
+- Token count: 36 + 61 + 294 = 391
+- Precio: *0.4* por *391* dividido *1,000,000*
+  - **USD:** 0.0001564 $
+  - **Bs (1 USD = 10 Bs):** 0.001564 Bs 
 
-- **REDIS**: Avisar después de 15 minutos que se cerró la sesión de REDIS.
-
-- **Price costing**: Ver cuanto va a costar cada llamada. [Check]
-
-- **Security layer**: Security filtering layer for user messages.
-
-
-## Prices
-Asumiendo que vamos a usar [GPT-5 nano](https://developers.openai.com/api/docs/models/gpt-5-nano). Estamos calculando utilizando el siguiente [tokenizer](https://platform.openai.com/tokenizer) para la GPT-5x.
-
-
-## 🔢 Conteo de tokens
-### Intent section:
-- Intent input tokens: 1122
-- Intent output tokens: 53
-
-#### Classify section:
-- Classify input tokens: 2080
-- Classify output tokens: 221
-
-### Generate section
-- Generate input tokens: 971
-- Generate output tokens: 83
-
-
-## 💰 Cost Calculations
-### Input Cost
-*0.5* por *4,173* dividido *1,000,000*
-
-- **USD:** 0.00020865 $
-- **Bs (1 USD = 10 Bs):** 0.0020865  
-
-### Output Cost
-*0.4* por *357* dividido *1,000,000*
-
-- **USD:** 0.0001428 $
-- **Bs (1 USD = 10 Bs):** 0.001428 Bs
-
-
-## 💵 Total
-**0.0035145 Bs. Aproximadamente 285 requests serán igual a 1Bs.**
+### Total:
+**0.003632 Bs por pedido. Aproximadamente 275 pedidos seran un 1 Bs.**
