@@ -1,5 +1,6 @@
 # General
 from colorama import Fore, Style
+from time import perf_counter
 
 # LangGraph
 from src.models.state import ChatState
@@ -28,6 +29,9 @@ from config.settings import LLM_SOURCE
 from config.settings import WEBSITE_METADATA_FILE_PATH
 
 def use_rag(state: ChatState):
+    # Start timer
+    state["start_time_1"] = perf_counter()
+
     # Query
     query = state["user_message"]
 
@@ -51,5 +55,8 @@ def use_rag(state: ChatState):
 
     # Update state
     state["context"] = context
+
+    # Timer
+    print(f"[RAG TIME:] {perf_counter() - state['start_time_1']:.4f}s")
 
     return state

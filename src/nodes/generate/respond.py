@@ -1,3 +1,6 @@
+# General
+from time import perf_counter
+
 # LangGraph
 from src.models.state import ChatState
 
@@ -18,6 +21,9 @@ from config.settings import LLM_SOURCE
 
 
 def respond_query(state: ChatState) -> dict:
+    # Start timer
+    state["start_time_2"] = perf_counter()
+
     # Prompt generation
     llm = LLM_Engine(LLM_SOURCE, GROQ_GENERATOR_MODEL, GEMINI_GENERATOR_MODEL)
     llm_response = llm.prompt_llm(state["user_message"], state["context"])
@@ -46,5 +52,6 @@ def respond_query(state: ChatState) -> dict:
 
     # Say something
     print("🦺 GENERATION LLM: DONE")
+    print(f"[LLM CALL:] {perf_counter() - state['start_time_2']:.4f}s")
 
     return state
