@@ -40,7 +40,7 @@ class Searcher():
         ]
 
         # Rerank
-        scores = self.reranker_model.predict(pairs)
+        scores = self.reranker_model.predict(pairs, show_progress_bar=False)
 
         # Attach new scores
         rescored = list(zip(hits.points, scores))

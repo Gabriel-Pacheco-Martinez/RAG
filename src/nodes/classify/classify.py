@@ -62,4 +62,7 @@ def classify_query(state: ChatState) -> dict:
     # Update el estado
     state = _update_state(state, response_obj)
 
+    # Say something
+    print("🦺 CLASSIFICATION LLM: DONE")
+
     return state

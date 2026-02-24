@@ -44,4 +44,7 @@ def respond_query(state: ChatState) -> dict:
         "conversation_history": state["conversation_history"]
     }
 
+    # Say something
+    print("🦺 GENERATION LLM: DONE")
+
     return state

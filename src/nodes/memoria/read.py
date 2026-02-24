@@ -27,13 +27,17 @@ def read_memory(state: ChatState) -> dict:
         REDIS_CLIENT.hset(session_id, mapping={
             "topic_previous": json.dumps(""),
             "conversation_history": json.dumps([]),
-            "context": json.dumps("")
+            "context": json.dumps(""),
+            "document_previous": json.dumps(""),
+            "chapter_previous": json.dumps("")
         })
 
         # State
         state["topic_previous"] = ""
         state["conversation_history"] = []
         state["context"] = ""
+        state["document_previous"] = ""
+        state["chapter_previous"] = ""
 
         # Set TTL
         REDIS_CLIENT.expire(session_id, session_ttl)
@@ -45,6 +49,9 @@ def read_memory(state: ChatState) -> dict:
         state["topic_previous"] = session_data_obj.get("topic_previous", "")
         state["conversation_history"] = session_data_obj.get("conversation_history", "")
         state["context"] = session_data_obj.get("context", "")
+        state["document"] = session_data_obj.get("document_previous", "")
+        state["chapter"] = session_data_obj.get("chapter_previous", "")
+
         logger.info(f"Session {session_id}: read and loaded")
 
     return state

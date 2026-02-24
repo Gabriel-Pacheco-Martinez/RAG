@@ -9,7 +9,7 @@ from src.nodes.retrieval.rag import use_rag
 from src.models.query import QueryRequest
 
 # Load test cases
-with open("tests/textos2.json", "r", encoding="utf-8") as f:
+with open("tests/textos.json", "r", encoding="utf-8") as f:
     tests = json.load(f)
 
 # Run tests

@@ -41,7 +41,6 @@ def use_rag(state: ChatState):
     vectors: list[ScoredPoint] = searcher.search(embedded_query, query, topic)
     state["document"] = vectors[0].payload.get('doc_titulo', '').upper()
     state["chapter"] = vectors[0].payload.get('cap_titulo', '').upper()
-        # return vectors # For testing
 
     # Load metadata
     textos = read_json(WEBSITE_METADATA_FILE_PATH)["textos"]

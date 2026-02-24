@@ -78,4 +78,6 @@ def identify_intent(state: ChatState):
     state["intent_confidence"] = response_obj["confianza_en_la_intencion"]
     state["slots"] = response_obj["slots_requeridos"]
 
+    # Say something
+    print("🦺 INTENTION DETECTED LLM: DONE")
     return state
