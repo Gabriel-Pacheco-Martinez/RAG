@@ -3,8 +3,9 @@
 ## 📘 TO-DO (POSSIBLE)
 - Mostrar de obtuvo la informacion en el output [Check]
 - Mostrar AI emoji 🤖 [Check]
-- Try/catch handlers.
+- Try/catch handlers. [Check]
 - Define top-K chunks.
+- Add logs
 - Reranker change top-K chunks??
 - Avisar despues de 15 minutos si se cerró la sesión de REDIS.
 - Security layer for user messages.

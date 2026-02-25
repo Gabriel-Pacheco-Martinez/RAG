@@ -32,7 +32,9 @@ REDIS_CLIENT = redis.StrictRedis(
 QDRANT_CLIENT = QdrantClient(
     url="http://localhost:6333",  # Docker exposed port
 )
-TOP_K = 5
+TOP_K_DENSE = 8
+TOP_K_SPARSE = 8
+LIMIT_K_HYBRID = 5
 THRESHOLD = 0.3
 
 # =====
