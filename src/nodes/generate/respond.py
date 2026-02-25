@@ -30,6 +30,7 @@ def respond_query(state: ChatState) -> dict:
 
     # Update state
     state["llm_query_response"] = f"""
+        🤖 Este mensaje esta generado por Inteligencia Artifical.
         Informacion obtenida de la sección {state["document"]} del capítulo {state["chapter"]}:
         {llm_response}
         """

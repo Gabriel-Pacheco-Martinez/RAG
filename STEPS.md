@@ -2,6 +2,7 @@
 
 ## 📘 TO-DO (POSSIBLE)
 - Mostrar de donde se obtuvo la informacion en el output [Check]
+- Add try catch errors.
 - Tener algo que muestre que los mensajes estan generados por IA. Por ejemplo un emoji 🤖.
 - Confidence gate: Si el confidence score de los chunks es muy bajo se debe borrar el contexto actual y memoria, indicar al usuario que se esta borrando contexto actual y memoria, devolver un mensaje al usuario pidiendo un query nuevo.
 - Tal vez el reranker pueda cambiar el numero de top-K chunks dependiendo de los scores.
