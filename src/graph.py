@@ -1,3 +1,7 @@
+"""
+Author: Gabriel Pacheco
+Date: February 2026
+"""
 # General
 import logging
 from colorama import Fore, Style
@@ -7,32 +11,36 @@ from langgraph.graph import StateGraph
 from src.models.state import ChatState
 
 # Nodes
-from src.nodes.intent.intent import identify_intent
-from src.nodes.intent.respond import respond_intent
-from src.nodes.memoria.read import read_memory
-from src.nodes.memoria.update import update_memory
-from src.nodes.classify.classify import classify_query
-from src.nodes.clarify.clarify import ask_clarification
-from src.nodes.retrieval.rag import use_rag
-from src.nodes.generate.respond import respond_query
+from src.nodes.intent.detect import intent_detect
+from src.nodes.intent.respond import intent_guardrail_response
+from src.nodes.memory.read import read_memory
+from src.nodes.memory.update import update_memory
+from src.nodes.topic.detect import topic_detect
+from src.nodes.topic.respond import topic_guardrail_response
+from src.nodes.llm.rag import llm_rag_retrieval
+from src.nodes.llm.client import llm_query_response
 
 # Configuration
 logger = logging.getLogger(__name__)
 
-
-def _route_after_classification(state: ChatState) -> str:
-    if state["user_message_ambiguous"] or state["topic_confidence"]<0.75:
-        return "ask_clarification"
-    if state["info_source"] == "memory":
-        return "respond_query"
-    elif state["info_source"] == "rag":
-        return "use_rag"
-
-def _route_after_intention(state: ChatState) -> str:
+def intent_route(state: ChatState) -> str:
+    # Si el usuario quiere que se le responda una pregunta
     if state["llm_intent_response"] == "preguntas":
         return "read_memory"
+    # Si el usuario necesitaba las otras preguntas
     else:
-        return "respond_intent"
+        return "intent_guardrail_response"
+
+def topic_route(state: ChatState) -> str:
+    # Si la pregunta es demasiado ambigua
+    if state["user_message_ambiguous"] or state["topic_confidence"]<0.75:
+        return "topic_guardrail_response"
+    # Si la informacion viene de la memoria
+    if state["info_source"] == "memory":
+        return "llm_response"
+    # Si la informacion hay que leerla con rag
+    elif state["info_source"] == "rag":
+        return "llm_rag"
 
 def run(user_message: object) -> str:
     # Create the graph
@@ -40,33 +48,35 @@ def run(user_message: object) -> str:
     user_session_id = user_message.session_id
     user_message = user_message.mensaje
 
-    # Add nodes
-    graph.add_node("intent_analysis", identify_intent)
-    graph.add_node("respond_intent", respond_intent)
+    # =========
+    # Nodes:
+    graph.add_node("intent_detect", intent_detect)
+    graph.add_node("intent_guardrail_response", intent_guardrail_response)
     graph.add_node("read_memory", read_memory)
-    graph.add_node("classify_query", classify_query)
-    graph.add_node("ask_clarification", ask_clarification)
-    graph.add_node("use_rag", use_rag)
-    graph.add_node("respond_query", respond_query)
+    graph.add_node("topic_detect", topic_detect)
+    graph.add_node("topic_guardrail_response", topic_guardrail_response)
+    graph.add_node("llm_rag", llm_rag_retrieval)
+    graph.add_node("llm_response", llm_query_response)
     graph.add_node("update_memory", update_memory)
 
-    # Identificar que quiere el usuario
-    graph.set_entry_point("intent_analysis")
-    graph.add_conditional_edges("intent_analysis", _route_after_intention)
+    # =========
+    # Routing-Edges:
+    #   1. Detectar el intent del usuario
+    graph.set_entry_point("intent_detect")
+    graph.add_conditional_edges("intent_detect", intent_route)
 
-    # Clasificar la pregunta del usuario
-    graph.add_edge("read_memory", "classify_query")
-    graph.add_conditional_edges("classify_query", _route_after_classification)
+    #   2. Detectar el topic de la pregunta del usuario
+    graph.add_edge("read_memory", "topic_detect")
+    graph.add_conditional_edges("topic_detect", topic_route)
 
-    # Contestar la pregunta con contexto
-    graph.add_edge("use_rag", "respond_query")
-    graph.add_edge("respond_query", "update_memory")
+    #   3. Contestar la pregunta del usuario
+    graph.add_edge("llm_rag", "llm_response")
+    graph.add_edge("llm_response", "update_memory")
     graph.set_finish_point("update_memory")
 
-    # Compile the graph
+    # =========
+    # Execution:
     app = graph.compile()
-
-    # Invoke the graph
     final_state = app.invoke({
         "user_session_id": user_session_id,
         "user_message": user_message,

@@ -20,7 +20,7 @@ from config.settings import GEMINI_GENERATOR_MODEL
 from config.settings import LLM_SOURCE
 
 
-def respond_query(state: ChatState) -> dict:
+def llm_query_response(state: ChatState) -> dict:
     # Start timer
     state["start_time_2"] = perf_counter()
 

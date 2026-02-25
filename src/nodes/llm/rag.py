@@ -28,7 +28,7 @@ from config.settings import GEMINI_GENERATOR_MODEL
 from config.settings import LLM_SOURCE
 from config.settings import WEBSITE_METADATA_FILE_PATH
 
-def use_rag(state: ChatState):
+def llm_rag_retrieval(state: ChatState):
     # Start timer
     state["start_time_1"] = perf_counter()
 

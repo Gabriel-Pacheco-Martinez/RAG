@@ -54,7 +54,7 @@ def _build_prompt(user_message_text: str) -> str:
     system_prompt = build_intention_prompt(system_base_prompt, intenciones_schema, answer_example, user_message_text)
     return system_prompt
 
-def identify_intent(state: ChatState):
+def intent_detect(state: ChatState):
     # validate input
     if state["user_message_format"] == "text":
         validator = TextValidator(state["user_message"], format="text", max_size=MAX_TEXT_SIZE)
