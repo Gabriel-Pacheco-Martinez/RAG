@@ -1,7 +1,7 @@
 # LangGraph
 from src.models.state import ChatState
 
-def ask_clarification(state: ChatState):
+def topic_guardrail_response(state: ChatState):
     state["llm_clarify_response"] = "clarification_needed"
 
     # UPDATE FINAL STATE

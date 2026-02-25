@@ -1,76 +1,117 @@
+"""
+Author: Gabriel Pacheco
+Date: February 2026
+"""
 # General
 import logging
 from colorama import Fore, Style
+
+# Helpers
+from src.utils.error_responses import build_error_response
 
 # LangGraph
 from langgraph.graph import StateGraph
 from src.models.state import ChatState
 
 # Nodes
-from src.nodes.intent.intent import identify_intent
-from src.nodes.intent.respond import respond_intent
-from src.nodes.memoria.read import read_memory
-from src.nodes.memoria.update import update_memory
-from src.nodes.classify.classify import classify_query
-from src.nodes.clarify.clarify import ask_clarification
-from src.nodes.retrieval.rag import use_rag
-from src.nodes.generate.respond import respond_query
+from src.nodes.intent.detect import intent_detect
+from src.nodes.intent.respond import intent_guardrail_response
+from src.nodes.memory.read import read_memory
+from src.nodes.memory.update import update_memory
+from src.nodes.topic.detect import topic_detect
+from src.nodes.topic.respond import topic_guardrail_response
+from src.nodes.llm.rag import llm_rag_retrieval
+from src.nodes.llm.respond import llm_query_response
+
+# Decorators
+from src.utils.decorators import safe_node
+from src.utils.decorators import route_or_error
 
 # Configuration
 logger = logging.getLogger(__name__)
 
+def intent_route(state: ChatState) -> str:
+    # Si hay un error
+    if state.get("error"):
+        return "error_handler"
 
-def _route_after_classification(state: ChatState) -> str:
-    if state["user_message_ambiguous"] or state["topic_confidence"]<0.75:
-        return "ask_clarification"
-    if state["info_source"] == "memory":
-        return "respond_query"
-    elif state["info_source"] == "rag":
-        return "use_rag"
-
-def _route_after_intention(state: ChatState) -> str:
+    # Elegir el siguiente node
     if state["llm_intent_response"] == "preguntas":
         return "read_memory"
     else:
-        return "respond_intent"
+        return "intent_guardrail_response"
+
+def topic_route(state: ChatState) -> str:
+    # Si hay un error
+    if state.get("error"):
+        return "error_handler"
+
+    # Elegir el siguiente node
+    if state["user_message_ambiguous"] or state["topic_confidence"]<0.75:
+        return "topic_guardrail_response"
+    if state["info_source"] == "memory":
+        return "llm_response"
+    elif state["info_source"] == "rag":
+        return "llm_rag"
+
+def error_handler(state: ChatState) -> ChatState:
+    error = state.get("error") # If it doent exist, it returns None (.get())
+    logger.error(f"Workflow failed at {error}")
+
+    response_message = build_error_response(error)
+
+    state["final_answer"] = {
+        "response": response_message,
+        "error": error
+    }
+    return state
 
 def run(user_message: object) -> str:
     # Create the graph
     graph = StateGraph(ChatState)
+
+    # User message
     user_session_id = user_message.session_id
     user_message = user_message.mensaje
+    if isinstance(user_message, str):
+        user_message_format = "text"
+    elif isinstance(user_message, bytes):
+        user_message_format = "audio"
 
-    # Add nodes
-    graph.add_node("intent_analysis", identify_intent)
-    graph.add_node("respond_intent", respond_intent)
-    graph.add_node("read_memory", read_memory)
-    graph.add_node("classify_query", classify_query)
-    graph.add_node("ask_clarification", ask_clarification)
-    graph.add_node("use_rag", use_rag)
-    graph.add_node("respond_query", respond_query)
-    graph.add_node("update_memory", update_memory)
+    # =========
+    # Nodes:
+    graph.add_node("intent_detect", safe_node("intent_detect")(intent_detect))
+    graph.add_node("intent_guardrail_response", safe_node("intent_guardrail_response")(intent_guardrail_response))
+    graph.add_node("read_memory", safe_node("read_memory")(read_memory))
+    graph.add_node("topic_detect", safe_node("topic_detect")(topic_detect))
+    graph.add_node("topic_guardrail_response", safe_node("topic_guardrail_response")(topic_guardrail_response))
+    graph.add_node("llm_rag", safe_node("llm_rag")(llm_rag_retrieval))
+    graph.add_node("llm_response", safe_node("llm_query_response")(llm_query_response))
+    graph.add_node("update_memory", safe_node("update_memory")(update_memory))
+    graph.add_node("error_handler", error_handler)
 
-    # Identificar que quiere el usuario
-    graph.set_entry_point("intent_analysis")
-    graph.add_conditional_edges("intent_analysis", _route_after_intention)
+    # =========
+    # Routing-Edges:
+    #   1. Detectar el intent del usuario
+    graph.set_entry_point("intent_detect")
+    graph.add_conditional_edges("intent_detect", intent_route)
 
-    # Clasificar la pregunta del usuario
-    graph.add_edge("read_memory", "classify_query")
-    graph.add_conditional_edges("classify_query", _route_after_classification)
+    #   2. Detectar el topic de la pregunta del usuario
+    graph.add_conditional_edges("read_memory", route_or_error("topic_detect"))
+    graph.add_conditional_edges("topic_detect", topic_route)
 
-    # Contestar la pregunta con contexto
-    graph.add_edge("use_rag", "respond_query")
-    graph.add_edge("respond_query", "update_memory")
-    graph.set_finish_point("update_memory")
+    #   3. Contestar la pregunta del usuario
+    graph.add_conditional_edges("llm_rag", route_or_error("llm_response"))
+    graph.add_conditional_edges("llm_response", route_or_error("update_memory"))
+    graph.add_conditional_edges("update_memory", route_or_error("__end__"))
 
-    # Compile the graph
+    # =========
+    # Execution:
     app = graph.compile()
-
-    # Invoke the graph
     final_state = app.invoke({
         "user_session_id": user_session_id,
         "user_message": user_message,
-        "user_message_format": "text"
+        "user_message_format": user_message_format
     })
 
     return final_state["final_answer"]

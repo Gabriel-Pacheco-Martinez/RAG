@@ -32,7 +32,9 @@ REDIS_CLIENT = redis.StrictRedis(
 QDRANT_CLIENT = QdrantClient(
     url="http://localhost:6333",  # Docker exposed port
 )
-TOP_K = 5
+TOP_K_DENSE = 8
+TOP_K_SPARSE = 8
+LIMIT_K_HYBRID = 5
 THRESHOLD = 0.3
 
 # =====
@@ -41,7 +43,7 @@ LLM_SOURCE = "groq"
 GROQ_GENERATOR_MODEL = ChatGroq(model="llama-3.1-8b-instant", temperature=0, api_key=GROQ_API_KEY)
 GEMINI_GENERATOR_MODEL = ChatGoogleGenerativeAI(model="gemini-3-flash-preview", temperature=0, google_api_key=GEMINI_API_KEY)
 OLLAMA_GENERATOR_MODEL = ChatOllama(model="qwen3:8b", temperature=0)
-GEMINI_MULTIMODAL_MODEL = ChatGoogleGenerativeAI(model="gemini-2.5-flash", temperature=0, google_api_key=GEMINI_API_KEY)
+GEMINI_MULTIMODAL_MODEL = "gemini-2.5-flash" # This will be called without LangChain
 
 # =====
 # Embeddings
@@ -52,8 +54,8 @@ EMBEDDING_N_DIMENSIONS = 384
 
 # =====
 # Constraints
-MAX_AUDIO_SIZE = 200000
-MAX_TEXT_SIZE = 75
+MAX_AUDIO_SIZE = 60000 #60KB
+MAX_TEXT_SIZE = 70
 MAX_MESSAGE_HISTORY_MEMORY = 6
 
 # =====

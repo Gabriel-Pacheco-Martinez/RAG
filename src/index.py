@@ -1,3 +1,7 @@
+"""
+Author: Gabriel Pacheco
+Date: February 2026
+"""
 # General
 from colorama import Fore, Style
 

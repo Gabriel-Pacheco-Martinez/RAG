@@ -10,17 +10,12 @@ from src.generation.searcher import Searcher
 from src.generation.client import LLM_Engine
 
 # Configuration
-from config.settings import EMBEDDING_MODEL
-from config.settings import EMBEDDING_BATCH_SIZE
-from config.settings import QDRANT_CLIENT
-from config.settings import THRESHOLD
-from config.settings import TOP_K
 from config.settings import GROQ_GENERATOR_MODEL
 from config.settings import GEMINI_GENERATOR_MODEL
 from config.settings import LLM_SOURCE
 
 
-def respond_query(state: ChatState) -> dict:
+def llm_query_response(state: ChatState) -> dict:
     # Start timer
     state["start_time_2"] = perf_counter()
 

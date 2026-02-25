@@ -22,13 +22,12 @@ from config.settings import EMBEDDING_BATCH_SIZE
 from config.settings import RERANKER_MODEL
 from config.settings import QDRANT_CLIENT
 from config.settings import THRESHOLD
-from config.settings import TOP_K
 from config.settings import GROQ_GENERATOR_MODEL
 from config.settings import GEMINI_GENERATOR_MODEL
 from config.settings import LLM_SOURCE
 from config.settings import WEBSITE_METADATA_FILE_PATH
 
-def use_rag(state: ChatState):
+def llm_rag_retrieval(state: ChatState):
     # Start timer
     state["start_time_1"] = perf_counter()
 
@@ -41,7 +40,7 @@ def use_rag(state: ChatState):
 
     # Search embeddings
     topic = state["topic"] # Select topic by classify
-    searcher = Searcher(QDRANT_CLIENT, THRESHOLD, TOP_K, RERANKER_MODEL)
+    searcher = Searcher(QDRANT_CLIENT, THRESHOLD, RERANKER_MODEL)
     vectors: list[ScoredPoint] = searcher.search(embedded_query, query, topic)
     state["document"] = vectors[0].payload.get('doc_titulo', '').upper()
     state["chapter"] = vectors[0].payload.get('cap_titulo', '').upper()

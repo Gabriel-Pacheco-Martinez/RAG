@@ -3,7 +3,7 @@ import json
 import pytest
 
 # Nodes
-from src.nodes.retrieval.rag import use_rag
+from src.nodes.llm.rag import llm_rag_retrieval
 
 # Import user message object
 from src.models.query import QueryRequest
@@ -22,7 +22,7 @@ def test_rag(case):
     }
 
     # Run rag chapg
-    vectors = use_rag(state)
+    vectors = llm_rag_retrieval(state)
 
     # Collect returned texto_ids
     ids = [vector.payload["texto_id"] for vector in vectors]

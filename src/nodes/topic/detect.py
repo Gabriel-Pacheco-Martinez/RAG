@@ -49,7 +49,7 @@ def _call_llm(prompt: str) -> str:
     elif LLM_SOURCE == "gemini":
         return GEMINI_GENERATOR_MODEL.invoke(prompt).content[0]["text"].strip()
 
-def classify_query(state: ChatState) -> dict:
+def topic_detect(state: ChatState) -> dict:
     # Armar prompt
     classify_base_prompt = load_prompt("classify_prompt.txt")
     classify_prompt = build_classify_prompt(state, classify_base_prompt)

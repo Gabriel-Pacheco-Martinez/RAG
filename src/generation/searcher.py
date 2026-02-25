@@ -17,17 +17,24 @@ from qdrant_client.models import Filter, FieldCondition, MatchValue, Prefetch, Q
 # Sparse embedder
 from fastembed import SparseTextEmbedding
 
+# Exceptions
+from src.models.exceptions import RetrievalError
+
+# Configuration
+from config.settings import TOP_K_DENSE
+from config.settings import TOP_K_SPARSE
+from config.settings import LIMIT_K_HYBRID
+
 # Logging
 import logging
 logger = logging.getLogger(__name__)
 
 class Searcher():
-    def __init__(self, client: QdrantClient, threshold: float, top_k: int, RERANKER_MODEL: str):
+    def __init__(self, client: QdrantClient, threshold: float, RERANKER_MODEL: str):
         self.client = client
         self.sparse_model = SparseTextEmbedding("Qdrant/bm25")
         self.reranker_model = CrossEncoder(RERANKER_MODEL)
         self.threshold = threshold
-        self.top_k = top_k
 
     def _rerank_vectors(self, hits: object, query_text: str):
         # Check where the model is running
@@ -39,20 +46,15 @@ class Searcher():
             for p in hits.points
         ]
 
-        # Rerank
+        # Rerank and sort by score
         scores = self.reranker_model.predict(pairs, show_progress_bar=False)
-
-        # Attach new scores
         rescored = list(zip(hits.points, scores))
-
-        # Sort by cross-encoder score
         rescored.sort(key=lambda x: x[1], reverse=True)
 
         # Get the top 3 points
         top_points = [point for point, _ in rescored[:3]]
-
-        # Return best
         # print(f"Best points: {top_points}")
+
         return top_points
     
     def _retreive_best_texto(self, embedded_query: np.ndarray, query_text:str, cap_id: int):
@@ -63,7 +65,7 @@ class Searcher():
                 Prefetch(
                     query=embedded_query.flatten().tolist(),
                     using="dense", 
-                    limit=3
+                    limit=TOP_K_DENSE
                 ),
                 # Sparse vector search
                 Prefetch(
@@ -72,7 +74,7 @@ class Searcher():
                         model="Qdrant/bm25"
                     ),
                     using="sparse",
-                    limit=5
+                    limit=TOP_K_SPARSE
                 )
             ],
             query=FusionQuery(
@@ -86,11 +88,11 @@ class Searcher():
                     )
                 ]
             ),
-            limit=10, # We can change this if we want Reranking
+            limit=LIMIT_K_HYBRID
         )
         # No hits found
         if not hits or not hits.points:
-            return None
+            raise RetrievalError("No relevant 'textos' found")
         
         # Print hits
         # pretty_print_hits(hits, "HITS TEXTOS")
@@ -108,7 +110,7 @@ class Searcher():
                 Prefetch(
                     query=embedded_query.flatten().tolist(),
                     using="dense",
-                    limit=3,
+                    limit=TOP_K_DENSE,
                 ),
                 # Sparse vector search
                 Prefetch(
@@ -117,7 +119,7 @@ class Searcher():
                         model="Qdrant/bm25"
                     ),
                     using="sparse",
-                    limit=3
+                    limit=TOP_K_SPARSE
                 )
             ],
             query=FusionQuery(fusion=Fusion.RRF),
@@ -129,11 +131,11 @@ class Searcher():
                     )
                 ]
             ),
-            limit=3, # We can change this if we want Reranking.
+            limit=LIMIT_K_HYBRID
         )
         # No hits found
         if not hits or not hits.points:
-            return None
+            raise RetrievalError("No relevant 'capitulos' found")
         
         # Print hits
         # pretty_print_hits(hits, "HITS CAPITULOS")
@@ -157,7 +159,9 @@ class Searcher():
             ),
             limit=1
         )
-        return hits[0][0].payload["doc_id"] if hits[0] else None
+        if not hits[0]:
+            raise RetrievalError("No relevant 'documentos' found")
+        return hits[0][0].payload["doc_id"]
 
     def search(self, embedded_query: np.ndarray, query_text: str, topic: str) -> list[dict]:
         # best_doc_id = self.retrieve_best_documento(embedded_query)
