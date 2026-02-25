@@ -42,6 +42,10 @@ def intent_route(state: ChatState) -> str:
         return "intent_guardrail_response"
 
 def topic_route(state: ChatState) -> str:
+    # Si hay un error
+    if state.get("error"):
+        return "error_handler"
+
     # Elegir el siguiente node
     if state["user_message_ambiguous"] or state["topic_confidence"]<0.75:
         return "topic_guardrail_response"
@@ -64,8 +68,9 @@ def error_handler(state: ChatState) -> ChatState:
 
 def run(user_message: object) -> str:
     # Create the graph
-    
     graph = StateGraph(ChatState)
+
+    # User message
     user_session_id = user_message.session_id
     user_message = user_message.mensaje
     if isinstance(user_message, str):
@@ -76,13 +81,13 @@ def run(user_message: object) -> str:
     # =========
     # Nodes:
     graph.add_node("intent_detect", safe_node("intent_detect")(intent_detect))
-    graph.add_node("intent_guardrail_response", intent_guardrail_response)
-    graph.add_node("read_memory", read_memory)
-    graph.add_node("topic_detect", topic_detect)
-    graph.add_node("topic_guardrail_response", topic_guardrail_response)
-    graph.add_node("llm_rag", llm_rag_retrieval)
-    graph.add_node("llm_response", llm_query_response)
-    graph.add_node("update_memory", update_memory)
+    graph.add_node("intent_guardrail_response", safe_node("intent_guardrail_response")(intent_guardrail_response))
+    graph.add_node("read_memory", safe_node("read_memory")(read_memory))
+    graph.add_node("topic_detect", safe_node("topic_detect")(topic_detect))
+    graph.add_node("topic_guardrail_response", safe_node("topic_guardrail_response")(topic_guardrail_response))
+    graph.add_node("llm_rag", safe_node("llm_rag")(llm_rag_retrieval))
+    graph.add_node("llm_response", safe_node("llm_query_response")(llm_query_response))
+    graph.add_node("update_memory", safe_node("update_memory")(update_memory))
     graph.add_node("error_handler", error_handler)
 
     # =========
@@ -92,13 +97,13 @@ def run(user_message: object) -> str:
     graph.add_conditional_edges("intent_detect", intent_route)
 
     #   2. Detectar el topic de la pregunta del usuario
-    graph.add_edge("read_memory", "topic_detect")
+    graph.add_conditional_edges("read_memory", route_or_error("topic_detect"))
     graph.add_conditional_edges("topic_detect", topic_route)
 
     #   3. Contestar la pregunta del usuario
-    graph.add_edge("llm_rag", "llm_response")
-    graph.add_edge("llm_response", "update_memory")
-    graph.set_finish_point("update_memory")
+    graph.add_conditional_edges("llm_rag", route_or_error("llm_response"))
+    graph.add_conditional_edges("llm_response", route_or_error("update_memory"))
+    graph.add_conditional_edges("update_memory", route_or_error("__end__"))
 
     # =========
     # Execution:

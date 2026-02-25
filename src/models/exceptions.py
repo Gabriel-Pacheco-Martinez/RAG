@@ -3,3 +3,6 @@ class ValidationError(Exception):
 
 class ConvertionError(Exception):
     pass
+
+class RetrievalError(Exception):
+    pass

@@ -17,6 +17,9 @@ from qdrant_client.models import Filter, FieldCondition, MatchValue, Prefetch, Q
 # Sparse embedder
 from fastembed import SparseTextEmbedding
 
+# Exceptions
+from src.models.exceptions import RetrievalError
+
 # Logging
 import logging
 logger = logging.getLogger(__name__)
@@ -39,20 +42,15 @@ class Searcher():
             for p in hits.points
         ]
 
-        # Rerank
+        # Rerank and sort by score
         scores = self.reranker_model.predict(pairs, show_progress_bar=False)
-
-        # Attach new scores
         rescored = list(zip(hits.points, scores))
-
-        # Sort by cross-encoder score
         rescored.sort(key=lambda x: x[1], reverse=True)
 
         # Get the top 3 points
         top_points = [point for point, _ in rescored[:3]]
-
-        # Return best
         # print(f"Best points: {top_points}")
+
         return top_points
     
     def _retreive_best_texto(self, embedded_query: np.ndarray, query_text:str, cap_id: int):
@@ -90,7 +88,7 @@ class Searcher():
         )
         # No hits found
         if not hits or not hits.points:
-            return None
+            raise RetrievalError("No relevant 'textos' found")
         
         # Print hits
         # pretty_print_hits(hits, "HITS TEXTOS")
@@ -133,7 +131,7 @@ class Searcher():
         )
         # No hits found
         if not hits or not hits.points:
-            return None
+            raise RetrievalError("No relevant 'capitulos' found")
         
         # Print hits
         # pretty_print_hits(hits, "HITS CAPITULOS")
@@ -157,7 +155,9 @@ class Searcher():
             ),
             limit=1
         )
-        return hits[0][0].payload["doc_id"] if hits[0] else None
+        if not hits[0]:
+            raise RetrievalError("No relevant 'documentos' found")
+        return hits[0][0].payload["doc_id"]
 
     def search(self, embedded_query: np.ndarray, query_text: str, topic: str) -> list[dict]:
         # best_doc_id = self.retrieve_best_documento(embedded_query)
