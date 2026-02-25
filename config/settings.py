@@ -41,7 +41,7 @@ LLM_SOURCE = "groq"
 GROQ_GENERATOR_MODEL = ChatGroq(model="llama-3.1-8b-instant", temperature=0, api_key=GROQ_API_KEY)
 GEMINI_GENERATOR_MODEL = ChatGoogleGenerativeAI(model="gemini-3-flash-preview", temperature=0, google_api_key=GEMINI_API_KEY)
 OLLAMA_GENERATOR_MODEL = ChatOllama(model="qwen3:8b", temperature=0)
-GEMINI_MULTIMODAL_MODEL = ChatGoogleGenerativeAI(model="gemini-2.5-flash", temperature=0, google_api_key=GEMINI_API_KEY)
+GEMINI_MULTIMODAL_MODEL = "gemini-2.5-flash" # This will be called without LangChain
 
 # =====
 # Embeddings
@@ -52,8 +52,8 @@ EMBEDDING_N_DIMENSIONS = 384
 
 # =====
 # Constraints
-MAX_AUDIO_SIZE = 200000
-MAX_TEXT_SIZE = 75
+MAX_AUDIO_SIZE = 60000 #60KB
+MAX_TEXT_SIZE = 70
 MAX_MESSAGE_HISTORY_MEMORY = 6
 
 # =====

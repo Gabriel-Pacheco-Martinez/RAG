@@ -10,6 +10,7 @@ def intent_guardrail_response(state: ChatState) -> dict:
 
     # UPDATE FINAL STATE
     state["final_answer"] = {
+        "mensaje": state["user_message_str"],
         "llm_intent_response": state["llm_intent_response"],
         "intent_confidence": state["intent_confidence"],
         "slots": state["slots"]

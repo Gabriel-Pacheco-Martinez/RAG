@@ -8,12 +8,12 @@ from src.models.state import ChatState
 
 # Helpers
 from src.nodes.intent.converter import convert_audio_to_text
+from src.utils.prompts import build_intention_prompt
 from src.utils.io import load_prompt
 from src.utils.io import load_json_schema
-from src.utils.prompts import build_intention_prompt
 
 # Classes
-from src.validation.validator import TextValidator, AudioValidator
+from src.nodes.intent.validator import TextValidator, AudioValidator
 
 # Configution
 from config.settings import MAX_TEXT_SIZE
@@ -55,25 +55,25 @@ def _build_prompt(user_message_text: str) -> str:
     return system_prompt
 
 def intent_detect(state: ChatState):
-    # validate input
+    # Validate input
     if state["user_message_format"] == "text":
         validator = TextValidator(state["user_message"], format="text", max_size=MAX_TEXT_SIZE)
         user_message_text: str = validator.validate_input()
-    elif format == "audio":
+    elif state["user_message_format"] == "audio":
         validator = AudioValidator(state["user_message"], format="audio", max_size=MAX_AUDIO_SIZE)
         user_message_audio: bytes = validator.validate_input()
 
-    # convert audio to text
-    if format == "audio":
+    # Convert audio to text
+    if state["user_message_format"] == "audio":
         user_message_text: str = convert_audio_to_text(user_message_audio)
     state["user_message_str"] = user_message_text
 
-    # build prompt and call llm
+    # Build prompt and call llm
     intent_prompt: str = _build_prompt(user_message_text)
     response_raw: str = _call_llm(intent_prompt)
     response_obj: object = _extract_json_from_response(response_raw)
 
-    # update el estado
+    # Update el estado
     state["llm_intent_response"] = response_obj["intencion_actual"]
     state["intent_confidence"] = response_obj["confianza_en_la_intencion"]
     state["slots"] = response_obj["slots_requeridos"]

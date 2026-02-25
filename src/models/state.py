@@ -1,9 +1,12 @@
-from typing import TypedDict
+from typing import Optional, TypedDict
 
 class ChatState(TypedDict):
     # Timer
     start_time_1: float
     start_time_2: float
+
+    # Errors
+    error: Optional[dict]
 
     # User message
     user_message: str | bytes

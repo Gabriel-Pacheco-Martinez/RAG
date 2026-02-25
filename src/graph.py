@@ -6,6 +6,9 @@ Date: February 2026
 import logging
 from colorama import Fore, Style
 
+# Helpers
+from src.utils.error_responses import build_error_response
+
 # LangGraph
 from langgraph.graph import StateGraph
 from src.models.state import ChatState
@@ -20,37 +23,59 @@ from src.nodes.topic.respond import topic_guardrail_response
 from src.nodes.llm.rag import llm_rag_retrieval
 from src.nodes.llm.respond import llm_query_response
 
+# Decorators
+from src.utils.decorators import safe_node
+from src.utils.decorators import route_or_error
+
 # Configuration
 logger = logging.getLogger(__name__)
 
 def intent_route(state: ChatState) -> str:
-    # Si el usuario quiere que se le responda una pregunta
+    # Si hay un error
+    if state.get("error"):
+        return "error_handler"
+
+    # Elegir el siguiente node
     if state["llm_intent_response"] == "preguntas":
         return "read_memory"
-    # Si el usuario necesitaba las otras preguntas
     else:
         return "intent_guardrail_response"
 
 def topic_route(state: ChatState) -> str:
-    # Si la pregunta es demasiado ambigua
+    # Elegir el siguiente node
     if state["user_message_ambiguous"] or state["topic_confidence"]<0.75:
         return "topic_guardrail_response"
-    # Si la informacion viene de la memoria
     if state["info_source"] == "memory":
         return "llm_response"
-    # Si la informacion hay que leerla con rag
     elif state["info_source"] == "rag":
         return "llm_rag"
 
+def error_handler(state: ChatState) -> ChatState:
+    error = state.get("error") # If it doent exist, it returns None (.get())
+    logger.error(f"Workflow failed at {error}")
+
+    response_message = build_error_response(error)
+
+    state["final_answer"] = {
+        "response": response_message,
+        "error": error
+    }
+    return state
+
 def run(user_message: object) -> str:
     # Create the graph
+    
     graph = StateGraph(ChatState)
     user_session_id = user_message.session_id
     user_message = user_message.mensaje
+    if isinstance(user_message, str):
+        user_message_format = "text"
+    elif isinstance(user_message, bytes):
+        user_message_format = "audio"
 
     # =========
     # Nodes:
-    graph.add_node("intent_detect", intent_detect)
+    graph.add_node("intent_detect", safe_node("intent_detect")(intent_detect))
     graph.add_node("intent_guardrail_response", intent_guardrail_response)
     graph.add_node("read_memory", read_memory)
     graph.add_node("topic_detect", topic_detect)
@@ -58,6 +83,7 @@ def run(user_message: object) -> str:
     graph.add_node("llm_rag", llm_rag_retrieval)
     graph.add_node("llm_response", llm_query_response)
     graph.add_node("update_memory", update_memory)
+    graph.add_node("error_handler", error_handler)
 
     # =========
     # Routing-Edges:
@@ -80,7 +106,7 @@ def run(user_message: object) -> str:
     final_state = app.invoke({
         "user_session_id": user_session_id,
         "user_message": user_message,
-        "user_message_format": "text"
+        "user_message_format": user_message_format
     })
 
     return final_state["final_answer"]

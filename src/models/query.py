@@ -2,4 +2,4 @@ from pydantic import BaseModel
 
 class QueryRequest(BaseModel):
     session_id: int
-    mensaje: str
+    mensaje: str | bytes
