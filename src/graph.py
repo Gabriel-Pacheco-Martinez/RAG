@@ -18,7 +18,7 @@ from src.nodes.memory.update import update_memory
 from src.nodes.topic.detect import topic_detect
 from src.nodes.topic.respond import topic_guardrail_response
 from src.nodes.llm.rag import llm_rag_retrieval
-from src.nodes.llm.client import llm_query_response
+from src.nodes.llm.respond import llm_query_response
 
 # Configuration
 logger = logging.getLogger(__name__)
