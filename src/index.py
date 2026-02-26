@@ -19,15 +19,9 @@ from config.settings import EMBEDDING_MODEL, EMBEDDING_BATCH_SIZE, EMBEDDING_N_D
 
 # Logging
 import logging
-logger = logging.getLogger(__name__)
+logger = logging.getLogger('uvicorn.error')
 
 def run():
-    # =========
-    # Printing
-    print(Fore.GREEN + "="*50)
-    print("[📚] INGESTION")
-    print("="*50 + Style.RESET_ALL)
-
     # # =======
     # # Load the PDF Document
     # loader = PDFDocumentLoader(PDF_RAW_DOCS_PATH, PDF_LOADED_FILE_PATH)
@@ -47,19 +41,21 @@ def run():
     metadata: map =chunker.chunk_document(WEBSITE_LOADED_FILE_PATH)
     chunks: map = chunker.save_chunks(WEBSITE_METADATA_FILE_PATH, metadata)
     metadata, chunks = chunker.get_chunks(WEBSITE_METADATA_FILE_PATH)
-    print("✅ Successfull chunking")
+    logger.info("✅ Successfull chunking")
 
     # =======
     # Embed the chunks
     embedder = Embedder(EMBEDDING_MODEL, EMBEDDING_BATCH_SIZE)
     embeddings_chunks = embedder.embed_chunks(chunks)
-    print("✅ Successfull embedding")
+    logger.info("✅ Successfull embedding")
 
     # =======
     # Index the embeddings with their metadata
     indexer = Indexer(QDRANT_CLIENT, EMBEDDING_N_DIMENSIONS)
     indexer.index_embeddings(metadata, embeddings_chunks)
-    print("✅ Successfull indexing")
+    logger.info("✅ Successfull indexing")
+
+    return f"Metadata can be seen in file '{PDF_METADATA_FILE_PATH}'"
 
 if __name__ == "__main__":
     run()

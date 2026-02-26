@@ -4,9 +4,7 @@ Date: February 2026
 """
 # General
 from colorama import Fore, Style
-from pathlib import Path
 import logging
-from logging.config import dictConfig
 
 # Server
 import uvicorn 
@@ -14,17 +12,15 @@ import uvicorn
 # Models
 from src.models.query import QueryRequest
 
-# Helpers
-from src.utils.io import read_json
-
 # FastAPI
 from fastapi.responses import JSONResponse
 from fastapi import FastAPI
 from fastapi import UploadFile, Form, File
 app = FastAPI(title="BNB CHATBOT")
 
-# LangGraph
+# Classes
 from src import graph
+from src import index
 
 # Logging
 logger = logging.getLogger('uvicorn.error')
@@ -46,6 +42,10 @@ def query_endpoint(request: QueryRequest):
 
 @app.post("/audio")
 async def query_endpoint(TextChatbot: str = Form(None), AudioChatbot: UploadFile = File(None)):
+    logger.info(Fore.GREEN + "="*50)
+    logger.info(Fore.GREEN + "[🤖] Endpoint POST /audio reached")
+    logger.info(Fore.GREEN + "="*50 + Style.RESET_ALL)
+
     if AudioChatbot is not None:
         audio_bytes = await AudioChatbot.read()
         request = QueryRequest(session_id=10, mensaje=audio_bytes)
@@ -60,6 +60,19 @@ async def query_endpoint(TextChatbot: str = Form(None), AudioChatbot: UploadFile
 
     return JSONResponse(content=response_payload)
 
+@app.get("/index")
+def query_endpoint():
+    logger.info(Fore.GREEN + "="*50)
+    logger.info(Fore.GREEN + "[📚] Endpoint GET /index reached")
+    logger.info(Fore.GREEN + "="*50 + Style.RESET_ALL)
+
+    response =index.run()
+
+    response_payload = {
+        "response": "Success: " + response
+    }
+
+    return JSONResponse(content=response_payload)
 
 def start_server(host: str = "0.0.0.0", port: int = 8000):
     # Uvicorn

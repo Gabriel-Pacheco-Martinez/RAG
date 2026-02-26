@@ -12,7 +12,7 @@ from transformers import AutoModel, AutoTokenizer
 
 # Logging
 import logging
-logger = logging.getLogger(__name__)
+logger = logging.getLogger('uvicorn.error')
 
 def _mean_pooling(model_output, attention_mask):
     token_embeddings = model_output[0] #First element of model_output contains all token embeddings
@@ -99,5 +99,5 @@ class Embedder:
         embeddings = embeddings.numpy()
 
         # Say something
-        logging.info(f"Embedded number of queries: {embeddings.shape[0]}, each with {embeddings.shape[1]} dimensions")
+        logger.info(Fore.YELLOW + f"Embedded number of queries: {embeddings.shape[0]}, each with {embeddings.shape[1]} dimensions" + Style.RESET_ALL)
         return embeddings

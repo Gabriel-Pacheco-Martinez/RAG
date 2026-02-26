@@ -195,7 +195,7 @@ class WebsiteChunker(DocumentChunker):
         write_json(metadata, WEBSITE_METADATA_FILE_PATH)
 
         chunks = metadata["chunks"]
-        logging.info(Fore.BLUE + f"Created {len(chunks)} chunks." + Style.RESET_ALL)
+        logger.info(Fore.YELLOW + f"Created {len(chunks['textos'])} texto chunks." + Style.RESET_ALL)
 
         return chunks
     
@@ -299,7 +299,9 @@ class PDFChunker(DocumentChunker):
         write_json(metadata, PDF_METADATA_FILE_PATH)
 
         chunks = metadata["chunks"]
-        logging.info(Fore.BLUE + f"Created {len(chunks)} chunks." + Style.RESET_ALL)
+        logger.info(Fore.YELLOW + f"Created {len(chunks['documentos'])} documento chunks." + Style.RESET_ALL)
+        logger.info(Fore.YELLOW + f"Created {len(chunks['capitulos'])} capitulo chunks." + Style.RESET_ALL)
+        logger.info(Fore.YELLOW + f"Created {len(chunks['textos'])} texto chunks." + Style.RESET_ALL)
 
         return chunks
     
