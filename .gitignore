@@ -4,5 +4,5 @@ data/
 .python-version
 ragvenv/
 **/.DS_Store
-logs/
+logs/app.log
 tests/.pytest_cache

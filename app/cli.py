@@ -1,7 +1,7 @@
 # Centralized entry point for commands
 import argparse
 from app import endpoint
-from src import index, logger
+from src import index
 
 
 from dotenv import load_dotenv

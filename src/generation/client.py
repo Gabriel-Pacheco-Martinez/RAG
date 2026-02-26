@@ -12,7 +12,7 @@ from qdrant_client.models import ScoredPoint
 
 # Logging
 import logging
-logger = logging.getLogger(__name__)
+logger = logging.getLogger('uvicorn.error')
 
 class LLM_Engine(ABC):
     def __init__(self, LLM_SOURCE: str, groq_model: str, gemini_model: str, temperature: float = 0):
@@ -25,7 +25,8 @@ class LLM_Engine(ABC):
             self.generator_model = groq_model
         
         else:
-            raise ValueError(f"Model {self.llm_source} not supported")
+            logging.info("Model {self.llm_source} not supported.")
+            raise ValueError(f"Modelo {self.llm_source} no disponible.")
         
     def call_generator_llm(self, prompt):
         if self.llm_source == "gemini":
@@ -38,8 +39,6 @@ class LLM_Engine(ABC):
         generator_base_prompt = load_prompt("generate_prompt.txt")
         generator_prompt = build_generator_prompt(generator_base_prompt, user_message, contexto)
         generator_response = self.call_generator_llm(generator_prompt)
-
-        logging.info(f"LLMs prompted and responses returned")
         return generator_response
 
 

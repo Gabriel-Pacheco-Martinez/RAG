@@ -55,7 +55,7 @@ EMBEDDING_N_DIMENSIONS = 384
 # =====
 # Constraints
 MAX_AUDIO_SIZE = 60000 #60KB
-MAX_TEXT_SIZE = 70
+MAX_TEXT_SIZE = 150
 MAX_MESSAGE_HISTORY_MEMORY = 6
 
 # =====
@@ -68,11 +68,6 @@ WEBSITE_METADATA_FILE_PATH = "data/metadata/website/website_metadata.json"
 PDF_RAW_DOCS_PATH = "data/raw/pdfs/"
 PDF_LOADED_FILE_PATH = "data/loaded/pdfs/pdf_loaded.json"
 PDF_METADATA_FILE_PATH = "data/metadata/pdfs/pdf_metadata.json"
-
-# =====
-# LOGS
-LOGS_PATH = "logs/"
-LOGS_FILE = "logs/app.log"
 
 # ======
 # Vector Database

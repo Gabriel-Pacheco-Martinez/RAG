@@ -4,7 +4,7 @@
 - Mostrar de obtuvo la informacion en el output [Check]
 - Mostrar AI emoji 🤖 [Check]
 - Try/catch handlers. [Check]
-- Define top-K chunks.
+- Define top-K chunks. [Check]
 - Add logs
 - Reranker change top-K chunks??
 - Avisar despues de 15 minutos si se cerró la sesión de REDIS.

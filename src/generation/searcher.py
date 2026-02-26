@@ -27,7 +27,7 @@ from config.settings import LIMIT_K_HYBRID
 
 # Logging
 import logging
-logger = logging.getLogger(__name__)
+logger = logging.getLogger('uvicorn.error')
 
 class Searcher():
     def __init__(self, client: QdrantClient, threshold: float, RERANKER_MODEL: str):
@@ -36,9 +36,9 @@ class Searcher():
         self.reranker_model = CrossEncoder(RERANKER_MODEL)
         self.threshold = threshold
 
-    def _rerank_vectors(self, hits: object, query_text: str):
+    def _rerank_vectors(self, hits: object, query_text: str, level: str):
         # Check where the model is running
-        # print(self.reranker_model.model.device)
+        logger.info("The reranker model is running on: %s", self.reranker_model.model.device)
 
         # Prepare query-document pairs
         pairs = [
@@ -53,7 +53,7 @@ class Searcher():
 
         # Get the top 3 points
         top_points = [point for point, _ in rescored[:3]]
-        # print(f"Best points: {top_points}")
+        logger.info(Fore.LIGHTYELLOW_EX + f"Top 3 chunks selected {level}: " + Style.RESET_ALL + f"{top_points}")
 
         return top_points
     
@@ -92,14 +92,11 @@ class Searcher():
         )
         # No hits found
         if not hits or not hits.points:
+            logger.warning("[X] No relevant 'textos' found")
             raise RetrievalError("No relevant 'textos' found")
-        
-        # Print hits
-        # pretty_print_hits(hits, "HITS TEXTOS")
-        logging.info(hits.points[0].payload["texto_id"])
 
         # Rerank
-        best_text_vectors =self._rerank_vectors(hits, query_text)
+        best_text_vectors =self._rerank_vectors(hits, query_text, "textos")
         return best_text_vectors
 
     def _retreive_best_capitulo(self, embedded_query: np.ndarray, query_text:str, doc_id: str):
@@ -135,14 +132,11 @@ class Searcher():
         )
         # No hits found
         if not hits or not hits.points:
+            logger.warning("[X] No relevant 'capitulos' found")
             raise RetrievalError("No relevant 'capitulos' found")
-        
-        # Print hits
-        # pretty_print_hits(hits, "HITS CAPITULOS")
-        logging.info(hits.points[0].payload["cap_id"])
 
         # Rerank
-        best_cap_ids =self._rerank_vectors(hits, query_text)
+        best_cap_ids =self._rerank_vectors(hits, query_text, "capitulos")
         best_cap_id = best_cap_ids[0].payload["cap_id"]
         return best_cap_id
 
@@ -160,6 +154,7 @@ class Searcher():
             limit=1
         )
         if not hits[0]:
+            logger.warning("[X] No relevant 'documento' found")
             raise RetrievalError("No relevant 'documentos' found")
         return hits[0][0].payload["doc_id"]
 

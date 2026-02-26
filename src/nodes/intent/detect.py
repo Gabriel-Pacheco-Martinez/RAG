@@ -2,6 +2,7 @@
 import re
 import json
 from typing import Any
+from colorama import Fore, Style
 
 # LangGraph
 from src.models.state import ChatState
@@ -21,9 +22,14 @@ from config.settings import MAX_AUDIO_SIZE
 from config.settings import LLM_SOURCE
 from config.settings import GROQ_GENERATOR_MODEL, GEMINI_GENERATOR_MODEL
 
+# Logging
+import logging
+logger = logging.getLogger('uvicorn.error')
+
 def _extract_json_from_response(text: str) -> dict:
     start = text.find("{")
     if start == -1:
+        logging.info("[X] No JSON object found on INTENTION DETECTION LLM response")
         raise ValueError("No JSON object found")
 
     brace_count = 0
@@ -36,6 +42,7 @@ def _extract_json_from_response(text: str) -> dict:
                 json_str = text[start:i+1]
                 return json.loads(json_str)
 
+    logging.info("[X] No complete JSON object found on INTENTION DETECTION LLM response")
     raise ValueError("No complete JSON object found")
 
 def _call_llm(prompt: str) -> str:
@@ -72,6 +79,7 @@ def intent_detect(state: ChatState):
     intent_prompt: str = _build_prompt(user_message_text)
     response_raw: str = _call_llm(intent_prompt)
     response_obj: object = _extract_json_from_response(response_raw)
+    logger.info(Fore.CYAN + "[✅] 👾 INTENTION DETECTED: " + Style.RESET_ALL + f"{response_obj}")
 
     # Update el estado
     state["llm_intent_response"] = response_obj["intencion_actual"]
@@ -79,5 +87,4 @@ def intent_detect(state: ChatState):
     state["slots"] = response_obj["slots_requeridos"]
 
     # Say something
-    print("🦺 INTENTION DETECTED LLM: DONE")
     return state

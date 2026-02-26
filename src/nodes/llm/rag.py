@@ -27,6 +27,10 @@ from config.settings import GEMINI_GENERATOR_MODEL
 from config.settings import LLM_SOURCE
 from config.settings import WEBSITE_METADATA_FILE_PATH
 
+# Logging
+import logging
+logger = logging.getLogger('uvicorn.error')
+
 def llm_rag_retrieval(state: ChatState):
     # Start timer
     state["start_time_1"] = perf_counter()
@@ -56,6 +60,6 @@ def llm_rag_retrieval(state: ChatState):
     state["context"] = context
 
     # Timer
-    print(f"[RAG TIME:] {perf_counter() - state['start_time_1']:.4f}s")
+    logger.info(Fore.CYAN + "[✅] 🧰 RAG ACHIEVED: " + Style.RESET_ALL + f"it took {perf_counter() - state['start_time_1']:.4f}s ⏱")
 
     return state

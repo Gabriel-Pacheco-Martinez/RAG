@@ -9,6 +9,9 @@ from src.models.exceptions import ConvertionError
 from config.settings import GEMINI_MULTIMODAL_MODEL
 from config.settings import GEMINI_API_KEY
 
+# Logging
+import logging
+logger = logging.getLogger('uvicorn.error')
 
 def convert_audio_to_text(audio_bytes: bytes, mime_type: str = "audio/ogg") -> str:
     """
@@ -29,9 +32,11 @@ def convert_audio_to_text(audio_bytes: bytes, mime_type: str = "audio/ogg") -> s
                 types.Part.from_bytes(data=audio_bytes, mime_type=mime_type)
             ]
         )
-    except Exception as e:
-        raise ConvertionError("Error convirtiendo audio a texto: " + str(e))
 
+        logging.info("Audio converted to text")
+    except Exception as e:
+        logging.info("Error converting audio to text")
+        raise ConvertionError("Error convirtiendo audio a texto: " + str(e))
     return response.text
 
         

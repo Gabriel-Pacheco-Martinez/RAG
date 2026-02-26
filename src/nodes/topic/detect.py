@@ -1,3 +1,6 @@
+# General 
+from colorama import Fore, Style
+
 # LangGraph
 import re
 import json
@@ -16,7 +19,7 @@ from config.settings import GROQ_GENERATOR_MODEL, GEMINI_GENERATOR_MODEL
 
 # Logging 
 import logging
-logger = logging.getLogger(__name__)
+logger = logging.getLogger('uvicorn.error')
 
 
 def _update_state(state: ChatState, response: str):
@@ -32,16 +35,23 @@ def _update_state(state: ChatState, response: str):
     return state
 
 def _extract_json_from_response(text: str) -> dict:
-    match = re.search(r"\{.*?\}", text, re.DOTALL)
-    if not match:
+    start = text.find("{")
+    if start == -1:
+        logging.info("[X] No JSON object found on INTENTION DETECTION LLM response")
         raise ValueError("No JSON object found")
-    
-    json_str = match.group(0)
 
-    # Remove trailing commas before } or ]
-    json_str = re.sub(r",\s*([}\]])", r"\1", json_str)
+    brace_count = 0
+    for i in range(start, len(text)):
+        if text[i] == "{":
+            brace_count += 1
+        elif text[i] == "}":
+            brace_count -= 1
+            if brace_count == 0:
+                json_str = text[start:i+1]
+                return json.loads(json_str)
 
-    return json.loads(json_str)
+    logging.info("[X] No complete JSON object found on INTENTION DETECTION LLM response")
+    raise ValueError("No complete JSON object found")
 
 def _call_llm(prompt: str) -> str:
     if LLM_SOURCE == "groq":
@@ -53,16 +63,12 @@ def topic_detect(state: ChatState) -> dict:
     # Armar prompt
     classify_base_prompt = load_prompt("classify_prompt.txt")
     classify_prompt = build_classify_prompt(state, classify_base_prompt)
-
-    # Llamar al LLM
     response_raw: str = _call_llm(classify_prompt)
     response_obj: object = _extract_json_from_response(response_raw)
-    logger.info(f"LLM Topic llamado. La respuesta es: {response_raw}")
+    logger.info(Fore.CYAN + "[✅] 👾 TOPIC DETECTED: " + Style.RESET_ALL + f"{response_obj}")
 
     # Update el estado
     state = _update_state(state, response_obj)
 
     # Say something
-    print("🦺 CLASSIFICATION LLM: DONE")
-
     return state

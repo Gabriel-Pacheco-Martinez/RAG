@@ -28,7 +28,7 @@ from src.utils.decorators import safe_node
 from src.utils.decorators import route_or_error
 
 # Configuration
-logger = logging.getLogger(__name__)
+logger = logging.getLogger('uvicorn.error')
 
 def intent_route(state: ChatState) -> str:
     # Si hay un error
@@ -37,8 +37,10 @@ def intent_route(state: ChatState) -> str:
 
     # Elegir el siguiente node
     if state["llm_intent_response"] == "preguntas":
+        logger.info("Intent is 'preguntas'. We will now read memory.")
         return "read_memory"
     else:
+        logger.info("Intent is not 'preguntas'.")
         return "intent_guardrail_response"
 
 def topic_route(state: ChatState) -> str:
@@ -48,10 +50,13 @@ def topic_route(state: ChatState) -> str:
 
     # Elegir el siguiente node
     if state["user_message_ambiguous"] or state["topic_confidence"]<0.75:
+        logger.info("Query is ambiguous. We will reach back to user.")
         return "topic_guardrail_response"
     if state["info_source"] == "memory":
+        logger.info("We will use memory to answer the query.")
         return "llm_response"
     elif state["info_source"] == "rag":
+        logger.info("We will use RAG to answer the query.")
         return "llm_rag"
 
 def error_handler(state: ChatState) -> ChatState:

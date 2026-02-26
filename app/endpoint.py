@@ -1,3 +1,13 @@
+"""
+Author: Gabriel Pacheco
+Date: February 2026
+"""
+# General
+from colorama import Fore, Style
+from pathlib import Path
+import logging
+import logging.config
+
 # Server
 import uvicorn 
 
@@ -13,8 +23,15 @@ app = FastAPI(title="BNB CHATBOT")
 # LangGraph
 from src import graph
 
+# Logging
+logger = logging.getLogger('uvicorn.error')
+
 @app.post("/conversation")
 def query_endpoint(request: QueryRequest):
+    logger.info(Fore.GREEN + "="*50)
+    logger.info(Fore.GREEN + "[🤖] Endpoint POST /conversation reached")
+    logger.info(Fore.GREEN + "="*50 + Style.RESET_ALL)
+
     response = graph.run(request)
 
     response_payload = {
@@ -42,4 +59,11 @@ async def query_endpoint(TextChatbot: str = Form(None), AudioChatbot: UploadFile
 
 
 def start_server(host: str = "0.0.0.0", port: int = 8000):
-    uvicorn.run("app.endpoint:app", host=host, port=port, reload=True)
+    # Uvicorn
+    uvicorn.run(
+        "app.endpoint:app", 
+        host=host, 
+        port=port, 
+        reload=True, 
+        log_level="info"
+    )

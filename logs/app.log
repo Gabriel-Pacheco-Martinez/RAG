@@ -1,0 +1,13 @@
+2026-02-26 11:45:10,430 | INFO | httpx | HTTP Request: GET http://localhost:6333 "HTTP/1.1 200 OK"
+2026-02-26 11:45:18,829 | INFO | root | User message 'text' is valid
+2026-02-26 11:45:19,369 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-26 11:45:51,758 | INFO | httpx | HTTP Request: GET http://localhost:6333 "HTTP/1.1 200 OK"
+2026-02-26 11:46:05,190 | INFO | root | User message 'text' is valid
+2026-02-26 11:46:05,801 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-26 11:46:06,324 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-26 11:46:07,839 | INFO | root | Embedded number of queries: 1, each with 384 dimensions
+2026-02-26 11:46:10,572 | INFO | sentence_transformers.cross_encoder.CrossEncoder | Use pytorch device: mps
+2026-02-26 11:46:11,443 | INFO | httpx | HTTP Request: POST http://localhost:6333/collections/documentos/points/scroll "HTTP/1.1 200 OK"
+2026-02-26 11:46:11,571 | INFO | httpx | HTTP Request: POST http://localhost:6333/collections/capitulos/points/query "HTTP/1.1 200 OK"
+2026-02-26 11:46:11,700 | INFO | httpx | HTTP Request: POST http://localhost:6333/collections/textos/points/query "HTTP/1.1 200 OK"
+2026-02-26 11:46:12,338 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"

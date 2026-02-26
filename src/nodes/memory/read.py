@@ -14,7 +14,7 @@ from config.settings import REDIS_TTL_SECONDS
 
 # Logging 
 import logging
-logger = logging.getLogger(__name__)
+logger = logging.getLogger('uvicorn.error')
 
 def read_memory(state: ChatState) -> dict:
     session_id = str(state["user_session_id"])
@@ -41,7 +41,7 @@ def read_memory(state: ChatState) -> dict:
 
         # Set TTL
         REDIS_CLIENT.expire(session_id, session_ttl)
-        logger.info(f"Session {session_id}: created with TTL of {session_ttl} seconds")
+        logger.info(Fore.CYAN + f"[✅] 💿 MEMORY READ: " + Style.RESET_ALL + f"Session {session_id}: created with TTL of {session_ttl} seconds")
 
     else:
         # State
@@ -52,7 +52,7 @@ def read_memory(state: ChatState) -> dict:
         state["document"] = session_data_obj.get("document_previous", "")
         state["chapter"] = session_data_obj.get("chapter_previous", "")
 
-        logger.info(f"Session {session_id}: read and loaded")
+        logger.info(Fore.CYAN + f"[✅] 💿 MEMORY READ: " + Style.RESET_ALL + f"Session {session_id}: read and loaded")
 
     return state
 

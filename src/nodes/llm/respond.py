@@ -1,5 +1,6 @@
 # General
 from time import perf_counter
+from colorama import Fore, Style
 
 # LangGraph
 from src.models.state import ChatState
@@ -14,6 +15,9 @@ from config.settings import GROQ_GENERATOR_MODEL
 from config.settings import GEMINI_GENERATOR_MODEL
 from config.settings import LLM_SOURCE
 
+# Logging
+import logging
+logger = logging.getLogger('uvicorn.error')
 
 def llm_query_response(state: ChatState) -> dict:
     # Start timer
@@ -47,7 +51,6 @@ def llm_query_response(state: ChatState) -> dict:
     }
 
     # Say something
-    print("🦺 GENERATION LLM: DONE")
-    print(f"[LLM CALL:] {perf_counter() - state['start_time_2']:.4f}s")
+    logger.info(Fore.CYAN + "[✅] 👾 QUERY ANSWERED: " + Style.RESET_ALL + f"it took {perf_counter() - state['start_time_2']:.4f}s ⏱")
 
     return state
