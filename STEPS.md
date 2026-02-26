@@ -1,17 +1,16 @@
 # STEPS 
 
 ## 📘 TO-DO (POSSIBLE)
-- Mostrar de obtuvo la informacion en el output [Check]
-- Mostrar AI emoji 🤖 [Check]
-- Try/catch handlers. [Check]
-- Define top-K chunks. [Check]
-- Add logs
-- Reranker change top-K chunks??
+- Mostrar de obtuvo la informacion en el output ✅
+- Mostrar AI emoji 🤖 ✅
+- Try/catch handlers. ✅
+- Define top-K chunks. ✅
+- Add logs. 
 - Avisar despues de 15 minutos si se cerró la sesión de REDIS.
 - Security layer for user messages.
+
+## MODELOS RECOMENDADOS
 - [LLama 3](https://ollama.com/library/llama3),[Mistral](https://mistral.ai/pricing#api), [Gemma 2](https://aistudio.google.com/app/rate-limit?project=gen-lang-client-0500425753) recommended.
-- Confidence gate: low chunk score, borrar contexto actual y memoria. New query.
-  - I don't know if I need this because this is kinda what we do with the classify LLM?
 
 ## 📔 REVISAR CAPITULOS
 - **linea de credito**: es muy general no se entiende.

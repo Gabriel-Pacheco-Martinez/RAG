@@ -6,13 +6,16 @@ Date: February 2026
 from colorama import Fore, Style
 from pathlib import Path
 import logging
-import logging.config
+from logging.config import dictConfig
 
 # Server
 import uvicorn 
 
 # Models
 from src.models.query import QueryRequest
+
+# Helpers
+from src.utils.io import read_json
 
 # FastAPI
 from fastapi.responses import JSONResponse
@@ -64,6 +67,7 @@ def start_server(host: str = "0.0.0.0", port: int = 8000):
         "app.endpoint:app", 
         host=host, 
         port=port, 
-        reload=True, 
-        log_level="info"
+        reload=True, # This has to be false for logs to be saved to file
+        log_level="info",
+        log_config="config/logconfig.json"
     )

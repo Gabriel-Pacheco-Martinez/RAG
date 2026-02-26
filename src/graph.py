@@ -61,7 +61,7 @@ def topic_route(state: ChatState) -> str:
 
 def error_handler(state: ChatState) -> ChatState:
     error = state.get("error") # If it doent exist, it returns None (.get())
-    logger.error(f"Workflow failed at {error}")
+    logger.error(f"[❌] Workflow failed at {error}")
 
     response_message = build_error_response(error)
 

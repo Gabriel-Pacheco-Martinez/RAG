@@ -1,13 +1,46 @@
-2026-02-26 11:45:10,430 | INFO | httpx | HTTP Request: GET http://localhost:6333 "HTTP/1.1 200 OK"
-2026-02-26 11:45:18,829 | INFO | root | User message 'text' is valid
-2026-02-26 11:45:19,369 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
-2026-02-26 11:45:51,758 | INFO | httpx | HTTP Request: GET http://localhost:6333 "HTTP/1.1 200 OK"
-2026-02-26 11:46:05,190 | INFO | root | User message 'text' is valid
-2026-02-26 11:46:05,801 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
-2026-02-26 11:46:06,324 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
-2026-02-26 11:46:07,839 | INFO | root | Embedded number of queries: 1, each with 384 dimensions
-2026-02-26 11:46:10,572 | INFO | sentence_transformers.cross_encoder.CrossEncoder | Use pytorch device: mps
-2026-02-26 11:46:11,443 | INFO | httpx | HTTP Request: POST http://localhost:6333/collections/documentos/points/scroll "HTTP/1.1 200 OK"
-2026-02-26 11:46:11,571 | INFO | httpx | HTTP Request: POST http://localhost:6333/collections/capitulos/points/query "HTTP/1.1 200 OK"
-2026-02-26 11:46:11,700 | INFO | httpx | HTTP Request: POST http://localhost:6333/collections/textos/points/query "HTTP/1.1 200 OK"
-2026-02-26 11:46:12,338 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+[32mINFO[0m:     Started server process [[36m19052[0m]
+[32mINFO[0m:     Waiting for application startup.
+[32mINFO[0m:     Application startup complete.
+[32mINFO[0m:     Uvicorn running on [1mhttp://0.0.0.0:8000[0m (Press CTRL+C to quit)
+[32mINFO[0m:     [32m==================================================
+[32mINFO[0m:     [32m[🤖] Endpoint POST /conversation reached
+[32mINFO[0m:     [32m==================================================[0m
+[32mINFO[0m:     [36m[✅] 👾 INTENTION DETECTED: [0m{'intencion_actual': 'preguntas', 'confianza_en_la_intencion': 0.9, 'slots_requeridos': {'rag_context': True}}
+[32mINFO[0m:     Intent is 'preguntas'. We will now read memory.
+[32mINFO[0m:     [36m[✅] 💿 MEMORY READ: [0mSession 24385: read and loaded
+[32mINFO[0m:     [36m[✅] 👾 TOPIC DETECTED: [0m{'topic': 'ahorro_e_inversion', 'topic_confidence': 1.0, 'user_message_ambiguous': False, 'is_follow_up': False, 'info_source': 'rag', 'rewritten_query': 'Dame informacion de depositos a plazo fijo'}
+[32mINFO[0m:     We will use RAG to answer the query.
+[32mINFO[0m:     The reranker model is running on: mps:0
+[32mINFO[0m:     [93mTop 3 chunks selected capitulos: [0m[ScoredPoint(id=8, version=8, score=1.0, payload={'cap_id': '8', 'doc_id': '2', 'titulo': ".DPF's", 'texto': 'DEPOSITOS A PLAZO FIJO - DPFs: Inversion de capital a plazo fijo para generar intereses. Dinero inmovilizado durante un periodo determinado.'}, vector=None, shard_key=None, order_value=None), ScoredPoint(id=7, version=7, score=0.6666667, payload={'cap_id': '7', 'doc_id': '2', 'titulo': '.CUENTA CORRIENTE', 'texto': 'CUENTA CORRIENTE: Administracion de fondos propios con chequera personal o empresarial. Adelanto de cuenta corriente, depositos en moneda nacional o extranjera. Para personas o empresas que requieren manejo de cheques y gestion de fondos propios. NO es un credito ni prestamo externo.'}, vector=None, shard_key=None, order_value=None), ScoredPoint(id=6, version=6, score=0.5, payload={'cap_id': '6', 'doc_id': '2', 'titulo': '.CAJAS DE AHORRO', 'texto': 'CAJAS DE AHORRO: Apertura de cuentas de ahorro. Para jovenes (banca joven), adultos (activa), mayores (senior). Incluye cuenta de ahorro eficaz, clasica y digital. NO cuenta corriente NO inversion.'}, vector=None, shard_key=None, order_value=None)]
+[32mINFO[0m:     The reranker model is running on: mps:0
+[32mINFO[0m:     [93mTop 3 chunks selected textos: [0m[ScoredPoint(id=29, version=29, score=0.6666667, payload={'texto_id': '29', 'texto': 'DEPOSITO EXTRANJERO: Invertir o depositar a plazo fijo en dolares americanos (USD), moneda extranjera. DPF en dolares.', 'cap_id': '8', 'cap_titulo': ".DPF's", 'cap_texto': 'DEPOSITOS A PLAZO FIJO - DPFs: Inversion de capital a plazo fijo para generar intereses. Dinero inmovilizado durante un periodo determinado.', 'doc_id': '2', 'doc_titulo': 'ahorro_e_inversion', 'doc_resumen': 'Caja de ahorro, cuenta corriente y depositos a plazo fijo. Inversion de ahorros. Banca Joven, Banca Activa, Banca Senior, Ahorro Digital y cuenta Eficaz.'}, vector=None, shard_key=None, order_value=None), ScoredPoint(id=30, version=30, score=1.0, payload={'texto_id': '30', 'texto': 'DEPOSITO NACIONAL: Invertir o depositar a plazo fijo en bolivianos (Bs), moneda nacional. DPF en bolivianos.', 'cap_id': '8', 'cap_titulo': ".DPF's", 'cap_texto': 'DEPOSITOS A PLAZO FIJO - DPFs: Inversion de capital a plazo fijo para generar intereses. Dinero inmovilizado durante un periodo determinado.', 'doc_id': '2', 'doc_titulo': 'ahorro_e_inversion', 'doc_resumen': 'Caja de ahorro, cuenta corriente y depositos a plazo fijo. Inversion de ahorros. Banca Joven, Banca Activa, Banca Senior, Ahorro Digital y cuenta Eficaz.'}, vector=None, shard_key=None, order_value=None)]
+[32mINFO[0m:     [36m[✅] 🧰 RAG ACHIEVED: [0mit took 6.2942s ⏱
+[32mINFO[0m:     [36m[✅] 👾 QUERY ANSWERED: [0mit took 0.7829s ⏱
+[32mINFO[0m:     [36m[✅] 💿 MEMORY UPDATED: [0mSession 24385: updated with TTL of 900 seconds
+[32mINFO[0m:     Shutting down
+[32mINFO[0m:     Waiting for application shutdown.
+[32mINFO[0m:     Application shutdown complete.
+[32mINFO[0m:     Finished server process [[36m19052[0m]
+[32mINFO[0m:     Will watch for changes in these directories: ['/Users/gabriel/Documents/BNB/Proyectos/rag-poc']
+[32mINFO[0m:     Uvicorn running on [1mhttp://0.0.0.0:8000[0m (Press CTRL+C to quit)
+[32mINFO[0m:     Started reloader process [[36m[1m19248[0m] using [36m[1mStatReload[0m
+[32mINFO[0m:     Started server process [[36m19266[0m]
+[32mINFO[0m:     Waiting for application startup.
+[32mINFO[0m:     Application startup complete.
+[32mINFO[0m:     [32m==================================================
+[32mINFO[0m:     [32m[🤖] Endpoint POST /conversation reached
+[32mINFO[0m:     [32m==================================================[0m
+[32mINFO[0m:     [36m[✅] 👾 INTENTION DETECTED: [0m{'intencion_actual': 'preguntas', 'confianza_en_la_intencion': 0.9, 'slots_requeridos': {'rag_context': True}}
+[32mINFO[0m:     Intent is 'preguntas'. We will now read memory.
+[31mERROR[0m:    [❌] Workflow failed at {'node': 'read_memory', 'type': 'ConnectionError', 'message': 'Error 61 connecting to localhost:6379. Connection refused.'}
+[32mINFO[0m:     [32m==================================================
+[32mINFO[0m:     [32m[🤖] Endpoint POST /conversation reached
+[32mINFO[0m:     [32m==================================================[0m
+[32mINFO[0m:     [36m[✅] 👾 INTENTION DETECTED: [0m{'intencion_actual': 'preguntas', 'confianza_en_la_intencion': 0.9, 'slots_requeridos': {'rag_context': True}}
+[32mINFO[0m:     Intent is 'preguntas'. We will now read memory.
+[31mERROR[0m:    [❌] Workflow failed at {'node': 'read_memory', 'type': 'ConnectionError', 'message': 'Error 61 connecting to localhost:6379. Connection refused.'}
+[32mINFO[0m:     Shutting down
+[32mINFO[0m:     Waiting for application shutdown.
+[32mINFO[0m:     Application shutdown complete.
+[32mINFO[0m:     Finished server process [[36m19266[0m]
+[32mINFO[0m:     Stopping reloader process [[36m[1m19248[0m]
