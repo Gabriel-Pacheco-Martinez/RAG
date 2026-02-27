@@ -5,7 +5,7 @@
 - Mostrar AI emoji 🤖 ✅
 - Try/catch handlers. ✅
 - Define top-K chunks. ✅
-- Add logs. 
+- Add logs. ✅
 - Avisar despues de 15 minutos si se cerró la sesión de REDIS.
 - Security layer for user messages.
 
