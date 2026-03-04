@@ -18,7 +18,7 @@ class LLM_Engine(ABC):
     def __init__(self, LLM_SOURCE: str, groq_model: str, gemini_model: str, temperature: float = 0):
         self.llm_source = LLM_SOURCE.lower()
         # ChatGoogleGenerativeAI
-        if self.llm_source == "gemini":     
+        if self.llm_source == "google":     
             self.generator_model = gemini_model
         # ChatGroq
         elif self.llm_source == "groq":     
@@ -28,17 +28,18 @@ class LLM_Engine(ABC):
             logging.info("Model {self.llm_source} not supported.")
             raise ValueError(f"Modelo {self.llm_source} no disponible.")
         
-    def call_generator_llm(self, prompt):
+    async def call_generator_llm(self, prompt):
         if self.llm_source == "gemini":
-            response = self.generator_model.invoke(prompt).content[0]["text"].strip()
+            response = await self.generator_model.ainvoke(prompt)
+            return response.content[0]["text"].strip()
         else:
-            response = self.generator_model.invoke(prompt).content.strip()
-        return response
+            response = await self.generator_model.ainvoke(prompt)
+            return response.content.strip()
 
-    def prompt_llm(self, user_message: str, contexto: str):
+    async def prompt_llm(self, user_message: str, contexto: str):
         generator_base_prompt = load_prompt("generate_prompt.txt")
         generator_prompt = build_generator_prompt(generator_base_prompt, user_message, contexto)
-        generator_response = self.call_generator_llm(generator_prompt)
+        generator_response = await self.call_generator_llm(generator_prompt)
         return generator_response
 
 

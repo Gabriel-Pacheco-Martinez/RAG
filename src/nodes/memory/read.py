@@ -1,6 +1,7 @@
 # General
-from colorama import Fore, Style
 import json
+from colorama import Fore, Style
+from time import perf_counter
 
 # LangGraph
 from src.models.state import ChatState
@@ -17,6 +18,9 @@ import logging
 logger = logging.getLogger('uvicorn.error')
 
 def read_memory(state: ChatState) -> dict:
+    # Start timer
+    state["start_timer_memory_read"] = perf_counter()
+
     session_id = str(state["user_session_id"])
     session_ttl = REDIS_TTL_SECONDS
     session_data = REDIS_CLIENT.hgetall(session_id)
@@ -41,7 +45,9 @@ def read_memory(state: ChatState) -> dict:
 
         # Set TTL
         REDIS_CLIENT.expire(session_id, session_ttl)
-        logger.info(Fore.CYAN + f"[✅] 💿 MEMORY READ: " + Style.RESET_ALL + f"Session {session_id}: created with TTL of {session_ttl} seconds")
+
+        # Timer
+        logger.info(Fore.RED + f"{state['user_session_id']}: " + Fore.CYAN + "[✅] 💿 MEMORY READ: " + Style.RESET_ALL + "it took " + Fore.YELLOW + f"{perf_counter() - state['start_timer_memory_read']:.4f}s ⏱. " + Style.RESET_ALL + f"Session {session_id}: created with TTL of {session_ttl} seconds.")
 
     else:
         # State
@@ -52,7 +58,8 @@ def read_memory(state: ChatState) -> dict:
         state["document"] = session_data_obj.get("document_previous", "")
         state["chapter"] = session_data_obj.get("chapter_previous", "")
 
-        logger.info(Fore.CYAN + f"[✅] 💿 MEMORY READ: " + Style.RESET_ALL + f"Session {session_id}: read and loaded")
+        # Timer
+        logger.info(Fore.RED + f"{state['user_session_id']}: " + Fore.CYAN + "[✅] 💿 MEMORY READ: " + Style.RESET_ALL + "it took " + Fore.YELLOW + f"{perf_counter() - state['start_timer_memory_read']:.4f}s ⏱. " + Style.RESET_ALL + f"Session {session_id}: read and loaded.")
 
     return state
 

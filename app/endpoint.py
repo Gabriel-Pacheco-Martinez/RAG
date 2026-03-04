@@ -26,12 +26,12 @@ from src import index
 logger = logging.getLogger('uvicorn.error')
 
 @app.post("/conversation")
-def query_endpoint(request: QueryRequest):
+async def query_endpoint(request: QueryRequest):
     logger.info(Fore.GREEN + "="*50)
     logger.info(Fore.GREEN + "[🤖] Endpoint POST /conversation reached")
     logger.info(Fore.GREEN + "="*50 + Style.RESET_ALL)
 
-    response = graph.run(request)
+    response = await graph.run(request)
 
     response_payload = {
         "mensaje": request.mensaje,

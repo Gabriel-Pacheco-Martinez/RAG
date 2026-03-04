@@ -31,9 +31,9 @@ from config.settings import WEBSITE_METADATA_FILE_PATH
 import logging
 logger = logging.getLogger('uvicorn.error')
 
-def llm_rag_retrieval(state: ChatState):
+async def llm_rag_retrieval(state: ChatState):
     # Start timer
-    state["start_time_1"] = perf_counter()
+    state["start_timer_llm_rag"] = perf_counter()
 
     # Query
     query = state["user_message"]
@@ -45,7 +45,7 @@ def llm_rag_retrieval(state: ChatState):
     # Search embeddings
     topic = state["topic"] # Select topic by classify
     searcher = Searcher(QDRANT_CLIENT, THRESHOLD, RERANKER_MODEL)
-    vectors: list[ScoredPoint] = searcher.search(embedded_query, query, topic)
+    vectors: list[ScoredPoint] = await searcher.search(embedded_query, query, topic)
     state["document"] = vectors[0].payload.get('doc_titulo', '').upper()
     state["chapter"] = vectors[0].payload.get('cap_titulo', '').upper()
 
@@ -60,6 +60,6 @@ def llm_rag_retrieval(state: ChatState):
     state["context"] = context
 
     # Timer
-    logger.info(Fore.CYAN + "[✅] 🧰 RAG ACHIEVED: " + Style.RESET_ALL + f"it took {perf_counter() - state['start_time_1']:.4f}s ⏱")
+    logger.info(Fore.RED + f"{state['user_session_id']}: " +Fore.CYAN + "[✅] 🧰 RAG ACHIEVED: " + Style.RESET_ALL + "it took " + Fore.YELLOW + f"{perf_counter() - state['start_timer_llm_rag']:.4f}s ⏱. ")
 
     return state

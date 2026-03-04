@@ -1,205 +1,805 @@
-[32mINFO[0m:     Started server process [[36m19052[0m]
-[32mINFO[0m:     Waiting for application startup.
-[32mINFO[0m:     Application startup complete.
-[32mINFO[0m:     Uvicorn running on [1mhttp://0.0.0.0:8000[0m (Press CTRL+C to quit)
-[32mINFO[0m:     [32m==================================================
-[32mINFO[0m:     [32m[🤖] Endpoint POST /conversation reached
-[32mINFO[0m:     [32m==================================================[0m
-[32mINFO[0m:     [36m[✅] 👾 INTENTION DETECTED: [0m{'intencion_actual': 'preguntas', 'confianza_en_la_intencion': 0.9, 'slots_requeridos': {'rag_context': True}}
-[32mINFO[0m:     Intent is 'preguntas'. We will now read memory.
-[32mINFO[0m:     [36m[✅] 💿 MEMORY READ: [0mSession 24385: read and loaded
-[32mINFO[0m:     [36m[✅] 👾 TOPIC DETECTED: [0m{'topic': 'ahorro_e_inversion', 'topic_confidence': 1.0, 'user_message_ambiguous': False, 'is_follow_up': False, 'info_source': 'rag', 'rewritten_query': 'Dame informacion de depositos a plazo fijo'}
-[32mINFO[0m:     We will use RAG to answer the query.
-[32mINFO[0m:     The reranker model is running on: mps:0
-[32mINFO[0m:     [93mTop 3 chunks selected capitulos: [0m[ScoredPoint(id=8, version=8, score=1.0, payload={'cap_id': '8', 'doc_id': '2', 'titulo': ".DPF's", 'texto': 'DEPOSITOS A PLAZO FIJO - DPFs: Inversion de capital a plazo fijo para generar intereses. Dinero inmovilizado durante un periodo determinado.'}, vector=None, shard_key=None, order_value=None), ScoredPoint(id=7, version=7, score=0.6666667, payload={'cap_id': '7', 'doc_id': '2', 'titulo': '.CUENTA CORRIENTE', 'texto': 'CUENTA CORRIENTE: Administracion de fondos propios con chequera personal o empresarial. Adelanto de cuenta corriente, depositos en moneda nacional o extranjera. Para personas o empresas que requieren manejo de cheques y gestion de fondos propios. NO es un credito ni prestamo externo.'}, vector=None, shard_key=None, order_value=None), ScoredPoint(id=6, version=6, score=0.5, payload={'cap_id': '6', 'doc_id': '2', 'titulo': '.CAJAS DE AHORRO', 'texto': 'CAJAS DE AHORRO: Apertura de cuentas de ahorro. Para jovenes (banca joven), adultos (activa), mayores (senior). Incluye cuenta de ahorro eficaz, clasica y digital. NO cuenta corriente NO inversion.'}, vector=None, shard_key=None, order_value=None)]
-[32mINFO[0m:     The reranker model is running on: mps:0
-[32mINFO[0m:     [93mTop 3 chunks selected textos: [0m[ScoredPoint(id=29, version=29, score=0.6666667, payload={'texto_id': '29', 'texto': 'DEPOSITO EXTRANJERO: Invertir o depositar a plazo fijo en dolares americanos (USD), moneda extranjera. DPF en dolares.', 'cap_id': '8', 'cap_titulo': ".DPF's", 'cap_texto': 'DEPOSITOS A PLAZO FIJO - DPFs: Inversion de capital a plazo fijo para generar intereses. Dinero inmovilizado durante un periodo determinado.', 'doc_id': '2', 'doc_titulo': 'ahorro_e_inversion', 'doc_resumen': 'Caja de ahorro, cuenta corriente y depositos a plazo fijo. Inversion de ahorros. Banca Joven, Banca Activa, Banca Senior, Ahorro Digital y cuenta Eficaz.'}, vector=None, shard_key=None, order_value=None), ScoredPoint(id=30, version=30, score=1.0, payload={'texto_id': '30', 'texto': 'DEPOSITO NACIONAL: Invertir o depositar a plazo fijo en bolivianos (Bs), moneda nacional. DPF en bolivianos.', 'cap_id': '8', 'cap_titulo': ".DPF's", 'cap_texto': 'DEPOSITOS A PLAZO FIJO - DPFs: Inversion de capital a plazo fijo para generar intereses. Dinero inmovilizado durante un periodo determinado.', 'doc_id': '2', 'doc_titulo': 'ahorro_e_inversion', 'doc_resumen': 'Caja de ahorro, cuenta corriente y depositos a plazo fijo. Inversion de ahorros. Banca Joven, Banca Activa, Banca Senior, Ahorro Digital y cuenta Eficaz.'}, vector=None, shard_key=None, order_value=None)]
-[32mINFO[0m:     [36m[✅] 🧰 RAG ACHIEVED: [0mit took 6.2942s ⏱
-[32mINFO[0m:     [36m[✅] 👾 QUERY ANSWERED: [0mit took 0.7829s ⏱
-[32mINFO[0m:     [36m[✅] 💿 MEMORY UPDATED: [0mSession 24385: updated with TTL of 900 seconds
-[32mINFO[0m:     Shutting down
-[32mINFO[0m:     Waiting for application shutdown.
-[32mINFO[0m:     Application shutdown complete.
-[32mINFO[0m:     Finished server process [[36m19052[0m]
-[32mINFO[0m:     Will watch for changes in these directories: ['/Users/gabriel/Documents/BNB/Proyectos/rag-poc']
-[32mINFO[0m:     Uvicorn running on [1mhttp://0.0.0.0:8000[0m (Press CTRL+C to quit)
-[32mINFO[0m:     Started reloader process [[36m[1m19248[0m] using [36m[1mStatReload[0m
-[32mINFO[0m:     Started server process [[36m19266[0m]
-[32mINFO[0m:     Waiting for application startup.
-[32mINFO[0m:     Application startup complete.
-[32mINFO[0m:     [32m==================================================
-[32mINFO[0m:     [32m[🤖] Endpoint POST /conversation reached
-[32mINFO[0m:     [32m==================================================[0m
-[32mINFO[0m:     [36m[✅] 👾 INTENTION DETECTED: [0m{'intencion_actual': 'preguntas', 'confianza_en_la_intencion': 0.9, 'slots_requeridos': {'rag_context': True}}
-[32mINFO[0m:     Intent is 'preguntas'. We will now read memory.
-[31mERROR[0m:    [❌] Workflow failed at {'node': 'read_memory', 'type': 'ConnectionError', 'message': 'Error 61 connecting to localhost:6379. Connection refused.'}
-[32mINFO[0m:     [32m==================================================
-[32mINFO[0m:     [32m[🤖] Endpoint POST /conversation reached
-[32mINFO[0m:     [32m==================================================[0m
-[32mINFO[0m:     [36m[✅] 👾 INTENTION DETECTED: [0m{'intencion_actual': 'preguntas', 'confianza_en_la_intencion': 0.9, 'slots_requeridos': {'rag_context': True}}
-[32mINFO[0m:     Intent is 'preguntas'. We will now read memory.
-[31mERROR[0m:    [❌] Workflow failed at {'node': 'read_memory', 'type': 'ConnectionError', 'message': 'Error 61 connecting to localhost:6379. Connection refused.'}
-[32mINFO[0m:     Shutting down
-[32mINFO[0m:     Waiting for application shutdown.
-[32mINFO[0m:     Application shutdown complete.
-[32mINFO[0m:     Finished server process [[36m19266[0m]
-[32mINFO[0m:     Stopping reloader process [[36m[1m19248[0m]
-[32mINFO[0m:     Will watch for changes in these directories: ['/Users/gabriel/Documents/BNB/Proyectos/rag-poc']
-[32mINFO[0m:     Uvicorn running on [1mhttp://0.0.0.0:8000[0m (Press CTRL+C to quit)
-[32mINFO[0m:     Started reloader process [[36m[1m20150[0m] using [36m[1mStatReload[0m
-[32mINFO[0m:     Started server process [[36m20169[0m]
-[32mINFO[0m:     Waiting for application startup.
-[32mINFO[0m:     Application startup complete.
-[32mINFO[0m:     [35m==================================================
-[32mINFO[0m:     [35m[📚] Endpoint GET /index reached
-[32mINFO[0m:     [35m==================================================[0m
-[32mINFO[0m:     ✅ Successfull chunking
-[32mINFO[0m:     ✅ Successfull embedding
-[32mINFO[0m:     ✅ Successfull indexing
-[33mWARNING[0m:  StatReload detected changes in 'src/index.py'. Reloading...
-[32mINFO[0m:     Shutting down
-[32mINFO[0m:     Waiting for application shutdown.
-[32mINFO[0m:     Application shutdown complete.
-[32mINFO[0m:     Finished server process [[36m20169[0m]
-[32mINFO[0m:     Started server process [[36m20226[0m]
-[32mINFO[0m:     Waiting for application startup.
-[32mINFO[0m:     Application startup complete.
-[33mWARNING[0m:  StatReload detected changes in 'src/index.py'. Reloading...
-[32mINFO[0m:     Shutting down
-[32mINFO[0m:     Waiting for application shutdown.
-[32mINFO[0m:     Application shutdown complete.
-[32mINFO[0m:     Finished server process [[36m20226[0m]
-[32mINFO[0m:     Started server process [[36m20269[0m]
-[32mINFO[0m:     Waiting for application startup.
-[32mINFO[0m:     Application startup complete.
-[32mINFO[0m:     Shutting down
-[32mINFO[0m:     Waiting for application shutdown.
-[32mINFO[0m:     Application shutdown complete.
-[32mINFO[0m:     Finished server process [[36m20269[0m]
-[32mINFO[0m:     Stopping reloader process [[36m[1m20150[0m]
-[32mINFO[0m:     Will watch for changes in these directories: ['/Users/gabriel/Documents/BNB/Proyectos/rag-poc']
-[32mINFO[0m:     Uvicorn running on [1mhttp://0.0.0.0:8000[0m (Press CTRL+C to quit)
-[32mINFO[0m:     Started reloader process [[36m[1m20911[0m] using [36m[1mStatReload[0m
-[32mINFO[0m:     Started server process [[36m20929[0m]
-[32mINFO[0m:     Waiting for application startup.
-[32mINFO[0m:     Application startup complete.
-[32mINFO[0m:     [35m==================================================
-[32mINFO[0m:     [35m[📚] Endpoint GET /index reached
-[32mINFO[0m:     [35m==================================================[0m
-[32mINFO[0m:     ✅ Successfull chunking
-[32mINFO[0m:     ✅ Successfull embedding
-[32mINFO[0m:     ✅ Successfull indexing
-[33mWARNING[0m:  StatReload detected changes in 'app/endpoint.py'. Reloading...
-[32mINFO[0m:     Shutting down
-[32mINFO[0m:     Waiting for application shutdown.
-[32mINFO[0m:     Application shutdown complete.
-[32mINFO[0m:     Finished server process [[36m20929[0m]
-[32mINFO[0m:     Started server process [[36m20961[0m]
-[32mINFO[0m:     Waiting for application startup.
-[32mINFO[0m:     Application startup complete.
-[33mWARNING[0m:  StatReload detected changes in 'app/endpoint.py'. Reloading...
-[32mINFO[0m:     Shutting down
-[32mINFO[0m:     Waiting for application shutdown.
-[32mINFO[0m:     Application shutdown complete.
-[32mINFO[0m:     Finished server process [[36m20961[0m]
-[32mINFO[0m:     Started server process [[36m20979[0m]
-[32mINFO[0m:     Waiting for application startup.
-[32mINFO[0m:     Application startup complete.
-[33mWARNING[0m:  StatReload detected changes in 'src/indexing/chunker.py'. Reloading...
-[32mINFO[0m:     Shutting down
-[32mINFO[0m:     Waiting for application shutdown.
-[32mINFO[0m:     Application shutdown complete.
-[32mINFO[0m:     Finished server process [[36m20979[0m]
-[32mINFO[0m:     Started server process [[36m21077[0m]
-[32mINFO[0m:     Waiting for application startup.
-[32mINFO[0m:     Application startup complete.
-[32mINFO[0m:     [34m==================================================
-[32mINFO[0m:     [34m[📚] Endpoint GET /index reached
-[32mINFO[0m:     [34m==================================================[0m
-[32mINFO[0m:     ✅ Successfull chunking
-[32mINFO[0m:     ✅ Successfull embedding
-[32mINFO[0m:     ✅ Successfull indexing
-[33mWARNING[0m:  StatReload detected changes in 'app/endpoint.py'. Reloading...
-[32mINFO[0m:     Shutting down
-[32mINFO[0m:     Waiting for application shutdown.
-[32mINFO[0m:     Application shutdown complete.
-[32mINFO[0m:     Finished server process [[36m21077[0m]
-[32mINFO[0m:     Started server process [[36m21124[0m]
-[32mINFO[0m:     Waiting for application startup.
-[32mINFO[0m:     Application startup complete.
-[32mINFO[0m:     [32m==================================================
-[32mINFO[0m:     [32m[📚] Endpoint GET /index reached
-[32mINFO[0m:     [32m==================================================[0m
-[32mINFO[0m:     ✅ Successfull chunking
-[32mINFO[0m:     ✅ Successfull embedding
-[32mINFO[0m:     ✅ Successfull indexing
-[33mWARNING[0m:  StatReload detected changes in 'app/endpoint.py'. Reloading...
-[32mINFO[0m:     Shutting down
-[32mINFO[0m:     Waiting for application shutdown.
-[32mINFO[0m:     Application shutdown complete.
-[32mINFO[0m:     Finished server process [[36m21124[0m]
-[32mINFO[0m:     Started server process [[36m21165[0m]
-[32mINFO[0m:     Waiting for application startup.
-[32mINFO[0m:     Application startup complete.
-[32mINFO[0m:     [32m==================================================
-[32mINFO[0m:     [32m[📚] Endpoint GET /index reached
-[32mINFO[0m:     [32m==================================================[0m
-[32mINFO[0m:     ✅ Successfull chunking
-[32mINFO[0m:     ✅ Successfull embedding
-[32mINFO[0m:     ✅ Successfull indexing
-[33mWARNING[0m:  StatReload detected changes in 'src/index.py'. Reloading...
-[32mINFO[0m:     Shutting down
-[32mINFO[0m:     Waiting for application shutdown.
-[32mINFO[0m:     Application shutdown complete.
-[32mINFO[0m:     Finished server process [[36m21165[0m]
-[33mWARNING[0m:  StatReload detected changes in 'app/endpoint.py'. Reloading...
-[32mINFO[0m:     Started server process [[36m21213[0m]
-[32mINFO[0m:     Waiting for application startup.
-[32mINFO[0m:     Application startup complete.
-[32mINFO[0m:     [32m==================================================
-[32mINFO[0m:     [32m[📚] Endpoint GET /index reached
-[32mINFO[0m:     [32m==================================================[0m
-[32mINFO[0m:     ✅ Successfull chunking
-[32mINFO[0m:     ✅ Successfull embedding
-[32mINFO[0m:     ✅ Successfull indexing
-[33mWARNING[0m:  StatReload detected changes in 'src/index.py'. Reloading...
-[32mINFO[0m:     Shutting down
-[32mINFO[0m:     Waiting for application shutdown.
-[32mINFO[0m:     Application shutdown complete.
-[32mINFO[0m:     Finished server process [[36m21213[0m]
-[32mINFO[0m:     Started server process [[36m21242[0m]
-[32mINFO[0m:     Waiting for application startup.
-[32mINFO[0m:     Application startup complete.
-[32mINFO[0m:     [32m==================================================
-[32mINFO[0m:     [32m[📚] Endpoint GET /index reached
-[32mINFO[0m:     [32m==================================================[0m
-[32mINFO[0m:     ✅ Successfull chunking
-[32mINFO[0m:     ✅ Successfull embedding
-[32mINFO[0m:     ✅ Successfull indexing
-[32mINFO[0m:     [32m==================================================
-[32mINFO[0m:     [32m[🤖] Endpoint POST /conversation reached
-[32mINFO[0m:     [32m==================================================[0m
-[32mINFO[0m:     [36m[✅] 👾 INTENTION DETECTED: [0m{'intencion_actual': 'preguntas', 'confianza_en_la_intencion': 0.9, 'slots_requeridos': {'rag_context': True}}
-[32mINFO[0m:     Intent is 'preguntas'. We will now read memory.
-[31mERROR[0m:    [❌] Workflow failed at {'node': 'read_memory', 'type': 'ConnectionError', 'message': 'Error 61 connecting to localhost:6379. Connection refused.'}
-[32mINFO[0m:     [32m==================================================
-[32mINFO[0m:     [32m[🤖] Endpoint POST /conversation reached
-[32mINFO[0m:     [32m==================================================[0m
-[32mINFO[0m:     [36m[✅] 👾 INTENTION DETECTED: [0m{'intencion_actual': 'preguntas', 'confianza_en_la_intencion': 0.9, 'slots_requeridos': {'rag_context': True}}
-[32mINFO[0m:     Intent is 'preguntas'. We will now read memory.
-[32mINFO[0m:     [36m[✅] 💿 MEMORY READ: [0mSession 24385: created with TTL of 900 seconds
-[32mINFO[0m:     [36m[✅] 👾 TOPIC DETECTED: [0m{'topic': 'ahorro_e_inversion', 'topic_confidence': 1.0, 'user_message_ambiguous': False, 'is_follow_up': False, 'info_source': 'rag', 'rewritten_query': 'informacion de depositos a plazo fijo'}
-[32mINFO[0m:     We will use RAG to answer the query.
-[32mINFO[0m:     [33mEmbedded number of queries: 1, each with 384 dimensions[0m
-[32mINFO[0m:     The reranker model is running on: mps:0
-[32mINFO[0m:     [93mTop 3 chunks selected capitulos: [0m[ScoredPoint(id=8, version=8, score=1.0, payload={'cap_id': '8', 'doc_id': '2', 'titulo': ".DPF's", 'texto': 'DEPOSITOS A PLAZO FIJO - DPFs: Inversion de capital a plazo fijo para generar intereses. Dinero inmovilizado durante un periodo determinado.'}, vector=None, shard_key=None, order_value=None), ScoredPoint(id=7, version=7, score=0.6666667, payload={'cap_id': '7', 'doc_id': '2', 'titulo': '.CUENTA CORRIENTE', 'texto': 'CUENTA CORRIENTE: Administracion de fondos propios con chequera personal o empresarial. Adelanto de cuenta corriente, depositos en moneda nacional o extranjera. Para personas o empresas que requieren manejo de cheques y gestion de fondos propios. NO es un credito ni prestamo externo.'}, vector=None, shard_key=None, order_value=None), ScoredPoint(id=6, version=6, score=0.5, payload={'cap_id': '6', 'doc_id': '2', 'titulo': '.CAJAS DE AHORRO', 'texto': 'CAJAS DE AHORRO: Apertura de cuentas de ahorro. Para jovenes (banca joven), adultos (activa), mayores (senior). Incluye cuenta de ahorro eficaz, clasica y digital. NO cuenta corriente NO inversion.'}, vector=None, shard_key=None, order_value=None)]
-[32mINFO[0m:     The reranker model is running on: mps:0
-[32mINFO[0m:     [93mTop 3 chunks selected textos: [0m[ScoredPoint(id=29, version=29, score=0.6666667, payload={'texto_id': '29', 'texto': 'DEPOSITO EXTRANJERO: Invertir o depositar a plazo fijo en dolares americanos (USD), moneda extranjera. DPF en dolares.', 'cap_id': '8', 'cap_titulo': ".DPF's", 'cap_texto': 'DEPOSITOS A PLAZO FIJO - DPFs: Inversion de capital a plazo fijo para generar intereses. Dinero inmovilizado durante un periodo determinado.', 'doc_id': '2', 'doc_titulo': 'ahorro_e_inversion', 'doc_resumen': 'Caja de ahorro, cuenta corriente y depositos a plazo fijo. Inversion de ahorros. Banca Joven, Banca Activa, Banca Senior, Ahorro Digital y cuenta Eficaz.'}, vector=None, shard_key=None, order_value=None), ScoredPoint(id=30, version=30, score=1.0, payload={'texto_id': '30', 'texto': 'DEPOSITO NACIONAL: Invertir o depositar a plazo fijo en bolivianos (Bs), moneda nacional. DPF en bolivianos.', 'cap_id': '8', 'cap_titulo': ".DPF's", 'cap_texto': 'DEPOSITOS A PLAZO FIJO - DPFs: Inversion de capital a plazo fijo para generar intereses. Dinero inmovilizado durante un periodo determinado.', 'doc_id': '2', 'doc_titulo': 'ahorro_e_inversion', 'doc_resumen': 'Caja de ahorro, cuenta corriente y depositos a plazo fijo. Inversion de ahorros. Banca Joven, Banca Activa, Banca Senior, Ahorro Digital y cuenta Eficaz.'}, vector=None, shard_key=None, order_value=None)]
-[32mINFO[0m:     [36m[✅] 🧰 RAG ACHIEVED: [0mit took 5.3759s ⏱
-[32mINFO[0m:     [36m[✅] 👾 QUERY ANSWERED: [0mit took 0.6588s ⏱
-[32mINFO[0m:     [36m[✅] 💿 MEMORY UPDATED: [0mSession 24385: updated with TTL of 900 seconds
-[32mINFO[0m:     Shutting down
-[32mINFO[0m:     Waiting for application shutdown.
-[32mINFO[0m:     Application shutdown complete.
-[32mINFO[0m:     Finished server process [[36m21242[0m]
-[32mINFO[0m:     Stopping reloader process [[36m[1m20911[0m]
+2026-03-04 15:56:13,428 [32mINFO[0m:     Started server process [[36m1059[0m]
+2026-03-04 15:56:13,429 [32mINFO[0m:     Waiting for application startup.
+2026-03-04 15:56:13,429 [32mINFO[0m:     Application startup complete.
+2026-03-04 15:56:22,322 [32mINFO[0m:     Shutting down
+2026-03-04 15:56:22,423 [32mINFO[0m:     Waiting for application shutdown.
+2026-03-04 15:56:22,424 [32mINFO[0m:     Application shutdown complete.
+2026-03-04 15:56:22,424 [32mINFO[0m:     Finished server process [[36m1059[0m]
+2026-03-04 15:58:23,450 [32mINFO[0m:     Will watch for changes in these directories: ['/Users/gabriel/Documents/BNB/Proyectos/rag-poc']
+2026-03-04 15:58:23,450 [32mINFO[0m:     Uvicorn running on [1mhttp://0.0.0.0:8000[0m (Press CTRL+C to quit)
+2026-03-04 15:58:23,451 [32mINFO[0m:     Started reloader process [[36m[1m1138[0m] using [36m[1mStatReload[0m
+2026-03-04 15:58:29,906 [32mINFO[0m:     Started server process [[36m1153[0m]
+2026-03-04 15:58:29,907 [32mINFO[0m:     Waiting for application startup.
+2026-03-04 15:58:29,907 [32mINFO[0m:     Application startup complete.
+2026-03-04 15:58:30,221 [32mINFO[0m:     [32m==================================================
+2026-03-04 15:58:30,221 [32mINFO[0m:     [32m[🤖] Endpoint POST /conversation reached
+2026-03-04 15:58:30,221 [32mINFO[0m:     [32m==================================================[0m
+2026-03-04 15:58:30,233 [32mINFO[0m:     [31m24385: [36m[✅] 💿 MEMORY READ: [0mit took [33m0.0053s ⏱. [0mSession 24385: created with TTL of 900 seconds.
+2026-03-04 15:58:30,234 [32mINFO[0m:     [31m24385: [0mInformacion sobre depositos a plazo fijo.
+2026-03-04 15:58:31,029 [32mINFO[0m:     [31m24385: [36m[✅] 👾 TOPIC DETECTED: [0mit took [33m0.7956s ⏱. [0m{'topic': 'ahorro_e_inversion', 'topic_confidence': 1.0, 'user_message_ambiguous': False, 'is_follow_up': False, 'info_source': 'rag', 'rewritten_query': 'Informacion sobre depositos a plazo fijo'}
+2026-03-04 15:58:31,030 [32mINFO[0m:     We will use RAG to answer the query.
+2026-03-04 15:58:32,488 [32mINFO[0m:     [33mEmbedded number of queries: 1, each with 384 dimensions[0m
+2026-03-04 15:58:32,488 [32mINFO[0m:     [36m[✅] 🧰 Embedding time: [0mit took [33m1.4579s ⏱. 
+2026-03-04 15:58:36,370 [32mINFO[0m:     [31m24385: [36m[✅] 🧰 RAG ACHIEVED: [0mit took [33m5.3396s ⏱. 
+2026-03-04 15:58:38,410 [32mINFO[0m:     [31m24385: [0m
+        🤖 Este mensaje esta generado por Inteligencia Artifical.
+        Informacion obtenida de la sección AHORRO_E_INVERSION del capítulo .DPF'S:
+        Depósitos a plazo fijo (DPF) ofrecen intereses más altos que las cajas de ahorros.  Pueden ser cancelados en cualquier oficina del banco, y se requiere un depósito inicial de $1,000.  Los DPFs en moneda nacional con plazo a partir de 31 días no gravan el IVA.
+        
+2026-03-04 15:58:38,411 [32mINFO[0m:     [31m24385: [36m[✅] 👾 QUERY ANSWERED: [0mit took [33m2.0349s ⏱. 
+2026-03-04 15:58:38,415 [32mINFO[0m:     [31m24385: [36m[✅] 💿 MEMORY UPDATED: [0mit took [33m0.0038s ⏱. [0mSession 24385: updated with TTL of 900 seconds.
+2026-03-04 15:58:38,416 [31mERROR[0m:    Exception in ASGI application
+Traceback (most recent call last):
+  File "/Users/gabriel/Documents/BNB/Proyectos/rag-poc/ragvenv/lib/python3.11/site-packages/uvicorn/protocols/http/h11_impl.py", line 410, in run_asgi
+    result = await app(  # type: ignore[func-returns-value]
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/gabriel/Documents/BNB/Proyectos/rag-poc/ragvenv/lib/python3.11/site-packages/uvicorn/middleware/proxy_headers.py", line 60, in __call__
+    return await self.app(scope, receive, send)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/gabriel/Documents/BNB/Proyectos/rag-poc/ragvenv/lib/python3.11/site-packages/fastapi/applications.py", line 1135, in __call__
+    await super().__call__(scope, receive, send)
+  File "/Users/gabriel/Documents/BNB/Proyectos/rag-poc/ragvenv/lib/python3.11/site-packages/starlette/applications.py", line 107, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/Users/gabriel/Documents/BNB/Proyectos/rag-poc/ragvenv/lib/python3.11/site-packages/starlette/middleware/errors.py", line 186, in __call__
+    raise exc
+  File "/Users/gabriel/Documents/BNB/Proyectos/rag-poc/ragvenv/lib/python3.11/site-packages/starlette/middleware/errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "/Users/gabriel/Documents/BNB/Proyectos/rag-poc/ragvenv/lib/python3.11/site-packages/starlette/middleware/exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "/Users/gabriel/Documents/BNB/Proyectos/rag-poc/ragvenv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "/Users/gabriel/Documents/BNB/Proyectos/rag-poc/ragvenv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "/Users/gabriel/Documents/BNB/Proyectos/rag-poc/ragvenv/lib/python3.11/site-packages/fastapi/middleware/asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "/Users/gabriel/Documents/BNB/Proyectos/rag-poc/ragvenv/lib/python3.11/site-packages/starlette/routing.py", line 716, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/Users/gabriel/Documents/BNB/Proyectos/rag-poc/ragvenv/lib/python3.11/site-packages/starlette/routing.py", line 736, in app
+    await route.handle(scope, receive, send)
+  File "/Users/gabriel/Documents/BNB/Proyectos/rag-poc/ragvenv/lib/python3.11/site-packages/starlette/routing.py", line 290, in handle
+    await self.app(scope, receive, send)
+  File "/Users/gabriel/Documents/BNB/Proyectos/rag-poc/ragvenv/lib/python3.11/site-packages/fastapi/routing.py", line 115, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "/Users/gabriel/Documents/BNB/Proyectos/rag-poc/ragvenv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "/Users/gabriel/Documents/BNB/Proyectos/rag-poc/ragvenv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "/Users/gabriel/Documents/BNB/Proyectos/rag-poc/ragvenv/lib/python3.11/site-packages/fastapi/routing.py", line 101, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "/Users/gabriel/Documents/BNB/Proyectos/rag-poc/ragvenv/lib/python3.11/site-packages/fastapi/routing.py", line 355, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/gabriel/Documents/BNB/Proyectos/rag-poc/ragvenv/lib/python3.11/site-packages/fastapi/routing.py", line 243, in run_endpoint_function
+    return await dependant.call(**values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/gabriel/Documents/BNB/Proyectos/rag-poc/app/endpoint.py", line 34, in query_endpoint
+    response = await graph.run(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: object dict can't be used in 'await' expression
+2026-03-04 15:58:57,882 [33mWARNING[0m:  StatReload detected changes in 'app/endpoint.py'. Reloading...
+2026-03-04 15:58:57,964 [32mINFO[0m:     Shutting down
+2026-03-04 15:58:58,066 [32mINFO[0m:     Waiting for application shutdown.
+2026-03-04 15:58:58,066 [32mINFO[0m:     Application shutdown complete.
+2026-03-04 15:58:58,066 [32mINFO[0m:     Finished server process [[36m1153[0m]
+2026-03-04 15:59:05,002 [32mINFO[0m:     Started server process [[36m1187[0m]
+2026-03-04 15:59:05,002 [32mINFO[0m:     Waiting for application startup.
+2026-03-04 15:59:05,002 [32mINFO[0m:     Application startup complete.
+2026-03-04 15:59:05,003 [32mINFO[0m:     [32m==================================================
+2026-03-04 15:59:05,003 [32mINFO[0m:     [32m[🤖] Endpoint POST /conversation reached
+2026-03-04 15:59:05,003 [32mINFO[0m:     [32m==================================================[0m
+2026-03-04 15:59:05,013 [32mINFO[0m:     [31m24385: [36m[✅] 💿 MEMORY READ: [0mit took [33m0.0035s ⏱. [0mSession 24385: read and loaded.
+2026-03-04 15:59:05,013 [32mINFO[0m:     [31m24385: [0mInformacion sobre depositos a plazo fijo.
+2026-03-04 15:59:05,744 [32mINFO[0m:     [31m24385: [36m[✅] 👾 TOPIC DETECTED: [0mit took [33m0.7303s ⏱. [0m{'topic': 'ahorro_e_inversion', 'topic_confidence': 1.0, 'user_message_ambiguous': False, 'is_follow_up': False, 'info_source': 'rag', 'rewritten_query': 'Informacion sobre depositos a plazo fijo'}
+2026-03-04 15:59:05,744 [32mINFO[0m:     We will use RAG to answer the query.
+2026-03-04 15:59:07,130 [32mINFO[0m:     [33mEmbedded number of queries: 1, each with 384 dimensions[0m
+2026-03-04 15:59:07,130 [32mINFO[0m:     [36m[✅] 🧰 Embedding time: [0mit took [33m1.3856s ⏱. 
+2026-03-04 15:59:10,892 [32mINFO[0m:     [31m24385: [36m[✅] 🧰 RAG ACHIEVED: [0mit took [33m5.1476s ⏱. 
+2026-03-04 15:59:12,096 [32mINFO[0m:     [31m24385: [0m
+        🤖 Este mensaje esta generado por Inteligencia Artifical.
+        Informacion obtenida de la sección AHORRO_E_INVERSION del capítulo .DPF'S:
+        Depósitos a plazo fijo: Son depósitos que permanecen inmóviles por un plazo previamente pactado.  Pueden ser cancelados, ofrecen intereses más altos que las cajas de ahorros y se encuentran exentos del Impuesto a la Transacciones Financieras.
+        
+2026-03-04 15:59:12,096 [32mINFO[0m:     [31m24385: [36m[✅] 👾 QUERY ANSWERED: [0mit took [33m1.1980s ⏱. 
+2026-03-04 15:59:12,099 [32mINFO[0m:     [31m24385: [36m[✅] 💿 MEMORY UPDATED: [0mit took [33m0.0029s ⏱. [0mSession 24385: updated with TTL of 900 seconds.
+2026-03-04 16:00:55,080 [33mWARNING[0m:  StatReload detected changes in 'src/graph.py'. Reloading...
+2026-03-04 16:00:55,097 [32mINFO[0m:     Shutting down
+2026-03-04 16:00:55,198 [32mINFO[0m:     Waiting for application shutdown.
+2026-03-04 16:00:55,198 [32mINFO[0m:     Application shutdown complete.
+2026-03-04 16:00:55,199 [32mINFO[0m:     Finished server process [[36m1187[0m]
+2026-03-04 16:01:04,290 [33mWARNING[0m:  StatReload detected changes in 'src/graph.py'. Reloading...
+2026-03-04 16:01:10,961 [32mINFO[0m:     Started server process [[36m1244[0m]
+2026-03-04 16:01:10,961 [32mINFO[0m:     Waiting for application startup.
+2026-03-04 16:01:10,961 [32mINFO[0m:     Application startup complete.
+2026-03-04 16:01:53,088 [33mWARNING[0m:  StatReload detected changes in 'app/endpoint.py'. Reloading...
+2026-03-04 16:01:53,103 [32mINFO[0m:     Shutting down
+2026-03-04 16:01:53,205 [32mINFO[0m:     Waiting for application shutdown.
+2026-03-04 16:01:53,205 [32mINFO[0m:     Application shutdown complete.
+2026-03-04 16:01:53,205 [32mINFO[0m:     Finished server process [[36m1244[0m]
+2026-03-04 16:01:59,468 [32mINFO[0m:     Started server process [[36m1273[0m]
+2026-03-04 16:01:59,469 [32mINFO[0m:     Waiting for application startup.
+2026-03-04 16:01:59,469 [32mINFO[0m:     Application startup complete.
+2026-03-04 16:02:03,571 [33mWARNING[0m:  StatReload detected changes in 'app/endpoint.py'. Reloading...
+2026-03-04 16:02:03,613 [32mINFO[0m:     Shutting down
+2026-03-04 16:02:03,715 [32mINFO[0m:     Waiting for application shutdown.
+2026-03-04 16:02:03,715 [32mINFO[0m:     Application shutdown complete.
+2026-03-04 16:02:03,715 [32mINFO[0m:     Finished server process [[36m1273[0m]
+2026-03-04 16:02:08,452 [33mWARNING[0m:  StatReload detected changes in 'src/graph.py'. Reloading...
+2026-03-04 16:02:14,281 [32mINFO[0m:     Started server process [[36m1304[0m]
+2026-03-04 16:02:14,281 [32mINFO[0m:     Waiting for application startup.
+2026-03-04 16:02:14,281 [32mINFO[0m:     Application startup complete.
+2026-03-04 16:02:26,068 [33mWARNING[0m:  StatReload detected changes in 'src/graph.py'. Reloading...
+2026-03-04 16:02:26,102 [32mINFO[0m:     Shutting down
+2026-03-04 16:02:26,202 [32mINFO[0m:     Waiting for application shutdown.
+2026-03-04 16:02:26,203 [32mINFO[0m:     Application shutdown complete.
+2026-03-04 16:02:26,203 [32mINFO[0m:     Finished server process [[36m1304[0m]
+2026-03-04 16:02:32,226 [32mINFO[0m:     Started server process [[36m1324[0m]
+2026-03-04 16:02:32,226 [32mINFO[0m:     Waiting for application startup.
+2026-03-04 16:02:32,226 [32mINFO[0m:     Application startup complete.
+2026-03-04 16:02:39,661 [33mWARNING[0m:  StatReload detected changes in 'src/nodes/intent/detect.py'. Reloading...
+2026-03-04 16:02:39,711 [32mINFO[0m:     Shutting down
+2026-03-04 16:02:39,813 [32mINFO[0m:     Waiting for application shutdown.
+2026-03-04 16:02:39,813 [32mINFO[0m:     Application shutdown complete.
+2026-03-04 16:02:39,813 [32mINFO[0m:     Finished server process [[36m1324[0m]
+2026-03-04 16:02:45,733 [32mINFO[0m:     Started server process [[36m1342[0m]
+2026-03-04 16:02:45,734 [32mINFO[0m:     Waiting for application startup.
+2026-03-04 16:02:45,734 [32mINFO[0m:     Application startup complete.
+2026-03-04 16:02:57,811 [33mWARNING[0m:  StatReload detected changes in 'src/nodes/intent/detect.py'. Reloading...
+2026-03-04 16:02:57,880 [32mINFO[0m:     Shutting down
+2026-03-04 16:02:57,982 [32mINFO[0m:     Waiting for application shutdown.
+2026-03-04 16:02:57,982 [32mINFO[0m:     Application shutdown complete.
+2026-03-04 16:02:57,982 [32mINFO[0m:     Finished server process [[36m1342[0m]
+2026-03-04 16:03:03,921 [32mINFO[0m:     Started server process [[36m1360[0m]
+2026-03-04 16:03:03,922 [32mINFO[0m:     Waiting for application startup.
+2026-03-04 16:03:03,922 [32mINFO[0m:     Application startup complete.
+2026-03-04 16:04:52,052 [33mWARNING[0m:  StatReload detected changes in 'src/graph.py'. Reloading...
+2026-03-04 16:04:52,145 [32mINFO[0m:     Shutting down
+2026-03-04 16:04:52,246 [32mINFO[0m:     Waiting for application shutdown.
+2026-03-04 16:04:52,246 [32mINFO[0m:     Application shutdown complete.
+2026-03-04 16:04:52,246 [32mINFO[0m:     Finished server process [[36m1360[0m]
+2026-03-04 16:04:58,937 [32mINFO[0m:     Started server process [[36m1386[0m]
+2026-03-04 16:04:58,937 [32mINFO[0m:     Waiting for application startup.
+2026-03-04 16:04:58,938 [32mINFO[0m:     Application startup complete.
+2026-03-04 16:05:52,208 [33mWARNING[0m:  StatReload detected changes in 'src/nodes/intent/detect.py'. Reloading...
+2026-03-04 16:05:52,241 [32mINFO[0m:     Shutting down
+2026-03-04 16:05:52,342 [32mINFO[0m:     Waiting for application shutdown.
+2026-03-04 16:05:52,343 [32mINFO[0m:     Application shutdown complete.
+2026-03-04 16:05:52,343 [32mINFO[0m:     Finished server process [[36m1386[0m]
+2026-03-04 16:05:59,125 [32mINFO[0m:     Started server process [[36m1404[0m]
+2026-03-04 16:05:59,125 [32mINFO[0m:     Waiting for application startup.
+2026-03-04 16:05:59,125 [32mINFO[0m:     Application startup complete.
+2026-03-04 16:05:59,255 [33mWARNING[0m:  StatReload detected changes in 'src/nodes/intent/detect.py'. Reloading...
+2026-03-04 16:05:59,328 [32mINFO[0m:     Shutting down
+2026-03-04 16:05:59,429 [32mINFO[0m:     Waiting for application shutdown.
+2026-03-04 16:05:59,429 [32mINFO[0m:     Application shutdown complete.
+2026-03-04 16:05:59,429 [32mINFO[0m:     Finished server process [[36m1404[0m]
+2026-03-04 16:06:05,273 [32mINFO[0m:     Started server process [[36m1422[0m]
+2026-03-04 16:06:05,274 [32mINFO[0m:     Waiting for application startup.
+2026-03-04 16:06:05,274 [32mINFO[0m:     Application startup complete.
+2026-03-04 16:06:27,998 [33mWARNING[0m:  StatReload detected changes in 'src/nodes/topic/detect.py'. Reloading...
+2026-03-04 16:06:28,020 [32mINFO[0m:     Shutting down
+2026-03-04 16:06:28,122 [32mINFO[0m:     Waiting for application shutdown.
+2026-03-04 16:06:28,122 [32mINFO[0m:     Application shutdown complete.
+2026-03-04 16:06:28,122 [32mINFO[0m:     Finished server process [[36m1422[0m]
+2026-03-04 16:06:32,731 [33mWARNING[0m:  StatReload detected changes in 'src/nodes/topic/detect.py'. Reloading...
+2026-03-04 16:06:38,504 [32mINFO[0m:     Started server process [[36m1454[0m]
+2026-03-04 16:06:38,504 [32mINFO[0m:     Waiting for application startup.
+2026-03-04 16:06:38,505 [32mINFO[0m:     Application startup complete.
+2026-03-04 16:06:52,608 [33mWARNING[0m:  StatReload detected changes in 'src/nodes/llm/rag.py'. Reloading...
+2026-03-04 16:06:52,629 [32mINFO[0m:     Shutting down
+2026-03-04 16:06:52,730 [32mINFO[0m:     Waiting for application shutdown.
+2026-03-04 16:06:52,730 [32mINFO[0m:     Application shutdown complete.
+2026-03-04 16:06:52,731 [32mINFO[0m:     Finished server process [[36m1454[0m]
+2026-03-04 16:06:59,483 [32mINFO[0m:     Started server process [[36m1480[0m]
+2026-03-04 16:06:59,483 [32mINFO[0m:     Waiting for application startup.
+2026-03-04 16:06:59,483 [32mINFO[0m:     Application startup complete.
+2026-03-04 16:07:01,729 [33mWARNING[0m:  StatReload detected changes in 'src/nodes/llm/rag.py'. Reloading...
+2026-03-04 16:07:01,811 [32mINFO[0m:     Shutting down
+2026-03-04 16:07:01,912 [32mINFO[0m:     Waiting for application shutdown.
+2026-03-04 16:07:01,913 [32mINFO[0m:     Application shutdown complete.
+2026-03-04 16:07:01,913 [32mINFO[0m:     Finished server process [[36m1480[0m]
+2026-03-04 16:07:08,095 [32mINFO[0m:     Started server process [[36m1496[0m]
+2026-03-04 16:07:08,095 [32mINFO[0m:     Waiting for application startup.
+2026-03-04 16:07:08,095 [32mINFO[0m:     Application startup complete.
+2026-03-04 16:07:24,161 [33mWARNING[0m:  StatReload detected changes in 'src/nodes/llm/respond.py'. Reloading...
+2026-03-04 16:07:24,203 [32mINFO[0m:     Shutting down
+2026-03-04 16:07:24,305 [32mINFO[0m:     Waiting for application shutdown.
+2026-03-04 16:07:24,305 [32mINFO[0m:     Application shutdown complete.
+2026-03-04 16:07:24,305 [32mINFO[0m:     Finished server process [[36m1496[0m]
+2026-03-04 16:07:28,870 [33mWARNING[0m:  StatReload detected changes in 'src/nodes/llm/respond.py'. Reloading...
+2026-03-04 16:07:34,726 [32mINFO[0m:     Started server process [[36m1533[0m]
+2026-03-04 16:07:34,726 [32mINFO[0m:     Waiting for application startup.
+2026-03-04 16:07:34,726 [32mINFO[0m:     Application startup complete.
+2026-03-04 16:07:36,426 [32mINFO[0m:     [32m==================================================
+2026-03-04 16:07:36,426 [32mINFO[0m:     [32m[🤖] Endpoint POST /conversation reached
+2026-03-04 16:07:36,426 [32mINFO[0m:     [32m==================================================[0m
+2026-03-04 16:07:36,437 [32mINFO[0m:     [31m24385: [36m[✅] 💿 MEMORY READ: [0mit took [33m0.0036s ⏱. [0mSession 24385: read and loaded.
+2026-03-04 16:07:36,439 [31mERROR[0m:    Exception in ASGI application
+Traceback (most recent call last):
+  File "/Users/gabriel/Documents/BNB/Proyectos/rag-poc/ragvenv/lib/python3.11/site-packages/uvicorn/protocols/http/h11_impl.py", line 410, in run_asgi
+    result = await app(  # type: ignore[func-returns-value]
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/gabriel/Documents/BNB/Proyectos/rag-poc/ragvenv/lib/python3.11/site-packages/uvicorn/middleware/proxy_headers.py", line 60, in __call__
+    return await self.app(scope, receive, send)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/gabriel/Documents/BNB/Proyectos/rag-poc/ragvenv/lib/python3.11/site-packages/fastapi/applications.py", line 1135, in __call__
+    await super().__call__(scope, receive, send)
+  File "/Users/gabriel/Documents/BNB/Proyectos/rag-poc/ragvenv/lib/python3.11/site-packages/starlette/applications.py", line 107, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/Users/gabriel/Documents/BNB/Proyectos/rag-poc/ragvenv/lib/python3.11/site-packages/starlette/middleware/errors.py", line 186, in __call__
+    raise exc
+  File "/Users/gabriel/Documents/BNB/Proyectos/rag-poc/ragvenv/lib/python3.11/site-packages/starlette/middleware/errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "/Users/gabriel/Documents/BNB/Proyectos/rag-poc/ragvenv/lib/python3.11/site-packages/starlette/middleware/exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "/Users/gabriel/Documents/BNB/Proyectos/rag-poc/ragvenv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "/Users/gabriel/Documents/BNB/Proyectos/rag-poc/ragvenv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "/Users/gabriel/Documents/BNB/Proyectos/rag-poc/ragvenv/lib/python3.11/site-packages/fastapi/middleware/asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "/Users/gabriel/Documents/BNB/Proyectos/rag-poc/ragvenv/lib/python3.11/site-packages/starlette/routing.py", line 716, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/Users/gabriel/Documents/BNB/Proyectos/rag-poc/ragvenv/lib/python3.11/site-packages/starlette/routing.py", line 736, in app
+    await route.handle(scope, receive, send)
+  File "/Users/gabriel/Documents/BNB/Proyectos/rag-poc/ragvenv/lib/python3.11/site-packages/starlette/routing.py", line 290, in handle
+    await self.app(scope, receive, send)
+  File "/Users/gabriel/Documents/BNB/Proyectos/rag-poc/ragvenv/lib/python3.11/site-packages/fastapi/routing.py", line 115, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "/Users/gabriel/Documents/BNB/Proyectos/rag-poc/ragvenv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "/Users/gabriel/Documents/BNB/Proyectos/rag-poc/ragvenv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "/Users/gabriel/Documents/BNB/Proyectos/rag-poc/ragvenv/lib/python3.11/site-packages/fastapi/routing.py", line 101, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "/Users/gabriel/Documents/BNB/Proyectos/rag-poc/ragvenv/lib/python3.11/site-packages/fastapi/routing.py", line 355, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/gabriel/Documents/BNB/Proyectos/rag-poc/ragvenv/lib/python3.11/site-packages/fastapi/routing.py", line 243, in run_endpoint_function
+    return await dependant.call(**values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/gabriel/Documents/BNB/Proyectos/rag-poc/app/endpoint.py", line 34, in query_endpoint
+    response = await graph.run(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/gabriel/Documents/BNB/Proyectos/rag-poc/src/graph.py", line 117, in run
+    final_state = await app.ainvoke({
+                  ^^^^^^^^^^^^^^^^^^^
+  File "/Users/gabriel/Documents/BNB/Proyectos/rag-poc/ragvenv/lib/python3.11/site-packages/langgraph/pregel/main.py", line 3161, in ainvoke
+    async for chunk in self.astream(
+  File "/Users/gabriel/Documents/BNB/Proyectos/rag-poc/ragvenv/lib/python3.11/site-packages/langgraph/pregel/main.py", line 2974, in astream
+    async for _ in runner.atick(
+  File "/Users/gabriel/Documents/BNB/Proyectos/rag-poc/ragvenv/lib/python3.11/site-packages/langgraph/pregel/_runner.py", line 304, in atick
+    await arun_with_retry(
+  File "/Users/gabriel/Documents/BNB/Proyectos/rag-poc/ragvenv/lib/python3.11/site-packages/langgraph/pregel/_retry.py", line 138, in arun_with_retry
+    return await task.proc.ainvoke(task.input, config)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/gabriel/Documents/BNB/Proyectos/rag-poc/ragvenv/lib/python3.11/site-packages/langgraph/_internal/_runnable.py", line 711, in ainvoke
+    input = await step.ainvoke(input, config)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/gabriel/Documents/BNB/Proyectos/rag-poc/ragvenv/lib/python3.11/site-packages/langgraph/_internal/_runnable.py", line 473, in ainvoke
+    ret = await self.afunc(*args, **kwargs)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/gabriel/Documents/BNB/Proyectos/rag-poc/ragvenv/lib/python3.11/site-packages/langgraph/pregel/_write.py", line 99, in _awrite
+    self.do_write(
+  File "/Users/gabriel/Documents/BNB/Proyectos/rag-poc/ragvenv/lib/python3.11/site-packages/langgraph/pregel/_write.py", line 126, in do_write
+    write(_assemble_writes(writes))
+          ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/gabriel/Documents/BNB/Proyectos/rag-poc/ragvenv/lib/python3.11/site-packages/langgraph/pregel/_write.py", line 181, in _assemble_writes
+    if ww := w.mapper(w.value):
+             ^^^^^^^^^^^^^^^^^
+  File "/Users/gabriel/Documents/BNB/Proyectos/rag-poc/ragvenv/lib/python3.11/site-packages/langgraph/graph/state.py", line 1242, in _get_updates
+    raise InvalidUpdateError(msg)
+langgraph.errors.InvalidUpdateError: Expected dict, got <coroutine object topic_detect at 0x16477f140>
+For troubleshooting, visit: https://docs.langchain.com/oss/python/langgraph/errors/INVALID_GRAPH_NODE_RETURN_VALUE
+During task with name 'topic_detect' and id '273bffe0-178c-a6fd-269d-94ee7b332269'
+2026-03-04 16:09:36,491 [33mWARNING[0m:  StatReload detected changes in 'src/nodes/topic/detect.py'. Reloading...
+2026-03-04 16:09:36,538 [32mINFO[0m:     Shutting down
+2026-03-04 16:09:36,640 [32mINFO[0m:     Waiting for application shutdown.
+2026-03-04 16:09:36,640 [32mINFO[0m:     Application shutdown complete.
+2026-03-04 16:09:36,640 [32mINFO[0m:     Finished server process [[36m1533[0m]
+2026-03-04 16:09:43,340 [32mINFO[0m:     Started server process [[36m1601[0m]
+2026-03-04 16:09:43,340 [32mINFO[0m:     Waiting for application startup.
+2026-03-04 16:09:43,341 [32mINFO[0m:     Application startup complete.
+2026-03-04 16:10:31,261 [33mWARNING[0m:  StatReload detected changes in 'src/utils/decorators.py'. Reloading...
+2026-03-04 16:10:31,287 [32mINFO[0m:     Shutting down
+2026-03-04 16:10:31,389 [32mINFO[0m:     Waiting for application shutdown.
+2026-03-04 16:10:31,389 [32mINFO[0m:     Application shutdown complete.
+2026-03-04 16:10:31,389 [32mINFO[0m:     Finished server process [[36m1601[0m]
+2026-03-04 16:10:38,266 [32mINFO[0m:     Started server process [[36m1635[0m]
+2026-03-04 16:10:38,266 [32mINFO[0m:     Waiting for application startup.
+2026-03-04 16:10:38,266 [32mINFO[0m:     Application startup complete.
+2026-03-04 16:10:46,686 [33mWARNING[0m:  StatReload detected changes in 'src/utils/decorators.py'. Reloading...
+2026-03-04 16:10:46,754 [32mINFO[0m:     Shutting down
+2026-03-04 16:10:46,855 [32mINFO[0m:     Waiting for application shutdown.
+2026-03-04 16:10:46,855 [32mINFO[0m:     Application shutdown complete.
+2026-03-04 16:10:46,856 [32mINFO[0m:     Finished server process [[36m1635[0m]
+2026-03-04 16:10:53,493 [32mINFO[0m:     Started server process [[36m1655[0m]
+2026-03-04 16:10:53,494 [32mINFO[0m:     Waiting for application startup.
+2026-03-04 16:10:53,494 [32mINFO[0m:     Application startup complete.
+2026-03-04 16:10:53,495 [32mINFO[0m:     [32m==================================================
+2026-03-04 16:10:53,495 [32mINFO[0m:     [32m[🤖] Endpoint POST /conversation reached
+2026-03-04 16:10:53,495 [32mINFO[0m:     [32m==================================================[0m
+2026-03-04 16:10:53,505 [32mINFO[0m:     [31m24385: [36m[✅] 💿 MEMORY READ: [0mit took [33m0.0038s ⏱. [0mSession 24385: read and loaded.
+2026-03-04 16:10:53,506 [31mERROR[0m:    [❌] Workflow failed at {'node': 'read_memory', 'type': 'TypeError', 'message': "object dict can't be used in 'await' expression"}
+2026-03-04 16:11:18,640 [33mWARNING[0m:  StatReload detected changes in 'src/utils/decorators.py'. Reloading...
+2026-03-04 16:11:18,700 [32mINFO[0m:     Shutting down
+2026-03-04 16:11:18,802 [32mINFO[0m:     Waiting for application shutdown.
+2026-03-04 16:11:18,802 [32mINFO[0m:     Application shutdown complete.
+2026-03-04 16:11:18,802 [32mINFO[0m:     Finished server process [[36m1655[0m]
+2026-03-04 16:11:25,935 [32mINFO[0m:     Started server process [[36m1670[0m]
+2026-03-04 16:11:25,936 [32mINFO[0m:     Waiting for application startup.
+2026-03-04 16:11:25,936 [32mINFO[0m:     Application startup complete.
+2026-03-04 16:12:07,547 [33mWARNING[0m:  StatReload detected changes in 'src/utils/decorators.py'. Reloading...
+2026-03-04 16:12:07,575 [32mINFO[0m:     Shutting down
+2026-03-04 16:12:07,676 [32mINFO[0m:     Waiting for application shutdown.
+2026-03-04 16:12:07,676 [32mINFO[0m:     Application shutdown complete.
+2026-03-04 16:12:07,676 [32mINFO[0m:     Finished server process [[36m1670[0m]
+2026-03-04 16:12:34,602 [33mWARNING[0m:  StatReload detected changes in 'src/utils/decorators.py'. Reloading...
+2026-03-04 16:12:48,183 [33mWARNING[0m:  StatReload detected changes in 'src/utils/decorators.py'. Reloading...
+2026-03-04 16:12:57,385 [33mWARNING[0m:  StatReload detected changes in 'src/utils/decorators.py'. Reloading...
+2026-03-04 16:13:02,241 [33mWARNING[0m:  StatReload detected changes in 'src/utils/decorators.py'. Reloading...
+2026-03-04 16:13:06,871 [33mWARNING[0m:  StatReload detected changes in 'src/utils/decorators.py'. Reloading...
+2026-03-04 16:13:12,844 [32mINFO[0m:     Started server process [[36m1744[0m]
+2026-03-04 16:13:12,845 [32mINFO[0m:     Waiting for application startup.
+2026-03-04 16:13:12,845 [32mINFO[0m:     Application startup complete.
+2026-03-04 16:13:16,614 [32mINFO[0m:     [32m==================================================
+2026-03-04 16:13:16,614 [32mINFO[0m:     [32m[🤖] Endpoint POST /conversation reached
+2026-03-04 16:13:16,614 [32mINFO[0m:     [32m==================================================[0m
+2026-03-04 16:13:16,625 [32mINFO[0m:     [31m24385: [36m[✅] 💿 MEMORY READ: [0mit took [33m0.0041s ⏱. [0mSession 24385: read and loaded.
+2026-03-04 16:13:16,626 [32mINFO[0m:     [31m24385: [0mInformacion sobre depositos a plazo fijo.
+2026-03-04 16:13:17,456 [31mERROR[0m:    [❌] Workflow failed at {'node': 'topic_detect', 'type': 'TypeError', 'message': "object str can't be used in 'await' expression"}
+2026-03-04 16:14:22,963 [33mWARNING[0m:  StatReload detected changes in 'src/utils/decorators.py'. Reloading...
+2026-03-04 16:14:22,968 [32mINFO[0m:     Shutting down
+2026-03-04 16:14:23,069 [32mINFO[0m:     Waiting for application shutdown.
+2026-03-04 16:14:23,069 [32mINFO[0m:     Application shutdown complete.
+2026-03-04 16:14:23,069 [32mINFO[0m:     Finished server process [[36m1744[0m]
+2026-03-04 16:14:29,835 [32mINFO[0m:     Started server process [[36m1773[0m]
+2026-03-04 16:14:29,835 [32mINFO[0m:     Waiting for application startup.
+2026-03-04 16:14:29,835 [32mINFO[0m:     Application startup complete.
+2026-03-04 16:14:43,374 [33mWARNING[0m:  StatReload detected changes in 'src/nodes/topic/detect.py'. Reloading...
+2026-03-04 16:14:43,395 [32mINFO[0m:     Shutting down
+2026-03-04 16:14:43,496 [32mINFO[0m:     Waiting for application shutdown.
+2026-03-04 16:14:43,497 [32mINFO[0m:     Application shutdown complete.
+2026-03-04 16:14:43,497 [32mINFO[0m:     Finished server process [[36m1773[0m]
+2026-03-04 16:14:50,402 [32mINFO[0m:     Started server process [[36m1804[0m]
+2026-03-04 16:14:50,402 [32mINFO[0m:     Waiting for application startup.
+2026-03-04 16:14:50,402 [32mINFO[0m:     Application startup complete.
+2026-03-04 16:15:28,679 [33mWARNING[0m:  StatReload detected changes in 'src/nodes/topic/detect.py'. Reloading...
+2026-03-04 16:15:28,699 [32mINFO[0m:     Shutting down
+2026-03-04 16:15:28,801 [32mINFO[0m:     Waiting for application shutdown.
+2026-03-04 16:15:28,802 [32mINFO[0m:     Application shutdown complete.
+2026-03-04 16:15:28,805 [32mINFO[0m:     Finished server process [[36m1804[0m]
+2026-03-04 16:15:36,742 [32mINFO[0m:     Started server process [[36m1839[0m]
+2026-03-04 16:15:36,742 [32mINFO[0m:     Waiting for application startup.
+2026-03-04 16:15:36,742 [32mINFO[0m:     Application startup complete.
+2026-03-04 16:15:39,513 [33mWARNING[0m:  StatReload detected changes in 'src/nodes/topic/detect.py'. Reloading...
+2026-03-04 16:15:39,592 [32mINFO[0m:     Shutting down
+2026-03-04 16:15:39,694 [32mINFO[0m:     Waiting for application shutdown.
+2026-03-04 16:15:39,694 [32mINFO[0m:     Application shutdown complete.
+2026-03-04 16:15:39,694 [32mINFO[0m:     Finished server process [[36m1839[0m]
+2026-03-04 16:15:45,931 [32mINFO[0m:     Started server process [[36m1868[0m]
+2026-03-04 16:15:45,931 [32mINFO[0m:     Waiting for application startup.
+2026-03-04 16:15:45,932 [32mINFO[0m:     Application startup complete.
+2026-03-04 16:15:46,272 [33mWARNING[0m:  StatReload detected changes in 'src/nodes/topic/detect.py'. Reloading...
+2026-03-04 16:15:46,336 [32mINFO[0m:     Shutting down
+2026-03-04 16:15:46,438 [32mINFO[0m:     Waiting for application shutdown.
+2026-03-04 16:15:46,438 [32mINFO[0m:     Application shutdown complete.
+2026-03-04 16:15:46,438 [32mINFO[0m:     Finished server process [[36m1868[0m]
+2026-03-04 16:15:52,215 [32mINFO[0m:     Started server process [[36m1877[0m]
+2026-03-04 16:15:52,215 [32mINFO[0m:     Waiting for application startup.
+2026-03-04 16:15:52,215 [32mINFO[0m:     Application startup complete.
+2026-03-04 16:15:52,216 [32mINFO[0m:     [32m==================================================
+2026-03-04 16:15:52,217 [32mINFO[0m:     [32m[🤖] Endpoint POST /conversation reached
+2026-03-04 16:15:52,217 [32mINFO[0m:     [32m==================================================[0m
+2026-03-04 16:15:52,228 [32mINFO[0m:     [31m24385: [36m[✅] 💿 MEMORY READ: [0mit took [33m0.0038s ⏱. [0mSession 24385: created with TTL of 900 seconds.
+2026-03-04 16:15:52,229 [32mINFO[0m:     [31m24385: [0mInformacion sobre depositos a plazo fijo.
+2026-03-04 16:15:52,943 [31mERROR[0m:    [❌] Workflow failed at {'node': 'topic_detect', 'type': 'TypeError', 'message': "object str can't be used in 'await' expression"}
+2026-03-04 16:16:01,733 [33mWARNING[0m:  StatReload detected changes in 'src/nodes/topic/detect.py'. Reloading...
+2026-03-04 16:16:01,839 [32mINFO[0m:     Shutting down
+2026-03-04 16:16:01,941 [32mINFO[0m:     Waiting for application shutdown.
+2026-03-04 16:16:01,941 [32mINFO[0m:     Application shutdown complete.
+2026-03-04 16:16:01,941 [32mINFO[0m:     Finished server process [[36m1877[0m]
+2026-03-04 16:16:08,153 [32mINFO[0m:     Started server process [[36m1897[0m]
+2026-03-04 16:16:08,153 [32mINFO[0m:     Waiting for application startup.
+2026-03-04 16:16:08,153 [32mINFO[0m:     Application startup complete.
+2026-03-04 16:17:01,886 [33mWARNING[0m:  StatReload detected changes in 'src/nodes/topic/detect.py'. Reloading...
+2026-03-04 16:17:01,981 [32mINFO[0m:     Shutting down
+2026-03-04 16:17:02,082 [32mINFO[0m:     Waiting for application shutdown.
+2026-03-04 16:17:02,083 [32mINFO[0m:     Application shutdown complete.
+2026-03-04 16:17:02,083 [32mINFO[0m:     Finished server process [[36m1897[0m]
+2026-03-04 16:17:09,030 [32mINFO[0m:     Started server process [[36m1914[0m]
+2026-03-04 16:17:09,031 [32mINFO[0m:     Waiting for application startup.
+2026-03-04 16:17:09,031 [32mINFO[0m:     Application startup complete.
+2026-03-04 16:17:09,523 [32mINFO[0m:     [32m==================================================
+2026-03-04 16:17:09,523 [32mINFO[0m:     [32m[🤖] Endpoint POST /conversation reached
+2026-03-04 16:17:09,523 [32mINFO[0m:     [32m==================================================[0m
+2026-03-04 16:17:09,535 [32mINFO[0m:     [31m24385: [36m[✅] 💿 MEMORY READ: [0mit took [33m0.0045s ⏱. [0mSession 24385: read and loaded.
+2026-03-04 16:17:09,536 [32mINFO[0m:     [31m24385: [0mInformacion sobre depositos a plazo fijo.
+2026-03-04 16:17:10,313 [31mERROR[0m:    [❌] Workflow failed at {'node': 'topic_detect', 'type': 'TypeError', 'message': "object AIMessage can't be used in 'await' expression"}
+2026-03-04 16:17:52,785 [33mWARNING[0m:  StatReload detected changes in 'src/nodes/topic/detect.py'. Reloading...
+2026-03-04 16:17:52,817 [32mINFO[0m:     Shutting down
+2026-03-04 16:17:52,918 [32mINFO[0m:     Waiting for application shutdown.
+2026-03-04 16:17:52,918 [32mINFO[0m:     Application shutdown complete.
+2026-03-04 16:17:52,919 [32mINFO[0m:     Finished server process [[36m1914[0m]
+2026-03-04 16:17:59,779 [32mINFO[0m:     Started server process [[36m1939[0m]
+2026-03-04 16:17:59,779 [32mINFO[0m:     Waiting for application startup.
+2026-03-04 16:17:59,779 [32mINFO[0m:     Application startup complete.
+2026-03-04 16:17:59,780 [32mINFO[0m:     [32m==================================================
+2026-03-04 16:17:59,780 [32mINFO[0m:     [32m[🤖] Endpoint POST /conversation reached
+2026-03-04 16:17:59,780 [32mINFO[0m:     [32m==================================================[0m
+2026-03-04 16:17:59,797 [32mINFO[0m:     [31m24385: [36m[✅] 💿 MEMORY READ: [0mit took [33m0.0098s ⏱. [0mSession 24385: read and loaded.
+2026-03-04 16:17:59,798 [32mINFO[0m:     [31m24385: [0mInformacion sobre depositos a plazo fijo.
+2026-03-04 16:18:00,387 [32mINFO[0m:     [31m24385: [36m[✅] 👾 TOPIC DETECTED: [0mit took [33m0.5883s ⏱. [0m{'topic': 'ahorro_e_inversion', 'topic_confidence': 1.0, 'user_message_ambiguous': False, 'is_follow_up': False, 'info_source': 'rag', 'rewritten_query': 'Informacion sobre depositos a plazo fijo'}
+2026-03-04 16:18:00,387 [32mINFO[0m:     We will use RAG to answer the query.
+2026-03-04 16:18:01,862 [32mINFO[0m:     [33mEmbedded number of queries: 1, each with 384 dimensions[0m
+2026-03-04 16:18:01,862 [32mINFO[0m:     [36m[✅] 🧰 Embedding time: [0mit took [33m1.4739s ⏱. 
+2026-03-04 16:18:05,759 [31mERROR[0m:    [❌] Workflow failed at {'node': 'llm_rag', 'type': 'TypeError', 'message': "object list can't be used in 'await' expression"}
+2026-03-04 16:22:00,616 [33mWARNING[0m:  StatReload detected changes in 'src/nodes/topic/detect.py'. Reloading...
+2026-03-04 16:22:00,630 [32mINFO[0m:     Shutting down
+2026-03-04 16:22:00,732 [32mINFO[0m:     Waiting for application shutdown.
+2026-03-04 16:22:00,732 [32mINFO[0m:     Application shutdown complete.
+2026-03-04 16:22:00,732 [32mINFO[0m:     Finished server process [[36m1939[0m]
+2026-03-04 16:22:07,465 [32mINFO[0m:     Started server process [[36m1971[0m]
+2026-03-04 16:22:07,465 [32mINFO[0m:     Waiting for application startup.
+2026-03-04 16:22:07,465 [32mINFO[0m:     Application startup complete.
+2026-03-04 16:22:07,466 [32mINFO[0m:     [32m==================================================
+2026-03-04 16:22:07,467 [32mINFO[0m:     [32m[🤖] Endpoint POST /conversation reached
+2026-03-04 16:22:07,467 [32mINFO[0m:     [32m==================================================[0m
+2026-03-04 16:22:07,476 [32mINFO[0m:     [31m24385: [36m[✅] 💿 MEMORY READ: [0mit took [33m0.0028s ⏱. [0mSession 24385: read and loaded.
+2026-03-04 16:22:07,477 [32mINFO[0m:     [31m24385: [0mInformacion sobre depositos a plazo fijo.
+2026-03-04 16:22:08,315 [32mINFO[0m:     [31m24385: [36m[✅] 👾 TOPIC DETECTED: [0mit took [33m0.8379s ⏱. [0m{'topic': 'ahorro_e_inversion', 'topic_confidence': 1.0, 'user_message_ambiguous': False, 'is_follow_up': False, 'info_source': 'rag', 'rewritten_query': 'Informacion sobre depositos a plazo fijo'}
+2026-03-04 16:22:08,316 [32mINFO[0m:     We will use RAG to answer the query.
+2026-03-04 16:22:10,160 [32mINFO[0m:     [33mEmbedded number of queries: 1, each with 384 dimensions[0m
+2026-03-04 16:22:10,160 [32mINFO[0m:     [36m[✅] 🧰 Embedding time: [0mit took [33m1.8438s ⏱. 
+2026-03-04 16:22:14,733 [31mERROR[0m:    [❌] Workflow failed at {'node': 'llm_rag', 'type': 'TypeError', 'message': "object list can't be used in 'await' expression"}
+2026-03-04 16:29:52,428 [33mWARNING[0m:  StatReload detected changes in 'src/generation/client.py'. Reloading...
+2026-03-04 16:29:52,468 [32mINFO[0m:     Shutting down
+2026-03-04 16:29:52,570 [32mINFO[0m:     Waiting for application shutdown.
+2026-03-04 16:29:52,570 [32mINFO[0m:     Application shutdown complete.
+2026-03-04 16:29:52,570 [32mINFO[0m:     Finished server process [[36m1971[0m]
+2026-03-04 16:29:59,815 [33mWARNING[0m:  StatReload detected changes in 'src/generation/client.py'. Reloading...
+2026-03-04 16:30:06,452 [32mINFO[0m:     Started server process [[36m2050[0m]
+2026-03-04 16:30:06,452 [32mINFO[0m:     Waiting for application startup.
+2026-03-04 16:30:06,452 [32mINFO[0m:     Application startup complete.
+2026-03-04 16:30:46,817 [33mWARNING[0m:  StatReload detected changes in 'src/generation/client.py'. Reloading...
+2026-03-04 16:30:46,891 [32mINFO[0m:     Shutting down
+2026-03-04 16:30:46,992 [32mINFO[0m:     Waiting for application shutdown.
+2026-03-04 16:30:46,992 [32mINFO[0m:     Application shutdown complete.
+2026-03-04 16:30:46,992 [32mINFO[0m:     Finished server process [[36m2050[0m]
+2026-03-04 16:30:53,978 [32mINFO[0m:     Started server process [[36m2102[0m]
+2026-03-04 16:30:53,978 [32mINFO[0m:     Waiting for application startup.
+2026-03-04 16:30:53,979 [32mINFO[0m:     Application startup complete.
+2026-03-04 16:31:07,551 [33mWARNING[0m:  StatReload detected changes in 'src/generation/client.py'. Reloading...
+2026-03-04 16:31:07,640 [32mINFO[0m:     Shutting down
+2026-03-04 16:31:07,742 [32mINFO[0m:     Waiting for application shutdown.
+2026-03-04 16:31:07,742 [32mINFO[0m:     Application shutdown complete.
+2026-03-04 16:31:07,742 [32mINFO[0m:     Finished server process [[36m2102[0m]
+2026-03-04 16:31:14,686 [32mINFO[0m:     Started server process [[36m2135[0m]
+2026-03-04 16:31:14,686 [32mINFO[0m:     Waiting for application startup.
+2026-03-04 16:31:14,686 [32mINFO[0m:     Application startup complete.
+2026-03-04 16:31:42,998 [33mWARNING[0m:  StatReload detected changes in 'src/generation/searcher.py'. Reloading...
+2026-03-04 16:31:43,005 [32mINFO[0m:     Shutting down
+2026-03-04 16:31:43,107 [32mINFO[0m:     Waiting for application shutdown.
+2026-03-04 16:31:43,107 [32mINFO[0m:     Application shutdown complete.
+2026-03-04 16:31:43,107 [32mINFO[0m:     Finished server process [[36m2135[0m]
+2026-03-04 16:31:49,688 [32mINFO[0m:     Started server process [[36m2190[0m]
+2026-03-04 16:31:49,688 [32mINFO[0m:     Waiting for application startup.
+2026-03-04 16:31:49,688 [32mINFO[0m:     Application startup complete.
+2026-03-04 16:32:36,565 [33mWARNING[0m:  StatReload detected changes in 'src/generation/searcher.py'. Reloading...
+2026-03-04 16:32:36,608 [32mINFO[0m:     Shutting down
+2026-03-04 16:32:36,709 [32mINFO[0m:     Waiting for application shutdown.
+2026-03-04 16:32:36,709 [32mINFO[0m:     Application shutdown complete.
+2026-03-04 16:32:36,709 [32mINFO[0m:     Finished server process [[36m2190[0m]
+2026-03-04 16:32:46,347 [33mWARNING[0m:  StatReload detected changes in 'src/generation/searcher.py'. Reloading...
+2026-03-04 16:32:52,765 [32mINFO[0m:     Started server process [[36m2229[0m]
+2026-03-04 16:32:52,766 [32mINFO[0m:     Waiting for application startup.
+2026-03-04 16:32:52,766 [32mINFO[0m:     Application startup complete.
+2026-03-04 16:33:17,326 [33mWARNING[0m:  StatReload detected changes in 'src/generation/searcher.py'. Reloading...
+2026-03-04 16:33:17,431 [32mINFO[0m:     Shutting down
+2026-03-04 16:33:17,532 [32mINFO[0m:     Waiting for application shutdown.
+2026-03-04 16:33:17,533 [32mINFO[0m:     Application shutdown complete.
+2026-03-04 16:33:17,533 [32mINFO[0m:     Finished server process [[36m2229[0m]
+2026-03-04 16:33:24,505 [33mWARNING[0m:  StatReload detected changes in 'src/generation/searcher.py'. Reloading...
+2026-03-04 16:33:30,972 [32mINFO[0m:     Started server process [[36m2271[0m]
+2026-03-04 16:33:30,972 [32mINFO[0m:     Waiting for application startup.
+2026-03-04 16:33:30,973 [32mINFO[0m:     Application startup complete.
+2026-03-04 16:33:38,216 [33mWARNING[0m:  StatReload detected changes in 'src/generation/searcher.py'. Reloading...
+2026-03-04 16:33:38,247 [32mINFO[0m:     Shutting down
+2026-03-04 16:33:38,348 [32mINFO[0m:     Waiting for application shutdown.
+2026-03-04 16:33:38,348 [32mINFO[0m:     Application shutdown complete.
+2026-03-04 16:33:38,348 [32mINFO[0m:     Finished server process [[36m2271[0m]
+2026-03-04 16:33:45,240 [32mINFO[0m:     Started server process [[36m2297[0m]
+2026-03-04 16:33:45,240 [32mINFO[0m:     Waiting for application startup.
+2026-03-04 16:33:45,240 [32mINFO[0m:     Application startup complete.
+2026-03-04 16:33:45,488 [33mWARNING[0m:  StatReload detected changes in 'src/generation/searcher.py'. Reloading...
+2026-03-04 16:33:45,544 [32mINFO[0m:     Shutting down
+2026-03-04 16:33:45,645 [32mINFO[0m:     Waiting for application shutdown.
+2026-03-04 16:33:45,645 [32mINFO[0m:     Application shutdown complete.
+2026-03-04 16:33:45,645 [32mINFO[0m:     Finished server process [[36m2297[0m]
+2026-03-04 16:33:52,961 [32mINFO[0m:     Started server process [[36m2311[0m]
+2026-03-04 16:33:52,962 [32mINFO[0m:     Waiting for application startup.
+2026-03-04 16:33:52,963 [32mINFO[0m:     Application startup complete.
+2026-03-04 16:33:55,585 [33mWARNING[0m:  StatReload detected changes in 'src/generation/searcher.py'. Reloading...
+2026-03-04 16:33:55,592 [32mINFO[0m:     Shutting down
+2026-03-04 16:33:55,693 [32mINFO[0m:     Waiting for application shutdown.
+2026-03-04 16:33:55,694 [32mINFO[0m:     Application shutdown complete.
+2026-03-04 16:33:55,694 [32mINFO[0m:     Finished server process [[36m2311[0m]
+2026-03-04 16:34:01,873 [32mINFO[0m:     Started server process [[36m2337[0m]
+2026-03-04 16:34:01,874 [32mINFO[0m:     Waiting for application startup.
+2026-03-04 16:34:01,874 [32mINFO[0m:     Application startup complete.
+2026-03-04 16:34:07,275 [33mWARNING[0m:  StatReload detected changes in 'src/generation/searcher.py'. Reloading...
+2026-03-04 16:34:07,375 [32mINFO[0m:     Shutting down
+2026-03-04 16:34:07,476 [32mINFO[0m:     Waiting for application shutdown.
+2026-03-04 16:34:07,477 [32mINFO[0m:     Application shutdown complete.
+2026-03-04 16:34:07,477 [32mINFO[0m:     Finished server process [[36m2337[0m]
+2026-03-04 16:34:13,830 [32mINFO[0m:     Started server process [[36m2357[0m]
+2026-03-04 16:34:13,831 [32mINFO[0m:     Waiting for application startup.
+2026-03-04 16:34:13,831 [32mINFO[0m:     Application startup complete.
+2026-03-04 16:34:25,651 [33mWARNING[0m:  StatReload detected changes in 'src/generation/searcher.py'. Reloading...
+2026-03-04 16:34:25,754 [32mINFO[0m:     Shutting down
+2026-03-04 16:34:25,856 [32mINFO[0m:     Waiting for application shutdown.
+2026-03-04 16:34:25,856 [32mINFO[0m:     Application shutdown complete.
+2026-03-04 16:34:25,857 [32mINFO[0m:     Finished server process [[36m2357[0m]
+2026-03-04 16:34:37,294 [33mWARNING[0m:  StatReload detected changes in 'src/generation/searcher.py'. Reloading...
+2026-03-04 16:34:43,848 [32mINFO[0m:     Started server process [[36m2404[0m]
+2026-03-04 16:34:43,848 [32mINFO[0m:     Waiting for application startup.
+2026-03-04 16:34:43,849 [32mINFO[0m:     Application startup complete.
+2026-03-04 16:34:44,324 [33mWARNING[0m:  StatReload detected changes in 'src/generation/searcher.py'. Reloading...
+2026-03-04 16:34:44,354 [32mINFO[0m:     Shutting down
+2026-03-04 16:34:44,454 [32mINFO[0m:     Waiting for application shutdown.
+2026-03-04 16:34:44,455 [32mINFO[0m:     Application shutdown complete.
+2026-03-04 16:34:44,455 [32mINFO[0m:     Finished server process [[36m2404[0m]
+2026-03-04 16:34:50,817 [32mINFO[0m:     Started server process [[36m2421[0m]
+2026-03-04 16:34:50,817 [32mINFO[0m:     Waiting for application startup.
+2026-03-04 16:34:50,818 [32mINFO[0m:     Application startup complete.
+2026-03-04 16:34:51,342 [33mWARNING[0m:  StatReload detected changes in 'src/generation/searcher.py'. Reloading...
+2026-03-04 16:34:51,424 [32mINFO[0m:     Shutting down
+2026-03-04 16:34:51,526 [32mINFO[0m:     Waiting for application shutdown.
+2026-03-04 16:34:51,526 [32mINFO[0m:     Application shutdown complete.
+2026-03-04 16:34:51,526 [32mINFO[0m:     Finished server process [[36m2421[0m]
+2026-03-04 16:34:57,742 [32mINFO[0m:     Started server process [[36m2431[0m]
+2026-03-04 16:34:57,742 [32mINFO[0m:     Waiting for application startup.
+2026-03-04 16:34:57,742 [32mINFO[0m:     Application startup complete.
+2026-03-04 16:35:50,789 [33mWARNING[0m:  StatReload detected changes in 'src/generation/searcher.py'. Reloading...
+2026-03-04 16:35:50,831 [32mINFO[0m:     Shutting down
+2026-03-04 16:35:50,933 [32mINFO[0m:     Waiting for application shutdown.
+2026-03-04 16:35:50,933 [32mINFO[0m:     Application shutdown complete.
+2026-03-04 16:35:50,933 [32mINFO[0m:     Finished server process [[36m2431[0m]
+2026-03-04 16:35:57,477 [32mINFO[0m:     Started server process [[36m2458[0m]
+2026-03-04 16:35:57,477 [32mINFO[0m:     Waiting for application startup.
+2026-03-04 16:35:57,477 [32mINFO[0m:     Application startup complete.
+2026-03-04 16:36:34,671 [33mWARNING[0m:  StatReload detected changes in 'src/generation/searcher.py'. Reloading...
+2026-03-04 16:36:34,704 [32mINFO[0m:     Shutting down
+2026-03-04 16:36:34,805 [32mINFO[0m:     Waiting for application shutdown.
+2026-03-04 16:36:34,806 [32mINFO[0m:     Application shutdown complete.
+2026-03-04 16:36:34,806 [32mINFO[0m:     Finished server process [[36m2458[0m]
+2026-03-04 16:36:41,696 [33mWARNING[0m:  StatReload detected changes in 'src/generation/searcher.py'. Reloading...
+2026-03-04 16:36:48,222 [32mINFO[0m:     Started server process [[36m2494[0m]
+2026-03-04 16:36:48,222 [32mINFO[0m:     Waiting for application startup.
+2026-03-04 16:36:48,222 [32mINFO[0m:     Application startup complete.
+2026-03-04 16:36:48,223 [32mINFO[0m:     [32m==================================================
+2026-03-04 16:36:48,223 [32mINFO[0m:     [32m[🤖] Endpoint POST /conversation reached
+2026-03-04 16:36:48,223 [32mINFO[0m:     [32m==================================================[0m
+2026-03-04 16:36:48,237 [32mINFO[0m:     [31m24385: [36m[✅] 💿 MEMORY READ: [0mit took [33m0.0073s ⏱. [0mSession 24385: created with TTL of 900 seconds.
+2026-03-04 16:36:48,238 [32mINFO[0m:     [31m24385: [0mInformacion sobre depositos a plazo fijo.
+2026-03-04 16:36:48,907 [32mINFO[0m:     [31m24385: [36m[✅] 👾 TOPIC DETECTED: [0mit took [33m0.6689s ⏱. [0m{'topic': 'ahorro_e_inversion', 'topic_confidence': 1.0, 'user_message_ambiguous': False, 'is_follow_up': False, 'info_source': 'rag', 'rewritten_query': 'Informacion sobre depositos a plazo fijo'}
+2026-03-04 16:36:48,908 [32mINFO[0m:     We will use RAG to answer the query.
+2026-03-04 16:36:50,535 [32mINFO[0m:     [33mEmbedded number of queries: 1, each with 384 dimensions[0m
+2026-03-04 16:36:50,535 [32mINFO[0m:     [36m[✅] 🧰 Embedding time: [0mit took [33m1.6271s ⏱. 
+2026-03-04 16:36:54,352 [31mERROR[0m:    [❌] Workflow failed at {'node': 'llm_rag', 'type': 'TypeError', 'message': "object tuple can't be used in 'await' expression"}
+2026-03-04 16:37:50,165 [33mWARNING[0m:  StatReload detected changes in 'src/generation/searcher.py'. Reloading...
+2026-03-04 16:37:50,259 [32mINFO[0m:     Shutting down
+2026-03-04 16:37:50,361 [32mINFO[0m:     Waiting for application shutdown.
+2026-03-04 16:37:50,362 [32mINFO[0m:     Application shutdown complete.
+2026-03-04 16:37:50,362 [32mINFO[0m:     Finished server process [[36m2494[0m]
+2026-03-04 16:37:57,200 [32mINFO[0m:     Started server process [[36m2526[0m]
+2026-03-04 16:37:57,200 [32mINFO[0m:     Waiting for application startup.
+2026-03-04 16:37:57,200 [32mINFO[0m:     Application startup complete.
+2026-03-04 16:38:01,769 [33mWARNING[0m:  StatReload detected changes in 'src/generation/searcher.py'. Reloading...
+2026-03-04 16:38:01,864 [32mINFO[0m:     Shutting down
+2026-03-04 16:38:01,965 [32mINFO[0m:     Waiting for application shutdown.
+2026-03-04 16:38:01,965 [32mINFO[0m:     Application shutdown complete.
+2026-03-04 16:38:01,965 [32mINFO[0m:     Finished server process [[36m2526[0m]
+2026-03-04 16:38:08,537 [32mINFO[0m:     Started server process [[36m2550[0m]
+2026-03-04 16:38:08,537 [32mINFO[0m:     Waiting for application startup.
+2026-03-04 16:38:08,537 [32mINFO[0m:     Application startup complete.
+2026-03-04 16:38:08,538 [32mINFO[0m:     [32m==================================================
+2026-03-04 16:38:08,538 [32mINFO[0m:     [32m[🤖] Endpoint POST /conversation reached
+2026-03-04 16:38:08,538 [32mINFO[0m:     [32m==================================================[0m
+2026-03-04 16:38:08,549 [32mINFO[0m:     [31m24385: [36m[✅] 💿 MEMORY READ: [0mit took [33m0.0032s ⏱. [0mSession 24385: read and loaded.
+2026-03-04 16:38:08,550 [32mINFO[0m:     [31m24385: [0mInformacion sobre depositos a plazo fijo.
+2026-03-04 16:38:09,171 [32mINFO[0m:     [31m24385: [36m[✅] 👾 TOPIC DETECTED: [0mit took [33m0.6215s ⏱. [0m{'topic': 'ahorro_e_inversion', 'topic_confidence': 1.0, 'user_message_ambiguous': False, 'is_follow_up': False, 'info_source': 'rag', 'rewritten_query': 'Informacion sobre depositos a plazo fijo'}
+2026-03-04 16:38:09,172 [32mINFO[0m:     We will use RAG to answer the query.
+2026-03-04 16:38:10,809 [32mINFO[0m:     [33mEmbedded number of queries: 1, each with 384 dimensions[0m
+2026-03-04 16:38:10,809 [32mINFO[0m:     [36m[✅] 🧰 Embedding time: [0mit took [33m1.6362s ⏱. 
+2026-03-04 16:38:14,732 [31mERROR[0m:    [❌] Workflow failed at {'node': 'llm_rag', 'type': 'TypeError', 'message': "object tuple can't be used in 'await' expression"}
+2026-03-04 16:43:13,164 [33mWARNING[0m:  StatReload detected changes in 'src/generation/searcher.py'. Reloading...
+2026-03-04 16:43:13,219 [32mINFO[0m:     Shutting down
+2026-03-04 16:43:13,321 [32mINFO[0m:     Waiting for application shutdown.
+2026-03-04 16:43:13,322 [32mINFO[0m:     Application shutdown complete.
+2026-03-04 16:43:13,323 [32mINFO[0m:     Finished server process [[36m2550[0m]
+2026-03-04 16:43:22,109 [33mWARNING[0m:  StatReload detected changes in 'src/generation/searcher.py'. Reloading...
+2026-03-04 16:43:26,401 [33mWARNING[0m:  StatReload detected changes in 'src/generation/searcher.py'. Reloading...
+2026-03-04 16:43:32,114 [32mINFO[0m:     Started server process [[36m2639[0m]
+2026-03-04 16:43:32,114 [32mINFO[0m:     Waiting for application startup.
+2026-03-04 16:43:32,114 [32mINFO[0m:     Application startup complete.
+2026-03-04 16:43:34,521 [32mINFO[0m:     [32m==================================================
+2026-03-04 16:43:34,521 [32mINFO[0m:     [32m[🤖] Endpoint POST /conversation reached
+2026-03-04 16:43:34,521 [32mINFO[0m:     [32m==================================================[0m
+2026-03-04 16:43:34,534 [32mINFO[0m:     [31m24385: [36m[✅] 💿 MEMORY READ: [0mit took [33m0.0041s ⏱. [0mSession 24385: read and loaded.
+2026-03-04 16:43:34,535 [32mINFO[0m:     [31m24385: [0mInformacion sobre depositos a plazo fijo.
+2026-03-04 16:43:35,336 [32mINFO[0m:     [31m24385: [36m[✅] 👾 TOPIC DETECTED: [0mit took [33m0.8011s ⏱. [0m{'topic': 'ahorro_e_inversion', 'topic_confidence': 1.0, 'user_message_ambiguous': False, 'is_follow_up': False, 'info_source': 'rag', 'rewritten_query': 'Informacion sobre depositos a plazo fijo'}
+2026-03-04 16:43:35,337 [32mINFO[0m:     We will use RAG to answer the query.
+2026-03-04 16:43:36,928 [32mINFO[0m:     [33mEmbedded number of queries: 1, each with 384 dimensions[0m
+2026-03-04 16:43:36,928 [32mINFO[0m:     [36m[✅] 🧰 Embedding time: [0mit took [33m1.5906s ⏱. 
+2026-03-04 16:43:40,705 [31mERROR[0m:    [❌] Workflow failed at {'node': 'llm_rag', 'type': 'AttributeError', 'message': "'list' object has no attribute 'payload'"}
+2026-03-04 16:44:55,437 [33mWARNING[0m:  StatReload detected changes in 'src/generation/searcher.py'. Reloading...
+2026-03-04 16:44:55,515 [32mINFO[0m:     Shutting down
+2026-03-04 16:44:55,616 [32mINFO[0m:     Waiting for application shutdown.
+2026-03-04 16:44:55,617 [32mINFO[0m:     Application shutdown complete.
+2026-03-04 16:44:55,617 [32mINFO[0m:     Finished server process [[36m2639[0m]
+2026-03-04 16:45:02,447 [32mINFO[0m:     Started server process [[36m2667[0m]
+2026-03-04 16:45:02,448 [32mINFO[0m:     Waiting for application startup.
+2026-03-04 16:45:02,448 [32mINFO[0m:     Application startup complete.
+2026-03-04 16:45:04,213 [32mINFO[0m:     [32m==================================================
+2026-03-04 16:45:04,213 [32mINFO[0m:     [32m[🤖] Endpoint POST /conversation reached
+2026-03-04 16:45:04,213 [32mINFO[0m:     [32m==================================================[0m
+2026-03-04 16:45:04,224 [32mINFO[0m:     [31m24385: [36m[✅] 💿 MEMORY READ: [0mit took [33m0.0036s ⏱. [0mSession 24385: read and loaded.
+2026-03-04 16:45:04,225 [32mINFO[0m:     [31m24385: [0mInformacion sobre depositos a plazo fijo.
+2026-03-04 16:45:04,939 [32mINFO[0m:     [31m24385: [36m[✅] 👾 TOPIC DETECTED: [0mit took [33m0.7134s ⏱. [0m{'topic': 'ahorro_e_inversion', 'topic_confidence': 1.0, 'user_message_ambiguous': False, 'is_follow_up': False, 'info_source': 'rag', 'rewritten_query': 'Informacion sobre depositos a plazo fijo'}
+2026-03-04 16:45:04,939 [32mINFO[0m:     We will use RAG to answer the query.
+2026-03-04 16:45:06,596 [32mINFO[0m:     [33mEmbedded number of queries: 1, each with 384 dimensions[0m
+2026-03-04 16:45:06,596 [32mINFO[0m:     [36m[✅] 🧰 Embedding time: [0mit took [33m1.6561s ⏱. 
+2026-03-04 16:45:10,559 [33mWARNING[0m:  [X] No relevant 'documento' found
+2026-03-04 16:45:10,571 [31mERROR[0m:    [❌] Workflow failed at {'node': 'llm_rag', 'type': 'RetrievalError', 'message': "No relevant 'documentos' found"}
+2026-03-04 16:46:06,638 [33mWARNING[0m:  StatReload detected changes in 'src/generation/searcher.py'. Reloading...
+2026-03-04 16:46:06,689 [32mINFO[0m:     Shutting down
+2026-03-04 16:46:06,790 [32mINFO[0m:     Waiting for application shutdown.
+2026-03-04 16:46:06,790 [32mINFO[0m:     Application shutdown complete.
+2026-03-04 16:46:06,791 [32mINFO[0m:     Finished server process [[36m2667[0m]
+2026-03-04 16:46:13,552 [32mINFO[0m:     Started server process [[36m2727[0m]
+2026-03-04 16:46:13,552 [32mINFO[0m:     Waiting for application startup.
+2026-03-04 16:46:13,552 [32mINFO[0m:     Application startup complete.
+2026-03-04 16:46:30,993 [33mWARNING[0m:  StatReload detected changes in 'src/generation/searcher.py'. Reloading...
+2026-03-04 16:46:31,045 [32mINFO[0m:     Shutting down
+2026-03-04 16:46:31,146 [32mINFO[0m:     Waiting for application shutdown.
+2026-03-04 16:46:31,146 [32mINFO[0m:     Application shutdown complete.
+2026-03-04 16:46:31,146 [32mINFO[0m:     Finished server process [[36m2727[0m]
+2026-03-04 16:46:37,814 [32mINFO[0m:     Started server process [[36m2749[0m]
+2026-03-04 16:46:37,814 [32mINFO[0m:     Waiting for application startup.
+2026-03-04 16:46:37,815 [32mINFO[0m:     Application startup complete.
+2026-03-04 16:46:37,816 [32mINFO[0m:     [32m==================================================
+2026-03-04 16:46:37,816 [32mINFO[0m:     [32m[🤖] Endpoint POST /conversation reached
+2026-03-04 16:46:37,816 [32mINFO[0m:     [32m==================================================[0m
+2026-03-04 16:46:37,827 [32mINFO[0m:     [31m24385: [36m[✅] 💿 MEMORY READ: [0mit took [33m0.0045s ⏱. [0mSession 24385: read and loaded.
+2026-03-04 16:46:37,828 [32mINFO[0m:     [31m24385: [0mInformacion sobre depositos a plazo fijo.
+2026-03-04 16:46:38,529 [32mINFO[0m:     [31m24385: [36m[✅] 👾 TOPIC DETECTED: [0mit took [33m0.7011s ⏱. [0m{'topic': 'ahorro_e_inversion', 'topic_confidence': 1.0, 'user_message_ambiguous': False, 'is_follow_up': False, 'info_source': 'rag', 'rewritten_query': 'Informacion sobre depositos a plazo fijo'}
+2026-03-04 16:46:38,530 [32mINFO[0m:     We will use RAG to answer the query.
+2026-03-04 16:46:39,941 [32mINFO[0m:     [33mEmbedded number of queries: 1, each with 384 dimensions[0m
+2026-03-04 16:46:39,941 [32mINFO[0m:     [36m[✅] 🧰 Embedding time: [0mit took [33m1.4110s ⏱. 
+2026-03-04 16:46:43,839 [31mERROR[0m:    [❌] Workflow failed at {'node': 'llm_rag', 'type': 'TypeError', 'message': "object tuple can't be used in 'await' expression"}
+2026-03-04 16:46:57,822 [33mWARNING[0m:  StatReload detected changes in 'src/generation/searcher.py'. Reloading...
+2026-03-04 16:46:57,891 [32mINFO[0m:     Shutting down
+2026-03-04 16:46:57,992 [32mINFO[0m:     Waiting for application shutdown.
+2026-03-04 16:46:57,993 [32mINFO[0m:     Application shutdown complete.
+2026-03-04 16:46:57,993 [32mINFO[0m:     Finished server process [[36m2749[0m]
+2026-03-04 16:47:04,883 [32mINFO[0m:     Started server process [[36m2781[0m]
+2026-03-04 16:47:04,883 [32mINFO[0m:     Waiting for application startup.
+2026-03-04 16:47:04,883 [32mINFO[0m:     Application startup complete.
+2026-03-04 16:47:04,884 [32mINFO[0m:     [32m==================================================
+2026-03-04 16:47:04,884 [32mINFO[0m:     [32m[🤖] Endpoint POST /conversation reached
+2026-03-04 16:47:04,884 [32mINFO[0m:     [32m==================================================[0m
+2026-03-04 16:47:04,894 [32mINFO[0m:     [31m24385: [36m[✅] 💿 MEMORY READ: [0mit took [33m0.0030s ⏱. [0mSession 24385: read and loaded.
+2026-03-04 16:47:04,895 [32mINFO[0m:     [31m24385: [0mInformacion sobre depositos a plazo fijo.
+2026-03-04 16:47:05,610 [32mINFO[0m:     [31m24385: [36m[✅] 👾 TOPIC DETECTED: [0mit took [33m0.7148s ⏱. [0m{'topic': 'ahorro_e_inversion', 'topic_confidence': 1.0, 'user_message_ambiguous': False, 'is_follow_up': False, 'info_source': 'rag', 'rewritten_query': 'Informacion sobre depositos a plazo fijo'}
+2026-03-04 16:47:05,611 [32mINFO[0m:     We will use RAG to answer the query.
+2026-03-04 16:47:06,918 [32mINFO[0m:     [33mEmbedded number of queries: 1, each with 384 dimensions[0m
+2026-03-04 16:47:06,918 [32mINFO[0m:     [36m[✅] 🧰 Embedding time: [0mit took [33m1.3068s ⏱. 
+2026-03-04 16:47:10,834 [31mERROR[0m:    [❌] Workflow failed at {'node': 'llm_rag', 'type': 'ValidationError', 'message': '18 validation errors for Prefetch\nquery.list[float]\n  Input should be a valid list [type=list_type, input_value=<coroutine object Searche...d_sparse at 0x16fb8f220>, input_type=coroutine]\n    For further information visit https://errors.pydantic.dev/2.12/v/list_type\nquery.SparseVector\n  Input should be a valid dictionary or instance of SparseVector [type=model_type, input_value=<coroutine object Searche...d_sparse at 0x16fb8f220>, input_type=coroutine]\n    For further information visit https://errors.pydantic.dev/2.12/v/model_type\nquery.list[list[float]]\n  Input should be a valid list [type=list_type, input_value=<coroutine object Searche...d_sparse at 0x16fb8f220>, input_type=coroutine]\n    For further information visit https://errors.pydantic.dev/2.12/v/list_type\nquery.int\n  Input should be a valid integer [type=int_type, input_value=<coroutine object Searche...d_sparse at 0x16fb8f220>, input_type=coroutine]\n    For further information visit https://errors.pydantic.dev/2.12/v/int_type\nquery.str\n  Input should be a valid string [type=string_type, input_value=<coroutine object Searche...d_sparse at 0x16fb8f220>, input_type=coroutine]\n    For further information visit https://errors.pydantic.dev/2.12/v/string_type\nquery.uuid\n  UUID input should be a string, bytes or UUID object [type=uuid_type, input_value=<coroutine object Searche...d_sparse at 0x16fb8f220>, input_type=coroutine]\n    For further information visit https://errors.pydantic.dev/2.12/v/uuid_type\nquery.Document\n  Input should be a valid dictionary or instance of Document [type=model_type, input_value=<coroutine object Searche...d_sparse at 0x16fb8f220>, input_type=coroutine]\n    For further information visit https://errors.pydantic.dev/2.12/v/model_type\nquery.Image\n  Input should be a valid dictionary or instance of Image [type=model_type, input_value=<coroutine object Searche...d_sparse at 0x16fb8f220>, input_type=coroutine]\n    For further information visit https://errors.pydantic.dev/2.12/v/model_type\nquery.InferenceObject\n  Input should be a valid dictionary or instance of InferenceObject [type=model_type, input_value=<coroutine object Searche...d_sparse at 0x16fb8f220>, input_type=coroutine]\n    For further information visit https://errors.pydantic.dev/2.12/v/model_type\nquery.NearestQuery\n  Input should be a valid dictionary or instance of NearestQuery [type=model_type, input_value=<coroutine object Searche...d_sparse at 0x16fb8f220>, input_type=coroutine]\n    For further information visit https://errors.pydantic.dev/2.12/v/model_type\nquery.RecommendQuery\n  Input should be a valid dictionary or instance of RecommendQuery [type=model_type, input_value=<coroutine object Searche...d_sparse at 0x16fb8f220>, input_type=coroutine]\n    For further information visit https://errors.pydantic.dev/2.12/v/model_type\nquery.DiscoverQuery\n  Input should be a valid dictionary or instance of DiscoverQuery [type=model_type, input_value=<coroutine object Searche...d_sparse at 0x16fb8f220>, input_type=coroutine]\n    For further information visit https://errors.pydantic.dev/2.12/v/model_type\nquery.ContextQuery\n  Input should be a valid dictionary or instance of ContextQuery [type=model_type, input_value=<coroutine object Searche...d_sparse at 0x16fb8f220>, input_type=coroutine]\n    For further information visit https://errors.pydantic.dev/2.12/v/model_type\nquery.OrderByQuery\n  Input should be a valid dictionary or instance of OrderByQuery [type=model_type, input_value=<coroutine object Searche...d_sparse at 0x16fb8f220>, input_type=coroutine]\n    For further information visit https://errors.pydantic.dev/2.12/v/model_type\nquery.FusionQuery\n  Input should be a valid dictionary or instance of FusionQuery [type=model_type, input_value=<coroutine object Searche...d_sparse at 0x16fb8f220>, input_type=coroutine]\n    For further information visit https://errors.pydantic.dev/2.12/v/model_type\nquery.RrfQuery\n  Input should be a valid dictionary or instance of RrfQuery [type=model_type, input_value=<coroutine object Searche...d_sparse at 0x16fb8f220>, input_type=coroutine]\n    For further information visit https://errors.pydantic.dev/2.12/v/model_type\nquery.FormulaQuery\n  Input should be a valid dictionary or instance of FormulaQuery [type=model_type, input_value=<coroutine object Searche...d_sparse at 0x16fb8f220>, input_type=coroutine]\n    For further information visit https://errors.pydantic.dev/2.12/v/model_type\nquery.SampleQuery\n  Input should be a valid dictionary or instance of SampleQuery [type=model_type, input_value=<coroutine object Searche...d_sparse at 0x16fb8f220>, input_type=coroutine]\n    For further information visit https://errors.pydantic.dev/2.12/v/model_type'}
+2026-03-04 16:48:21,990 [33mWARNING[0m:  StatReload detected changes in 'src/generation/searcher.py'. Reloading...
+2026-03-04 16:48:22,089 [32mINFO[0m:     Shutting down
+2026-03-04 16:48:22,191 [32mINFO[0m:     Waiting for application shutdown.
+2026-03-04 16:48:22,191 [32mINFO[0m:     Application shutdown complete.
+2026-03-04 16:48:22,191 [32mINFO[0m:     Finished server process [[36m2781[0m]
+2026-03-04 16:48:29,610 [33mWARNING[0m:  StatReload detected changes in 'src/generation/searcher.py'. Reloading...
+2026-03-04 16:48:33,901 [33mWARNING[0m:  StatReload detected changes in 'src/generation/searcher.py'. Reloading...
+2026-03-04 16:48:39,762 [32mINFO[0m:     Started server process [[36m2840[0m]
+2026-03-04 16:48:39,762 [32mINFO[0m:     Waiting for application startup.
+2026-03-04 16:48:39,762 [32mINFO[0m:     Application startup complete.
+2026-03-04 16:48:39,763 [32mINFO[0m:     [32m==================================================
+2026-03-04 16:48:39,763 [32mINFO[0m:     [32m[🤖] Endpoint POST /conversation reached
+2026-03-04 16:48:39,763 [32mINFO[0m:     [32m==================================================[0m
+2026-03-04 16:48:39,775 [32mINFO[0m:     [31m24385: [36m[✅] 💿 MEMORY READ: [0mit took [33m0.0052s ⏱. [0mSession 24385: read and loaded.
+2026-03-04 16:48:39,776 [32mINFO[0m:     [31m24385: [0mInformacion sobre depositos a plazo fijo.
+2026-03-04 16:48:40,490 [32mINFO[0m:     [31m24385: [36m[✅] 👾 TOPIC DETECTED: [0mit took [33m0.7140s ⏱. [0m{'topic': 'ahorro_e_inversion', 'topic_confidence': 1.0, 'user_message_ambiguous': False, 'is_follow_up': False, 'info_source': 'rag', 'rewritten_query': 'Informacion sobre depositos a plazo fijo'}
+2026-03-04 16:48:40,491 [32mINFO[0m:     We will use RAG to answer the query.
+2026-03-04 16:48:41,981 [32mINFO[0m:     [33mEmbedded number of queries: 1, each with 384 dimensions[0m
+2026-03-04 16:48:41,981 [32mINFO[0m:     [36m[✅] 🧰 Embedding time: [0mit took [33m1.4895s ⏱. 
+2026-03-04 16:48:45,739 [31mERROR[0m:    [❌] Workflow failed at {'node': 'llm_rag', 'type': 'TypeError', 'message': "object QueryResponse can't be used in 'await' expression"}
+2026-03-04 16:49:06,988 [33mWARNING[0m:  StatReload detected changes in 'src/generation/searcher.py'. Reloading...
+2026-03-04 16:49:07,051 [32mINFO[0m:     Shutting down
+2026-03-04 16:49:07,152 [32mINFO[0m:     Waiting for application shutdown.
+2026-03-04 16:49:07,153 [32mINFO[0m:     Application shutdown complete.
+2026-03-04 16:49:07,153 [32mINFO[0m:     Finished server process [[36m2840[0m]
+2026-03-04 16:49:11,798 [33mWARNING[0m:  StatReload detected changes in 'src/generation/searcher.py'. Reloading...
+2026-03-04 16:49:18,046 [32mINFO[0m:     Started server process [[36m2871[0m]
+2026-03-04 16:49:18,046 [32mINFO[0m:     Waiting for application startup.
+2026-03-04 16:49:18,046 [32mINFO[0m:     Application startup complete.
+2026-03-04 16:49:18,047 [32mINFO[0m:     [32m==================================================
+2026-03-04 16:49:18,047 [32mINFO[0m:     [32m[🤖] Endpoint POST /conversation reached
+2026-03-04 16:49:18,047 [32mINFO[0m:     [32m==================================================[0m
+2026-03-04 16:49:18,057 [32mINFO[0m:     [31m24385: [36m[✅] 💿 MEMORY READ: [0mit took [33m0.0035s ⏱. [0mSession 24385: read and loaded.
+2026-03-04 16:49:18,058 [32mINFO[0m:     [31m24385: [0mInformacion sobre depositos a plazo fijo.
+2026-03-04 16:49:18,791 [32mINFO[0m:     [31m24385: [36m[✅] 👾 TOPIC DETECTED: [0mit took [33m0.7330s ⏱. [0m{'topic': 'ahorro_e_inversion', 'topic_confidence': 1.0, 'user_message_ambiguous': False, 'is_follow_up': False, 'info_source': 'rag', 'rewritten_query': 'Informacion sobre depositos a plazo fijo'}
+2026-03-04 16:49:18,792 [32mINFO[0m:     We will use RAG to answer the query.
+2026-03-04 16:49:20,106 [32mINFO[0m:     [33mEmbedded number of queries: 1, each with 384 dimensions[0m
+2026-03-04 16:49:20,106 [32mINFO[0m:     [36m[✅] 🧰 Embedding time: [0mit took [33m1.3132s ⏱. 
+2026-03-04 16:49:24,216 [32mINFO[0m:     [31m24385: [36m[✅] 🧰 RAG ACHIEVED: [0mit took [33m5.4232s ⏱. 
+2026-03-04 16:49:24,228 [31mERROR[0m:    [❌] Workflow failed at {'node': 'llm_query_response', 'type': 'AttributeError', 'message': "'coroutine' object has no attribute 'content'"}
+2026-03-04 16:50:34,099 [33mWARNING[0m:  StatReload detected changes in 'src/generation/client.py'. Reloading...
+2026-03-04 16:50:34,188 [32mINFO[0m:     Shutting down
+2026-03-04 16:50:34,290 [32mINFO[0m:     Waiting for application shutdown.
+2026-03-04 16:50:34,290 [32mINFO[0m:     Application shutdown complete.
+2026-03-04 16:50:34,290 [32mINFO[0m:     Finished server process [[36m2871[0m]
+2026-03-04 16:50:38,942 [33mWARNING[0m:  StatReload detected changes in 'src/generation/client.py'. Reloading...
+2026-03-04 16:50:45,280 [32mINFO[0m:     Started server process [[36m2978[0m]
+2026-03-04 16:50:45,281 [32mINFO[0m:     Waiting for application startup.
+2026-03-04 16:50:45,281 [32mINFO[0m:     Application startup complete.
+2026-03-04 16:50:45,282 [32mINFO[0m:     [32m==================================================
+2026-03-04 16:50:45,282 [32mINFO[0m:     [32m[🤖] Endpoint POST /conversation reached
+2026-03-04 16:50:45,282 [32mINFO[0m:     [32m==================================================[0m
+2026-03-04 16:50:45,292 [32mINFO[0m:     [31m24385: [36m[✅] 💿 MEMORY READ: [0mit took [33m0.0032s ⏱. [0mSession 24385: read and loaded.
+2026-03-04 16:50:45,294 [32mINFO[0m:     [31m24385: [0mInformacion sobre depositos a plazo fijo.
+2026-03-04 16:50:45,885 [32mINFO[0m:     [31m24385: [36m[✅] 👾 TOPIC DETECTED: [0mit took [33m0.5910s ⏱. [0m{'topic': 'ahorro_e_inversion', 'topic_confidence': 1.0, 'user_message_ambiguous': False, 'is_follow_up': False, 'info_source': 'rag', 'rewritten_query': 'Informacion sobre depositos a plazo fijo'}
+2026-03-04 16:50:45,885 [32mINFO[0m:     We will use RAG to answer the query.
+2026-03-04 16:50:47,349 [32mINFO[0m:     [33mEmbedded number of queries: 1, each with 384 dimensions[0m
+2026-03-04 16:50:47,349 [32mINFO[0m:     [36m[✅] 🧰 Embedding time: [0mit took [33m1.4631s ⏱. 
+2026-03-04 16:50:51,490 [32mINFO[0m:     [31m24385: [36m[✅] 🧰 RAG ACHIEVED: [0mit took [33m5.6034s ⏱. 
+2026-03-04 16:50:53,805 [32mINFO[0m:     [31m24385: [0m
+        🤖 Este mensaje esta generado por Inteligencia Artifical.
+        Informacion obtenida de la sección AHORRO_E_INVERSION del capítulo .DPF'S:
+        Depósitos a plazo fijo (DPF) ofrecen intereses más altos que las cajas de ahorros.  Pueden ser cancelados en cualquier oficina del banco, y se requiere un depósito inicial de $1,000.  Los DPFs en moneda nacional con plazo a partir de 31 días no gravan el IVA.
+        
+2026-03-04 16:50:53,805 [32mINFO[0m:     [31m24385: [36m[✅] 👾 QUERY ANSWERED: [0mit took [33m2.3084s ⏱. 
+2026-03-04 16:50:53,809 [32mINFO[0m:     [31m24385: [36m[✅] 💿 MEMORY UPDATED: [0mit took [33m0.0030s ⏱. [0mSession 24385: updated with TTL of 900 seconds.
+2026-03-04 16:51:20,275 [32mINFO[0m:     [32m==================================================
+2026-03-04 16:51:20,276 [32mINFO[0m:     [32m[🤖] Endpoint POST /conversation reached
+2026-03-04 16:51:20,276 [32mINFO[0m:     [32m==================================================[0m
+2026-03-04 16:51:20,285 [32mINFO[0m:     [31m91845: [36m[✅] 💿 MEMORY READ: [0mit took [33m0.0023s ⏱. [0mSession 91845: created with TTL of 900 seconds.
+2026-03-04 16:51:20,286 [32mINFO[0m:     [31m91845: [0m¿Que es un deposito a plazo fijo?
+2026-03-04 16:51:20,764 [32mINFO[0m:     [32m==================================================
+2026-03-04 16:51:20,765 [32mINFO[0m:     [32m[🤖] Endpoint POST /conversation reached
+2026-03-04 16:51:20,765 [32mINFO[0m:     [32m==================================================[0m
+2026-03-04 16:51:20,773 [32mINFO[0m:     [31m71712: [36m[✅] 💿 MEMORY READ: [0mit took [33m0.0018s ⏱. [0mSession 71712: created with TTL of 900 seconds.
+2026-03-04 16:51:20,774 [32mINFO[0m:     [31m71712: [0mQue es una carta de credito?
+2026-03-04 16:51:20,829 [32mINFO[0m:     [31m91845: [36m[✅] 👾 TOPIC DETECTED: [0mit took [33m0.5424s ⏱. [0m{'topic': 'ahorro_e_inversion', 'topic_confidence': 1.0, 'user_message_ambiguous': False, 'is_follow_up': False, 'info_source': 'rag', 'rewritten_query': '¿Qué es un depósito a plazo fijo?'}
+2026-03-04 16:51:20,829 [32mINFO[0m:     We will use RAG to answer the query.
+2026-03-04 16:51:22,060 [32mINFO[0m:     [33mEmbedded number of queries: 1, each with 384 dimensions[0m
+2026-03-04 16:51:22,060 [32mINFO[0m:     [36m[✅] 🧰 Embedding time: [0mit took [33m1.2301s ⏱. 
+2026-03-04 16:51:25,713 [32mINFO[0m:     [31m91845: [36m[✅] 🧰 RAG ACHIEVED: [0mit took [33m4.8834s ⏱. 
+2026-03-04 16:51:26,270 [32mINFO[0m:     [31m71712: [36m[✅] 👾 TOPIC DETECTED: [0mit took [33m5.4968s ⏱. [0m{'topic': 'servicios', 'topic_confidence': 0.95, 'user_message_ambiguous': False, 'is_follow_up': False, 'info_source': 'rag', 'rewritten_query': '¿Qué es una carta de crédito?'}
+2026-03-04 16:51:26,271 [32mINFO[0m:     We will use RAG to answer the query.
+2026-03-04 16:51:27,427 [32mINFO[0m:     [33mEmbedded number of queries: 1, each with 384 dimensions[0m
+2026-03-04 16:51:27,428 [32mINFO[0m:     [36m[✅] 🧰 Embedding time: [0mit took [33m1.1562s ⏱. 
+2026-03-04 16:51:30,912 [32mINFO[0m:     [31m91845: [0m
+        🤖 Este mensaje esta generado por Inteligencia Artifical.
+        Informacion obtenida de la sección AHORRO_E_INVERSION del capítulo .DPF'S:
+        Un depósito a plazo fijo es un depósito que permanece inmóvil por un plazo previamente pactado entre el banco y el cliente. Al construir un DPF, se establece el plazo, las tasas de interés y el periodo de capitalización.
+        
+2026-03-04 16:51:30,913 [32mINFO[0m:     [31m91845: [36m[✅] 👾 QUERY ANSWERED: [0mit took [33m5.1936s ⏱. 
+2026-03-04 16:51:30,917 [32mINFO[0m:     [31m91845: [36m[✅] 💿 MEMORY UPDATED: [0mit took [33m0.0021s ⏱. [0mSession 91845: updated with TTL of 900 seconds.
+2026-03-04 16:51:31,030 [32mINFO[0m:     [31m71712: [36m[✅] 🧰 RAG ACHIEVED: [0mit took [33m4.7591s ⏱. 
+2026-03-04 16:51:32,101 [32mINFO[0m:     [31m71712: [0m
+        🤖 Este mensaje esta generado por Inteligencia Artifical.
+        Informacion obtenida de la sección SERVICIOS del capítulo SERVICIOS INTERNACIONALES:
+        Una carta de crédito es un instrumento internacionalmente aceptado que permite a un banco emitir un crédito a un comprador en un país extranjero.  Es un acuerdo que garantiza el pago de una deuda.
+        
+2026-03-04 16:51:32,101 [32mINFO[0m:     [31m71712: [36m[✅] 👾 QUERY ANSWERED: [0mit took [33m1.0649s ⏱. 
+2026-03-04 16:51:32,104 [32mINFO[0m:     [31m71712: [36m[✅] 💿 MEMORY UPDATED: [0mit took [33m0.0023s ⏱. [0mSession 71712: updated with TTL of 900 seconds.
+2026-03-04 17:04:32,938 [33mWARNING[0m:  StatReload detected changes in 'src/nodes/topic/detect.py'. Reloading...
+2026-03-04 17:04:32,992 [32mINFO[0m:     Shutting down
+2026-03-04 17:04:33,094 [32mINFO[0m:     Waiting for application shutdown.
+2026-03-04 17:04:33,095 [32mINFO[0m:     Application shutdown complete.
+2026-03-04 17:04:33,095 [32mINFO[0m:     Finished server process [[36m2978[0m]
+2026-03-04 17:04:37,456 [32mINFO[0m:     Stopping reloader process [[36m[1m1138[0m]

@@ -41,7 +41,7 @@ THRESHOLD = 0.3
 # LLM Models
 LLM_SOURCE = "groq"
 GROQ_GENERATOR_MODEL = ChatGroq(model="llama-3.1-8b-instant", temperature=0, api_key=GROQ_API_KEY)
-GEMINI_GENERATOR_MODEL = ChatGoogleGenerativeAI(model="gemini-3-flash-preview", temperature=0, google_api_key=GEMINI_API_KEY)
+GEMINI_GENERATOR_MODEL = ChatGoogleGenerativeAI(model="gemma-3-1b-it", temperature=0, google_api_key=GEMINI_API_KEY, convert_system_message_to_human=True,)
 OLLAMA_GENERATOR_MODEL = ChatOllama(model="qwen3:8b", temperature=0)
 GEMINI_MULTIMODAL_MODEL = "gemini-2.5-flash" # This will be called without LangChain
 

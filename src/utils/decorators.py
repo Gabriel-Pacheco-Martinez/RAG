@@ -1,5 +1,6 @@
 # General
 import logging
+import inspect
 
 # Classes
 from src.models.state import ChatState
@@ -9,9 +10,12 @@ logger = logging.getLogger(__name__)
 
 def safe_node(node_name: str):
     def decorator(func):
-        def wrapper(state: ChatState) -> ChatState:
+        async def wrapper(state: ChatState) -> ChatState:
             try:
-                return func(state)
+                if inspect.iscoroutinefunction(func):
+                    return await func(state)
+                else:
+                    return func(state)
 
             except Exception as e:
                 logger.exception(f"Error in node {node_name}")

@@ -6,3 +6,5 @@ ragvenv/
 **/.DS_Store
 logs/app.log
 tests/.pytest_cache
+node_modules/
+artillery/

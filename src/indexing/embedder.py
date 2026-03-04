@@ -1,6 +1,7 @@
 # General
 from colorama import Fore, Style
 from typing import Dict, Any
+from time import perf_counter
 
 # Torch and numpy
 import torch
@@ -81,6 +82,9 @@ class Embedder:
         return chunk_embeddings
     
     def embed_query(self, query: str) -> np.ndarray: 
+        # Timer
+        time = perf_counter()
+
         # Load model
         self._load_model()
 
@@ -100,4 +104,6 @@ class Embedder:
 
         # Say something
         logger.info(Fore.YELLOW + f"Embedded number of queries: {embeddings.shape[0]}, each with {embeddings.shape[1]} dimensions" + Style.RESET_ALL)
+        logger.info(Fore.CYAN + "[✅] 🧰 Embedding time: " + Style.RESET_ALL + "it took " + Fore.YELLOW + f"{perf_counter() - time:.4f}s ⏱. ")
+
         return embeddings

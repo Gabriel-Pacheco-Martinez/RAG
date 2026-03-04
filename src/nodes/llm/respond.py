@@ -19,13 +19,14 @@ from config.settings import LLM_SOURCE
 import logging
 logger = logging.getLogger('uvicorn.error')
 
-def llm_query_response(state: ChatState) -> dict:
+async def llm_query_response(state: ChatState) -> dict:
     # Start timer
-    state["start_time_2"] = perf_counter()
+    state["start_timer_llm_generate"] = perf_counter()
 
-    # Prompt generation
+    # FIXME: Prompt generation
+    LLM_SOURCE  = "google"
     llm = LLM_Engine(LLM_SOURCE, GROQ_GENERATOR_MODEL, GEMINI_GENERATOR_MODEL)
-    llm_response = llm.prompt_llm(state["user_message"], state["context"])
+    llm_response = await llm.prompt_llm(state["user_message"], state["context"])
 
     # Update state
     state["llm_query_response"] = f"""
@@ -33,6 +34,7 @@ def llm_query_response(state: ChatState) -> dict:
         Informacion obtenida de la sección {state["document"]} del capítulo {state["chapter"]}:
         {llm_response}
         """
+    logger.info(Fore.RED + f"{state['user_session_id']}: " + Style.RESET_ALL + f"{state['llm_query_response']}")
     
     state["conversation_history"].append(f"User:{state['user_message']}")
     state["conversation_history"].append(f"System:{state['llm_query_response']}")
@@ -50,7 +52,7 @@ def llm_query_response(state: ChatState) -> dict:
         "conversation_history": state["conversation_history"]
     }
 
-    # Say something
-    logger.info(Fore.CYAN + "[✅] 👾 QUERY ANSWERED: " + Style.RESET_ALL + f"it took {perf_counter() - state['start_time_2']:.4f}s ⏱")
+    # Timer
+    logger.info(Fore.RED + f"{state['user_session_id']}: " + Fore.CYAN + "[✅] 👾 QUERY ANSWERED: " + Style.RESET_ALL + "it took " + Fore.YELLOW + f"{perf_counter() - state['start_timer_llm_generate']:.4f}s ⏱. ")
 
     return state

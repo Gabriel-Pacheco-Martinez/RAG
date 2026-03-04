@@ -1,0 +1,1 @@
+npx artillery run artillery/load-test.yml
