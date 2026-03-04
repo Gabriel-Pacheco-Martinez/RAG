@@ -54,22 +54,26 @@ def _extract_json_from_response(text: str) -> dict:
     logging.info("[X] No complete JSON object found on INTENTION DETECTION LLM response")
     raise ValueError("No complete JSON object found")
 
-def _call_llm(prompt: str) -> str:
+async def _call_llm(prompt: str) -> str:
     if LLM_SOURCE == "groq":
-        return GROQ_GENERATOR_MODEL.invoke(prompt).content.strip()
+        response = await GROQ_GENERATOR_MODEL.ainvoke(prompt)
+        return response.content.strip()
     elif LLM_SOURCE == "gemini":
-        return GEMINI_GENERATOR_MODEL.invoke(prompt).content[0]["text"].strip()
+        response = await GEMINI_GENERATOR_MODEL.ainvoke(prompt)
+        return response.content[0]["text"].strip()
 
-def topic_detect(state: ChatState) -> dict:
+async def topic_detect(state: ChatState) -> dict:
     # Timer
     state["start_timer_topic"] = perf_counter()
+
+    logger.info(Fore.RED + f"{state['user_session_id']}: " + Style.RESET_ALL + f"{state['user_message']}")
 
     # Armar prompt
     classify_base_prompt = load_prompt("classify_prompt.txt")
     classify_prompt = build_classify_prompt(state, classify_base_prompt)
-    response_raw: str = _call_llm(classify_prompt)
+    response_raw: str = await _call_llm(classify_prompt)
     response_obj: object = _extract_json_from_response(response_raw)
-    logger.info(Fore.RED + f"{state['user_session_id']}: " + Fore.CYAN + "[✅] 👾 TOPIC DETECTED: " + Style.RESET_ALL + "it took " + Fore.YELLOW + f"{perf_counter() - state['start_timer_intent']:.4f}s ⏱. " + Style.RESET_ALL + f"{response_obj}")
+    logger.info(Fore.RED + f"{state['user_session_id']}: " + Fore.CYAN + "[✅] 👾 TOPIC DETECTED: " + Style.RESET_ALL + "it took " + Fore.YELLOW + f"{perf_counter() - state['start_timer_topic']:.4f}s ⏱. " + Style.RESET_ALL + f"{response_obj}")
 
     # Update el estado
     state = _update_state(state, response_obj)

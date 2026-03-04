@@ -1,5 +1,6 @@
 # General
 from colorama import Fore, Style
+import asyncio
 
 # Helpers
 from src.utils.printing import pretty_print_hits
@@ -11,7 +12,7 @@ from sentence_transformers import CrossEncoder
 import numpy as np
 
 # Qdrant
-from qdrant_client import QdrantClient
+from qdrant_client import AsyncQdrantClient
 from qdrant_client.models import Filter, FieldCondition, MatchValue, Prefetch, Query, QueryRequest, FusionQuery, Fusion, SparseVector, Document
 
 # Sparse embedder
@@ -30,21 +31,22 @@ import logging
 logger = logging.getLogger('uvicorn.error')
 
 class Searcher():
-    def __init__(self, client: QdrantClient, threshold: float, RERANKER_MODEL: str):
+    def __init__(self, client: AsyncQdrantClient, threshold: float, RERANKER_MODEL: str):
         self.client = client
         self.sparse_model = SparseTextEmbedding("Qdrant/bm25")
         self.reranker_model = CrossEncoder(RERANKER_MODEL)
         self.threshold = threshold
 
-    def _embed_sparse(self, query_text: str) -> SparseVector:
-        sparse_embedding = next(self.sparse_model.embed([query_text]))
-        
-        return SparseVector(
-            indices=sparse_embedding.indices.tolist(),
-            values=sparse_embedding.values.tolist()
+    async def _embed_sparse(self, query_text: str) -> SparseVector:
+        def _embed():
+            sparse_embedding = next(self.sparse_model.embed([query_text]))
+            return SparseVector(
+                indices=sparse_embedding.indices.tolist(),
+                values=sparse_embedding.values.tolist()
         )
+        return await asyncio.to_thread(_embed)
 
-    def _rerank_vectors(self, hits: object, query_text: str, level: str):
+    async def _rerank_vectors(self, hits: object, query_text: str, level: str):
         # Check where the model is running
         # TODO: logger.info("The reranker model is running on: %s", self.reranker_model.model.device)
 
@@ -55,7 +57,7 @@ class Searcher():
         ]
 
         # Rerank and sort by score
-        scores = self.reranker_model.predict(pairs, show_progress_bar=False)
+        scores = await asyncio.to_thread(self.reranker_model.predict, pairs, show_progress_bar=False)
         rescored = list(zip(hits.points, scores))
         rescored.sort(key=lambda x: x[1], reverse=True)
 
@@ -65,7 +67,7 @@ class Searcher():
 
         return top_points
     
-    def _retreive_best_texto(self, embedded_query: np.ndarray, query_text:str, cap_id: int):
+    async def _retreive_best_texto(self, embedded_query: np.ndarray, query_text:str, cap_id: int):
         sparse_vector = self._embed_sparse(query_text)
 
         hits = self.client.query_points(
@@ -79,7 +81,7 @@ class Searcher():
                 ),
                 # Sparse vector search
                 Prefetch(
-                    query=sparse_vector,
+                    query=await sparse_vector,
                     using="sparse",
                     limit=TOP_K_SPARSE
                 )
@@ -103,10 +105,10 @@ class Searcher():
             raise RetrievalError("No relevant 'textos' found")
 
         # Rerank
-        best_text_vectors =self._rerank_vectors(hits, query_text, "textos")
+        best_text_vectors = await self._rerank_vectors(hits, query_text, "textos")
         return best_text_vectors
 
-    def _retreive_best_capitulo(self, embedded_query: np.ndarray, query_text:str, doc_id: str):
+    async def _retreive_best_capitulo(self, embedded_query: np.ndarray, query_text:str, doc_id: str):
         sparse_vector = self._embed_sparse(query_text)
         hits = self.client.query_points(
             collection_name="capitulos",
@@ -123,7 +125,7 @@ class Searcher():
                     #     text=query_text,
                     #     model="Qdrant/bm25"
                     # ),
-                    query=sparse_vector,
+                    query=await sparse_vector,
                     using="sparse",
                     limit=TOP_K_SPARSE
                 )
@@ -145,11 +147,11 @@ class Searcher():
             raise RetrievalError("No relevant 'capitulos' found")
 
         # Rerank
-        best_cap_ids =self._rerank_vectors(hits, query_text, "capitulos")
+        best_cap_ids = await self._rerank_vectors(hits, query_text, "capitulos")
         best_cap_id = best_cap_ids[0].payload["cap_id"]
         return best_cap_id
 
-    def _retreive_doc_id_from_topic(self, topic: str):
+    async def _retreive_doc_id_from_topic(self, topic: str):
         hits = self.client.scroll(
             collection_name="documentos",
             scroll_filter=Filter(
@@ -167,9 +169,9 @@ class Searcher():
             raise RetrievalError("No relevant 'documentos' found")
         return hits[0][0].payload["doc_id"]
 
-    def search(self, embedded_query: np.ndarray, query_text: str, topic: str) -> list[dict]:
+    async def search(self, embedded_query: np.ndarray, query_text: str, topic: str) -> list[dict]:
         # best_doc_id = self.retrieve_best_documento(embedded_query)
-        best_doc_id = self._retreive_doc_id_from_topic(topic)
-        best_capitulo_id = self._retreive_best_capitulo(embedded_query, query_text, best_doc_id)
-        best_texto_vectors = self._retreive_best_texto(embedded_query, query_text, best_capitulo_id)
+        best_doc_id = await self._retreive_doc_id_from_topic(topic)
+        best_capitulo_id = await self._retreive_best_capitulo(embedded_query, query_text, best_doc_id)
+        best_texto_vectors = await self._retreive_best_texto(embedded_query, query_text, best_capitulo_id)
         return best_texto_vectors

@@ -71,7 +71,7 @@ def error_handler(state: ChatState) -> ChatState:
     }
     return state
 
-def run(user_message: object) -> str:
+async def run(user_message: object) -> str:
     # Create the graph
     graph = StateGraph(ChatState)
 
@@ -96,12 +96,13 @@ def run(user_message: object) -> str:
     graph.add_node("error_handler", error_handler)
 
     # =========
-    # Routing-Edges:
+    # FIXME:Routing-Edges:
     #   1. Detectar el intent del usuario
-    graph.set_entry_point("intent_detect")
-    graph.add_conditional_edges("intent_detect", intent_route)
+    # graph.set_entry_point("intent_detect")
+    # graph.add_conditional_edges("intent_detect", intent_route)
 
     #   2. Detectar el topic de la pregunta del usuario
+    graph.set_entry_point("read_memory")
     graph.add_conditional_edges("read_memory", route_or_error("topic_detect"))
     graph.add_conditional_edges("topic_detect", topic_route)
 
@@ -113,7 +114,7 @@ def run(user_message: object) -> str:
     # =========
     # Execution:
     app = graph.compile()
-    final_state = app.invoke({
+    final_state = await app.ainvoke({
         "user_session_id": user_session_id,
         "user_message": user_message,
         "user_message_format": user_message_format
