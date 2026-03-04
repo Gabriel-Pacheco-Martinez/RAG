@@ -601,3 +601,60 @@
 2026-03-04 14:56:23,568 [32mINFO[0m:     Application shutdown complete.
 2026-03-04 14:56:23,568 [32mINFO[0m:     Finished server process [[36m80337[0m]
 2026-03-04 14:56:23,629 [32mINFO[0m:     Stopping reloader process [[36m[1m75784[0m]
+2026-03-04 15:03:04,156 [32mINFO[0m:     Will watch for changes in these directories: ['/Users/gabriel/Documents/BNB/Proyectos/rag-poc']
+2026-03-04 15:03:04,157 [32mINFO[0m:     Uvicorn running on [1mhttp://0.0.0.0:8000[0m (Press CTRL+C to quit)
+2026-03-04 15:03:04,157 [32mINFO[0m:     Started reloader process [[36m[1m80968[0m] using [36m[1mStatReload[0m
+2026-03-04 15:03:07,648 [32mINFO[0m:     Started server process [[36m80979[0m]
+2026-03-04 15:03:07,648 [32mINFO[0m:     Waiting for application startup.
+2026-03-04 15:03:07,648 [32mINFO[0m:     Application startup complete.
+2026-03-04 15:03:17,114 [32mINFO[0m:     [32m==================================================
+2026-03-04 15:03:17,114 [32mINFO[0m:     [32m[🤖] Endpoint POST /conversation reached
+2026-03-04 15:03:17,114 [32mINFO[0m:     [32m==================================================[0m
+2026-03-04 15:03:17,118 [32mINFO[0m:     [31m73204: [0mquestion
+2026-03-04 15:03:17,607 [32mINFO[0m:     [32m==================================================
+2026-03-04 15:03:17,607 [32mINFO[0m:     [32m[🤖] Endpoint POST /conversation reached
+2026-03-04 15:03:17,607 [32mINFO[0m:     [32m==================================================[0m
+2026-03-04 15:03:17,614 [32mINFO[0m:     [31m26110: [0m¿Que es un deposito a plazo fijo?
+2026-03-04 15:03:17,670 [32mINFO[0m:     [31m73204: [36m[✅] 👾 INTENTION DETECTED: [0mit took [33m0.5513s ⏱. [0m{'intencion_actual': 'preguntas', 'confianza_en_la_intencion': 1.0, 'slots_requeridos': {}}
+2026-03-04 15:03:17,670 [32mINFO[0m:     Intent is 'preguntas'. We will now read memory.
+2026-03-04 15:03:17,675 [32mINFO[0m:     [31m73204: [36m[✅] 💿 MEMORY READ: [0mit took [33m0.0050s ⏱. [0mSession 73204: created with TTL of 900 seconds.
+2026-03-04 15:03:18,099 [32mINFO[0m:     [31m26110: [36m[✅] 👾 INTENTION DETECTED: [0mit took [33m0.4843s ⏱. [0m{'intencion_actual': 'preguntas', 'confianza_en_la_intencion': 1.0, 'slots_requeridos': {}}
+2026-03-04 15:03:18,099 [32mINFO[0m:     Intent is 'preguntas'. We will now read memory.
+2026-03-04 15:03:18,101 [32mINFO[0m:     [31m26110: [36m[✅] 💿 MEMORY READ: [0mit took [33m0.0021s ⏱. [0mSession 26110: created with TTL of 900 seconds.
+2026-03-04 15:03:18,111 [32mINFO[0m:     [31m73204: [36m[✅] 👾 TOPIC DETECTED: [0mit took [33m0.9922s ⏱. [0m{'topic': None, 'topic_confidence': 0.0, 'user_message_ambiguous': True, 'is_follow_up': False, 'info_source': None, 'rewritten_query': None}
+2026-03-04 15:03:18,111 [32mINFO[0m:     Query is ambiguous. We will reach back to user.
+2026-03-04 15:03:18,675 [32mINFO[0m:     [31m26110: [36m[✅] 👾 TOPIC DETECTED: [0mit took [33m1.0612s ⏱. [0m{'topic': 'ahorro_e_inversion', 'topic_confidence': 1.0, 'user_message_ambiguous': False, 'is_follow_up': False, 'info_source': 'rag', 'rewritten_query': '¿Qué es un depósito a plazo fijo?'}
+2026-03-04 15:03:18,676 [32mINFO[0m:     We will use RAG to answer the query.
+2026-03-04 15:03:20,106 [32mINFO[0m:     [33mEmbedded number of queries: 1, each with 384 dimensions[0m
+2026-03-04 15:03:20,106 [32mINFO[0m:     [36m[✅] 🧰 Embedding time: [0mit took [33m1.4302s ⏱. 
+2026-03-04 15:03:23,672 [32mINFO[0m:     [31m26110: [36m[✅] 🧰 RAG ACHIEVED: [0mit took [33m4.9960s ⏱. 
+2026-03-04 15:03:42,837 [32mINFO[0m:     [31m26110: [36m[✅] 👾 QUERY ANSWERED: [0mit took [33m19.1619s ⏱. 
+2026-03-04 15:03:42,841 [32mINFO[0m:     [31m26110: [36m[✅] 💿 MEMORY UPDATED: [0mit took [33m0.0029s ⏱. [0mSession 26110: updated with TTL of 900 seconds.
+2026-03-04 15:04:05,433 [32mINFO[0m:     [32m==================================================
+2026-03-04 15:04:05,433 [32mINFO[0m:     [32m[🤖] Endpoint POST /conversation reached
+2026-03-04 15:04:05,433 [32mINFO[0m:     [32m==================================================[0m
+2026-03-04 15:04:05,439 [32mINFO[0m:     [31m24385: [0mQue es un deposito a plazo fijo.
+2026-03-04 15:04:06,075 [32mINFO[0m:     [31m24385: [36m[✅] 👾 INTENTION DETECTED: [0mit took [33m0.6357s ⏱. [0m{'intencion_actual': 'preguntas', 'confianza_en_la_intencion': 1.0, 'slots_requeridos': {}}
+2026-03-04 15:04:06,075 [32mINFO[0m:     Intent is 'preguntas'. We will now read memory.
+2026-03-04 15:04:06,077 [32mINFO[0m:     [31m24385: [36m[✅] 💿 MEMORY READ: [0mit took [33m0.0014s ⏱. [0mSession 24385: read and loaded.
+2026-03-04 15:04:13,460 [32mINFO[0m:     [31m24385: [36m[✅] 👾 TOPIC DETECTED: [0mit took [33m8.0207s ⏱. [0m{'topic': 'ahorro_e_inversion', 'topic_confidence': 1.0, 'user_message_ambiguous': False, 'is_follow_up': False, 'info_source': 'rag', 'rewritten_query': '¿Qué es un depósito a plazo fijo?'}
+2026-03-04 15:04:13,461 [32mINFO[0m:     We will use RAG to answer the query.
+2026-03-04 15:04:14,678 [32mINFO[0m:     [33mEmbedded number of queries: 1, each with 384 dimensions[0m
+2026-03-04 15:04:14,678 [32mINFO[0m:     [36m[✅] 🧰 Embedding time: [0mit took [33m1.2169s ⏱. 
+2026-03-04 15:04:18,612 [32mINFO[0m:     [31m24385: [36m[✅] 🧰 RAG ACHIEVED: [0mit took [33m5.1506s ⏱. 
+2026-03-04 15:04:42,659 [32mINFO[0m:     [31m24385: [36m[✅] 👾 QUERY ANSWERED: [0mit took [33m24.0436s ⏱. 
+2026-03-04 15:04:42,663 [32mINFO[0m:     [31m24385: [36m[✅] 💿 MEMORY UPDATED: [0mit took [33m0.0032s ⏱. [0mSession 24385: updated with TTL of 900 seconds.
+2026-03-04 15:04:54,973 [32mINFO[0m:     [32m==================================================
+2026-03-04 15:04:54,973 [32mINFO[0m:     [32m[🤖] Endpoint POST /conversation reached
+2026-03-04 15:04:54,973 [32mINFO[0m:     [32m==================================================[0m
+2026-03-04 15:04:54,977 [32mINFO[0m:     [31m24385: [0m¿Cual credito puedo pedirme para prestarme una casa?.
+2026-03-04 15:04:55,645 [32mINFO[0m:     [31m24385: [36m[✅] 👾 INTENTION DETECTED: [0mit took [33m0.6676s ⏱. [0m{'intencion_actual': 'preguntas', 'confianza_en_la_intencion': 0.8, 'slots_requeridos': {'rag_context': True}}
+2026-03-04 15:04:55,645 [32mINFO[0m:     Intent is 'preguntas'. We will now read memory.
+2026-03-04 15:04:55,646 [32mINFO[0m:     [31m24385: [36m[✅] 💿 MEMORY READ: [0mit took [33m0.0005s ⏱. [0mSession 24385: read and loaded.
+2026-03-04 15:05:14,389 [32mINFO[0m:     [31m24385: [36m[✅] 👾 TOPIC DETECTED: [0mit took [33m19.4115s ⏱. [0m{'topic': 'creditos', 'topic_confidence': 1.0, 'user_message_ambiguous': False, 'is_follow_up': False, 'info_source': 'rag', 'rewritten_query': '¿Qué tipo de crédito puedo solicitar para financiar la compra de una casa?'}
+2026-03-04 15:05:14,389 [32mINFO[0m:     We will use RAG to answer the query.
+2026-03-04 15:05:15,639 [32mINFO[0m:     [33mEmbedded number of queries: 1, each with 384 dimensions[0m
+2026-03-04 15:05:15,639 [32mINFO[0m:     [36m[✅] 🧰 Embedding time: [0mit took [33m1.2487s ⏱. 
+2026-03-04 15:05:19,587 [32mINFO[0m:     [31m24385: [36m[✅] 🧰 RAG ACHIEVED: [0mit took [33m5.1963s ⏱. 
+2026-03-04 15:05:58,825 [32mINFO[0m:     [31m24385: [36m[✅] 👾 QUERY ANSWERED: [0mit took [33m39.2352s ⏱. 
+2026-03-04 15:05:58,830 [32mINFO[0m:     [31m24385: [36m[✅] 💿 MEMORY UPDATED: [0mit took [33m0.0039s ⏱. [0mSession 24385: updated with TTL of 900 seconds.
