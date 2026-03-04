@@ -3,6 +3,7 @@ import re
 import json
 from typing import Any
 from colorama import Fore, Style
+from time import perf_counter
 
 # LangGraph
 from src.models.state import ChatState
@@ -62,6 +63,9 @@ def _build_prompt(user_message_text: str) -> str:
     return system_prompt
 
 def intent_detect(state: ChatState):
+    # Timer
+    state["start_timer_intent"] = perf_counter()
+
     # Validate input
     if state["user_message_format"] == "text":
         validator = TextValidator(state["user_message"], format="text", max_size=MAX_TEXT_SIZE)
@@ -74,12 +78,13 @@ def intent_detect(state: ChatState):
     if state["user_message_format"] == "audio":
         user_message_text: str = convert_audio_to_text(user_message_audio)
     state["user_message_str"] = user_message_text
+    logger.info(Fore.RED + f"{state['user_session_id']}: " + Style.RESET_ALL + f"{state['user_message_str']}")
 
     # Build prompt and call llm
     intent_prompt: str = _build_prompt(user_message_text)
     response_raw: str = _call_llm(intent_prompt)
     response_obj: object = _extract_json_from_response(response_raw)
-    logger.info(Fore.CYAN + "[✅] 👾 INTENTION DETECTED: " + Style.RESET_ALL + f"{response_obj}")
+    logger.info(Fore.RED + f"{state['user_session_id']}: " + Fore.CYAN + f"[✅] 👾 INTENTION DETECTED: " + Style.RESET_ALL + "it took " + Fore.YELLOW + f"{perf_counter() - state['start_timer_intent']:.4f}s ⏱. " + Style.RESET_ALL + f"{response_obj}")
 
     # Update el estado
     state["llm_intent_response"] = response_obj["intencion_actual"]

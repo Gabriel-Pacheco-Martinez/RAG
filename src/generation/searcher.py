@@ -36,9 +36,17 @@ class Searcher():
         self.reranker_model = CrossEncoder(RERANKER_MODEL)
         self.threshold = threshold
 
+    def _embed_sparse(self, query_text: str) -> SparseVector:
+        sparse_embedding = next(self.sparse_model.embed([query_text]))
+        
+        return SparseVector(
+            indices=sparse_embedding.indices.tolist(),
+            values=sparse_embedding.values.tolist()
+        )
+
     def _rerank_vectors(self, hits: object, query_text: str, level: str):
         # Check where the model is running
-        logger.info("The reranker model is running on: %s", self.reranker_model.model.device)
+        # TODO: logger.info("The reranker model is running on: %s", self.reranker_model.model.device)
 
         # Prepare query-document pairs
         pairs = [
@@ -53,11 +61,13 @@ class Searcher():
 
         # Get the top 3 points
         top_points = [point for point, _ in rescored[:3]]
-        logger.info(Fore.LIGHTYELLOW_EX + f"Top 3 chunks selected {level}: " + Style.RESET_ALL + f"{top_points}")
+        # TODO: logger.info(Fore.LIGHTYELLOW_EX + f"Top 3 chunks selected {level}: " + Style.RESET_ALL + f"{top_points}")
 
         return top_points
     
     def _retreive_best_texto(self, embedded_query: np.ndarray, query_text:str, cap_id: int):
+        sparse_vector = self._embed_sparse(query_text)
+
         hits = self.client.query_points(
             collection_name="textos",
             prefetch=[
@@ -69,10 +79,7 @@ class Searcher():
                 ),
                 # Sparse vector search
                 Prefetch(
-                    query=Document(
-                        text=query_text,
-                        model="Qdrant/bm25"
-                    ),
+                    query=sparse_vector,
                     using="sparse",
                     limit=TOP_K_SPARSE
                 )
@@ -100,6 +107,7 @@ class Searcher():
         return best_text_vectors
 
     def _retreive_best_capitulo(self, embedded_query: np.ndarray, query_text:str, doc_id: str):
+        sparse_vector = self._embed_sparse(query_text)
         hits = self.client.query_points(
             collection_name="capitulos",
             prefetch=[
@@ -111,10 +119,11 @@ class Searcher():
                 ),
                 # Sparse vector search
                 Prefetch(
-                    query=Document(
-                        text=query_text,
-                        model="Qdrant/bm25"
-                    ),
+                    # query=Document(
+                    #     text=query_text,
+                    #     model="Qdrant/bm25"
+                    # ),
+                    query=sparse_vector,
                     using="sparse",
                     limit=TOP_K_SPARSE
                 )

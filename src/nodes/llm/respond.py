@@ -21,7 +21,7 @@ logger = logging.getLogger('uvicorn.error')
 
 def llm_query_response(state: ChatState) -> dict:
     # Start timer
-    state["start_time_2"] = perf_counter()
+    state["start_timer_llm_generate"] = perf_counter()
 
     # Prompt generation
     llm = LLM_Engine(LLM_SOURCE, GROQ_GENERATOR_MODEL, GEMINI_GENERATOR_MODEL)
@@ -50,7 +50,7 @@ def llm_query_response(state: ChatState) -> dict:
         "conversation_history": state["conversation_history"]
     }
 
-    # Say something
-    logger.info(Fore.CYAN + "[✅] 👾 QUERY ANSWERED: " + Style.RESET_ALL + f"it took {perf_counter() - state['start_time_2']:.4f}s ⏱")
+    # Timer
+    logger.info(Fore.RED + f"{state['user_session_id']}: " + Fore.CYAN + "[✅] 👾 QUERY ANSWERED: " + Style.RESET_ALL + "it took " + Fore.YELLOW + f"{perf_counter() - state['start_timer_llm_generate']:.4f}s ⏱. ")
 
     return state

@@ -1,5 +1,6 @@
 # General 
 from colorama import Fore, Style
+from time import perf_counter
 
 # LangGraph
 import re
@@ -60,12 +61,15 @@ def _call_llm(prompt: str) -> str:
         return GEMINI_GENERATOR_MODEL.invoke(prompt).content[0]["text"].strip()
 
 def topic_detect(state: ChatState) -> dict:
+    # Timer
+    state["start_timer_topic"] = perf_counter()
+
     # Armar prompt
     classify_base_prompt = load_prompt("classify_prompt.txt")
     classify_prompt = build_classify_prompt(state, classify_base_prompt)
     response_raw: str = _call_llm(classify_prompt)
     response_obj: object = _extract_json_from_response(response_raw)
-    logger.info(Fore.CYAN + "[✅] 👾 TOPIC DETECTED: " + Style.RESET_ALL + f"{response_obj}")
+    logger.info(Fore.RED + f"{state['user_session_id']}: " + Fore.CYAN + "[✅] 👾 TOPIC DETECTED: " + Style.RESET_ALL + "it took " + Fore.YELLOW + f"{perf_counter() - state['start_timer_intent']:.4f}s ⏱. " + Style.RESET_ALL + f"{response_obj}")
 
     # Update el estado
     state = _update_state(state, response_obj)

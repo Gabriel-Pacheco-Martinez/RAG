@@ -1,0 +1,26 @@
+{
+  "name": "rag-poc",
+  "version": "1.0.0",
+  "description": "<!-- PROJECT HEADER --> <h1> <p align=\"center\">   <img src=\"images/carlitosBNB.png\" alt=\"Project Logo\">   <br> Chatbot Carlitos BNB </p> </h1>",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Gabriel-Pacheco-Martinez/RAG.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Gabriel-Pacheco-Martinez/RAG/issues"
+  },
+  "homepage": "https://github.com/Gabriel-Pacheco-Martinez/RAG#readme",
+  "devDependencies": {
+    "artillery": "^2.0.30"
+  }
+}

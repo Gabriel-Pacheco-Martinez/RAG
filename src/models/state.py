@@ -2,8 +2,12 @@ from typing import Optional, TypedDict
 
 class ChatState(TypedDict):
     # Timer
-    start_time_1: float
-    start_time_2: float
+    start_timer_memory_read: float
+    start_timer_memory_update: float
+    start_timer_intent: float
+    start_timer_topic: float
+    start_timer_llm_rag: float
+    start_timer_llm_generate: float
 
     # Errors
     error: Optional[dict]

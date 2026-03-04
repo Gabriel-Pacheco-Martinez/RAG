@@ -1,5 +1,6 @@
 # General
 from colorama import Fore, Style
+from time import perf_counter
 
 # LangGraph
 from src.models.state import ChatState
@@ -16,6 +17,9 @@ import logging
 logger = logging.getLogger('uvicorn.error')
 
 def update_memory(state: ChatState) -> None:
+    # Timer
+    state["start_timer_memory_update"] = perf_counter()
+
     # Read Redis data
     session_id = str(state["user_session_id"])
     session_ttl = REDIS_TTL_SECONDS
@@ -34,6 +38,7 @@ def update_memory(state: ChatState) -> None:
     REDIS_CLIENT.hset(session_id, mapping=session_data)
     REDIS_CLIENT.expire(session_id, session_ttl)
 
-    logger.info(Fore.CYAN + f"[✅] 💿 MEMORY UPDATED: " + Style.RESET_ALL + f"Session {session_id}: updated with TTL of {session_ttl} seconds")
+    # Timer
+    logger.info(Fore.RED + f"{state['user_session_id']}: " + Fore.CYAN + "[✅] 💿 MEMORY UPDATED: " + Style.RESET_ALL + "it took " + Fore.YELLOW + f"{perf_counter() - state['start_timer_memory_update']:.4f}s ⏱. " + Style.RESET_ALL + f"Session {session_id}: updated with TTL of {session_ttl} seconds.")
     return state
 

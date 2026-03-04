@@ -33,7 +33,7 @@ logger = logging.getLogger('uvicorn.error')
 
 def llm_rag_retrieval(state: ChatState):
     # Start timer
-    state["start_time_1"] = perf_counter()
+    state["start_timer_llm_rag"] = perf_counter()
 
     # Query
     query = state["user_message"]
@@ -60,6 +60,6 @@ def llm_rag_retrieval(state: ChatState):
     state["context"] = context
 
     # Timer
-    logger.info(Fore.CYAN + "[✅] 🧰 RAG ACHIEVED: " + Style.RESET_ALL + f"it took {perf_counter() - state['start_time_1']:.4f}s ⏱")
+    logger.info(Fore.RED + f"{state['user_session_id']}: " +Fore.CYAN + "[✅] 🧰 RAG ACHIEVED: " + Style.RESET_ALL + "it took " + Fore.YELLOW + f"{perf_counter() - state['start_timer_llm_rag']:.4f}s ⏱. ")
 
     return state

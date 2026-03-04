@@ -1,205 +1,603 @@
-[32mINFO[0m:     Started server process [[36m19052[0m]
-[32mINFO[0m:     Waiting for application startup.
-[32mINFO[0m:     Application startup complete.
-[32mINFO[0m:     Uvicorn running on [1mhttp://0.0.0.0:8000[0m (Press CTRL+C to quit)
-[32mINFO[0m:     [32m==================================================
-[32mINFO[0m:     [32m[🤖] Endpoint POST /conversation reached
-[32mINFO[0m:     [32m==================================================[0m
-[32mINFO[0m:     [36m[✅] 👾 INTENTION DETECTED: [0m{'intencion_actual': 'preguntas', 'confianza_en_la_intencion': 0.9, 'slots_requeridos': {'rag_context': True}}
-[32mINFO[0m:     Intent is 'preguntas'. We will now read memory.
-[32mINFO[0m:     [36m[✅] 💿 MEMORY READ: [0mSession 24385: read and loaded
-[32mINFO[0m:     [36m[✅] 👾 TOPIC DETECTED: [0m{'topic': 'ahorro_e_inversion', 'topic_confidence': 1.0, 'user_message_ambiguous': False, 'is_follow_up': False, 'info_source': 'rag', 'rewritten_query': 'Dame informacion de depositos a plazo fijo'}
-[32mINFO[0m:     We will use RAG to answer the query.
-[32mINFO[0m:     The reranker model is running on: mps:0
-[32mINFO[0m:     [93mTop 3 chunks selected capitulos: [0m[ScoredPoint(id=8, version=8, score=1.0, payload={'cap_id': '8', 'doc_id': '2', 'titulo': ".DPF's", 'texto': 'DEPOSITOS A PLAZO FIJO - DPFs: Inversion de capital a plazo fijo para generar intereses. Dinero inmovilizado durante un periodo determinado.'}, vector=None, shard_key=None, order_value=None), ScoredPoint(id=7, version=7, score=0.6666667, payload={'cap_id': '7', 'doc_id': '2', 'titulo': '.CUENTA CORRIENTE', 'texto': 'CUENTA CORRIENTE: Administracion de fondos propios con chequera personal o empresarial. Adelanto de cuenta corriente, depositos en moneda nacional o extranjera. Para personas o empresas que requieren manejo de cheques y gestion de fondos propios. NO es un credito ni prestamo externo.'}, vector=None, shard_key=None, order_value=None), ScoredPoint(id=6, version=6, score=0.5, payload={'cap_id': '6', 'doc_id': '2', 'titulo': '.CAJAS DE AHORRO', 'texto': 'CAJAS DE AHORRO: Apertura de cuentas de ahorro. Para jovenes (banca joven), adultos (activa), mayores (senior). Incluye cuenta de ahorro eficaz, clasica y digital. NO cuenta corriente NO inversion.'}, vector=None, shard_key=None, order_value=None)]
-[32mINFO[0m:     The reranker model is running on: mps:0
-[32mINFO[0m:     [93mTop 3 chunks selected textos: [0m[ScoredPoint(id=29, version=29, score=0.6666667, payload={'texto_id': '29', 'texto': 'DEPOSITO EXTRANJERO: Invertir o depositar a plazo fijo en dolares americanos (USD), moneda extranjera. DPF en dolares.', 'cap_id': '8', 'cap_titulo': ".DPF's", 'cap_texto': 'DEPOSITOS A PLAZO FIJO - DPFs: Inversion de capital a plazo fijo para generar intereses. Dinero inmovilizado durante un periodo determinado.', 'doc_id': '2', 'doc_titulo': 'ahorro_e_inversion', 'doc_resumen': 'Caja de ahorro, cuenta corriente y depositos a plazo fijo. Inversion de ahorros. Banca Joven, Banca Activa, Banca Senior, Ahorro Digital y cuenta Eficaz.'}, vector=None, shard_key=None, order_value=None), ScoredPoint(id=30, version=30, score=1.0, payload={'texto_id': '30', 'texto': 'DEPOSITO NACIONAL: Invertir o depositar a plazo fijo en bolivianos (Bs), moneda nacional. DPF en bolivianos.', 'cap_id': '8', 'cap_titulo': ".DPF's", 'cap_texto': 'DEPOSITOS A PLAZO FIJO - DPFs: Inversion de capital a plazo fijo para generar intereses. Dinero inmovilizado durante un periodo determinado.', 'doc_id': '2', 'doc_titulo': 'ahorro_e_inversion', 'doc_resumen': 'Caja de ahorro, cuenta corriente y depositos a plazo fijo. Inversion de ahorros. Banca Joven, Banca Activa, Banca Senior, Ahorro Digital y cuenta Eficaz.'}, vector=None, shard_key=None, order_value=None)]
-[32mINFO[0m:     [36m[✅] 🧰 RAG ACHIEVED: [0mit took 6.2942s ⏱
-[32mINFO[0m:     [36m[✅] 👾 QUERY ANSWERED: [0mit took 0.7829s ⏱
-[32mINFO[0m:     [36m[✅] 💿 MEMORY UPDATED: [0mSession 24385: updated with TTL of 900 seconds
-[32mINFO[0m:     Shutting down
-[32mINFO[0m:     Waiting for application shutdown.
-[32mINFO[0m:     Application shutdown complete.
-[32mINFO[0m:     Finished server process [[36m19052[0m]
-[32mINFO[0m:     Will watch for changes in these directories: ['/Users/gabriel/Documents/BNB/Proyectos/rag-poc']
-[32mINFO[0m:     Uvicorn running on [1mhttp://0.0.0.0:8000[0m (Press CTRL+C to quit)
-[32mINFO[0m:     Started reloader process [[36m[1m19248[0m] using [36m[1mStatReload[0m
-[32mINFO[0m:     Started server process [[36m19266[0m]
+[32mINFO[0m:     Started server process [[36m72662[0m]
 [32mINFO[0m:     Waiting for application startup.
 [32mINFO[0m:     Application startup complete.
 [32mINFO[0m:     [32m==================================================
 [32mINFO[0m:     [32m[🤖] Endpoint POST /conversation reached
 [32mINFO[0m:     [32m==================================================[0m
-[32mINFO[0m:     [36m[✅] 👾 INTENTION DETECTED: [0m{'intencion_actual': 'preguntas', 'confianza_en_la_intencion': 0.9, 'slots_requeridos': {'rag_context': True}}
-[32mINFO[0m:     Intent is 'preguntas'. We will now read memory.
-[31mERROR[0m:    [❌] Workflow failed at {'node': 'read_memory', 'type': 'ConnectionError', 'message': 'Error 61 connecting to localhost:6379. Connection refused.'}
 [32mINFO[0m:     [32m==================================================
 [32mINFO[0m:     [32m[🤖] Endpoint POST /conversation reached
 [32mINFO[0m:     [32m==================================================[0m
-[32mINFO[0m:     [36m[✅] 👾 INTENTION DETECTED: [0m{'intencion_actual': 'preguntas', 'confianza_en_la_intencion': 0.9, 'slots_requeridos': {'rag_context': True}}
-[32mINFO[0m:     Intent is 'preguntas'. We will now read memory.
-[31mERROR[0m:    [❌] Workflow failed at {'node': 'read_memory', 'type': 'ConnectionError', 'message': 'Error 61 connecting to localhost:6379. Connection refused.'}
-[32mINFO[0m:     Shutting down
-[32mINFO[0m:     Waiting for application shutdown.
-[32mINFO[0m:     Application shutdown complete.
-[32mINFO[0m:     Finished server process [[36m19266[0m]
-[32mINFO[0m:     Stopping reloader process [[36m[1m19248[0m]
-[32mINFO[0m:     Will watch for changes in these directories: ['/Users/gabriel/Documents/BNB/Proyectos/rag-poc']
-[32mINFO[0m:     Uvicorn running on [1mhttp://0.0.0.0:8000[0m (Press CTRL+C to quit)
-[32mINFO[0m:     Started reloader process [[36m[1m20150[0m] using [36m[1mStatReload[0m
-[32mINFO[0m:     Started server process [[36m20169[0m]
-[32mINFO[0m:     Waiting for application startup.
-[32mINFO[0m:     Application startup complete.
-[32mINFO[0m:     [35m==================================================
-[32mINFO[0m:     [35m[📚] Endpoint GET /index reached
-[32mINFO[0m:     [35m==================================================[0m
-[32mINFO[0m:     ✅ Successfull chunking
-[32mINFO[0m:     ✅ Successfull embedding
-[32mINFO[0m:     ✅ Successfull indexing
-[33mWARNING[0m:  StatReload detected changes in 'src/index.py'. Reloading...
-[32mINFO[0m:     Shutting down
-[32mINFO[0m:     Waiting for application shutdown.
-[32mINFO[0m:     Application shutdown complete.
-[32mINFO[0m:     Finished server process [[36m20169[0m]
-[32mINFO[0m:     Started server process [[36m20226[0m]
-[32mINFO[0m:     Waiting for application startup.
-[32mINFO[0m:     Application startup complete.
-[33mWARNING[0m:  StatReload detected changes in 'src/index.py'. Reloading...
-[32mINFO[0m:     Shutting down
-[32mINFO[0m:     Waiting for application shutdown.
-[32mINFO[0m:     Application shutdown complete.
-[32mINFO[0m:     Finished server process [[36m20226[0m]
-[32mINFO[0m:     Started server process [[36m20269[0m]
-[32mINFO[0m:     Waiting for application startup.
-[32mINFO[0m:     Application startup complete.
-[32mINFO[0m:     Shutting down
-[32mINFO[0m:     Waiting for application shutdown.
-[32mINFO[0m:     Application shutdown complete.
-[32mINFO[0m:     Finished server process [[36m20269[0m]
-[32mINFO[0m:     Stopping reloader process [[36m[1m20150[0m]
-[32mINFO[0m:     Will watch for changes in these directories: ['/Users/gabriel/Documents/BNB/Proyectos/rag-poc']
-[32mINFO[0m:     Uvicorn running on [1mhttp://0.0.0.0:8000[0m (Press CTRL+C to quit)
-[32mINFO[0m:     Started reloader process [[36m[1m20911[0m] using [36m[1mStatReload[0m
-[32mINFO[0m:     Started server process [[36m20929[0m]
-[32mINFO[0m:     Waiting for application startup.
-[32mINFO[0m:     Application startup complete.
-[32mINFO[0m:     [35m==================================================
-[32mINFO[0m:     [35m[📚] Endpoint GET /index reached
-[32mINFO[0m:     [35m==================================================[0m
-[32mINFO[0m:     ✅ Successfull chunking
-[32mINFO[0m:     ✅ Successfull embedding
-[32mINFO[0m:     ✅ Successfull indexing
-[33mWARNING[0m:  StatReload detected changes in 'app/endpoint.py'. Reloading...
-[32mINFO[0m:     Shutting down
-[32mINFO[0m:     Waiting for application shutdown.
-[32mINFO[0m:     Application shutdown complete.
-[32mINFO[0m:     Finished server process [[36m20929[0m]
-[32mINFO[0m:     Started server process [[36m20961[0m]
-[32mINFO[0m:     Waiting for application startup.
-[32mINFO[0m:     Application startup complete.
-[33mWARNING[0m:  StatReload detected changes in 'app/endpoint.py'. Reloading...
-[32mINFO[0m:     Shutting down
-[32mINFO[0m:     Waiting for application shutdown.
-[32mINFO[0m:     Application shutdown complete.
-[32mINFO[0m:     Finished server process [[36m20961[0m]
-[32mINFO[0m:     Started server process [[36m20979[0m]
-[32mINFO[0m:     Waiting for application startup.
-[32mINFO[0m:     Application startup complete.
-[33mWARNING[0m:  StatReload detected changes in 'src/indexing/chunker.py'. Reloading...
-[32mINFO[0m:     Shutting down
-[32mINFO[0m:     Waiting for application shutdown.
-[32mINFO[0m:     Application shutdown complete.
-[32mINFO[0m:     Finished server process [[36m20979[0m]
-[32mINFO[0m:     Started server process [[36m21077[0m]
-[32mINFO[0m:     Waiting for application startup.
-[32mINFO[0m:     Application startup complete.
-[32mINFO[0m:     [34m==================================================
-[32mINFO[0m:     [34m[📚] Endpoint GET /index reached
-[32mINFO[0m:     [34m==================================================[0m
-[32mINFO[0m:     ✅ Successfull chunking
-[32mINFO[0m:     ✅ Successfull embedding
-[32mINFO[0m:     ✅ Successfull indexing
-[33mWARNING[0m:  StatReload detected changes in 'app/endpoint.py'. Reloading...
-[32mINFO[0m:     Shutting down
-[32mINFO[0m:     Waiting for application shutdown.
-[32mINFO[0m:     Application shutdown complete.
-[32mINFO[0m:     Finished server process [[36m21077[0m]
-[32mINFO[0m:     Started server process [[36m21124[0m]
-[32mINFO[0m:     Waiting for application startup.
-[32mINFO[0m:     Application startup complete.
-[32mINFO[0m:     [32m==================================================
-[32mINFO[0m:     [32m[📚] Endpoint GET /index reached
-[32mINFO[0m:     [32m==================================================[0m
-[32mINFO[0m:     ✅ Successfull chunking
-[32mINFO[0m:     ✅ Successfull embedding
-[32mINFO[0m:     ✅ Successfull indexing
-[33mWARNING[0m:  StatReload detected changes in 'app/endpoint.py'. Reloading...
-[32mINFO[0m:     Shutting down
-[32mINFO[0m:     Waiting for application shutdown.
-[32mINFO[0m:     Application shutdown complete.
-[32mINFO[0m:     Finished server process [[36m21124[0m]
-[32mINFO[0m:     Started server process [[36m21165[0m]
-[32mINFO[0m:     Waiting for application startup.
-[32mINFO[0m:     Application startup complete.
-[32mINFO[0m:     [32m==================================================
-[32mINFO[0m:     [32m[📚] Endpoint GET /index reached
-[32mINFO[0m:     [32m==================================================[0m
-[32mINFO[0m:     ✅ Successfull chunking
-[32mINFO[0m:     ✅ Successfull embedding
-[32mINFO[0m:     ✅ Successfull indexing
-[33mWARNING[0m:  StatReload detected changes in 'src/index.py'. Reloading...
-[32mINFO[0m:     Shutting down
-[32mINFO[0m:     Waiting for application shutdown.
-[32mINFO[0m:     Application shutdown complete.
-[32mINFO[0m:     Finished server process [[36m21165[0m]
-[33mWARNING[0m:  StatReload detected changes in 'app/endpoint.py'. Reloading...
-[32mINFO[0m:     Started server process [[36m21213[0m]
-[32mINFO[0m:     Waiting for application startup.
-[32mINFO[0m:     Application startup complete.
-[32mINFO[0m:     [32m==================================================
-[32mINFO[0m:     [32m[📚] Endpoint GET /index reached
-[32mINFO[0m:     [32m==================================================[0m
-[32mINFO[0m:     ✅ Successfull chunking
-[32mINFO[0m:     ✅ Successfull embedding
-[32mINFO[0m:     ✅ Successfull indexing
-[33mWARNING[0m:  StatReload detected changes in 'src/index.py'. Reloading...
-[32mINFO[0m:     Shutting down
-[32mINFO[0m:     Waiting for application shutdown.
-[32mINFO[0m:     Application shutdown complete.
-[32mINFO[0m:     Finished server process [[36m21213[0m]
-[32mINFO[0m:     Started server process [[36m21242[0m]
-[32mINFO[0m:     Waiting for application startup.
-[32mINFO[0m:     Application startup complete.
-[32mINFO[0m:     [32m==================================================
-[32mINFO[0m:     [32m[📚] Endpoint GET /index reached
-[32mINFO[0m:     [32m==================================================[0m
-[32mINFO[0m:     ✅ Successfull chunking
-[32mINFO[0m:     ✅ Successfull embedding
-[32mINFO[0m:     ✅ Successfull indexing
 [32mINFO[0m:     [32m==================================================
 [32mINFO[0m:     [32m[🤖] Endpoint POST /conversation reached
 [32mINFO[0m:     [32m==================================================[0m
-[32mINFO[0m:     [36m[✅] 👾 INTENTION DETECTED: [0m{'intencion_actual': 'preguntas', 'confianza_en_la_intencion': 0.9, 'slots_requeridos': {'rag_context': True}}
-[32mINFO[0m:     Intent is 'preguntas'. We will now read memory.
-[31mERROR[0m:    [❌] Workflow failed at {'node': 'read_memory', 'type': 'ConnectionError', 'message': 'Error 61 connecting to localhost:6379. Connection refused.'}
+[31mERROR[0m:    [❌] Workflow failed at {'node': 'intent_detect', 'type': 'ChatGoogleGenerativeAIError', 'message': "Error calling model 'gemma-3-1b-it' (INVALID_ARGUMENT): 400 INVALID_ARGUMENT. {'error': {'code': 400, 'message': 'Developer instruction is not enabled for models/gemma-3-1b-it', 'status': 'INVALID_ARGUMENT'}}"}
+[31mERROR[0m:    [❌] Workflow failed at {'node': 'intent_detect', 'type': 'ChatGoogleGenerativeAIError', 'message': "Error calling model 'gemma-3-1b-it' (INVALID_ARGUMENT): 400 INVALID_ARGUMENT. {'error': {'code': 400, 'message': 'Developer instruction is not enabled for models/gemma-3-1b-it', 'status': 'INVALID_ARGUMENT'}}"}
+[31mERROR[0m:    [❌] Workflow failed at {'node': 'intent_detect', 'type': 'ChatGoogleGenerativeAIError', 'message': "Error calling model 'gemma-3-1b-it' (INVALID_ARGUMENT): 400 INVALID_ARGUMENT. {'error': {'code': 400, 'message': 'Developer instruction is not enabled for models/gemma-3-1b-it', 'status': 'INVALID_ARGUMENT'}}"}
+[32mINFO[0m:     Shutting down
+[32mINFO[0m:     Waiting for application shutdown.
+[32mINFO[0m:     Application shutdown complete.
+[32mINFO[0m:     Finished server process [[36m72662[0m]
+[32mINFO[0m:     Started server process [[36m72819[0m]
+[32mINFO[0m:     Waiting for application startup.
+[32mINFO[0m:     Application startup complete.
 [32mINFO[0m:     [32m==================================================
 [32mINFO[0m:     [32m[🤖] Endpoint POST /conversation reached
 [32mINFO[0m:     [32m==================================================[0m
-[32mINFO[0m:     [36m[✅] 👾 INTENTION DETECTED: [0m{'intencion_actual': 'preguntas', 'confianza_en_la_intencion': 0.9, 'slots_requeridos': {'rag_context': True}}
+[32mINFO[0m:     [32m==================================================
+[32mINFO[0m:     [32m[🤖] Endpoint POST /conversation reached
+[32mINFO[0m:     [32m==================================================[0m
+[32mINFO[0m:     [32m==================================================
+[32mINFO[0m:     [32m[🤖] Endpoint POST /conversation reached
+[32mINFO[0m:     [32m==================================================[0m
+[31mERROR[0m:    [❌] Workflow failed at {'node': 'intent_detect', 'type': 'TypeError', 'message': "string indices must be integers, not 'str'"}
+[31mERROR[0m:    [❌] Workflow failed at {'node': 'intent_detect', 'type': 'TypeError', 'message': "string indices must be integers, not 'str'"}
+[31mERROR[0m:    [❌] Workflow failed at {'node': 'intent_detect', 'type': 'TypeError', 'message': "string indices must be integers, not 'str'"}
+[32mINFO[0m:     Shutting down
+[32mINFO[0m:     Waiting for application shutdown.
+[32mINFO[0m:     Application shutdown complete.
+[32mINFO[0m:     Finished server process [[36m72819[0m]
+[32mINFO[0m:     Started server process [[36m72936[0m]
+[32mINFO[0m:     Waiting for application startup.
+[32mINFO[0m:     Application startup complete.
+[32mINFO[0m:     Shutting down
+[32mINFO[0m:     Waiting for application shutdown.
+[32mINFO[0m:     Application shutdown complete.
+[32mINFO[0m:     Finished server process [[36m72936[0m]
+[32mINFO[0m:     Started server process [[36m72955[0m]
+[32mINFO[0m:     Waiting for application startup.
+[32mINFO[0m:     Application startup complete.
+[32mINFO[0m:     Shutting down
+[32mINFO[0m:     Waiting for application shutdown.
+[32mINFO[0m:     Application shutdown complete.
+[32mINFO[0m:     Finished server process [[36m72955[0m]
+[32mINFO[0m:     Started server process [[36m72969[0m]
+[32mINFO[0m:     Waiting for application startup.
+[32mINFO[0m:     Application startup complete.
+[32mINFO[0m:     [32m==================================================
+[32mINFO[0m:     [32m[🤖] Endpoint POST /conversation reached
+[32mINFO[0m:     [32m==================================================
+[32mINFO[0m:     [32m==================================================[0m
+[32mINFO[0m:     [32m[🤖] Endpoint POST /conversation reached
+[32mINFO[0m:     [32m==================================================[0m
+[32mINFO[0m:     [32m==================================================
+[32mINFO[0m:     [32m[🤖] Endpoint POST /conversation reached
+[32mINFO[0m:     [32m==================================================[0m
+[32mINFO[0m:     [36m[✅] 👾 INTENTION DETECTED: [0mit took [33m1.8527s ⏱. [0m{'intencion_actual': 'pague con qr', 'confianza_en_la_intencion': 0.95, 'slots_requeridos': ['monto']}
+[32mINFO[0m:     Intent is not 'preguntas'.
+[32mINFO[0m:     [36m[✅] 👾 INTENTION DETECTED: [0mit took [33m1.7668s ⏱. [0m{'intencion_actual': 'preguntas', 'confianza_en_la_intencion': 0.9, 'slots_requeridos': {'rag_context': True}}
 [32mINFO[0m:     Intent is 'preguntas'. We will now read memory.
-[32mINFO[0m:     [36m[✅] 💿 MEMORY READ: [0mSession 24385: created with TTL of 900 seconds
-[32mINFO[0m:     [36m[✅] 👾 TOPIC DETECTED: [0m{'topic': 'ahorro_e_inversion', 'topic_confidence': 1.0, 'user_message_ambiguous': False, 'is_follow_up': False, 'info_source': 'rag', 'rewritten_query': 'informacion de depositos a plazo fijo'}
+[32mINFO[0m:     [36m[✅] 💿 MEMORY READ: [0mit took [33m0.0041s ⏱. [0mSession 82632: created with TTL of 900 seconds.
+[32mINFO[0m:     [36m[✅] 👾 INTENTION DETECTED: [0mit took [33m1.9463s ⏱. [0m{'intencion_actual': 'preguntas', 'confianza_en_la_intencion': 0.9, 'slots_requeridos': {'rag_context': True}}
+[32mINFO[0m:     Intent is 'preguntas'. We will now read memory.
+[32mINFO[0m:     [36m[✅] 💿 MEMORY READ: [0mit took [33m0.0356s ⏱. [0mSession 70324: created with TTL of 900 seconds.
+[32mINFO[0m:     [36m[✅] 👾 TOPIC DETECTED: [0mit took [33m2.9782s ⏱. [0m{'topic': 'servicios', 'topic_confidence': 0.75, 'user_message_ambiguous': False, 'is_follow_up': True, 'info_source': 'memory', 'rewritten_query': None}
+[32mINFO[0m:     We will use memory to answer the query.
+[32mINFO[0m:     [36m[✅] 👾 TOPIC DETECTED: [0mit took [33m3.2305s ⏱. [0m{'topic': 'crédito de consumo con financiamiento 7x5 basado en salario', 'topic_confidence': 0.95, 'user_message_ambiguous': False, 'is_follow_up': True, 'info_source': 'memory', 'rewritten_query': 'crédito de consumo con financiamiento 7x5 basado en salario'}
+[32mINFO[0m:     We will use memory to answer the query.
+[31mERROR[0m:    [❌] Workflow failed at {'node': 'llm_query_response', 'type': 'KeyError', 'message': "'document'"}
+[31mERROR[0m:    [❌] Workflow failed at {'node': 'llm_query_response', 'type': 'KeyError', 'message': "'document'"}
+[32mINFO[0m:     Shutting down
+[32mINFO[0m:     Waiting for application shutdown.
+[32mINFO[0m:     Application shutdown complete.
+[32mINFO[0m:     Finished server process [[36m72969[0m]
+[32mINFO[0m:     Started server process [[36m73261[0m]
+[32mINFO[0m:     Waiting for application startup.
+[32mINFO[0m:     Application startup complete.
+[32mINFO[0m:     [32m==================================================
+[32mINFO[0m:     [32m[🤖] Endpoint POST /conversation reached
+[32mINFO[0m:     [32m==================================================[0m
+[32mINFO[0m:     [32m==================================================
+[32mINFO[0m:     [32m[🤖] Endpoint POST /conversation reached
+[32mINFO[0m:     [32m==================================================[0m
+[32mINFO[0m:     [32m==================================================
+[32mINFO[0m:     [32m[🤖] Endpoint POST /conversation reached
+[32mINFO[0m:     [32m==================================================[0m
+[32mINFO[0m:     [36m[✅] 👾 INTENTION DETECTED: [0mit took [33m0.6948s ⏱. [0m{'intencion_actual': 'preguntas', 'confianza_en_la_intencion': 1.0, 'slots_requeridos': {}}
+[32mINFO[0m:     Intent is 'preguntas'. We will now read memory.
+[32mINFO[0m:     [36m[✅] 💿 MEMORY READ: [0mit took [33m0.0056s ⏱. [0mSession 67694: created with TTL of 900 seconds.
+[32mINFO[0m:     [36m[✅] 👾 INTENTION DETECTED: [0mit took [33m0.5529s ⏱. [0m{'intencion_actual': 'preguntas', 'confianza_en_la_intencion': 1.0, 'slots_requeridos': {}}
+[32mINFO[0m:     Intent is 'preguntas'. We will now read memory.
+[32mINFO[0m:     [36m[✅] 💿 MEMORY READ: [0mit took [33m0.0026s ⏱. [0mSession 56662: created with TTL of 900 seconds.
+[32mINFO[0m:     [36m[✅] 👾 INTENTION DETECTED: [0mit took [33m0.4565s ⏱. [0m{'intencion_actual': 'preguntas', 'confianza_en_la_intencion': 1.0, 'slots_requeridos': {}}
+[32mINFO[0m:     Intent is 'preguntas'. We will now read memory.
+[32mINFO[0m:     [36m[✅] 💿 MEMORY READ: [0mit took [33m0.0021s ⏱. [0mSession 93490: created with TTL of 900 seconds.
+[32mINFO[0m:     [36m[✅] 👾 TOPIC DETECTED: [0mit took [33m1.2084s ⏱. [0m{'topic': 'seguros', 'topic_confidence': 1.0, 'user_message_ambiguous': False, 'is_follow_up': False, 'info_source': 'rag', 'rewritten_query': '¿Qué tipo de seguro ofrece el banco para adultos mayores?'}
 [32mINFO[0m:     We will use RAG to answer the query.
 [32mINFO[0m:     [33mEmbedded number of queries: 1, each with 384 dimensions[0m
-[32mINFO[0m:     The reranker model is running on: mps:0
-[32mINFO[0m:     [93mTop 3 chunks selected capitulos: [0m[ScoredPoint(id=8, version=8, score=1.0, payload={'cap_id': '8', 'doc_id': '2', 'titulo': ".DPF's", 'texto': 'DEPOSITOS A PLAZO FIJO - DPFs: Inversion de capital a plazo fijo para generar intereses. Dinero inmovilizado durante un periodo determinado.'}, vector=None, shard_key=None, order_value=None), ScoredPoint(id=7, version=7, score=0.6666667, payload={'cap_id': '7', 'doc_id': '2', 'titulo': '.CUENTA CORRIENTE', 'texto': 'CUENTA CORRIENTE: Administracion de fondos propios con chequera personal o empresarial. Adelanto de cuenta corriente, depositos en moneda nacional o extranjera. Para personas o empresas que requieren manejo de cheques y gestion de fondos propios. NO es un credito ni prestamo externo.'}, vector=None, shard_key=None, order_value=None), ScoredPoint(id=6, version=6, score=0.5, payload={'cap_id': '6', 'doc_id': '2', 'titulo': '.CAJAS DE AHORRO', 'texto': 'CAJAS DE AHORRO: Apertura de cuentas de ahorro. Para jovenes (banca joven), adultos (activa), mayores (senior). Incluye cuenta de ahorro eficaz, clasica y digital. NO cuenta corriente NO inversion.'}, vector=None, shard_key=None, order_value=None)]
-[32mINFO[0m:     The reranker model is running on: mps:0
-[32mINFO[0m:     [93mTop 3 chunks selected textos: [0m[ScoredPoint(id=29, version=29, score=0.6666667, payload={'texto_id': '29', 'texto': 'DEPOSITO EXTRANJERO: Invertir o depositar a plazo fijo en dolares americanos (USD), moneda extranjera. DPF en dolares.', 'cap_id': '8', 'cap_titulo': ".DPF's", 'cap_texto': 'DEPOSITOS A PLAZO FIJO - DPFs: Inversion de capital a plazo fijo para generar intereses. Dinero inmovilizado durante un periodo determinado.', 'doc_id': '2', 'doc_titulo': 'ahorro_e_inversion', 'doc_resumen': 'Caja de ahorro, cuenta corriente y depositos a plazo fijo. Inversion de ahorros. Banca Joven, Banca Activa, Banca Senior, Ahorro Digital y cuenta Eficaz.'}, vector=None, shard_key=None, order_value=None), ScoredPoint(id=30, version=30, score=1.0, payload={'texto_id': '30', 'texto': 'DEPOSITO NACIONAL: Invertir o depositar a plazo fijo en bolivianos (Bs), moneda nacional. DPF en bolivianos.', 'cap_id': '8', 'cap_titulo': ".DPF's", 'cap_texto': 'DEPOSITOS A PLAZO FIJO - DPFs: Inversion de capital a plazo fijo para generar intereses. Dinero inmovilizado durante un periodo determinado.', 'doc_id': '2', 'doc_titulo': 'ahorro_e_inversion', 'doc_resumen': 'Caja de ahorro, cuenta corriente y depositos a plazo fijo. Inversion de ahorros. Banca Joven, Banca Activa, Banca Senior, Ahorro Digital y cuenta Eficaz.'}, vector=None, shard_key=None, order_value=None)]
-[32mINFO[0m:     [36m[✅] 🧰 RAG ACHIEVED: [0mit took 5.3759s ⏱
-[32mINFO[0m:     [36m[✅] 👾 QUERY ANSWERED: [0mit took 0.6588s ⏱
-[32mINFO[0m:     [36m[✅] 💿 MEMORY UPDATED: [0mSession 24385: updated with TTL of 900 seconds
+[32mINFO[0m:     [36m[✅] 🧰 Embedding time: [0mit took [33m1.5425s ⏱. 
+[32mINFO[0m:     [36m[✅] 👾 TOPIC DETECTED: [0mit took [33m5.3198s ⏱. [0m{'topic': 'ahorro_e_inversion', 'topic_confidence': 1.0, 'user_message_ambiguous': False, 'is_follow_up': False, 'info_source': 'rag', 'rewritten_query': '¿Qué es un depósito a plazo fijo?'}
+[32mINFO[0m:     We will use RAG to answer the query.
+[32mINFO[0m:     [33mEmbedded number of queries: 1, each with 384 dimensions[0m
+[32mINFO[0m:     [36m[✅] 🧰 Embedding time: [0mit took [33m1.5857s ⏱. 
+[32mINFO[0m:     [36m[✅] 🧰 RAG ACHIEVED: [0mit took [33m6.5494s ⏱. 
+[32mINFO[0m:     [36m[✅] 🧰 RAG ACHIEVED: [0mit took [33m5.4257s ⏱. 
+[32mINFO[0m:     [36m[✅] 👾 QUERY ANSWERED: [0mit took [33m5.6522s ⏱. 
+[32mINFO[0m:     [36m[✅] 💿 MEMORY UPDATED: [0mit took [33m0.0039s ⏱. [0mSession 67694: updated with TTL of 900 seconds.
+[31mERROR[0m:    [❌] Workflow failed at {'node': 'topic_detect', 'type': 'RateLimitError', 'message': "Error code: 429 - {'error': {'message': 'Rate limit reached for model `llama-3.1-8b-instant` in organization `org_01kf1djpybejgv4bc7jdfxqxvv` service tier `on_demand` on tokens per minute (TPM): Limit 6000, Used 5119, Requested 1588. Please try again in 7.07s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}"}
+[32mINFO[0m:     Shutting down
+[32mINFO[0m:     Waiting for background tasks to complete. (CTRL+C to force quit)
+[32mINFO[0m:     [36m[✅] 👾 QUERY ANSWERED: [0mit took [33m32.0245s ⏱. 
+[32mINFO[0m:     [36m[✅] 💿 MEMORY UPDATED: [0mit took [33m0.0044s ⏱. [0mSession 56662: updated with TTL of 900 seconds.
+[32mINFO[0m:     Waiting for application shutdown.
+[32mINFO[0m:     Application shutdown complete.
+[32mINFO[0m:     Finished server process [[36m73261[0m]
+[32mINFO[0m:     Started server process [[36m73461[0m]
+[32mINFO[0m:     Waiting for application startup.
+[32mINFO[0m:     Application startup complete.
 [32mINFO[0m:     Shutting down
 [32mINFO[0m:     Waiting for application shutdown.
 [32mINFO[0m:     Application shutdown complete.
-[32mINFO[0m:     Finished server process [[36m21242[0m]
-[32mINFO[0m:     Stopping reloader process [[36m[1m20911[0m]
+[32mINFO[0m:     Finished server process [[36m73461[0m]
+[32mINFO[0m:     Started server process [[36m73490[0m]
+[32mINFO[0m:     Waiting for application startup.
+[32mINFO[0m:     Application startup complete.
+[32mINFO[0m:     Shutting down
+[32mINFO[0m:     Waiting for application shutdown.
+[32mINFO[0m:     Application shutdown complete.
+[32mINFO[0m:     Finished server process [[36m73490[0m]
+[32mINFO[0m:     Will watch for changes in these directories: ['/Users/gabriel/Documents/BNB/Proyectos/rag-poc']
+[32mINFO[0m:     Uvicorn running on [1mhttp://0.0.0.0:8000[0m (Press CTRL+C to quit)
+[32mINFO[0m:     Started reloader process [[36m[1m74117[0m] using [36m[1mStatReload[0m
+[32mINFO[0m:     Started server process [[36m74124[0m]
+[32mINFO[0m:     Waiting for application startup.
+[32mINFO[0m:     Application startup complete.
+[32mINFO[0m:     [32m==================================================
+[32mINFO[0m:     [32m[🤖] Endpoint POST /conversation reached
+[32mINFO[0m:     [32m==================================================[0m
+[32mINFO[0m:     [36m[✅] 👾 INTENTION DETECTED: [0mit took [33m0.5887s ⏱. [0m{'intencion_actual': 'preguntas', 'confianza_en_la_intencion': 0.9, 'slots_requeridos': {}}
+[32mINFO[0m:     Intent is 'preguntas'. We will now read memory.
+[32mINFO[0m:     [36m[✅] 💿 MEMORY READ: [0mit took [33m0.0044s ⏱. [0mSession 24385: created with TTL of 900 seconds.
+[32mINFO[0m:     [36m[✅] 👾 TOPIC DETECTED: [0mit took [33m1.1066s ⏱. [0m{'topic': 'ahorro_e_inversion', 'topic_confidence': 1.0, 'user_message_ambiguous': False, 'is_follow_up': False, 'info_source': 'rag', 'rewritten_query': 'Depositos a plazo fijo'}
+[32mINFO[0m:     We will use RAG to answer the query.
+[32mINFO[0m:     [33mEmbedded number of queries: 1, each with 384 dimensions[0m
+[32mINFO[0m:     [36m[✅] 🧰 Embedding time: [0mit took [33m1.4423s ⏱. 
+[32mINFO[0m:     [36m[✅] 🧰 RAG ACHIEVED: [0mit took [33m5.3239s ⏱. 
+[32mINFO[0m:     [36m[✅] 👾 QUERY ANSWERED: [0mit took [33m0.8047s ⏱. 
+[32mINFO[0m:     [36m[✅] 💿 MEMORY UPDATED: [0mit took [33m0.0019s ⏱. [0mSession 24385: updated with TTL of 900 seconds.
+[32mINFO[0m:     [32m==================================================
+[32mINFO[0m:     [32m[🤖] Endpoint POST /conversation reached
+[32mINFO[0m:     [32m==================================================[0m
+[32mINFO[0m:     [32m==================================================
+[32mINFO[0m:     [32m[🤖] Endpoint POST /conversation reached
+[32mINFO[0m:     [32m==================================================[0m
+[32mINFO[0m:     [36m[✅] 👾 INTENTION DETECTED: [0mit took [33m0.4600s ⏱. [0m{'intencion_actual': 'preguntas', 'confianza_en_la_intencion': 1.0, 'slots_requeridos': {}}
+[32mINFO[0m:     Intent is 'preguntas'. We will now read memory.
+[32mINFO[0m:     [36m[✅] 💿 MEMORY READ: [0mit took [33m0.0042s ⏱. [0mSession 31508: created with TTL of 900 seconds.
+[32mINFO[0m:     [32m==================================================
+[32mINFO[0m:     [32m[🤖] Endpoint POST /conversation reached
+[32mINFO[0m:     [32m==================================================[0m
+[32mINFO[0m:     [36m[✅] 👾 INTENTION DETECTED: [0mit took [33m0.4577s ⏱. [0m{'intencion_actual': 'preguntas', 'confianza_en_la_intencion': 1.0, 'slots_requeridos': {}}
+[32mINFO[0m:     Intent is 'preguntas'. We will now read memory.
+[32mINFO[0m:     [36m[✅] 💿 MEMORY READ: [0mit took [33m0.0019s ⏱. [0mSession 87427: created with TTL of 900 seconds.
+[32mINFO[0m:     [36m[✅] 👾 TOPIC DETECTED: [0mit took [33m0.9382s ⏱. [0m{'topic': 'ahorro_e_inversion', 'topic_confidence': 1.0, 'user_message_ambiguous': False, 'is_follow_up': False, 'info_source': 'rag', 'rewritten_query': '¿Qué es un depósito a plazo fijo?'}
+[32mINFO[0m:     We will use RAG to answer the query.
+[32mINFO[0m:     [36m[✅] 👾 INTENTION DETECTED: [0mit took [33m0.5347s ⏱. [0m{'intencion_actual': 'preguntas', 'confianza_en_la_intencion': 1.0, 'slots_requeridos': {}}
+[32mINFO[0m:     Intent is 'preguntas'. We will now read memory.
+[32mINFO[0m:     [36m[✅] 💿 MEMORY READ: [0mit took [33m0.0029s ⏱. [0mSession 56323: created with TTL of 900 seconds.
+[32mINFO[0m:     [33mEmbedded number of queries: 1, each with 384 dimensions[0m
+[32mINFO[0m:     [36m[✅] 🧰 Embedding time: [0mit took [33m1.3071s ⏱. 
+[32mINFO[0m:     [36m[✅] 👾 TOPIC DETECTED: [0mit took [33m5.2096s ⏱. [0m{'topic': 'seguros', 'topic_confidence': 1.0, 'user_message_ambiguous': False, 'is_follow_up': False, 'info_source': 'rag', 'rewritten_query': '¿Qué tipo de seguro ofrece el banco para adultos mayores?'}
+[32mINFO[0m:     We will use RAG to answer the query.
+[32mINFO[0m:     [36m[✅] 🧰 RAG ACHIEVED: [0mit took [33m5.1587s ⏱. 
+[32mINFO[0m:     [33mEmbedded number of queries: 1, each with 384 dimensions[0m
+[32mINFO[0m:     [36m[✅] 🧰 Embedding time: [0mit took [33m1.4593s ⏱. 
+[32mINFO[0m:     [36m[✅] 🧰 RAG ACHIEVED: [0mit took [33m4.9172s ⏱. 
+[32mINFO[0m:     [36m[✅] 👾 QUERY ANSWERED: [0mit took [33m2.5740s ⏱. 
+[32mINFO[0m:     [36m[✅] 💿 MEMORY UPDATED: [0mit took [33m0.0025s ⏱. [0mSession 87427: updated with TTL of 900 seconds.
+[31mERROR[0m:    [❌] Workflow failed at {'node': 'topic_detect', 'type': 'RateLimitError', 'message': "Error code: 429 - {'error': {'message': 'Rate limit reached for model `llama-3.1-8b-instant` in organization `org_01kf1djpybejgv4bc7jdfxqxvv` service tier `on_demand` on tokens per minute (TPM): Limit 6000, Used 5102, Requested 1588. Please try again in 6.9s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}"}
+[32mINFO[0m:     [36m[✅] 👾 QUERY ANSWERED: [0mit took [33m37.2328s ⏱. 
+[32mINFO[0m:     [36m[✅] 💿 MEMORY UPDATED: [0mit took [33m0.0022s ⏱. [0mSession 31508: updated with TTL of 900 seconds.
+[32mINFO[0m:     [32m==================================================
+[32mINFO[0m:     [32m[🤖] Endpoint POST /conversation reached
+[32mINFO[0m:     [32m==================================================[0m
+[32mINFO[0m:     [32m==================================================
+[32mINFO[0m:     [32m[🤖] Endpoint POST /conversation reached
+[32mINFO[0m:     [32m==================================================[0m
+[32mINFO[0m:     [36m[✅] 👾 INTENTION DETECTED: [0mit took [33m0.4880s ⏱. [0m{'intencion_actual': 'preguntas', 'confianza_en_la_intencion': 0.9, 'slots_requeridos': {'rag_context': True}}
+[32mINFO[0m:     Intent is 'preguntas'. We will now read memory.
+[32mINFO[0m:     [36m[✅] 💿 MEMORY READ: [0mit took [33m0.0033s ⏱. [0mSession 26507: created with TTL of 900 seconds.
+[32mINFO[0m:     [32m==================================================
+[32mINFO[0m:     [32m[🤖] Endpoint POST /conversation reached
+[32mINFO[0m:     [32m==================================================[0m
+[32mINFO[0m:     [36m[✅] 👾 INTENTION DETECTED: [0mit took [33m0.4873s ⏱. [0m{'intencion_actual': 'preguntas', 'confianza_en_la_intencion': 1.0, 'slots_requeridos': {}}
+[32mINFO[0m:     Intent is 'preguntas'. We will now read memory.
+[32mINFO[0m:     [36m[✅] 💿 MEMORY READ: [0mit took [33m0.0026s ⏱. [0mSession 11627: created with TTL of 900 seconds.
+[32mINFO[0m:     [36m[✅] 👾 TOPIC DETECTED: [0mit took [33m0.9531s ⏱. [0m{'topic': 'creditos', 'topic_confidence': 0.95, 'user_message_ambiguous': False, 'is_follow_up': False, 'info_source': 'rag', 'rewritten_query': '¿Qué tipo de crédito puedo solicitar para financiar la compra de una casa?'}
+[32mINFO[0m:     We will use RAG to answer the query.
+[32mINFO[0m:     [36m[✅] 👾 INTENTION DETECTED: [0mit took [33m0.4114s ⏱. [0m{'intencion_actual': 'preguntas', 'confianza_en_la_intencion': 1.0, 'slots_requeridos': {}}
+[32mINFO[0m:     Intent is 'preguntas'. We will now read memory.
+[32mINFO[0m:     [36m[✅] 💿 MEMORY READ: [0mit took [33m0.0019s ⏱. [0mSession 89828: created with TTL of 900 seconds.
+[32mINFO[0m:     [36m[✅] 👾 TOPIC DETECTED: [0mit took [33m0.8465s ⏱. [0m{'topic': 'seguros', 'topic_confidence': 1.0, 'user_message_ambiguous': False, 'is_follow_up': False, 'info_source': 'rag', 'rewritten_query': '¿Qué tipo de seguro ofrece el banco para adultos mayores?'}
+[32mINFO[0m:     We will use RAG to answer the query.
+[32mINFO[0m:     [33mEmbedded number of queries: 1, each with 384 dimensions[0m
+[32mINFO[0m:     [36m[✅] 🧰 Embedding time: [0mit took [33m1.4049s ⏱. 
+[32mINFO[0m:     [33mEmbedded number of queries: 1, each with 384 dimensions[0m
+[32mINFO[0m:     [36m[✅] 🧰 Embedding time: [0mit took [33m1.1691s ⏱. 
+[32mINFO[0m:     [36m[✅] 🧰 RAG ACHIEVED: [0mit took [33m4.5544s ⏱. 
+[32mINFO[0m:     [36m[✅] 🧰 RAG ACHIEVED: [0mit took [33m5.1394s ⏱. 
+[32mINFO[0m:     [36m[✅] 👾 QUERY ANSWERED: [0mit took [33m0.3158s ⏱. 
+[32mINFO[0m:     [36m[✅] 💿 MEMORY UPDATED: [0mit took [33m0.0026s ⏱. [0mSession 89828: updated with TTL of 900 seconds.
+[31mERROR[0m:    [❌] Workflow failed at {'node': 'topic_detect', 'type': 'RateLimitError', 'message': "Error code: 429 - {'error': {'message': 'Rate limit reached for model `llama-3.1-8b-instant` in organization `org_01kf1djpybejgv4bc7jdfxqxvv` service tier `on_demand` on tokens per minute (TPM): Limit 6000, Used 5036, Requested 1588. Please try again in 6.239999999s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}"}
+[32mINFO[0m:     [36m[✅] 👾 QUERY ANSWERED: [0mit took [33m36.0070s ⏱. 
+[32mINFO[0m:     [36m[✅] 💿 MEMORY UPDATED: [0mit took [33m0.0042s ⏱. [0mSession 26507: updated with TTL of 900 seconds.
+[33mWARNING[0m:  StatReload detected changes in 'src/nodes/intent/detect.py'. Reloading...
+[32mINFO[0m:     Shutting down
+[32mINFO[0m:     Waiting for application shutdown.
+[32mINFO[0m:     Application shutdown complete.
+[32mINFO[0m:     Finished server process [[36m74124[0m]
+[33mWARNING[0m:  StatReload detected changes in 'src/nodes/intent/detect.py'. Reloading...
+[33mWARNING[0m:  StatReload detected changes in 'src/nodes/intent/detect.py'. Reloading...
+[32mINFO[0m:     Stopping reloader process [[36m[1m74117[0m]
+2026-03-04 14:18:11,482 [32mINFO[0m:     Will watch for changes in these directories: ['/Users/gabriel/Documents/BNB/Proyectos/rag-poc']
+2026-03-04 14:18:11,483 [32mINFO[0m:     Uvicorn running on [1mhttp://0.0.0.0:8000[0m (Press CTRL+C to quit)
+2026-03-04 14:18:11,483 [32mINFO[0m:     Started reloader process [[36m[1m75413[0m] using [36m[1mStatReload[0m
+2026-03-04 14:18:17,931 [32mINFO[0m:     Started server process [[36m75423[0m]
+2026-03-04 14:18:17,932 [32mINFO[0m:     Waiting for application startup.
+2026-03-04 14:18:17,932 [32mINFO[0m:     Application startup complete.
+2026-03-04 14:18:19,487 [32mINFO[0m:     [32m==================================================
+2026-03-04 14:18:19,487 [32mINFO[0m:     [32m[🤖] Endpoint POST /conversation reached
+2026-03-04 14:18:19,487 [32mINFO[0m:     [32m==================================================[0m
+2026-03-04 14:18:20,135 [32mINFO[0m:     [31m24385 - [36m[✅] 👾 INTENTION DETECTED: [0mit took [33m0.6413s ⏱. [0m{'intencion_actual': 'preguntas', 'confianza_en_la_intencion': 0.9, 'slots_requeridos': {}}
+2026-03-04 14:18:20,135 [32mINFO[0m:     Intent is 'preguntas'. We will now read memory.
+2026-03-04 14:18:20,141 [32mINFO[0m:     [36m[✅] 💿 MEMORY READ: [0mit took [33m0.0047s ⏱. [0mSession 24385: read and loaded.
+2026-03-04 14:18:20,693 [32mINFO[0m:     [36m[✅] 👾 TOPIC DETECTED: [0mit took [33m1.1998s ⏱. [0m{'topic': 'ahorro_e_inversion', 'topic_confidence': 1.0, 'user_message_ambiguous': False, 'is_follow_up': False, 'info_source': 'rag', 'rewritten_query': 'Informacion sobre Depositos a plazo fijo'}
+2026-03-04 14:18:20,694 [32mINFO[0m:     We will use RAG to answer the query.
+2026-03-04 14:18:22,242 [32mINFO[0m:     [33mEmbedded number of queries: 1, each with 384 dimensions[0m
+2026-03-04 14:18:22,243 [32mINFO[0m:     [36m[✅] 🧰 Embedding time: [0mit took [33m1.5487s ⏱. 
+2026-03-04 14:18:26,450 [32mINFO[0m:     [36m[✅] 🧰 RAG ACHIEVED: [0mit took [33m5.7561s ⏱. 
+2026-03-04 14:18:27,247 [32mINFO[0m:     [36m[✅] 👾 QUERY ANSWERED: [0mit took [33m0.7913s ⏱. 
+2026-03-04 14:18:27,251 [31mERROR[0m:    [❌] Workflow failed at {'node': 'update_memory', 'type': 'KeyError', 'message': "'topic_previous'"}
+2026-03-04 14:20:15,829 [33mWARNING[0m:  StatReload detected changes in 'src/nodes/intent/detect.py'. Reloading...
+2026-03-04 14:20:15,907 [32mINFO[0m:     Shutting down
+2026-03-04 14:20:16,008 [32mINFO[0m:     Waiting for application shutdown.
+2026-03-04 14:20:16,009 [32mINFO[0m:     Application shutdown complete.
+2026-03-04 14:20:16,009 [32mINFO[0m:     Finished server process [[36m75423[0m]
+2026-03-04 14:20:23,002 [32mINFO[0m:     Started server process [[36m75456[0m]
+2026-03-04 14:20:23,002 [32mINFO[0m:     Waiting for application startup.
+2026-03-04 14:20:23,002 [32mINFO[0m:     Application startup complete.
+2026-03-04 14:20:40,821 [33mWARNING[0m:  StatReload detected changes in 'src/nodes/intent/detect.py'. Reloading...
+2026-03-04 14:20:40,882 [32mINFO[0m:     Shutting down
+2026-03-04 14:20:40,983 [32mINFO[0m:     Waiting for application shutdown.
+2026-03-04 14:20:40,984 [32mINFO[0m:     Application shutdown complete.
+2026-03-04 14:20:40,984 [32mINFO[0m:     Finished server process [[36m75456[0m]
+2026-03-04 14:20:45,072 [32mINFO[0m:     Started server process [[36m75466[0m]
+2026-03-04 14:20:45,072 [32mINFO[0m:     Waiting for application startup.
+2026-03-04 14:20:45,072 [32mINFO[0m:     Application startup complete.
+2026-03-04 14:20:50,783 [33mWARNING[0m:  StatReload detected changes in 'src/nodes/intent/detect.py'. Reloading...
+2026-03-04 14:20:50,832 [32mINFO[0m:     Shutting down
+2026-03-04 14:20:50,933 [32mINFO[0m:     Waiting for application shutdown.
+2026-03-04 14:20:50,934 [32mINFO[0m:     Application shutdown complete.
+2026-03-04 14:20:50,934 [32mINFO[0m:     Finished server process [[36m75466[0m]
+2026-03-04 14:20:55,100 [32mINFO[0m:     Started server process [[36m75471[0m]
+2026-03-04 14:20:55,100 [32mINFO[0m:     Waiting for application startup.
+2026-03-04 14:20:55,100 [32mINFO[0m:     Application startup complete.
+2026-03-04 14:20:55,103 [32mINFO[0m:     [32m==================================================
+2026-03-04 14:20:55,103 [32mINFO[0m:     [32m[🤖] Endpoint POST /conversation reached
+2026-03-04 14:20:55,103 [32mINFO[0m:     [32m==================================================[0m
+2026-03-04 14:20:55,842 [32mINFO[0m:     [31m24385: [36m[✅] 👾 INTENTION DETECTED: [0mit took [33m0.7347s ⏱. [0m{'intencion_actual': 'preguntas', 'confianza_en_la_intencion': 0.9, 'slots_requeridos': {}}
+2026-03-04 14:20:55,842 [32mINFO[0m:     Intent is 'preguntas'. We will now read memory.
+2026-03-04 14:20:55,848 [32mINFO[0m:     [36m[✅] 💿 MEMORY READ: [0mit took [33m0.0052s ⏱. [0mSession 24385: created with TTL of 900 seconds.
+2026-03-04 14:20:56,361 [32mINFO[0m:     [36m[✅] 👾 TOPIC DETECTED: [0mit took [33m1.2545s ⏱. [0m{'topic': 'ahorro_e_inversion', 'topic_confidence': 1.0, 'user_message_ambiguous': False, 'is_follow_up': False, 'info_source': 'rag', 'rewritten_query': 'Depositos a plazo fijo'}
+2026-03-04 14:20:56,362 [32mINFO[0m:     We will use RAG to answer the query.
+2026-03-04 14:20:57,854 [32mINFO[0m:     [33mEmbedded number of queries: 1, each with 384 dimensions[0m
+2026-03-04 14:20:57,854 [32mINFO[0m:     [36m[✅] 🧰 Embedding time: [0mit took [33m1.4926s ⏱. 
+2026-03-04 14:21:01,610 [32mINFO[0m:     [36m[✅] 🧰 RAG ACHIEVED: [0mit took [33m5.2485s ⏱. 
+2026-03-04 14:21:02,385 [32mINFO[0m:     [36m[✅] 👾 QUERY ANSWERED: [0mit took [33m0.7685s ⏱. 
+2026-03-04 14:21:02,389 [32mINFO[0m:     [36m[✅] 💿 MEMORY UPDATED: [0mit took [33m0.0038s ⏱. [0mSession 24385: updated with TTL of 900 seconds.
+2026-03-04 14:21:35,211 [33mWARNING[0m:  StatReload detected changes in 'src/nodes/intent/detect.py'. Reloading...
+2026-03-04 14:21:35,233 [32mINFO[0m:     Shutting down
+2026-03-04 14:21:35,335 [32mINFO[0m:     Waiting for application shutdown.
+2026-03-04 14:21:35,335 [32mINFO[0m:     Application shutdown complete.
+2026-03-04 14:21:35,335 [32mINFO[0m:     Finished server process [[36m75471[0m]
+2026-03-04 14:21:39,824 [32mINFO[0m:     Started server process [[36m75485[0m]
+2026-03-04 14:21:39,824 [32mINFO[0m:     Waiting for application startup.
+2026-03-04 14:21:39,824 [32mINFO[0m:     Application startup complete.
+2026-03-04 14:22:00,969 [33mWARNING[0m:  StatReload detected changes in 'src/nodes/llm/rag.py'. Reloading...
+2026-03-04 14:22:01,049 [32mINFO[0m:     Shutting down
+2026-03-04 14:22:01,150 [32mINFO[0m:     Waiting for application shutdown.
+2026-03-04 14:22:01,151 [32mINFO[0m:     Application shutdown complete.
+2026-03-04 14:22:01,151 [32mINFO[0m:     Finished server process [[36m75485[0m]
+2026-03-04 14:22:05,657 [32mINFO[0m:     Started server process [[36m75522[0m]
+2026-03-04 14:22:05,657 [32mINFO[0m:     Waiting for application startup.
+2026-03-04 14:22:05,657 [32mINFO[0m:     Application startup complete.
+2026-03-04 14:22:11,223 [33mWARNING[0m:  StatReload detected changes in 'src/nodes/llm/respond.py'. Reloading...
+2026-03-04 14:22:11,312 [32mINFO[0m:     Shutting down
+2026-03-04 14:22:11,413 [32mINFO[0m:     Waiting for application shutdown.
+2026-03-04 14:22:11,414 [32mINFO[0m:     Application shutdown complete.
+2026-03-04 14:22:11,414 [32mINFO[0m:     Finished server process [[36m75522[0m]
+2026-03-04 14:22:15,847 [32mINFO[0m:     Started server process [[36m75540[0m]
+2026-03-04 14:22:15,847 [32mINFO[0m:     Waiting for application startup.
+2026-03-04 14:22:15,847 [32mINFO[0m:     Application startup complete.
+2026-03-04 14:22:21,506 [33mWARNING[0m:  StatReload detected changes in 'src/nodes/memory/read.py'. Reloading...
+2026-03-04 14:22:21,605 [32mINFO[0m:     Shutting down
+2026-03-04 14:22:21,706 [32mINFO[0m:     Waiting for application shutdown.
+2026-03-04 14:22:21,707 [32mINFO[0m:     Application shutdown complete.
+2026-03-04 14:22:21,707 [32mINFO[0m:     Finished server process [[36m75540[0m]
+2026-03-04 14:22:25,878 [32mINFO[0m:     Started server process [[36m75560[0m]
+2026-03-04 14:22:25,878 [32mINFO[0m:     Waiting for application startup.
+2026-03-04 14:22:25,878 [32mINFO[0m:     Application startup complete.
+2026-03-04 14:22:27,437 [33mWARNING[0m:  StatReload detected changes in 'src/nodes/memory/read.py'. Reloading...
+2026-03-04 14:22:27,500 [32mINFO[0m:     Shutting down
+2026-03-04 14:22:27,602 [32mINFO[0m:     Waiting for application shutdown.
+2026-03-04 14:22:27,602 [32mINFO[0m:     Application shutdown complete.
+2026-03-04 14:22:27,602 [32mINFO[0m:     Finished server process [[36m75560[0m]
+2026-03-04 14:22:31,194 [32mINFO[0m:     Started server process [[36m75570[0m]
+2026-03-04 14:22:31,194 [32mINFO[0m:     Waiting for application startup.
+2026-03-04 14:22:31,194 [32mINFO[0m:     Application startup complete.
+2026-03-04 14:22:36,107 [33mWARNING[0m:  StatReload detected changes in 'src/nodes/memory/update.py'. Reloading...
+2026-03-04 14:22:36,144 [32mINFO[0m:     Shutting down
+2026-03-04 14:22:36,246 [32mINFO[0m:     Waiting for application shutdown.
+2026-03-04 14:22:36,246 [32mINFO[0m:     Application shutdown complete.
+2026-03-04 14:22:36,246 [32mINFO[0m:     Finished server process [[36m75570[0m]
+2026-03-04 14:22:39,881 [32mINFO[0m:     Started server process [[36m75581[0m]
+2026-03-04 14:22:39,881 [32mINFO[0m:     Waiting for application startup.
+2026-03-04 14:22:39,881 [32mINFO[0m:     Application startup complete.
+2026-03-04 14:22:40,644 [33mWARNING[0m:  StatReload detected changes in 'src/nodes/topic/detect.py'. Reloading...
+2026-03-04 14:22:40,689 [32mINFO[0m:     Shutting down
+2026-03-04 14:22:40,791 [32mINFO[0m:     Waiting for application shutdown.
+2026-03-04 14:22:40,791 [32mINFO[0m:     Application shutdown complete.
+2026-03-04 14:22:40,791 [32mINFO[0m:     Finished server process [[36m75581[0m]
+2026-03-04 14:22:43,732 [33mWARNING[0m:  StatReload detected changes in 'src/nodes/topic/detect.py'. Reloading...
+2026-03-04 14:22:46,424 [32mINFO[0m:     Stopping reloader process [[36m[1m75413[0m]
+2026-03-04 14:22:57,527 [32mINFO[0m:     Will watch for changes in these directories: ['/Users/gabriel/Documents/BNB/Proyectos/rag-poc']
+2026-03-04 14:22:57,528 [32mINFO[0m:     Uvicorn running on [1mhttp://0.0.0.0:8000[0m (Press CTRL+C to quit)
+2026-03-04 14:22:57,528 [32mINFO[0m:     Started reloader process [[36m[1m75613[0m] using [36m[1mStatReload[0m
+2026-03-04 14:23:01,008 [32mINFO[0m:     Started server process [[36m75624[0m]
+2026-03-04 14:23:01,008 [32mINFO[0m:     Waiting for application startup.
+2026-03-04 14:23:01,008 [32mINFO[0m:     Application startup complete.
+2026-03-04 14:23:03,654 [32mINFO[0m:     [32m==================================================
+2026-03-04 14:23:03,654 [32mINFO[0m:     [32m[🤖] Endpoint POST /conversation reached
+2026-03-04 14:23:03,654 [32mINFO[0m:     [32m==================================================[0m
+2026-03-04 14:23:03,978 [32mINFO[0m:     [32m==================================================
+2026-03-04 14:23:03,978 [32mINFO[0m:     [32m[🤖] Endpoint POST /conversation reached
+2026-03-04 14:23:03,978 [32mINFO[0m:     [32m==================================================[0m
+2026-03-04 14:23:04,311 [32mINFO[0m:     [32m==================================================
+2026-03-04 14:23:04,311 [32mINFO[0m:     [32m[🤖] Endpoint POST /conversation reached
+2026-03-04 14:23:04,311 [32mINFO[0m:     [32m==================================================[0m
+2026-03-04 14:23:04,346 [32mINFO[0m:     [31m42455: [36m[✅] 👾 INTENTION DETECTED: [0mit took [33m0.6878s ⏱. [0m{'intencion_actual': 'preguntas', 'confianza_en_la_intencion': 1.0, 'slots_requeridos': {}}
+2026-03-04 14:23:04,346 [32mINFO[0m:     Intent is 'preguntas'. We will now read memory.
+2026-03-04 14:23:04,352 [32mINFO[0m:     [31m42455: [36m[✅] 💿 MEMORY READ: [0mit took [33m0.0055s ⏱. [0mSession 42455: created with TTL of 900 seconds.
+2026-03-04 14:23:04,544 [32mINFO[0m:     [31m46928: [36m[✅] 👾 INTENTION DETECTED: [0mit took [33m0.5617s ⏱. [0m{'intencion_actual': 'preguntas', 'confianza_en_la_intencion': 1.0, 'slots_requeridos': {}}
+2026-03-04 14:23:04,544 [32mINFO[0m:     Intent is 'preguntas'. We will now read memory.
+2026-03-04 14:23:04,546 [32mINFO[0m:     [31m46928: [36m[✅] 💿 MEMORY READ: [0mit took [33m0.0015s ⏱. [0mSession 46928: created with TTL of 900 seconds.
+2026-03-04 14:23:04,828 [32mINFO[0m:     [31m91692: [36m[✅] 👾 INTENTION DETECTED: [0mit took [33m0.5111s ⏱. [0m{'intencion_actual': 'preguntas', 'confianza_en_la_intencion': 1.0, 'slots_requeridos': {}}
+2026-03-04 14:23:04,828 [32mINFO[0m:     Intent is 'preguntas'. We will now read memory.
+2026-03-04 14:23:04,832 [32mINFO[0m:     [31m91692: [36m[✅] 💿 MEMORY READ: [0mit took [33m0.0031s ⏱. [0mSession 91692: created with TTL of 900 seconds.
+2026-03-04 14:23:05,074 [32mINFO[0m:     [31m42455: [36m[✅] 👾 TOPIC DETECTED: [0mit took [33m1.4161s ⏱. [0m{'topic': 'seguros', 'topic_confidence': 1.0, 'user_message_ambiguous': False, 'is_follow_up': False, 'info_source': 'rag', 'rewritten_query': '¿Qué tipo de seguro ofrece el banco para adultos mayores?'}
+2026-03-04 14:23:05,074 [32mINFO[0m:     We will use RAG to answer the query.
+2026-03-04 14:23:06,555 [32mINFO[0m:     [33mEmbedded number of queries: 1, each with 384 dimensions[0m
+2026-03-04 14:23:06,555 [32mINFO[0m:     [36m[✅] 🧰 Embedding time: [0mit took [33m1.4809s ⏱. 
+2026-03-04 14:23:09,152 [31mERROR[0m:    [❌] Workflow failed at {'node': 'topic_detect', 'type': 'RateLimitError', 'message': "Error code: 429 - {'error': {'message': 'Rate limit reached for model `llama-3.1-8b-instant` in organization `org_01kf1djpybejgv4bc7jdfxqxvv` service tier `on_demand` on tokens per minute (TPM): Limit 6000, Used 5929, Requested 1588. Please try again in 15.17s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}"}
+2026-03-04 14:23:09,269 [32mINFO[0m:     [31m46928: [36m[✅] 👾 TOPIC DETECTED: [0mit took [33m5.2868s ⏱. [0m{'topic': 'ahorro_e_inversion', 'topic_confidence': 1.0, 'user_message_ambiguous': False, 'is_follow_up': False, 'info_source': 'rag', 'rewritten_query': '¿Qué es un depósito a plazo fijo?'}
+2026-03-04 14:23:09,269 [32mINFO[0m:     We will use RAG to answer the query.
+2026-03-04 14:23:10,397 [32mINFO[0m:     [31m42455: [36m[✅] 🧰 RAG ACHIEVED: [0mit took [33m5.3229s ⏱. 
+2026-03-04 14:23:10,605 [32mINFO[0m:     [33mEmbedded number of queries: 1, each with 384 dimensions[0m
+2026-03-04 14:23:10,605 [32mINFO[0m:     [36m[✅] 🧰 Embedding time: [0mit took [33m1.3358s ⏱. 
+2026-03-04 14:23:14,518 [32mINFO[0m:     [31m46928: [36m[✅] 🧰 RAG ACHIEVED: [0mit took [33m5.2484s ⏱. 
+2026-03-04 14:23:16,937 [32mINFO[0m:     [31m42455: [36m[✅] 👾 QUERY ANSWERED: [0mit took [33m6.5355s ⏱. 
+2026-03-04 14:23:16,940 [32mINFO[0m:     [31m42455: [36m[✅] 💿 MEMORY UPDATED: [0mit took [33m0.0030s ⏱. [0mSession 42455: updated with TTL of 900 seconds.
+2026-03-04 14:23:46,740 [32mINFO[0m:     [31m46928: [36m[✅] 👾 QUERY ANSWERED: [0mit took [33m32.2191s ⏱. 
+2026-03-04 14:23:46,743 [32mINFO[0m:     [31m46928: [36m[✅] 💿 MEMORY UPDATED: [0mit took [33m0.0021s ⏱. [0mSession 46928: updated with TTL of 900 seconds.
+2026-03-04 14:25:22,982 [32mINFO[0m:     Shutting down
+2026-03-04 14:25:23,085 [32mINFO[0m:     Waiting for application shutdown.
+2026-03-04 14:25:23,086 [32mINFO[0m:     Application shutdown complete.
+2026-03-04 14:25:23,086 [32mINFO[0m:     Finished server process [[36m75624[0m]
+2026-03-04 14:25:23,133 [32mINFO[0m:     Stopping reloader process [[36m[1m75613[0m]
+2026-03-04 14:27:24,491 [32mINFO[0m:     Will watch for changes in these directories: ['/Users/gabriel/Documents/BNB/Proyectos/rag-poc']
+2026-03-04 14:27:24,491 [32mINFO[0m:     Uvicorn running on [1mhttp://0.0.0.0:8000[0m (Press CTRL+C to quit)
+2026-03-04 14:27:24,491 [32mINFO[0m:     Started reloader process [[36m[1m75784[0m] using [36m[1mStatReload[0m
+2026-03-04 14:27:28,145 [32mINFO[0m:     Started server process [[36m75793[0m]
+2026-03-04 14:27:28,145 [32mINFO[0m:     Waiting for application startup.
+2026-03-04 14:27:28,145 [32mINFO[0m:     Application startup complete.
+2026-03-04 14:27:36,479 [32mINFO[0m:     [32m==================================================
+2026-03-04 14:27:36,479 [32mINFO[0m:     [32m[🤖] Endpoint POST /conversation reached
+2026-03-04 14:27:36,479 [32mINFO[0m:     [32m==================================================[0m
+2026-03-04 14:27:36,970 [32mINFO[0m:     [32m==================================================
+2026-03-04 14:27:36,970 [32mINFO[0m:     [32m[🤖] Endpoint POST /conversation reached
+2026-03-04 14:27:36,970 [32mINFO[0m:     [32m==================================================[0m
+2026-03-04 14:27:37,027 [32mINFO[0m:     [31m15110: [36m[✅] 👾 INTENTION DETECTED: [0mit took [33m0.5435s ⏱. [0m{'intencion_actual': 'preguntas', 'confianza_en_la_intencion': 0.9, 'slots_requeridos': {'rag_context': True}}
+2026-03-04 14:27:37,027 [32mINFO[0m:     Intent is 'preguntas'. We will now read memory.
+2026-03-04 14:27:37,032 [32mINFO[0m:     [31m15110: [36m[✅] 💿 MEMORY READ: [0mit took [33m0.0049s ⏱. [0mSession 15110: created with TTL of 900 seconds.
+2026-03-04 14:27:37,510 [32mINFO[0m:     [31m65799: [36m[✅] 👾 INTENTION DETECTED: [0mit took [33m0.5362s ⏱. [0m{'intencion_actual': 'preguntas', 'confianza_en_la_intencion': 0.9, 'slots_requeridos': {'rag_context': True}}
+2026-03-04 14:27:37,510 [32mINFO[0m:     Intent is 'preguntas'. We will now read memory.
+2026-03-04 14:27:37,512 [32mINFO[0m:     [31m65799: [36m[✅] 💿 MEMORY READ: [0mit took [33m0.0018s ⏱. [0mSession 65799: created with TTL of 900 seconds.
+2026-03-04 14:27:37,571 [32mINFO[0m:     [31m15110: [36m[✅] 👾 TOPIC DETECTED: [0mit took [33m1.0879s ⏱. [0m{'topic': 'creditos', 'topic_confidence': 0.95, 'user_message_ambiguous': False, 'is_follow_up': False, 'info_source': 'rag', 'rewritten_query': '¿Qué tipo de crédito puedo solicitar para financiar la compra de una casa?'}
+2026-03-04 14:27:37,571 [32mINFO[0m:     We will use RAG to answer the query.
+2026-03-04 14:27:37,946 [32mINFO[0m:     [31m65799: [36m[✅] 👾 TOPIC DETECTED: [0mit took [33m0.9725s ⏱. [0m{'topic': 'creditos', 'topic_confidence': 0.95, 'user_message_ambiguous': False, 'is_follow_up': False, 'info_source': 'rag', 'rewritten_query': '¿Qué tipo de crédito puedo solicitar para financiar la compra de una casa?'}
+2026-03-04 14:27:37,947 [32mINFO[0m:     We will use RAG to answer the query.
+2026-03-04 14:27:39,001 [32mINFO[0m:     [33mEmbedded number of queries: 1, each with 384 dimensions[0m
+2026-03-04 14:27:39,001 [32mINFO[0m:     [36m[✅] 🧰 Embedding time: [0mit took [33m1.4293s ⏱. 
+2026-03-04 14:27:39,152 [32mINFO[0m:     [33mEmbedded number of queries: 1, each with 384 dimensions[0m
+2026-03-04 14:27:39,153 [32mINFO[0m:     [36m[✅] 🧰 Embedding time: [0mit took [33m1.2048s ⏱. 
+2026-03-04 14:27:42,837 [31mERROR[0m:    [❌] Workflow failed at {'node': 'llm_rag', 'type': 'RuntimeError', 'message': 'dictionary changed size during iteration'}
+2026-03-04 14:27:43,032 [32mINFO[0m:     [31m65799: [36m[✅] 🧰 RAG ACHIEVED: [0mit took [33m5.0845s ⏱. 
+2026-03-04 14:28:16,255 [32mINFO[0m:     [31m65799: [36m[✅] 👾 QUERY ANSWERED: [0mit took [33m33.2166s ⏱. 
+2026-03-04 14:28:16,260 [32mINFO[0m:     [31m65799: [36m[✅] 💿 MEMORY UPDATED: [0mit took [33m0.0032s ⏱. [0mSession 65799: updated with TTL of 900 seconds.
+2026-03-04 14:37:07,117 [33mWARNING[0m:  StatReload detected changes in 'app/endpoint.py'. Reloading...
+2026-03-04 14:37:07,204 [32mINFO[0m:     Shutting down
+2026-03-04 14:37:07,306 [32mINFO[0m:     Waiting for application shutdown.
+2026-03-04 14:37:07,307 [32mINFO[0m:     Application shutdown complete.
+2026-03-04 14:37:07,307 [32mINFO[0m:     Finished server process [[36m75793[0m]
+2026-03-04 14:37:11,892 [32mINFO[0m:     Started server process [[36m79794[0m]
+2026-03-04 14:37:11,892 [32mINFO[0m:     Waiting for application startup.
+2026-03-04 14:37:11,892 [32mINFO[0m:     Application startup complete.
+2026-03-04 14:42:20,949 [33mWARNING[0m:  StatReload detected changes in 'src/generation/searcher.py'. Reloading...
+2026-03-04 14:42:21,010 [32mINFO[0m:     Shutting down
+2026-03-04 14:42:21,111 [32mINFO[0m:     Waiting for application shutdown.
+2026-03-04 14:42:21,112 [32mINFO[0m:     Application shutdown complete.
+2026-03-04 14:42:21,112 [32mINFO[0m:     Finished server process [[36m79794[0m]
+2026-03-04 14:42:24,126 [33mWARNING[0m:  StatReload detected changes in 'src/generation/searcher.py'. Reloading...
+2026-03-04 14:42:28,016 [32mINFO[0m:     Started server process [[36m79841[0m]
+2026-03-04 14:42:28,016 [32mINFO[0m:     Waiting for application startup.
+2026-03-04 14:42:28,016 [32mINFO[0m:     Application startup complete.
+2026-03-04 14:48:54,938 [33mWARNING[0m:  StatReload detected changes in 'src/generation/searcher.py'. Reloading...
+2026-03-04 14:48:55,030 [32mINFO[0m:     Shutting down
+2026-03-04 14:48:55,131 [32mINFO[0m:     Waiting for application shutdown.
+2026-03-04 14:48:55,132 [32mINFO[0m:     Application shutdown complete.
+2026-03-04 14:48:55,132 [32mINFO[0m:     Finished server process [[36m79841[0m]
+2026-03-04 14:48:59,512 [32mINFO[0m:     Started server process [[36m79941[0m]
+2026-03-04 14:48:59,512 [32mINFO[0m:     Waiting for application startup.
+2026-03-04 14:48:59,513 [32mINFO[0m:     Application startup complete.
+2026-03-04 14:49:07,980 [33mWARNING[0m:  StatReload detected changes in 'src/generation/searcher.py'. Reloading...
+2026-03-04 14:49:07,995 [32mINFO[0m:     Shutting down
+2026-03-04 14:49:08,097 [32mINFO[0m:     Waiting for application shutdown.
+2026-03-04 14:49:08,097 [32mINFO[0m:     Application shutdown complete.
+2026-03-04 14:49:08,097 [32mINFO[0m:     Finished server process [[36m79941[0m]
+2026-03-04 14:49:11,170 [33mWARNING[0m:  StatReload detected changes in 'src/generation/searcher.py'. Reloading...
+2026-03-04 14:49:14,990 [32mINFO[0m:     Started server process [[36m79952[0m]
+2026-03-04 14:49:14,991 [32mINFO[0m:     Waiting for application startup.
+2026-03-04 14:49:14,991 [32mINFO[0m:     Application startup complete.
+2026-03-04 14:49:19,590 [33mWARNING[0m:  StatReload detected changes in 'src/generation/searcher.py'. Reloading...
+2026-03-04 14:49:19,636 [32mINFO[0m:     Shutting down
+2026-03-04 14:49:19,737 [32mINFO[0m:     Waiting for application shutdown.
+2026-03-04 14:49:19,738 [32mINFO[0m:     Application shutdown complete.
+2026-03-04 14:49:19,738 [32mINFO[0m:     Finished server process [[36m79952[0m]
+2026-03-04 14:49:23,477 [32mINFO[0m:     Started server process [[36m79958[0m]
+2026-03-04 14:49:23,477 [32mINFO[0m:     Waiting for application startup.
+2026-03-04 14:49:23,477 [32mINFO[0m:     Application startup complete.
+2026-03-04 14:49:28,350 [33mWARNING[0m:  StatReload detected changes in 'src/generation/searcher.py'. Reloading...
+2026-03-04 14:49:28,429 [32mINFO[0m:     Shutting down
+2026-03-04 14:49:28,530 [32mINFO[0m:     Waiting for application shutdown.
+2026-03-04 14:49:28,530 [32mINFO[0m:     Application shutdown complete.
+2026-03-04 14:49:28,530 [32mINFO[0m:     Finished server process [[36m79958[0m]
+2026-03-04 14:49:32,188 [32mINFO[0m:     Started server process [[36m79964[0m]
+2026-03-04 14:49:32,189 [32mINFO[0m:     Waiting for application startup.
+2026-03-04 14:49:32,189 [32mINFO[0m:     Application startup complete.
+2026-03-04 14:49:38,374 [33mWARNING[0m:  StatReload detected changes in 'src/generation/searcher.py'. Reloading...
+2026-03-04 14:49:38,453 [32mINFO[0m:     Shutting down
+2026-03-04 14:49:38,554 [32mINFO[0m:     Waiting for application shutdown.
+2026-03-04 14:49:38,554 [32mINFO[0m:     Application shutdown complete.
+2026-03-04 14:49:38,555 [32mINFO[0m:     Finished server process [[36m79964[0m]
+2026-03-04 14:49:42,333 [32mINFO[0m:     Started server process [[36m79970[0m]
+2026-03-04 14:49:42,333 [32mINFO[0m:     Waiting for application startup.
+2026-03-04 14:49:42,333 [32mINFO[0m:     Application startup complete.
+2026-03-04 14:49:50,720 [32mINFO[0m:     [32m==================================================
+2026-03-04 14:49:50,720 [32mINFO[0m:     [32m[🤖] Endpoint POST /conversation reached
+2026-03-04 14:49:50,720 [32mINFO[0m:     [32m==================================================[0m
+2026-03-04 14:49:51,212 [32mINFO[0m:     [32m==================================================
+2026-03-04 14:49:51,212 [32mINFO[0m:     [32m[🤖] Endpoint POST /conversation reached
+2026-03-04 14:49:51,212 [32mINFO[0m:     [32m==================================================[0m
+2026-03-04 14:49:51,272 [32mINFO[0m:     [31m28395: [36m[✅] 👾 INTENTION DETECTED: [0mit took [33m0.5478s ⏱. [0m{'intencion_actual': 'preguntas', 'confianza_en_la_intencion': 1.0, 'slots_requeridos': {}}
+2026-03-04 14:49:51,272 [32mINFO[0m:     Intent is 'preguntas'. We will now read memory.
+2026-03-04 14:49:51,279 [32mINFO[0m:     [31m28395: [36m[✅] 💿 MEMORY READ: [0mit took [33m0.0063s ⏱. [0mSession 28395: created with TTL of 900 seconds.
+2026-03-04 14:49:51,668 [32mINFO[0m:     [31m91640: [36m[✅] 👾 INTENTION DETECTED: [0mit took [33m0.4513s ⏱. [0m{'intencion_actual': 'preguntas', 'confianza_en_la_intencion': 1.0, 'slots_requeridos': {}}
+2026-03-04 14:49:51,668 [32mINFO[0m:     Intent is 'preguntas'. We will now read memory.
+2026-03-04 14:49:51,671 [32mINFO[0m:     [31m91640: [36m[✅] 💿 MEMORY READ: [0mit took [33m0.0020s ⏱. [0mSession 91640: created with TTL of 900 seconds.
+2026-03-04 14:49:51,687 [32mINFO[0m:     [31m28395: [36m[✅] 👾 TOPIC DETECTED: [0mit took [33m0.9630s ⏱. [0m{'topic': None, 'topic_confidence': 0.0, 'user_message_ambiguous': True, 'is_follow_up': False, 'info_source': None, 'rewritten_query': None}
+2026-03-04 14:49:51,688 [32mINFO[0m:     Query is ambiguous. We will reach back to user.
+2026-03-04 14:49:52,124 [32mINFO[0m:     [31m91640: [36m[✅] 👾 TOPIC DETECTED: [0mit took [33m0.9067s ⏱. [0m{'topic': None, 'topic_confidence': 0.0, 'user_message_ambiguous': True, 'is_follow_up': False, 'info_source': None, 'rewritten_query': None}
+2026-03-04 14:49:52,124 [32mINFO[0m:     Query is ambiguous. We will reach back to user.
+2026-03-04 14:50:14,212 [33mWARNING[0m:  StatReload detected changes in 'src/generation/searcher.py'. Reloading...
+2026-03-04 14:50:14,263 [32mINFO[0m:     Shutting down
+2026-03-04 14:50:14,364 [32mINFO[0m:     Waiting for application shutdown.
+2026-03-04 14:50:14,365 [32mINFO[0m:     Application shutdown complete.
+2026-03-04 14:50:14,365 [32mINFO[0m:     Finished server process [[36m79970[0m]
+2026-03-04 14:50:18,552 [33mWARNING[0m:  StatReload detected changes in 'src/generation/searcher.py'. Reloading...
+2026-03-04 14:50:22,068 [32mINFO[0m:     Started server process [[36m80087[0m]
+2026-03-04 14:50:22,068 [32mINFO[0m:     Waiting for application startup.
+2026-03-04 14:50:22,068 [32mINFO[0m:     Application startup complete.
+2026-03-04 14:52:40,715 [33mWARNING[0m:  StatReload detected changes in 'src/generation/searcher.py'. Reloading...
+2026-03-04 14:52:40,770 [32mINFO[0m:     Shutting down
+2026-03-04 14:52:40,872 [32mINFO[0m:     Waiting for application shutdown.
+2026-03-04 14:52:40,873 [32mINFO[0m:     Application shutdown complete.
+2026-03-04 14:52:40,873 [32mINFO[0m:     Finished server process [[36m80087[0m]
+2026-03-04 14:52:45,289 [32mINFO[0m:     Started server process [[36m80105[0m]
+2026-03-04 14:52:45,289 [32mINFO[0m:     Waiting for application startup.
+2026-03-04 14:52:45,289 [32mINFO[0m:     Application startup complete.
+2026-03-04 14:52:53,623 [33mWARNING[0m:  StatReload detected changes in 'src/generation/searcher.py'. Reloading...
+2026-03-04 14:52:53,670 [32mINFO[0m:     Shutting down
+2026-03-04 14:52:53,771 [32mINFO[0m:     Waiting for application shutdown.
+2026-03-04 14:52:53,772 [32mINFO[0m:     Application shutdown complete.
+2026-03-04 14:52:53,772 [32mINFO[0m:     Finished server process [[36m80105[0m]
+2026-03-04 14:52:58,075 [32mINFO[0m:     Started server process [[36m80116[0m]
+2026-03-04 14:52:58,075 [32mINFO[0m:     Waiting for application startup.
+2026-03-04 14:52:58,075 [32mINFO[0m:     Application startup complete.
+2026-03-04 14:53:03,430 [32mINFO[0m:     [32m==================================================
+2026-03-04 14:53:03,430 [32mINFO[0m:     [32m[🤖] Endpoint POST /conversation reached
+2026-03-04 14:53:03,430 [32mINFO[0m:     [32m==================================================[0m
+2026-03-04 14:53:03,921 [32mINFO[0m:     [32m==================================================
+2026-03-04 14:53:03,922 [32mINFO[0m:     [32m[🤖] Endpoint POST /conversation reached
+2026-03-04 14:53:03,922 [32mINFO[0m:     [32m==================================================[0m
+2026-03-04 14:53:03,981 [32mINFO[0m:     [31m37253: [36m[✅] 👾 INTENTION DETECTED: [0mit took [33m0.5475s ⏱. [0m{'intencion_actual': 'preguntas', 'confianza_en_la_intencion': 1.0, 'slots_requeridos': {}}
+2026-03-04 14:53:03,981 [32mINFO[0m:     Intent is 'preguntas'. We will now read memory.
+2026-03-04 14:53:03,987 [32mINFO[0m:     [31m37253: [36m[✅] 💿 MEMORY READ: [0mit took [33m0.0053s ⏱. [0mSession 37253: created with TTL of 900 seconds.
+2026-03-04 14:53:04,376 [32mINFO[0m:     [31m81416: [36m[✅] 👾 INTENTION DETECTED: [0mit took [33m0.4501s ⏱. [0m{'intencion_actual': 'preguntas', 'confianza_en_la_intencion': 1.0, 'slots_requeridos': {}}
+2026-03-04 14:53:04,376 [32mINFO[0m:     Intent is 'preguntas'. We will now read memory.
+2026-03-04 14:53:04,378 [32mINFO[0m:     [31m81416: [36m[✅] 💿 MEMORY READ: [0mit took [33m0.0023s ⏱. [0mSession 81416: created with TTL of 900 seconds.
+2026-03-04 14:53:04,403 [32mINFO[0m:     [31m37253: [36m[✅] 👾 TOPIC DETECTED: [0mit took [33m0.9695s ⏱. [0m{'topic': None, 'topic_confidence': 0.0, 'user_message_ambiguous': True, 'is_follow_up': False, 'info_source': None, 'rewritten_query': None}
+2026-03-04 14:53:04,403 [32mINFO[0m:     Query is ambiguous. We will reach back to user.
+2026-03-04 14:53:04,824 [32mINFO[0m:     [31m81416: [36m[✅] 👾 TOPIC DETECTED: [0mit took [33m0.8983s ⏱. [0m{'topic': None, 'topic_confidence': 0.0, 'user_message_ambiguous': True, 'is_follow_up': False, 'info_source': None, 'rewritten_query': None}
+2026-03-04 14:53:04,824 [32mINFO[0m:     Query is ambiguous. We will reach back to user.
+2026-03-04 14:53:36,867 [32mINFO[0m:     [32m==================================================
+2026-03-04 14:53:36,867 [32mINFO[0m:     [32m[🤖] Endpoint POST /conversation reached
+2026-03-04 14:53:36,867 [32mINFO[0m:     [32m==================================================[0m
+2026-03-04 14:53:37,322 [32mINFO[0m:     [31m24385: [36m[✅] 👾 INTENTION DETECTED: [0mit took [33m0.4515s ⏱. [0m{'intencion_actual': 'preguntas', 'confianza_en_la_intencion': 1.0, 'slots_requeridos': {}}
+2026-03-04 14:53:37,322 [32mINFO[0m:     Intent is 'preguntas'. We will now read memory.
+2026-03-04 14:53:37,324 [32mINFO[0m:     [31m24385: [36m[✅] 💿 MEMORY READ: [0mit took [33m0.0021s ⏱. [0mSession 24385: created with TTL of 900 seconds.
+2026-03-04 14:53:37,947 [32mINFO[0m:     [31m24385: [36m[✅] 👾 TOPIC DETECTED: [0mit took [33m1.0771s ⏱. [0m{'topic': 'ahorro_e_inversion', 'topic_confidence': 1.0, 'user_message_ambiguous': False, 'is_follow_up': False, 'info_source': 'rag', 'rewritten_query': '¿Qué es un depósito a plazo fijo?'}
+2026-03-04 14:53:37,947 [32mINFO[0m:     We will use RAG to answer the query.
+2026-03-04 14:53:39,339 [32mINFO[0m:     [33mEmbedded number of queries: 1, each with 384 dimensions[0m
+2026-03-04 14:53:39,339 [32mINFO[0m:     [36m[✅] 🧰 Embedding time: [0mit took [33m1.3917s ⏱. 
+2026-03-04 14:53:43,023 [32mINFO[0m:     [31m24385: [36m[✅] 🧰 RAG ACHIEVED: [0mit took [33m5.0748s ⏱. 
+2026-03-04 14:53:51,073 [32mINFO[0m:     [31m24385: [36m[✅] 👾 QUERY ANSWERED: [0mit took [33m8.0471s ⏱. 
+2026-03-04 14:53:51,075 [32mINFO[0m:     [31m24385: [36m[✅] 💿 MEMORY UPDATED: [0mit took [33m0.0018s ⏱. [0mSession 24385: updated with TTL of 900 seconds.
+2026-03-04 14:54:12,421 [33mWARNING[0m:  StatReload detected changes in 'src/nodes/intent/detect.py'. Reloading...
+2026-03-04 14:54:12,439 [32mINFO[0m:     Shutting down
+2026-03-04 14:54:12,541 [32mINFO[0m:     Waiting for application shutdown.
+2026-03-04 14:54:12,541 [32mINFO[0m:     Application shutdown complete.
+2026-03-04 14:54:12,541 [32mINFO[0m:     Finished server process [[36m80116[0m]
+2026-03-04 14:54:16,942 [32mINFO[0m:     Started server process [[36m80302[0m]
+2026-03-04 14:54:16,942 [32mINFO[0m:     Waiting for application startup.
+2026-03-04 14:54:16,942 [32mINFO[0m:     Application startup complete.
+2026-03-04 14:54:49,517 [33mWARNING[0m:  StatReload detected changes in 'src/nodes/intent/detect.py'. Reloading...
+2026-03-04 14:54:49,586 [32mINFO[0m:     Shutting down
+2026-03-04 14:54:49,688 [32mINFO[0m:     Waiting for application shutdown.
+2026-03-04 14:54:49,688 [32mINFO[0m:     Application shutdown complete.
+2026-03-04 14:54:49,688 [32mINFO[0m:     Finished server process [[36m80302[0m]
+2026-03-04 14:54:53,902 [33mWARNING[0m:  StatReload detected changes in 'src/nodes/intent/detect.py'. Reloading...
+2026-03-04 14:54:57,329 [32mINFO[0m:     Started server process [[36m80337[0m]
+2026-03-04 14:54:57,329 [32mINFO[0m:     Waiting for application startup.
+2026-03-04 14:54:57,329 [32mINFO[0m:     Application startup complete.
+2026-03-04 14:54:59,646 [32mINFO[0m:     [32m==================================================
+2026-03-04 14:54:59,647 [32mINFO[0m:     [32m[🤖] Endpoint POST /conversation reached
+2026-03-04 14:54:59,647 [32mINFO[0m:     [32m==================================================[0m
+2026-03-04 14:54:59,652 [32mINFO[0m:     [31m24385: [0mQue es un deposito a plazo fijo?.
+2026-03-04 14:55:00,300 [32mINFO[0m:     [31m24385: [36m[✅] 👾 INTENTION DETECTED: [0mit took [33m0.6489s ⏱. [0m{'intencion_actual': 'preguntas', 'confianza_en_la_intencion': 1.0, 'slots_requeridos': {}}
+2026-03-04 14:55:00,301 [32mINFO[0m:     Intent is 'preguntas'. We will now read memory.
+2026-03-04 14:55:00,305 [32mINFO[0m:     [31m24385: [36m[✅] 💿 MEMORY READ: [0mit took [33m0.0042s ⏱. [0mSession 24385: read and loaded.
+2026-03-04 14:55:00,803 [32mINFO[0m:     [31m24385: [36m[✅] 👾 TOPIC DETECTED: [0mit took [33m1.1518s ⏱. [0m{'topic': 'ahorro_e_inversion', 'topic_confidence': 1.0, 'user_message_ambiguous': False, 'is_follow_up': False, 'info_source': 'rag', 'rewritten_query': '¿Qué es un depósito a plazo fijo?'}
+2026-03-04 14:55:00,803 [32mINFO[0m:     We will use RAG to answer the query.
+2026-03-04 14:55:02,309 [32mINFO[0m:     [33mEmbedded number of queries: 1, each with 384 dimensions[0m
+2026-03-04 14:55:02,309 [32mINFO[0m:     [36m[✅] 🧰 Embedding time: [0mit took [33m1.5051s ⏱. 
+2026-03-04 14:55:06,349 [32mINFO[0m:     [31m24385: [36m[✅] 🧰 RAG ACHIEVED: [0mit took [33m5.5448s ⏱. 
+2026-03-04 14:55:07,155 [32mINFO[0m:     [31m24385: [36m[✅] 👾 QUERY ANSWERED: [0mit took [33m0.8027s ⏱. 
+2026-03-04 14:55:07,158 [32mINFO[0m:     [31m24385: [36m[✅] 💿 MEMORY UPDATED: [0mit took [33m0.0032s ⏱. [0mSession 24385: updated with TTL of 900 seconds.
+2026-03-04 14:55:13,210 [32mINFO[0m:     [32m==================================================
+2026-03-04 14:55:13,210 [32mINFO[0m:     [32m[🤖] Endpoint POST /conversation reached
+2026-03-04 14:55:13,210 [32mINFO[0m:     [32m==================================================[0m
+2026-03-04 14:55:13,214 [32mINFO[0m:     [31m21112: [0mquestion
+2026-03-04 14:55:13,704 [32mINFO[0m:     [32m==================================================
+2026-03-04 14:55:13,704 [32mINFO[0m:     [32m[🤖] Endpoint POST /conversation reached
+2026-03-04 14:55:13,704 [32mINFO[0m:     [32m==================================================[0m
+2026-03-04 14:55:13,707 [32mINFO[0m:     [31m19881: [0m¿Que es un deposito a plazo fijo?
+2026-03-04 14:55:13,727 [32mINFO[0m:     [31m21112: [36m[✅] 👾 INTENTION DETECTED: [0mit took [33m0.5132s ⏱. [0m{'intencion_actual': 'preguntas', 'confianza_en_la_intencion': 1.0, 'slots_requeridos': {}}
+2026-03-04 14:55:13,727 [32mINFO[0m:     Intent is 'preguntas'. We will now read memory.
+2026-03-04 14:55:13,729 [32mINFO[0m:     [31m21112: [36m[✅] 💿 MEMORY READ: [0mit took [33m0.0020s ⏱. [0mSession 21112: created with TTL of 900 seconds.
+2026-03-04 14:55:20,348 [32mINFO[0m:     [31m19881: [36m[✅] 👾 INTENTION DETECTED: [0mit took [33m6.6410s ⏱. [0m{'intencion_actual': 'preguntas', 'confianza_en_la_intencion': 1.0, 'slots_requeridos': {}}
+2026-03-04 14:55:20,349 [32mINFO[0m:     Intent is 'preguntas'. We will now read memory.
+2026-03-04 14:55:20,354 [32mINFO[0m:     [31m19881: [36m[✅] 💿 MEMORY READ: [0mit took [33m0.0042s ⏱. [0mSession 19881: created with TTL of 900 seconds.
+2026-03-04 14:55:36,519 [32mINFO[0m:     [31m21112: [36m[✅] 👾 TOPIC DETECTED: [0mit took [33m23.3055s ⏱. [0m{'topic': None, 'topic_confidence': 0.0, 'user_message_ambiguous': True, 'is_follow_up': False, 'info_source': None, 'rewritten_query': None}
+2026-03-04 14:55:36,520 [32mINFO[0m:     Query is ambiguous. We will reach back to user.
+2026-03-04 14:55:49,375 [32mINFO[0m:     Shutting down
+2026-03-04 14:55:49,476 [32mINFO[0m:     Waiting for background tasks to complete. (CTRL+C to force quit)
+2026-03-04 14:55:53,398 [32mINFO[0m:     [31m19881: [36m[✅] 👾 TOPIC DETECTED: [0mit took [33m39.6905s ⏱. [0m{'topic': 'ahorro_e_inversion', 'topic_confidence': 1.0, 'user_message_ambiguous': False, 'is_follow_up': False, 'info_source': 'rag', 'rewritten_query': '¿Qué es un depósito a plazo fijo?'}
+2026-03-04 14:55:53,398 [32mINFO[0m:     We will use RAG to answer the query.
+2026-03-04 14:55:54,651 [32mINFO[0m:     [33mEmbedded number of queries: 1, each with 384 dimensions[0m
+2026-03-04 14:55:54,651 [32mINFO[0m:     [36m[✅] 🧰 Embedding time: [0mit took [33m1.2517s ⏱. 
+2026-03-04 14:55:58,507 [32mINFO[0m:     [31m19881: [36m[✅] 🧰 RAG ACHIEVED: [0mit took [33m5.1081s ⏱. 
+2026-03-04 14:56:23,464 [32mINFO[0m:     [31m19881: [36m[✅] 👾 QUERY ANSWERED: [0mit took [33m24.9385s ⏱. 
+2026-03-04 14:56:23,478 [32mINFO[0m:     [31m19881: [36m[✅] 💿 MEMORY UPDATED: [0mit took [33m0.0130s ⏱. [0mSession 19881: updated with TTL of 900 seconds.
+2026-03-04 14:56:23,567 [32mINFO[0m:     Waiting for application shutdown.
+2026-03-04 14:56:23,568 [32mINFO[0m:     Application shutdown complete.
+2026-03-04 14:56:23,568 [32mINFO[0m:     Finished server process [[36m80337[0m]
+2026-03-04 14:56:23,629 [32mINFO[0m:     Stopping reloader process [[36m[1m75784[0m]
