@@ -1,10 +1,10 @@
 .env
 **/__pycache__/
-data/
+api_server/data/
 .python-version
-ragvenv/
+api_server/.svenv
 **/.DS_Store
-logs/app.log
-tests/.pytest_cache
+api_server/logs/app.log
+api_server/tests/.pytest_cache
 node_modules/
 artillery/

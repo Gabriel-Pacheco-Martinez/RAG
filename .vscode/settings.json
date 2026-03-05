@@ -6,6 +6,8 @@
     ".python-version": true,
     ".env": false,
     ".env.example": true,
-    ".pytest_cache": true
+    ".pytest_cache": true,
+    "package-lock.json": true,
+    "package.json": true
   }
 }
