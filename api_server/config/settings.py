@@ -28,7 +28,7 @@ GROQ_API_KEY = os.getenv("GROQ_API_KEY")
 # Redis communication
 REDIS_TTL_SECONDS = 900
 REDIS_CLIENT = redis.StrictRedis(
-    host="localhost",
+    host="redis",
     port=6379,          # Docker exposed port
     db=0,               # This goes from 0 to 15 
     decode_responses=True
@@ -37,7 +37,7 @@ REDIS_CLIENT = redis.StrictRedis(
 # =====
 # Qdrant client
 ASYNC_QDRANT_CLIENT = AsyncQdrantClient(
-    url="http://localhost:6333",  # Docker exposed port
+    url="http://qdrant:6333",  # Docker exposed port
 )
 TOP_K_DENSE = 8
 TOP_K_SPARSE = 8
@@ -45,7 +45,7 @@ LIMIT_K_HYBRID = 5
 
 # =====
 # LLM Models
-LLM_SOURCE = "groq"
+LLM_SOURCE = "google"
 GROQ_GENERATOR_MODEL = ChatGroq(model="llama-3.1-8b-instant", temperature=0, api_key=GROQ_API_KEY)
 GEMINI_GENERATOR_MODEL = ChatGoogleGenerativeAI(model="gemma-3-1b-it", temperature=0, google_api_key=GEMINI_API_KEY, convert_system_message_to_human=True,)
 OLLAMA_GENERATOR_MODEL = ChatOllama(model="qwen3:8b", temperature=0)

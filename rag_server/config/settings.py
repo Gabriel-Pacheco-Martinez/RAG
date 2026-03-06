@@ -7,7 +7,7 @@ from sentence_transformers import CrossEncoder
 # =====
 # Qdrant client
 ASYNC_QDRANT_CLIENT = AsyncQdrantClient(
-    url="http://localhost:6333",  # Docker exposed port
+    url="http://qdrant:6333",  # Docker exposed port
 )
 TOP_K_DENSE = 8
 TOP_K_SPARSE = 8
