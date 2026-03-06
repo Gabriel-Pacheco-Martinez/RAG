@@ -16,13 +16,13 @@ from src.models.state import ChatState
 
 # Nodes
 from src.nodes.intent.detect import intent_detect
-from src.nodes.intent.respond import intent_guardrail_response
+from src.nodes.intent.respond import intent_response
 from src.nodes.memory.read import read_memory
 from src.nodes.memory.update import update_memory
 from src.nodes.topic.detect import topic_detect
-from src.nodes.topic.respond import topic_guardrail_response
-from src.nodes.llm.generate import llm_generate
-from src.nodes.llm.respond import llm_response
+from src.nodes.topic.respond import topic_response
+from src.nodes.generate.client import llm_generate
+from src.nodes.generate.respond import llm_response
 
 # Decorators
 from src.utils.decorators import safe_node
@@ -36,39 +36,42 @@ def intent_route(state: ChatState) -> str:
     if state.get("error"):
         return "error_handler"
 
-    # Next node election
-    if state.get("llm_intent_response", "nula") == "preguntas":
-        logger.info("Intent is 'preguntas'. We will now read memory.")
+    # Intent is "preguntas"
+    if state.get("intent_llm") == "preguntas":
+        logger.info("User wants a question answered.")
         return "read_memory"
+    
+    # Intent is otherwise
     else:
-        logger.info("Intent is not 'preguntas'.")
-        return "intent_guardrail_response"
+        logger.info(f"User wants {state.get('intent_llm')}.")
+        return "intent_response"
 
 def topic_route(state: ChatState) -> str:
-    # Si hay un error
+    # Error detected
     if state.get("error"):
         return "error_handler"
 
-    # Elegir el siguiente node
-    if state.get("user_message_ambiguous", False) or state.get("topic_confidence", 0) < 0.75:
-        logger.info("Query is ambiguous. We will reach back to user.")
-        return "topic_guardrail_response"
-    if state.get("info_source", "llm_generate") == "memory":
+    # Topic is ambiguous
+    if state.get("topic_ambiguous") or state.get("topic_score", 0) < 0.75:
+        logger.info("Topic is ambiguous. We will reach back to the user.")
+        return "topic_response"
+    
+    # Decide if rag or memory
+    if state.get("info_source") == "memory": # memory
         logger.info("We will use memory to answer the query.")
         return "llm_response"
-    else:
+    else: # rag
         logger.info("We will use RAG to answer the query.")
         return "llm_generate"
 
 def error_handler(state: ChatState) -> ChatState:
-    error = state.get("error") # If it doent exist, it returns None (.get())
+    error = state.get("error") 
     logger.error(f"[❌] Workflow failed at {error}")
     
     if error is None:
         error = {}
 
     response_message = build_error_response(error)
-    
 
     state["final_answer"] = {
         "response": response_message,
@@ -92,10 +95,10 @@ async def run(request: QueryRequest) -> str:
     # =========
     # Nodes:
     graph.add_node("intent_detect", safe_node("intent_detect")(intent_detect))
-    graph.add_node("intent_guardrail_response", safe_node("intent_guardrail_response")(intent_guardrail_response))
+    graph.add_node("intent_response", safe_node("intent_response")(intent_response))
     graph.add_node("read_memory", safe_node("read_memory")(read_memory))
     graph.add_node("topic_detect", safe_node("topic_detect")(topic_detect))
-    graph.add_node("topic_guardrail_response", safe_node("topic_guardrail_response")(topic_guardrail_response))
+    graph.add_node("topic_response", safe_node("topic_response")(topic_response))
     graph.add_node("llm_generate", safe_node("llm_generate")(llm_generate))
     graph.add_node("llm_response", safe_node("llm_response")(llm_response))
     graph.add_node("update_memory", safe_node("update_memory")(update_memory))
@@ -105,10 +108,10 @@ async def run(request: QueryRequest) -> str:
     # FIXME:Routing-Edges:
     #   1. Detectar el intent del usuario
     graph.set_entry_point("intent_detect")
-    graph.add_conditional_edges("intent_detect", intent_route)
+    # graph.add_conditional_edges("intent_detect", intent_route)
 
     #   2. Detectar el topic de la pregunta del usuario
-    # graph.set_entry_point("read_memory")
+    graph.add_conditional_edges("intent_detect", route_or_error("read_memory"))
     graph.add_conditional_edges("read_memory", route_or_error("topic_detect"))
     graph.add_conditional_edges("topic_detect", topic_route)
 
@@ -122,8 +125,8 @@ async def run(request: QueryRequest) -> str:
     app = graph.compile()
 
     initial_state: ChatState = {
-        "user_session_id": user_session_id,
         "user_message": user_message,
+        "user_session_id": user_session_id,
         "user_message_format": user_message_format
     }
 

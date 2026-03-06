@@ -1,5 +1,6 @@
 # General
 import json
+from typing import Awaitable
 
 # Classes
 from src.models.state import ChatState
@@ -39,7 +40,7 @@ def build_intention_prompt(user_message: str) -> PromptValue:
 
 def build_topic_prompt(state: ChatState) -> PromptValue:
     # Load files
-    base_prompt = load_prompt("classify_prompt.txt")
+    base_prompt = load_prompt("topic_prompt.txt")
 
     # Build
     prompt = ChatPromptTemplate.from_messages([
@@ -50,9 +51,11 @@ def build_topic_prompt(state: ChatState) -> PromptValue:
     # Call
     prompt = prompt.invoke({
         "temas": json.dumps(load_yaml_schema("topics.yaml")), # dict
-        "tema_previo": state["topic_previous"],
-        "memoria_conversacion": json.dumps(state["conversation_history"]), # list
-        "user_message_ph": state["user_message"],
+        "tema_previo": state.get("topic_previous"),
+        "documento_previo": state.get("document_previous"),
+        "capitulo_previo": state.get("chapter_previous"),
+        "memoria_conversacion": json.dumps(state.get("conversation_history")), # list
+        "user_message_ph": state.get("user_message_str"),
     })
 
     return prompt
@@ -70,7 +73,7 @@ def build_generator_prompt(state: ChatState) -> PromptValue:
 
     # Call
     prompt = prompt.invoke({
-        "contexto": state["context"],
+        "contexto": state.get("context"),
         "user_message_placeholder": state["user_message"]
     })
 

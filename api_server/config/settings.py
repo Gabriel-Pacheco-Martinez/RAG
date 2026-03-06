@@ -4,7 +4,7 @@ from colorama import Fore, Style
 
 # Redis & Qdrant
 import redis
-from qdrant_client import QdrantClient
+from qdrant_client import AsyncQdrantClient
 
 # Langchain
 from langchain_ollama import ChatOllama
@@ -13,6 +13,7 @@ from langchain_google_genai import ChatGoogleGenerativeAI
 
 # HuggingFace
 from sentence_transformers import CrossEncoder
+from transformers import AutoModel, AutoTokenizer
 
 # Fastembed
 from fastembed import SparseTextEmbedding
@@ -35,13 +36,12 @@ REDIS_CLIENT = redis.StrictRedis(
 
 # =====
 # Qdrant client
-QDRANT_CLIENT = QdrantClient(
+ASYNC_QDRANT_CLIENT = AsyncQdrantClient(
     url="http://localhost:6333",  # Docker exposed port
 )
 TOP_K_DENSE = 8
 TOP_K_SPARSE = 8
 LIMIT_K_HYBRID = 5
-THRESHOLD = 0.3
 
 # =====
 # LLM Models
@@ -53,7 +53,11 @@ GEMINI_MULTIMODAL_MODEL = "gemini-2.5-flash" # This will be called without LangC
 
 # =====
 # Embeddings
-EMBEDDING_MODEL = "all-MiniLM-L6-v2"
+try:
+    DENSE_MODEL = AutoModel.from_pretrained(f'sentence-transformers/all-MiniLM-L6-v2')
+    DENSE_TOKENIZER = AutoTokenizer.from_pretrained(f'sentence-transformers/all-MiniLM-L6-v2')
+except Exception as e:
+    raise Exception(f"Error loading dense model and dense tokenizer: {e}")
 SPARSE_MODEL = SparseTextEmbedding("Qdrant/bm25")
 RERANKER_MODEL = CrossEncoder("cross-encoder/ms-marco-MiniLM-L-6-v2")
 EMBEDDING_BATCH_SIZE = 16

@@ -61,12 +61,12 @@ async def audio_endpoint(TextChatbot: str = Form(None), AudioChatbot: UploadFile
     return JSONResponse(content=response_payload)
 
 @app.get("/index")
-def index_endpoint():
+async def index_endpoint():
     logger.info(Fore.GREEN + "="*50)
     logger.info(Fore.GREEN + "[📚] Endpoint GET /index reached")
     logger.info(Fore.GREEN + "="*50 + Style.RESET_ALL)
 
-    response =index.run()
+    response = await index.run()
 
     response_payload = {
         "response": "Success: " + response

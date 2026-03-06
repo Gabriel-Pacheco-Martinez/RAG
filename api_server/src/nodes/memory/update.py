@@ -22,16 +22,16 @@ def update_memory(state: ChatState) -> ChatState:
 
     # Read Redis data
     session_id = str(state["user_session_id"])
-    session_ttl = REDIS_TTL_SECONDS
-    session_data = REDIS_CLIENT.hgetall(session_id)
+    session_ttl: int = REDIS_TTL_SECONDS
+    session_data: dict[str, str] = REDIS_CLIENT.hgetall(session_id)
     session_data_obj = deserialize_session_data(session_data)
 
     # Update states
-    session_data_obj["topic_previous"] = state["topic"]
-    session_data_obj["context"] = state["context"]
-    session_data_obj["conversation_history"] = state["conversation_history"]
-    session_data_obj["document_previous"] = state["document"]
-    session_data_obj["chapter_previous"] = state["chapter"]
+    session_data_obj["topic_previous"] = state.get("topic_llm")
+    session_data_obj["context"] = state.get("context")
+    session_data_obj["conversation_history"] = state.get("conversation_history")
+    session_data_obj["document_previous"] = state.get("document")
+    session_data_obj["chapter_previous"] = state.get("chapter")
 
     # Update redis data
     session_data = serialize_session_data(session_data_obj)

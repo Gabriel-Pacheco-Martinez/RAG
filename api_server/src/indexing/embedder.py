@@ -9,7 +9,8 @@ import torch.nn.functional as F
 import numpy as np
 
 # Huggingface
-from transformers import AutoModel, AutoTokenizer
+from transformers import PreTrainedModel
+from transformers import PreTrainedTokenizerBase
 
 # Logging
 import logging
@@ -21,22 +22,14 @@ def _mean_pooling(model_output, attention_mask):
     return torch.sum(token_embeddings * input_mask_expanded, 1) / torch.clamp(input_mask_expanded.sum(1), min=1e-9)
 
 class Embedder:
-    def __init__(self, model_name: str, batch_size: int):
-        self.model_name = model_name
+    def __init__(self, model: PreTrainedModel, tokenizer: PreTrainedTokenizerBase, batch_size: int):
+        self.model = model
+        self.tokenizer = tokenizer
         self.batch_size = batch_size
-    
-    def _load_model(self):
-        try:
-            # Use HF to load model and tokenizer
-            self.tokenizer = AutoTokenizer.from_pretrained(f'sentence-transformers/{self.model_name}')
-            self.model = AutoModel.from_pretrained(f'sentence-transformers/{self.model_name}')
-            self.model.eval()  # Set the model to evaluation mode
-        except Exception as e:
-            raise Exception(f"Error loading embedding model and tokenizer: {self.model_name}: {e}")
         
     def embed_chunks(self, chunks: dict) -> dict:
         # Load model
-        self._load_model()
+        self.model.eval()
         chunk_embeddings = {
             "documentos": {},
             "capitulos": {},
@@ -80,30 +73,3 @@ class Embedder:
                     }
 
         return chunk_embeddings
-    
-    def embed_query(self, query: str) -> np.ndarray: 
-        # Timer
-        time = perf_counter()
-
-        # Load model
-        self._load_model()
-
-        # Tokenize the query
-        query_tokens = self.tokenizer(query, padding=True, truncation=True, return_tensors="pt")
-
-        # Compute token embeddings
-        with torch.no_grad():
-            model_output = self.model(**query_tokens)
-
-        # Mean Pooling
-        embeddings = _mean_pooling(model_output, query_tokens['attention_mask'])
-
-        # Normalize
-        embeddings = F.normalize(embeddings, p=2, dim=1)
-        embeddings = embeddings.numpy()
-
-        # Say something
-        logger.info(Fore.YELLOW + f"Embedded number of queries: {embeddings.shape[0]}, each with {embeddings.shape[1]} dimensions" + Style.RESET_ALL)
-        logger.info(Fore.CYAN + "[✅] 🧰 Embedding time: " + Style.RESET_ALL + "it took " + Fore.YELLOW + f"{perf_counter() - time:.4f}s ⏱. ")
-
-        return embeddings

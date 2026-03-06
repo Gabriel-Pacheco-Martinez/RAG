@@ -13,7 +13,7 @@ from config.settings import GROQ_GENERATOR_MODEL, GEMINI_GENERATOR_MODEL
 import logging
 logger = logging.getLogger('uvicorn.error')
 
-async def call_llm(prompt: PromptValue) -> Awaitable[str]:
+async def call_llm(prompt: PromptValue) -> str:
     response_text = ""
     if LLM_SOURCE == "groq":
         response = await GROQ_GENERATOR_MODEL.ainvoke(prompt)
@@ -23,7 +23,7 @@ async def call_llm(prompt: PromptValue) -> Awaitable[str]:
         response_text = response.content[0]["text"].strip()
     return response_text
 
-def extract_json_from_response(text: Awaitable[str]) -> dict:
+def extract_json_from_response(text: str) -> dict:
     start = text.find("{")
     if start == -1:
         logging.info("[X] No JSON object found on INTENTION DETECTION LLM response")

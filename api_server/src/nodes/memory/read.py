@@ -22,8 +22,8 @@ def read_memory(state: ChatState) -> ChatState:
     state["start_timer_memory_read"] = perf_counter()
 
     session_id = str(state["user_session_id"])
-    session_ttl = REDIS_TTL_SECONDS
-    session_data = REDIS_CLIENT.hgetall(session_id)
+    session_ttl: int = REDIS_TTL_SECONDS
+    session_data: dict[str, str] = REDIS_CLIENT.hgetall(session_id)
     
     # Session just started
     if not session_data:
@@ -55,8 +55,8 @@ def read_memory(state: ChatState) -> ChatState:
         state["topic_previous"] = session_data_obj.get("topic_previous", "")
         state["conversation_history"] = session_data_obj.get("conversation_history", "")
         state["context"] = session_data_obj.get("context", "")
-        state["document"] = session_data_obj.get("document_previous", "")
-        state["chapter"] = session_data_obj.get("chapter_previous", "")
+        state["document_previous"] = session_data_obj.get("document_previous", "")
+        state["chapter_previous"] = session_data_obj.get("chapter_previous", "")
 
         # Timer
         logger.info(Fore.RED + f"{state['user_session_id']}: " + Fore.CYAN + "[✅] 💿 MEMORY READ: " + Style.RESET_ALL + "it took " + Fore.YELLOW + f"{perf_counter() - state['start_timer_memory_read']:.4f}s ⏱. " + Style.RESET_ALL + f"Session {session_id}: read and loaded.")

@@ -3,8 +3,12 @@
 api_server/data/
 .python-version
 api_server/.svenv
+rag_server/.rvenv
 **/.DS_Store
 api_server/logs/app.log
 api_server/tests/.pytest_cache
+rag_server/logs/app.log
 node_modules/
 artillery/
+.vscode
+api_server/.vscode

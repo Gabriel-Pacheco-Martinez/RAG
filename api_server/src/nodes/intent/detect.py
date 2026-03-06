@@ -1,5 +1,5 @@
 # General
-import json
+from typing import Awaitable
 from colorama import Fore, Style
 from time import perf_counter
 
@@ -9,8 +9,8 @@ from src.models.state import ChatState
 # Helpers
 from src.nodes.intent.converter import convert_audio_to_text
 from src.utils.prompts import build_intention_prompt
-from src.utils.llm_client import call_llm
-from src.utils.llm_client import extract_json_from_response
+from src.utils.llm import call_llm
+from src.utils.llm import extract_json_from_response
 
 # Classes
 from src.nodes.intent.validator import TextValidator, AudioValidator
@@ -38,20 +38,20 @@ async def intent_detect(state: ChatState) -> ChatState:
     elif state["user_message_format"] == "audio":
         validator = AudioValidator(state["user_message"], format="audio", max_size=MAX_AUDIO_SIZE)
         user_message_audio: bytes = validator.validate_input()
-        user_message_text = await convert_audio_to_text(user_message_audio)
+        user_message_text: str = await convert_audio_to_text(user_message_audio)
 
     state["user_message_str"] = user_message_text
 
-    # Build prompt and call llm
-    intent_prompt: PromptValue = build_intention_prompt(user_message_text)
-    response_raw: Awaitable[str] = await call_llm(intent_prompt)
-    response_obj: object = extract_json_from_response(response_raw)
-    logger.info(Fore.RED + f"{state['user_session_id']}: " + Fore.CYAN + f"[✅] 👾 INTENTION DETECTED: " + Style.RESET_ALL + "it took " + Fore.YELLOW + f"{perf_counter() - state['start_timer_intent']:.4f}s ⏱. " + Style.RESET_ALL + f"{response_obj}")
+    # # Build prompt and call llm
+    # intent_prompt: PromptValue = build_intention_prompt(user_message_text)
+    # response_raw: str = await call_llm(intent_prompt)
+    # response_obj: object = extract_json_from_response(response_raw)
+    # logger.info(Fore.RED + f"{state['user_session_id']}: " + Fore.CYAN + f"[✅] 👾 INTENTION DETECTED: " + Style.RESET_ALL + "it took " + Fore.YELLOW + f"{perf_counter() - state['start_timer_intent']:.4f}s ⏱. " + Style.RESET_ALL + f"{response_obj}")
 
-    # Update state
-    state["llm_intent_response"] = response_obj["intencion_actual"]
-    state["intent_confidence"] = response_obj["confianza_en_la_intencion"]
-    state["slots"] = response_obj["slots_requeridos"]
+    # # Update state
+    # state["intent_llm"] = response_obj["intent_llm"]
+    # state["intent_score"] = response_obj["intent_score"]
+    # state["required_slots"] = response_obj["required_slots"]
 
     # Say something
     return state

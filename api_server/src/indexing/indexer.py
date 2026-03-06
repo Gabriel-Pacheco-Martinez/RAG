@@ -6,26 +6,26 @@ import numpy as np
 
 # Qdrant
 from qdrant_client.models import Distance, VectorParams, SparseVectorParams, PointStruct, Modifier, Document
-from qdrant_client import QdrantClient
+from qdrant_client import AsyncQdrantClient
 
 # Logging
 import logging
 logger = logging.getLogger(__name__)
 
 class Indexer():
-    def __init__(self, client:QdrantClient, dim:int):
+    def __init__(self, client:AsyncQdrantClient, dim:int):
         self.client = client
         self.dim = dim
 
-    def _create_collection(self, name: str):
+    async def _create_collection(self, name: str):
         # Delete if it exists
         try:
-            self.client.delete_collection(name)
+            await self.client.delete_collection(name)
         except Exception:
             pass  # collection did not exist
 
         # Recreate
-        self.client.create_collection(
+        await self.client.create_collection(
             collection_name=name,
             vectors_config={    
                 "dense": VectorParams(
@@ -40,13 +40,13 @@ class Indexer():
             }
         )
 
-    def _setup_collections(self):
-        self._create_collection("documentos")
-        self._create_collection("capitulos")
-        self._create_collection("textos")
+    async def _setup_collections(self):
+        await self._create_collection("documentos")
+        await self._create_collection("capitulos")
+        await self._create_collection("textos")
 
-    def _index_texto(self, doc_id:str, cap_id:str, texto_id: str, embedding: np.ndarray, texto: str, doc_titulo: str, cap_titulo: str, doc_texto: str, cap_texto: str):
-        self.client.upsert(
+    async def _index_texto(self, doc_id:str, cap_id:str, texto_id: str, embedding: np.ndarray, texto: str, doc_titulo: str, cap_titulo: str, doc_texto: str, cap_texto: str):
+        await self.client.upsert(
             collection_name="textos",
             points=[
                 PointStruct(
@@ -72,8 +72,8 @@ class Indexer():
             ]
         )
 
-    def _index_capitulo(self, doc_id:str, cap_id:str, embedding: np.ndarray, texto: str, cap_metadata: dict):
-        self.client.upsert(
+    async def _index_capitulo(self, doc_id:str, cap_id:str, embedding: np.ndarray, texto: str, cap_metadata: dict):
+        await self.client.upsert(
             collection_name="capitulos",
             points=[
                 PointStruct(
@@ -95,8 +95,8 @@ class Indexer():
             ]
         )
 
-    def _index_documento(self, doc_id:str, embedding: np.ndarray, texto: str, doc_metadata: dict):
-        self.client.upsert(
+    async def _index_documento(self, doc_id:str, embedding: np.ndarray, texto: str, doc_metadata: dict):
+        await self.client.upsert(
             collection_name="documentos",
             points=[
                 PointStruct(
@@ -117,15 +117,15 @@ class Indexer():
             ]
         )
 
-    def index_embeddings(self, metadata: dict, embeddings: dict):
-        self._setup_collections()
+    async def index_embeddings(self, metadata: dict, embeddings: dict):
+        await self._setup_collections()
 
         # Index documentos
         for doc_id, doc_metadata in metadata["documentos"].items():
             embedding = embeddings["documentos"][doc_id]["embedding"]
             doc_texto = embeddings["documentos"][doc_id]["text"]
             doc_titulo = doc_metadata["titulo"]
-            self._index_documento(doc_id, embedding, doc_texto, doc_metadata)
+            await self._index_documento(doc_id, embedding, doc_texto, doc_metadata)
 
             # Index capitulos dentro de documentos
             for cap_id in doc_metadata["capitulos_ids"]:
@@ -133,10 +133,10 @@ class Indexer():
                 cap_texto = embeddings["capitulos"][cap_id]["text"]
                 cap_metadata = metadata["capitulos"][cap_id]
                 cap_titulo = cap_metadata["titulo"]
-                self._index_capitulo(doc_id, cap_id, embedding, cap_texto, cap_metadata)
+                await self._index_capitulo(doc_id, cap_id, embedding, cap_texto, cap_metadata)
 
                 # Index textos dentro de capitulos
                 for texto_id in cap_metadata["textos_ids"]:
                     embedding = embeddings["textos"][texto_id]["embedding"]
                     texto = embeddings["textos"][texto_id]["text"]
-                    self._index_texto(doc_id, cap_id, texto_id, embedding, texto, doc_titulo, cap_titulo, doc_texto, cap_texto)
+                    await self._index_texto(doc_id, cap_id, texto_id, embedding, texto, doc_titulo, cap_titulo, doc_texto, cap_texto)

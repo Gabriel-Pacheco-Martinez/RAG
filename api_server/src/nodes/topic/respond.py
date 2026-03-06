@@ -1,12 +1,10 @@
 # LangGraph
 from src.models.state import ChatState
 
-def topic_guardrail_response(state: ChatState):
-    state["llm_clarify_response"] = "clarification_needed"
-
+def topic_response(state: ChatState):
     # UPDATE FINAL STATE
     state["final_answer"] = {
-        "llm_clarify_response": "Por favor de una pregunta mas clara/detallada."
+        "system_response": "Por favor de una pregunta mas detallada. Gracias!"
     }
 
     return state

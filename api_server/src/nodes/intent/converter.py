@@ -1,3 +1,6 @@
+# General
+from typing import Awaitable
+
 # Google
 from google import genai
 from google.genai import types
@@ -13,7 +16,9 @@ from config.settings import GEMINI_API_KEY
 import logging
 logger = logging.getLogger('uvicorn.error')
 
-async def convert_audio_to_text(audio_bytes: bytes, mime_type: str = "audio/ogg"):
+client = genai.Client(api_key=GEMINI_API_KEY).aio
+
+async def convert_audio_to_text(audio_bytes: bytes, mime_type: str = "audio/ogg") -> str:
     """
     Converts audio bytes to text using Gemini 2.5 multimodal.
 
@@ -23,9 +28,8 @@ async def convert_audio_to_text(audio_bytes: bytes, mime_type: str = "audio/ogg"
     """
     try:
         model = GEMINI_MULTIMODAL_MODEL
-        client = genai.Client(api_key=GEMINI_API_KEY)
-
-        response = client.models.generate_content(
+        
+        response = await client.models.generate_content(
             model = model,
             contents=[
                 "Transcribe this audio exactly. Do not summarize.",
@@ -33,10 +37,15 @@ async def convert_audio_to_text(audio_bytes: bytes, mime_type: str = "audio/ogg"
             ]
         )
 
+        if not response.text:
+            raise ConvertionError("Gemini returned an empty transcription")
+
         logging.info("Audio converted to text")
+        return response.text
+    
     except Exception as e:
         logging.info("Error converting audio to text")
         raise ConvertionError("Error convirtiendo audio a texto: " + str(e))
-    return response.text
+    
 
         

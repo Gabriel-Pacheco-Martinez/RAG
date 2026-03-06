@@ -3,7 +3,7 @@ import json
 import pytest
 
 # Nodes
-from src.nodes.llm.rag import llm_rag_retrieval
+from src.nodes.generate.rag import llm_rag_retrieval
 
 # Import user message object
 from src.models.query import QueryRequest

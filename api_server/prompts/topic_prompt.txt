@@ -26,6 +26,12 @@ TEMAS:
 TEMA_PREVIO:
 {tema_previo}
 
+DOCUMENTO_PREVIO:
+{documento_previo}
+
+CAPITULO_PREVIO:
+{capitulo_previo}
+
 MEMORIA_CONVERSACION:
 {memoria_conversacion}
 
@@ -66,7 +72,7 @@ Si confidence < 0.75:
 
 ## PASO 2 – DETECCIÓN DE FOLLOW-UP
 
-is_follow_up = true si:
+topic_follow_up = true si:
 - El mensaje contiene referencias como:
   "el anterior", "más información",
   "eso", "lo mencionado", "el mismo", "dijiste",
@@ -74,7 +80,7 @@ is_follow_up = true si:
 - No introduce un nuevo producto explícito
 - Depende semánticamente de la conversación hasta el momento.
 
-is_follow_up = false si:
+topic_follow_up = false si:
 - Introduce un nuevo producto claramente
 - Cambia de tema explícitamente
 
@@ -84,7 +90,7 @@ NO asumir contexto si no es evidente.
 
 ## PASO 3 – RESOLUCIÓN DE REFERENCIAS
 
-Si is_follow_up = true:
+Si topic_follow_up = true:
 
 1) Identifica el producto más reciente mencionado en la conversacion en MEMORIA_CONVERSACION.
 2) Mantén el mayor nivel de especificidad encontrado.
@@ -107,7 +113,7 @@ Esta decisión debe basarse SOLO en MEMORIA_CONVERSACION.
 
 Reglas:
 
-Si la pregunta es un follow_up a un tema previamente ya respondido:
+Si la pregunta es un topic_follow_up a un tema previamente ya respondido:
 → info_source = "memory"
 
 Si el producto por el cual se pregunta es nuevo:
@@ -130,10 +136,10 @@ Debe cumplir:
 - No inventar características
 - No usar frases como "lo anterior"
 
-Si is_follow_up = false:
+Si topic_follow_up = false:
 Reformular usando solo el MENSAJE_ACTUAL.
 
-Si is_follow_up = true:
+Si topic_follow_up = true:
 Reformular resolviendo las referencias usando MEMORIA_CONVERSACION.
 
 Si user_message_ambiguous = true:
@@ -157,10 +163,10 @@ rewritten_query = null
 Devuelve únicamente un JSON válido:
 
 {{
-    "topic": "<uno de los temas o null>",
-    "topic_confidence": 0.0,
-    "user_message_ambiguous": true | false,
-    "is_follow_up": true | false,
+    "topic_llm": "<uno de los temas o null>",
+    "topic_score": 0.0,
+    "topic_ambiguous": true | false,
+    "topic_follow_up": true | false,
     "info_source": "memory" | "rag" | null,
     "rewritten_query": "<consulta optimizada o null>"
 }}
