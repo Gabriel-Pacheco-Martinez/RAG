@@ -9,6 +9,9 @@
 - Session timeout 15 minutos?
 - User messages security layer?
 
+## Artillery
+npx artillery run artillery/load-test.yaml
+
 ## MODELOS RECOMENDADOS
 - [LLama 3](https://ollama.com/library/llama3),[Mistral](https://mistral.ai/pricing#api), [Gemma 2](https://aistudio.google.com/app/rate-limit?project=gen-lang-client-0500425753) recommended.
 

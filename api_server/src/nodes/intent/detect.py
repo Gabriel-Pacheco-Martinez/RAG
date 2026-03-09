@@ -41,6 +41,7 @@ async def intent_detect(state: ChatState) -> ChatState:
         user_message_text: str = await convert_audio_to_text(user_message_audio)
 
     state["user_message_str"] = user_message_text
+    logger.info(Fore.RED + f"{state['user_session_id']}: " + Fore.CYAN + " 👤 USER QUESTION: " + Style.RESET_ALL + f"{user_message_text}")
 
     # # Build prompt and call llm
     # intent_prompt: PromptValue = build_intention_prompt(user_message_text)

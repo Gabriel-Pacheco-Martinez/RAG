@@ -134,7 +134,7 @@ async def llm_generate(state: ChatState) -> ChatState:
     state["conversation_history"] = conversation_history[-6:]
 
     # Timer
-    logger.info(Fore.RED + f"{state['user_session_id']}: " + Style.RESET_ALL + f"{state['generate_llm']}")
+    logger.info(Fore.RED + f"{state['user_session_id']}: " + Fore.CYAN + " 🤖 SYSTEM RESPONSE: " + Style.RESET_ALL + f"{state['generate_llm']}")
     logger.info(Fore.RED + f"{state['user_session_id']}: " + Fore.CYAN + "[✅] 👾 QUERY ANSWERED: " + Style.RESET_ALL + "it took " + Fore.YELLOW + f"{perf_counter() - state['start_timer_llm_generate']:.4f}s ⏱. ")
 
     return state

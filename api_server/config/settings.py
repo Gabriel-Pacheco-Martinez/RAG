@@ -26,15 +26,15 @@ GROQ_API_KEY = os.getenv("GROQ_API_KEY")
 
 # =====
 # Rag Server communication
-# RAG_SERVER_URL = "http://nginx:8080"      # Docker
-RAG_SERVER_URL = "http://localhost:8002"    # Localhost
+RAG_SERVER_URL = "http://nginx:8080"      # Docker
+# RAG_SERVER_URL = "http://localhost:8002"    # Localhost
 
 # =====
 # Redis communication
 REDIS_TTL_SECONDS = 900
 REDIS_CLIENT = redis.StrictRedis(
-    # host="redis",       # Docker exposed
-    host="localhost",       # Localhost
+    host="redis",       # Docker exposed
+    # host="localhost",       # Localhost
     port=6379,          
     db=0,               # This goes from 0 to 15 
     decode_responses=True
@@ -43,8 +43,8 @@ REDIS_CLIENT = redis.StrictRedis(
 # =====
 # Qdrant client
 ASYNC_QDRANT_CLIENT = AsyncQdrantClient(
-    url="http://localhost:6333",  # Localhost port
-    # url="http://qdrant:6333",  # Docker exposed port
+    # url="http://localhost:6333",  # Localhost port
+    url="http://qdrant:6333",  # Docker exposed port
 )
 TOP_K_DENSE = 8
 TOP_K_SPARSE = 8
