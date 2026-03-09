@@ -1,14 +1,12 @@
 # STEPS 
 
 ## 📘 TO-DO (POSSIBLE)
-- Prices
-- Say to LLM that they are CARLITOS BNB and they answer on behalf of the bank
-
 - OPEN AI integration
 - PONER API PUBLICA
 - Session timeout?
 
 - Consideraciones generales
+   - Le podemos dar un numero del banco para que la gente se contacte.
 
 ## Artillery
 npx artillery run artillery/load-test.yaml

@@ -43,8 +43,8 @@ REDIS_CLIENT = redis.StrictRedis(
 # =====
 # Qdrant client
 ASYNC_QDRANT_CLIENT = AsyncQdrantClient(
-    # url="http://localhost:6333",  # Localhost port
     url="http://qdrant:6333",  # Docker exposed port
+    # url="http://localhost:6333",  # Localhost port
 )
 TOP_K_DENSE = 8
 TOP_K_SPARSE = 8
