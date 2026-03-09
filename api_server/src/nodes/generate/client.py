@@ -23,6 +23,7 @@ from src.nodes.generate.api import SearchClient
 # Configuration
 from config.settings import EMBEDDING_BATCH_SIZE
 from config.settings import WEBSITE_METADATA_FILE_PATH
+from config.settings import RAG_SERVER_URL
 
 # Logging
 import logging
@@ -87,7 +88,7 @@ async def llm_generate(state: ChatState) -> ChatState:
     topic = state.get("topic_llm")
     if not topic:
         raise Exception("Topic is empty before RAG")
-    client = SearchClient()
+    client = SearchClient(RAG_SERVER_URL)
     vectors: list[dict] = await client.search(query, dense_embedding, sparse_embedding, topic)
     textos = read_json(WEBSITE_METADATA_FILE_PATH)["textos"]
 

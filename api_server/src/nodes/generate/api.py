@@ -2,7 +2,7 @@ import httpx
 
 class SearchClient:
 
-    def __init__(self, base_url="http://nginx:8080"):
+    def __init__(self, base_url: str):
         self.base_url = base_url
 
     async def search(self, query, dense_embedding, sparse_embedding, topic):

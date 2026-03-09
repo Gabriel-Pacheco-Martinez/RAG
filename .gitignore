@@ -12,3 +12,4 @@ node_modules/
 artillery/
 .vscode
 api_server/.vscode
+docker.md

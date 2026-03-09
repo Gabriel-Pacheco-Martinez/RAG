@@ -51,18 +51,17 @@ def topic_route(state: ChatState) -> str:
     if state.get("error"):
         return "error_handler"
 
-    # Topic is ambiguous
+    # Topic ambiguous
+    if state.get("suggested_clarification"):
+        logger.info("Reaching back to the user for clarification.")
+        return "topic_response"
+
     if state.get("topic_ambiguous") or state.get("topic_score", 0) < 0.75:
         logger.info("Topic is ambiguous. We will reach back to the user.")
         return "topic_response"
     
-    # Decide if rag or memory
-    if state.get("info_source") == "memory": # memory
-        logger.info("We will use memory to answer the query.")
-        return "llm_response"
-    else: # rag
-        logger.info("We will use RAG to answer the query.")
-        return "llm_generate"
+    # RAG or MEMORY
+    return "llm_generate"
 
 def error_handler(state: ChatState) -> ChatState:
     error = state.get("error") 

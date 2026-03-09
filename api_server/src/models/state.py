@@ -16,11 +16,11 @@ class ChatState(TypedDict):
     topic_llm: NotRequired[str]
     topic_score: NotRequired[float]
     topic_ambiguous: NotRequired[bool]
-    topic_follow_up: NotRequired[bool]
     info_source: NotRequired[str]
     topic_previous: NotRequired[str]
     document_previous: NotRequired[str]
     chapter_previous: NotRequired[str]
+    suggested_clarification: NotRequired[str]
 
     # Generation
     conversation_history: NotRequired[list[str]]

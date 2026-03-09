@@ -16,6 +16,10 @@ from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.prompts import SystemMessagePromptTemplate
 from langchain_core.prompts import HumanMessagePromptTemplate
 
+# Logging
+import logging
+logger = logging.getLogger('uvicorn.error')
+
 
 def build_intention_prompt(user_message: str) -> PromptValue:
     # Load files
@@ -45,19 +49,17 @@ def build_topic_prompt(state: ChatState) -> PromptValue:
     # Build
     prompt = ChatPromptTemplate.from_messages([
         SystemMessagePromptTemplate.from_template(base_prompt),
-        HumanMessagePromptTemplate.from_template("Mensaje de usuario:\n{user_message_ph}")
+        HumanMessagePromptTemplate.from_template("Mensaje de usuario:\n{user_message}")
     ])
 
     # Call
     prompt = prompt.invoke({
         "temas": json.dumps(load_yaml_schema("topics.yaml")), # dict
-        "tema_previo": state.get("topic_previous"),
-        "documento_previo": state.get("document_previous"),
-        "capitulo_previo": state.get("chapter_previous"),
+        "documento_previo": state.get("topic_previous"),
+        "subdocumento_previo": state.get("chapter_previous"),
         "memoria_conversacion": json.dumps(state.get("conversation_history")), # list
-        "user_message_ph": state.get("user_message_str"),
+        "user_message": state.get("user_message_str"),
     })
-
     return prompt
 
 

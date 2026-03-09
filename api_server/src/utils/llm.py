@@ -18,15 +18,15 @@ async def call_llm(prompt: PromptValue) -> str:
     if LLM_SOURCE == "groq":
         response = await GROQ_GENERATOR_MODEL.ainvoke(prompt)
         response_text = response.content.strip()
-    elif LLM_SOURCE == "gemini":
+    elif LLM_SOURCE == "google":
         response = await GEMINI_GENERATOR_MODEL.ainvoke(prompt)
-        response_text = response.content[0]["text"].strip()
+        response_text = response.content.strip()
     return response_text
 
 def extract_json_from_response(text: str) -> dict:
     start = text.find("{")
     if start == -1:
-        logging.info("[X] No JSON object found on INTENTION DETECTION LLM response")
+        logging.info("[X] No JSON object found")
         raise ValueError("No JSON object found")
 
     brace_count = 0
@@ -39,5 +39,5 @@ def extract_json_from_response(text: str) -> dict:
                 json_str = text[start:i+1]
                 return json.loads(json_str)
 
-    logging.info("[X] No complete JSON object found on INTENTION DETECTION LLM response")
+    logging.info("[X] No complete JSON object found")
     raise ValueError("No complete JSON object found")

@@ -25,11 +25,17 @@ GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 GROQ_API_KEY = os.getenv("GROQ_API_KEY")
 
 # =====
+# Rag Server communication
+# RAG_SERVER_URL = "http://nginx:8080"      # Docker
+RAG_SERVER_URL = "http://localhost:8002"    # Localhost
+
+# =====
 # Redis communication
 REDIS_TTL_SECONDS = 900
 REDIS_CLIENT = redis.StrictRedis(
-    host="redis",
-    port=6379,          # Docker exposed port
+    # host="redis",       # Docker exposed
+    host="localhost",       # Localhost
+    port=6379,          
     db=0,               # This goes from 0 to 15 
     decode_responses=True
 )
@@ -37,7 +43,8 @@ REDIS_CLIENT = redis.StrictRedis(
 # =====
 # Qdrant client
 ASYNC_QDRANT_CLIENT = AsyncQdrantClient(
-    url="http://qdrant:6333",  # Docker exposed port
+    url="http://localhost:6333",  # Localhost port
+    # url="http://qdrant:6333",  # Docker exposed port
 )
 TOP_K_DENSE = 8
 TOP_K_SPARSE = 8
@@ -45,9 +52,10 @@ LIMIT_K_HYBRID = 5
 
 # =====
 # LLM Models
-LLM_SOURCE = "google"
-GROQ_GENERATOR_MODEL = ChatGroq(model="llama-3.1-8b-instant", temperature=0, api_key=GROQ_API_KEY)
-GEMINI_GENERATOR_MODEL = ChatGoogleGenerativeAI(model="gemma-3-1b-it", temperature=0, google_api_key=GEMINI_API_KEY, convert_system_message_to_human=True,)
+LLM_SOURCE = "groq"
+# GROQ_GENERATOR_MODEL = ChatGroq(model="llama-3.1-8b-instant", temperature=0, api_key=GROQ_API_KEY)
+GROQ_GENERATOR_MODEL = ChatGroq(model="meta-llama/llama-4-scout-17b-16e-instruct", temperature=0, api_key=GROQ_API_KEY)
+GEMINI_GENERATOR_MODEL = ChatGoogleGenerativeAI(model="gemma-3-1b-it", temperature=0, google_api_key=GEMINI_API_KEY, convert_system_message_to_human=True)
 OLLAMA_GENERATOR_MODEL = ChatOllama(model="qwen3:8b", temperature=0)
 GEMINI_MULTIMODAL_MODEL = "gemini-2.5-flash" # This will be called without LangChain
 
@@ -58,8 +66,8 @@ try:
     DENSE_TOKENIZER = AutoTokenizer.from_pretrained(f'sentence-transformers/all-MiniLM-L6-v2')
 except Exception as e:
     raise Exception(f"Error loading dense model and dense tokenizer: {e}")
-SPARSE_MODEL = SparseTextEmbedding("Qdrant/bm25")
 RERANKER_MODEL = CrossEncoder("cross-encoder/ms-marco-MiniLM-L-6-v2")
+SPARSE_MODEL = SparseTextEmbedding("Qdrant/bm25")
 EMBEDDING_BATCH_SIZE = 16
 EMBEDDING_N_DIMENSIONS = 384
 

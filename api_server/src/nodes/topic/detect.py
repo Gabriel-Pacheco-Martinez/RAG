@@ -32,8 +32,8 @@ async def topic_detect(state: ChatState) -> ChatState:
     state["topic_llm"] = response_obj["topic_llm"]
     state["topic_score"] = response_obj["topic_score"]
     state["topic_ambiguous"] = response_obj["topic_ambiguous"]
-    state["topic_follow_up"] = response_obj["topic_follow_up"]
-    state["info_source"] = "memory" if state["topic_follow_up"] else "rag"
+    state["info_source"] = response_obj["info_source"]
+    state["suggested_clarification"] = response_obj["suggested_clarification"]
     rewritten = response_obj.get("rewritten_query")
     if rewritten is not None:
         state["user_message_str"] = rewritten

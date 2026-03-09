@@ -1,13 +1,13 @@
 # STEPS 
 
 ## 📘 TO-DO (POSSIBLE)
-- Mostrar de obtuvo la informacion en el output ✅
-- Mostrar AI emoji 🤖 ✅
-- Try/catch handlers. ✅
-- Define top-K chunks. ✅
-- Add logs. ✅
-- Avisar despues de 15 minutos si se cerró la sesión de REDIS.
-- Security layer for user messages.
+- Follow up question testing ✅
+- Question testings
+- Open AI integration
+- Aclarar que la moneda nacional es en Bolivianos ✅
+
+- Session timeout 15 minutos?
+- User messages security layer?
 
 ## MODELOS RECOMENDADOS
 - [LLama 3](https://ollama.com/library/llama3),[Mistral](https://mistral.ai/pricing#api), [Gemma 2](https://aistudio.google.com/app/rate-limit?project=gen-lang-client-0500425753) recommended.
