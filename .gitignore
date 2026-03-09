@@ -13,3 +13,4 @@ artillery/
 .vscode
 api_server/.vscode
 docker.md
+pricing.md

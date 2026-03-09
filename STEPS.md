@@ -1,13 +1,14 @@
 # STEPS 
 
 ## 📘 TO-DO (POSSIBLE)
-- Follow up question testing ✅
-- Question testings
-- Open AI integration
-- Aclarar que la moneda nacional es en Bolivianos ✅
+- Prices
+- Say to LLM that they are CARLITOS BNB and they answer on behalf of the bank
 
-- Session timeout 15 minutos?
-- User messages security layer?
+- OPEN AI integration
+- PONER API PUBLICA
+- Session timeout?
+
+- Consideraciones generales
 
 ## Artillery
 npx artillery run artillery/load-test.yaml
