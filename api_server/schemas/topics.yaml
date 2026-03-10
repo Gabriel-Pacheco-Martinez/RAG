@@ -1,4 +1,12 @@
 topics:
+  tarjetas_de_credito: 
+    descripción: Productos de tarjetas de crédito.
+    keywords:
+      - tarjeta de credito
+      - tarjeta de credito classic
+      - tarjeta de cretito platinum
+      - tarjeta de credito signature
+      - tarjeta de credito excellence
 
   creditos:
     descripción: Productos de financiamiento solo para personas naturales.
@@ -42,6 +50,8 @@ topics:
   seguros:
     descripción: Productos de seguros ofrecidos por el banco.
     keywords:
+      - seguro de vida
+      - telemedicina
       - seguro
       - salud
       - accidentes
