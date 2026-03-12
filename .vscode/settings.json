@@ -5,7 +5,7 @@
     "requirements.txt": false,
     ".python-version": true,
     ".env": false,
-    ".env.example": true,
+    ".env.example": false,
     ".pytest_cache": true,
     "package-lock.json": true,
     "package.json": true
