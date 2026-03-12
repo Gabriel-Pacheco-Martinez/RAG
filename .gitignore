@@ -1,6 +1,8 @@
 .env
 **/__pycache__/
-api_server/data/
+api_server/data/loaded/pdfs
+api_server/data/metadata/pdfs
+api_server/data/raw
 .python-version
 api_server/.svenv
 rag_server/.rvenv
