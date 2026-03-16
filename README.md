@@ -54,6 +54,13 @@ Para construir y ejecutar el proyecto, correr el siguiente comando en el directo
 docker compose up --build -d
 ```
 
+PyTorch no debe incluirse en `requirements.txt` debido a la necesidad de gestionar versiones específicas según la arquitectura (CPU vs GPU) y los controladores de CUDA. Por ello, la instalación se realiza directamente en el `Dockerfile` de cada servidor.
+
+Para entornos CPU, se puede instalar la versión estándar de PyTorch. Si se desea utilizar GPU con soporte CUDA, se debe especificar la versión compatible de CUDA en la línea de instalación del `Dockerfile`. Por ejemplo:
+```bash
+RUN pip install torch==2.5.1+cu121 --index-url https://download.pytorch.org/whl/cu121
+```
+
 ## API Endpoints
 **1.Construcción de la base vectorial**
 Construye o actualiza la base de conocimiento vectorial en Qdrant.
