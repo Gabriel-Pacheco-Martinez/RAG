@@ -29,34 +29,48 @@
 
 <!--  DESCRIPTION -->
 ## About
+Este proyecto implementa la funcionalidad conversacional del **Chatbot Carlitos BNB** para el **Banco Nacional de Bolivia**.
+
+El sistema permite a los usuarios interactuar con el chatbot y realizar preguntas sobre productos, servicios e información del banco en formato **Q&A**, con el objetivo de reducir tiempos de atención y mejorar la experiencia del usuario.
+
+La arquitectura utiliza un sistema **RAG (Retrieval-Augmented Generation)** agéntico basado en **LangGraph**, junto con **Qdrant** para búsqueda vectorial y **Redis** para manejo de memoria conversacional.
 
 ## Requirements
+Para ejecutar el proyecto es necesario tener instalado:
 
+- **Docker**
+- **Docker Compose**
+
+El proyecto fue desarrollado y probado con las siguientes versiones:
+
+- Docker `27.5.1`
+- Python `3.11.10`
+- Qdrant `1.16.3`
+- Redis `7.4.7`
 
 ## Instructions
-Please use the following shell script to initialize the server that can receive API requests at http://127.0.0.1:8000/conversation.
+Para construir y ejecutar el proyecto, correr el siguiente comando en el directorio raíz:
 ```bash
-# Add the requirements.txt installation stuff and probably docker stuff too
-./run.sh
+docker compose up --build -d
 ```
 
-The schema of the request sent in the HTTP request has to follow:
+## API Endpoints
+**1.Construcción de la base vectorial**
+Construye o actualiza la base de conocimiento vectorial en Qdrant.
+```bash
+GET http://127.0.0.1:8000/index
+```
+
+**2.Concersación con el chatbot**
+Permite enviar mensajes al chatbot y recibir una respuesta generada por el sistema RAG.
+```bash
+POST http://127.0.0.1:8000/conversation
+```
+
+Esquema necesario:
 ```bash
 {
-    session_id: int
-    mensaje: str
+    session_id: int   # Identificador de la sesión conversacional.
+    mensaje: str      # Pregunta o mensaje enviado por el usuario.
 }
-```
-
-### Redis and Qdrant
-The project requires the use of REDIS and Qdrant in order to work. REDIS holds the memory of the session, while Qdrant works as the vector DB for the project. Both require DOCKER to work.
-
-- Installation of Qdrant through Docker. A GUI can be accessed at localhost:6333
-```bash
-docker run -p 6333:6333 -p 6334:6334 qdrant/qdrant
-```
-
-- Installation of REDIS through Docker. A GUI can be accessed at localhost:8001
-```bash
-docker run -d --name redis-stack -p 6379:6379 -p 8001:8001 redis/redis-stack:latest
 ```
