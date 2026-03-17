@@ -69,7 +69,7 @@ async def index_endpoint():
     response = await index.run()
 
     response_payload = {
-        "response": "Success: " + response
+        "response": "Index succesfully created: " + response
     }
 
     return JSONResponse(content=response_payload)

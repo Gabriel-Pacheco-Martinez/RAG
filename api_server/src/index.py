@@ -54,4 +54,4 @@ async def run():
     await indexer.index_embeddings(metadata, embeddings_chunks)
     logger.info("✅ Successfull indexing")
 
-    return f"Metadata can be seen in file '{PDF_METADATA_FILE_PATH}'"
+    return f"Metadata saved in Qdrant sucessfully."
