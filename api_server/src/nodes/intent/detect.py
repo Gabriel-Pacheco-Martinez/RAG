@@ -8,6 +8,7 @@ from src.models.state import ChatState
 
 # Helpers
 from src.nodes.intent.converter import convert_audio_to_text
+from src.nodes.intent.guard import call_prompt_guard
 from src.utils.prompts import build_intention_prompt
 from src.utils.llm import call_llm
 from src.utils.llm import extract_json_from_response
@@ -40,8 +41,12 @@ async def intent_detect(state: ChatState) -> ChatState:
         user_message_audio: bytes = validator.validate_input()
         user_message_text: str = await convert_audio_to_text(user_message_audio)
 
+    # Security on malicious prompts
+    await call_prompt_guard(user_message_text)
+
+    # Save message
     state["user_message_str"] = user_message_text
-    logger.info(Fore.RED + f"{state['user_session_id']}: " + Fore.CYAN + " 👤 USER QUESTION: " + Style.RESET_ALL + f"{user_message_text}")
+    logger.info(Fore.RED + f"{state['user_session_id']}: " + Fore.CYAN + "[✅] 👤 USER QUESTION VALIDATED: " + Style.RESET_ALL + "it took" + Fore.YELLOW + f"{perf_counter() - state['start_timer_intent']:.4f}s ⏱. " + f"\n{user_message_text}")
 
     # # Build prompt and call llm
     # intent_prompt: PromptValue = build_intention_prompt(user_message_text)

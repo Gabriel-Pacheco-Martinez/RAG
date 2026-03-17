@@ -30,9 +30,9 @@ class ChatState(TypedDict):
     generate_llm: NotRequired[str]
 
     # Timers
+    start_timer_intent: NotRequired[float]
     start_timer_memory_read: NotRequired[float]
     start_timer_memory_update: NotRequired[float]
-    start_timer_intent: NotRequired[float]
     start_timer_topic: NotRequired[float]
     start_timer_embedding: NotRequired[float]
     start_timer_llm_rag: NotRequired[float]
