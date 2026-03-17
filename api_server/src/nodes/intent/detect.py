@@ -46,7 +46,7 @@ async def intent_detect(state: ChatState) -> ChatState:
 
     # Save message
     state["user_message_str"] = user_message_text
-    logger.info(Fore.RED + f"{state['user_session_id']}: " + Fore.CYAN + "[✅] 👤 USER QUESTION VALIDATED: " + Style.RESET_ALL + "it took" + Fore.YELLOW + f"{perf_counter() - state['start_timer_intent']:.4f}s ⏱. " + f"\n{user_message_text}")
+    logger.info(Fore.RED + f"{state['user_session_id']}: " + Fore.CYAN + "[✅] 👤 USER QUESTION VALIDATED: " + Style.RESET_ALL + "it took " + Fore.YELLOW + f"{perf_counter() - state['start_timer_intent']:.4f}s ⏱. " + Style.RESET_ALL + f"Message:\n{user_message_text}")
 
     # # Build prompt and call llm
     # intent_prompt: PromptValue = build_intention_prompt(user_message_text)
