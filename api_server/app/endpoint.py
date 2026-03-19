@@ -79,7 +79,6 @@ async def health_check():
     logger.info(Fore.GREEN + "="*50)
     logger.info(Fore.GREEN + "[💚] Endpoint GET /health reached")
     logger.info(Fore.GREEN + "="*50 + Style.RESET_ALL)
-    print("HEllo")
 
     return JSONResponse(
         content={

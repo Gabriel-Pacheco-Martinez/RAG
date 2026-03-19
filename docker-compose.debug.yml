@@ -1,0 +1,33 @@
+services:
+  api_server:
+    command:
+      [
+        "python",
+        "-m",
+        "debugpy",
+        "--listen",
+        "0.0.0.0:5678",
+        "--wait-for-client",
+        "-m", 
+        "app.cli",  # Use your CLI entry point
+        "-s"
+      ]
+    ports:
+      - "5678:5678"
+      - "8000:8000"
+  rag_server_1:
+    command:
+      [
+        "python",
+        "-m",
+        "debugpy",
+        "--listen",
+        "0.0.0.0:5679",
+        "--wait-for-client",
+        "-m", 
+        "app.cli",  # Use your CLI entry point
+        "-s"
+      ]
+    ports:
+      - "5679:5679"
+      - "8002:8002"

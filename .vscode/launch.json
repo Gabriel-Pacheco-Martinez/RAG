@@ -12,9 +12,24 @@
             "pathMappings": [
                 {
                     "localRoot": "${workspaceFolder}/api_server",
-                    "remoteRoot": "./app"
+                    "remoteRoot": "/app"
                 }
             ]
-        }
+        },
+        {
+            "name": "RAG SERVER: debugger",
+            "type": "debugpy",
+            "request": "attach",
+            "connect": {
+                "host": "localhost",
+                "port": 5679
+            },
+            "pathMappings": [
+                {
+                    "localRoot": "${workspaceFolder}/rag_server",
+                    "remoteRoot": "/app"
+                }
+            ]
+        },
     ]
 }
