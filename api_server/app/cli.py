@@ -7,7 +7,7 @@ from src import index
 from dotenv import load_dotenv
 load_dotenv()
 
-async def main():
+def main():
     parser = argparse.ArgumentParser(description="API Server CLI")
     parser.add_argument("-i", "--ingest", action="store_true", help="Index documents")
     parser.add_argument("-s", "--server", action="store_true", help="Run server")
@@ -16,7 +16,7 @@ async def main():
 
     if args.ingest:
         print("🚀 Document ingestion:")
-        await index.run()
+        asyncio.run(index.run())
     elif args.server:
         print("🚀 Starting server at localhost:8000")
         endpoint.start_server()
