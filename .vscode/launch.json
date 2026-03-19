@@ -2,7 +2,7 @@
     "version": "1.0.0",
     "configurations": [
         {
-            "name": "Python Debugger: Remote Attach",
+            "name": "API SERVER: debugger",
             "type": "debugpy",
             "request": "attach",
             "connect": {

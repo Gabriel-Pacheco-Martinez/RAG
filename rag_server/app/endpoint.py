@@ -56,7 +56,7 @@ def start_server(host: str = "0.0.0.0", port: int = 8002):
         "app.endpoint:app", 
         host=host, 
         port=port, 
-        reload=True,
+        reload=False,
         log_level="info",
         log_config="config/logconfig.json",
         workers=1

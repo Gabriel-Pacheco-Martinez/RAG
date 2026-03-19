@@ -118,8 +118,9 @@ async def llm_generate(state: ChatState) -> ChatState:
 
     # Update state
     state["generate_llm"] = f"""
-        🤖 Este mensaje esta generado por Inteligencia Artifical. Informacion obtenida de la sección {state["document"]} del capítulo {state["chapter"]}:{response}
+        🤖 Este mensaje esta generado por Inteligencia Artifical. Informacion obtenida de la sección {state["document"]} del capítulo {state["chapter"]}./n {response}
         """
+    
     # Ensure conversation_history exists and is a list
     conversation_history = state.get("conversation_history")
     if conversation_history is None:
