@@ -114,7 +114,7 @@ async def llm_generate(state: ChatState) -> ChatState:
 
     # Build prompt and call llm
     generate_prompt: PromptValue = build_generator_prompt(state)
-    response: str = await call_llm(generate_prompt)
+    response: str = await call_llm(state, generate_prompt)
 
     # Update state
     state["generate_llm"] = f"""

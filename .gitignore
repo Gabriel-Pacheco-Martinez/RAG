@@ -12,7 +12,8 @@ api_server/logs/*.log
 rag_server/logs/*.log
 node_modules/
 artillery/
-.vscode
+.vscode/
 api_server/.vscode
 docker.md
 pricing.md
+docker-compose.debug.yml

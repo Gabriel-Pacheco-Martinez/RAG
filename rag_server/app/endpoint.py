@@ -27,7 +27,7 @@ logger = logging.getLogger('uvicorn.error')
 @app.post("/search")
 async def conversation_endpoint(request: QueryRequest):
     logger.info(Fore.GREEN + "="*50)
-    logger.info(Fore.GREEN + "[🤖] Endpoint POST /search reached")
+    logger.info(Fore.GREEN + "[🔎] Endpoint POST /search reached")
     logger.info(Fore.GREEN + "="*50 + Style.RESET_ALL)
 
     response = await search.search(request)
@@ -35,13 +35,28 @@ async def conversation_endpoint(request: QueryRequest):
 
     return JSONResponse(content=serialized_response)
 
+@app.get("/health")
+async def health_check():
+    logger.info(Fore.GREEN + "="*50)
+    logger.info(Fore.GREEN + "[💚] Endpoint GET /health reached")
+    logger.info(Fore.GREEN + "="*50 + Style.RESET_ALL)
+
+    return JSONResponse(
+        content={
+            "status": "ok",
+            "message": "🚀 BNB Chatbot API 'rag_server' is up and running!",
+            "service": "bnb-chatbot",
+            "version": "1.0.0"
+        }
+    )
+
 def start_server(host: str = "0.0.0.0", port: int = 8002):
     # Uvicorn
     uvicorn.run(
         "app.endpoint:app", 
         host=host, 
         port=port, 
-        reload=True, # This has to be false for logs to be saved to file
+        reload=True,
         log_level="info",
         log_config="config/logconfig.json",
         workers=1

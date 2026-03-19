@@ -24,7 +24,7 @@ async def topic_detect(state: ChatState) -> ChatState:
 
     # Build prompt and call llm
     topic_prompt: PromptValue = build_topic_prompt(state)
-    response_raw: str = await call_llm(topic_prompt)
+    response_raw: str = await call_llm(state, topic_prompt)
     response_obj: object = extract_json_from_response(response_raw)
     logger.info(Fore.RED + f"{state['user_session_id']}: " + Fore.CYAN + "[✅] 👾 TOPIC DETECTED: " + Style.RESET_ALL + "it took " + Fore.YELLOW + f"{perf_counter() - state['start_timer_topic']:.4f}s ⏱. " + Style.RESET_ALL + f"{response_obj}")
 

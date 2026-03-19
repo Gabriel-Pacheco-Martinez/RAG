@@ -13,10 +13,14 @@ from langchain_google_genai import ChatGoogleGenerativeAI
 
 # HuggingFace
 from sentence_transformers import CrossEncoder
-from transformers import AutoModel, AutoTokenizer
+from transformers import AutoModel, AutoTokenizer, AutoModelForSequenceClassification
 
 # Fastembed
 from fastembed import SparseTextEmbedding
+
+# Enums
+from config.enums import LLMSource
+from config.enums import GUARDSource
 
 # Load .env secrets
 from dotenv import load_dotenv
@@ -52,29 +56,45 @@ LIMIT_K_HYBRID = 5
 
 # =====
 # LLM Models
-LLM_SOURCE = "groq"
+LLM_SOURCE = LLMSource.OLLAMA
 GROQ_GENERATOR_MODEL = ChatGroq(model="meta-llama/llama-4-scout-17b-16e-instruct", temperature=0, api_key=GROQ_API_KEY)
 GEMINI_GENERATOR_MODEL = ChatGoogleGenerativeAI(model="gemma-3-1b-it", temperature=0, google_api_key=GEMINI_API_KEY, convert_system_message_to_human=True)
-OLLAMA_GENERATOR_MODEL = ChatOllama(model="qwen3:8b", temperature=0)
+OLLAMA_GENERATOR_MODEL = ChatOllama(model="llama3:8b", temperature=0, base_url="http://host.docker.internal:11434")
+
+# =====
+# Audio convertion model
 GEMINI_MULTIMODAL_MODEL = "gemini-2.5-flash" # This will be called without LangChain
-PROMPT_GUARD_MODEL = "meta-llama/llama-prompt-guard-2-86m"
+
+# =====
+# Guarding model
+GUARD_SOURCE = GUARDSource.HUGGING_FACE
+GUARD_PROBABILITY_THRESHOLD = 0.2
+GROQ_PROMPT_GUARD_MODEL = ChatGroq(model="meta-llama/llama-prompt-guard-2-86m", api_key=GROQ_API_KEY, temperature=0)
+try:
+    HF_PROMPT_GUARD_TOKENIZER = AutoTokenizer.from_pretrained("meta-llama/Llama-Prompt-Guard-2-86M")
+    HF_PROMPT_GUARD_MODEL = AutoModelForSequenceClassification.from_pretrained("meta-llama/Llama-Prompt-Guard-2-86M")
+except Exception as e:
+    raise Exception (f"Error loading HuggingFace guarding models: {e}")
 
 # =====
 # Embeddings
+EMBEDDING_BATCH_SIZE = 16
+EMBEDDING_N_DIMENSIONS = 384
 try:
     DENSE_MODEL = AutoModel.from_pretrained(f'sentence-transformers/all-MiniLM-L6-v2')
     DENSE_TOKENIZER = AutoTokenizer.from_pretrained(f'sentence-transformers/all-MiniLM-L6-v2')
+    RERANKER_MODEL = CrossEncoder("cross-encoder/ms-marco-MiniLM-L-6-v2")
 except Exception as e:
-    raise Exception(f"Error loading dense model and dense tokenizer: {e}")
-RERANKER_MODEL = CrossEncoder("cross-encoder/ms-marco-MiniLM-L-6-v2")
-SPARSE_MODEL = SparseTextEmbedding("Qdrant/bm25")
-EMBEDDING_BATCH_SIZE = 16
-EMBEDDING_N_DIMENSIONS = 384
+    raise Exception(f"Error loading HuggingFace models and tokenizers: {e}")
+try:
+    SPARSE_MODEL = SparseTextEmbedding("Qdrant/bm25")
+except Exception as e:
+    raise Exception(f"Error loading Fastembed embedding bm25 library: {e}")
 
 # =====
 # Constraints
 MAX_AUDIO_SIZE = 60000 #60KB
-MAX_TEXT_SIZE = 150
+MAX_TEXT_SIZE = 150 #150 characters
 MAX_MESSAGE_HISTORY_MEMORY = 6
 
 # =====

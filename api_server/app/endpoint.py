@@ -74,13 +74,30 @@ async def index_endpoint():
 
     return JSONResponse(content=response_payload)
 
+@app.get("/health")
+async def health_check():
+    logger.info(Fore.GREEN + "="*50)
+    logger.info(Fore.GREEN + "[💚] Endpoint GET /health reached")
+    logger.info(Fore.GREEN + "="*50 + Style.RESET_ALL)
+    print("HEllo")
+
+    return JSONResponse(
+        content={
+            "status": "ok",
+            "message": "🚀 BNB Chatbot API 'api_server' is up and running!",
+            "service": "bnb-chatbot",
+            "version": "1.0.0"
+        }
+    )
+
+
 def start_server(host: str = "0.0.0.0", port: int = 8000):
     # Uvicorn
     uvicorn.run(
         "app.endpoint:app", 
         host=host, 
         port=port, 
-        reload=True, # This has to be false for logs to be saved to file
+        reload=True,
         log_level="info",
         log_config="config/logconfig.json",
         workers=1

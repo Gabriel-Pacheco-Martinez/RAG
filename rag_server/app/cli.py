@@ -6,7 +6,7 @@ from app import endpoint
 from dotenv import load_dotenv
 load_dotenv()
 
-async def main():
+def main():
     parser = argparse.ArgumentParser(description="RAG Server CLI")
     parser.add_argument("-s", "--server", action="store_true", help="Run server")
 
@@ -19,4 +19,4 @@ async def main():
         parser.print_help()
 
 if __name__ == "__main__":
-    asyncio.run(main())
+    main()

@@ -42,7 +42,7 @@ async def intent_detect(state: ChatState) -> ChatState:
         user_message_text: str = await convert_audio_to_text(user_message_audio)
 
     # Security on malicious prompts
-    await call_prompt_guard(user_message_text)
+    await call_prompt_guard(state, user_message_text)
 
     # Save message
     state["user_message_str"] = user_message_text
