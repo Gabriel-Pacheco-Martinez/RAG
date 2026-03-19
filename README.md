@@ -61,6 +61,13 @@ Para entornos CPU, se puede instalar la versión estándar de PyTorch. Si se des
 RUN pip install torch==2.5.1+cu121 --index-url https://download.pytorch.org/whl/cu121
 ```
 
+Para poder construir y ejecutar el proyecto con un depurador, ya sea para corregir errores o para desarrollo, se debe utilizar el siguiente comando para habilitar el modo debug:
+
+```bash
+docker compose -f docker-compose.yml -f docker-compose.debug.yml up --build
+```
+
+
 ## API Endpoints
 **1.Construcción de la base vectorial**
 Construye o actualiza la base de conocimiento vectorial en Qdrant.
@@ -81,3 +88,15 @@ Esquema necesario:
     mensaje: str      # Pregunta o mensaje enviado por el usuario.
 }
 ```
+
+**3.Health points para las dos APIs**
+Permite revisar si los dos endpoints desarrollados "api_server" y "rag_server" estan sanos y levantados.
+
+```bash
+GET http://127.0.0.1:8000/health   # api_server
+```
+
+```bash
+GET http://127.0.0.1:8080/health   # rag_server
+```
+
