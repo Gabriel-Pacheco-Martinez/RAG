@@ -98,8 +98,8 @@ async def llm_generate(state: ChatState) -> ChatState:
         logger.warning("[X] Payload is empty before RAG")
         raise Exception("Payload is empty before RAG")
 
-    state["document"] = payload_main_vector.get('doc_titulo', '').upper()
-    state["chapter"] = payload_main_vector.get('cap_titulo', '').upper()
+    state["document"] = payload_main_vector.get('doc_titulo', '').replace("_", " ").upper()
+    state["chapter"] = payload_main_vector.get('cap_titulo', '').lstrip(".").upper()
 
     # Build context
     context = _build_context(vectors, textos)
@@ -118,7 +118,7 @@ async def llm_generate(state: ChatState) -> ChatState:
 
     # Update state
     state["generate_llm"] = f"""
-        🤖 Este mensaje esta generado por Inteligencia Artifical. Informacion obtenida de la sección {state["document"]} del capítulo {state["chapter"]}./n {response}
+        🤖 Este mensaje esta generado por Inteligencia Artifical. Informacion obtenida de la sección **{state["document"]}** del capítulo **{state["chapter"]}**.\n {response}
         """
     
     # Ensure conversation_history exists and is a list
