@@ -14,8 +14,6 @@
   <a href="#requirements">Requirements</a>
   ·
   <a href="#instructions">Instructions</a>
-  ·
-  <a href="#report">Report</a>
 </p>
 
 <p align="center">
