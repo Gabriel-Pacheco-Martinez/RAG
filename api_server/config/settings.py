@@ -56,7 +56,7 @@ LIMIT_K_HYBRID = 5
 
 # =====
 # LLM Models
-LLM_SOURCE = LLMSource.OLLAMA
+LLM_SOURCE = LLMSource.GROQ
 GROQ_GENERATOR_MODEL = ChatGroq(model="meta-llama/llama-4-scout-17b-16e-instruct", temperature=0, api_key=GROQ_API_KEY)
 GEMINI_GENERATOR_MODEL = ChatGoogleGenerativeAI(model="gemma-3-1b-it", temperature=0, google_api_key=GEMINI_API_KEY, convert_system_message_to_human=True)
 OLLAMA_GENERATOR_MODEL = ChatOllama(model="llama3:8b", temperature=0, base_url="http://host.docker.internal:11434")
@@ -67,7 +67,7 @@ GEMINI_MULTIMODAL_MODEL = "gemini-2.5-flash" # This will be called without LangC
 
 # =====
 # Guarding model
-GUARD_SOURCE = GUARDSource.GROQ
+GUARD_SOURCE = GUARDSource.HUGGING_FACE
 GUARD_PROBABILITY_THRESHOLD = 0.2
 GROQ_PROMPT_GUARD_MODEL = ChatGroq(model="meta-llama/llama-prompt-guard-2-86m", api_key=GROQ_API_KEY, temperature=0)
 try:
