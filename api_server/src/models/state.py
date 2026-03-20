@@ -39,7 +39,7 @@ class ChatState(TypedDict):
     start_timer_llm_generate: NotRequired[float]
 
     # Errors
-    error: NotRequired[dict]   # value can be None but key must be present
+    error_data: NotRequired[dict]   # value can be None but key must be present
 
     # REDIS
     redis_ttl: NotRequired[int]

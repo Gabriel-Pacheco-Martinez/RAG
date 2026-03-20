@@ -33,12 +33,7 @@ async def conversation_endpoint(request: QueryRequest):
 
     response = await graph.run(request)
 
-    response_payload = {
-        "mensaje": request.mensaje,
-        "response": response
-    }
-
-    return JSONResponse(content=response_payload)
+    return JSONResponse(content=response)
 
 @app.post("/audio")
 async def audio_endpoint(TextChatbot: str = Form(None), AudioChatbot: UploadFile = File(None)):
@@ -54,11 +49,7 @@ async def audio_endpoint(TextChatbot: str = Form(None), AudioChatbot: UploadFile
 
     response = graph.run(request)
 
-    response_payload = {
-        "response": response
-    }
-
-    return JSONResponse(content=response_payload)
+    return JSONResponse(content=response)
 
 @app.get("/index")
 async def index_endpoint():
@@ -69,7 +60,9 @@ async def index_endpoint():
     response = await index.run()
 
     response_payload = {
-        "response": "Success. " + response
+        "status": 200,
+        "message": response,
+        "data": {}
     }
 
     return JSONResponse(content=response_payload)
@@ -80,14 +73,16 @@ async def health_check():
     logger.info(Fore.GREEN + "[💚] Endpoint GET /health reached")
     logger.info(Fore.GREEN + "="*50 + Style.RESET_ALL)
 
-    return JSONResponse(
-        content={
-            "status": "ok",
-            "message": "🚀 BNB Chatbot API 'api_server' is up and running!",
+    response_payload = {
+        "staus": 200,
+        "message": "🚀 BNB Chatbot API 'api_server' is up and running!",
+        "data": {
             "service": "bnb-chatbot",
             "version": "1.0.0"
         }
-    )
+    }
+
+    return JSONResponse(content=response_payload)
 
 
 def start_server(host: str = "0.0.0.0", port: int = 8000):

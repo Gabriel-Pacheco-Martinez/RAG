@@ -18,13 +18,14 @@ def safe_node(node_name: str):
                     return func(state)
 
             except Exception as e:
-                logger.exception(f"Error in node {node_name}")
-
-                state["error"] = {
+                state["error_data"] = {
                     "node": node_name,
                     "type": type(e).__name__,
-                    "message": str(e),
+                    "error": str(e),
                 }
+                logger.exception(f"[❌] Error in node {node_name}")
+                logger.error(f"Workflow failed: {e}")
+
                 return state
 
         return wrapper
@@ -32,7 +33,7 @@ def safe_node(node_name: str):
 
 def route_or_error(next_node: str):
     def router(state: ChatState):
-        if state.get("error"):
+        if state.get("error_data"):
             return "error_handler"
         return next_node
     return router

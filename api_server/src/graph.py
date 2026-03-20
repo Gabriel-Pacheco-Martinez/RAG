@@ -9,6 +9,7 @@ from colorama import Fore, Style
 # Helpers
 from src.models.query import QueryRequest
 from src.utils.error_responses import build_error_response
+from src.utils.error_responses import get_error_status_code
 
 # LangGraph
 from langgraph.graph import StateGraph
@@ -31,21 +32,39 @@ from src.utils.decorators import route_or_error
 # Configuration
 logger = logging.getLogger('uvicorn.error')
 
-def intent_route(state: ChatState) -> str:
-    # Error detected
-    if state.get("error"):
-        return "error_handler"
 
-    # Intent is "preguntas"
-    if state.get("intent_llm") == "preguntas":
-        logger.info("User wants a question answered.")
-        return "read_memory"
+# =========
+# ERRORS
+def error_handler(state: ChatState) -> ChatState:
+    error_message = build_error_response(state.get("error_data"))
+    error_status_code = get_error_status_code(state.get("error_data"))
+
+    state["final_answer"] = {
+        "status": error_status_code,
+        "message": error_message,
+        "data": state.get("error_data")
+    }
+    return state
+
+# =========
+# ROUTE INTENT
+# def intent_route(state: ChatState) -> str:
+#     # Error detected
+#     if state.get("error"):
+#         return "error_handler"
+
+#     # Intent is "preguntas"
+#     if state.get("intent_llm") == "preguntas":
+#         logger.info("User wants a question answered.")
+#         return "read_memory"
     
-    # Intent is otherwise
-    else:
-        logger.info(f"User wants {state.get('intent_llm')}.")
-        return "intent_response"
+#     # Intent is otherwise
+#     else:
+#         logger.info(f"User wants {state.get('intent_llm')}.")
+#         return "intent_response"
 
+# =========
+# ROUTE TOPIC
 def topic_route(state: ChatState) -> str:
     # Error detected
     if state.get("error"):
@@ -62,21 +81,6 @@ def topic_route(state: ChatState) -> str:
     
     # RAG or MEMORY
     return "llm_generate"
-
-def error_handler(state: ChatState) -> ChatState:
-    error = state.get("error") 
-    logger.error(f"[❌] Workflow failed at {error}")
-    
-    if error is None:
-        error = {}
-
-    response_message = build_error_response(error)
-
-    state["final_answer"] = {
-        "response": response_message,
-        "error": error
-    }
-    return state
 
 async def run(request: QueryRequest) -> str:
     # Create the graph

@@ -41,14 +41,17 @@ async def health_check():
     logger.info(Fore.GREEN + "[💚] Endpoint GET /health reached")
     logger.info(Fore.GREEN + "="*50 + Style.RESET_ALL)
 
-    return JSONResponse(
-        content={
-            "status": "ok",
-            "message": "🚀 BNB Chatbot API 'rag_server' is up and running!",
+    response_payload = {
+        "staus": 200,
+        "message": "🚀 BNB Chatbot API 'rag_server' is up and running!",
+        "data": {
             "service": "bnb-chatbot",
             "version": "1.0.0"
         }
-    )
+    }
+
+    return JSONResponse(content=response_payload)
+
 
 def start_server(host: str = "0.0.0.0", port: int = 8002):
     # Uvicorn
