@@ -160,9 +160,10 @@ async def _retreive_doc_id_from_topic(topic: str) -> str:
         ),
         limit=1
     )
-    if not hits:
-        logger.warning("[X] No relevant 'documento' found")
-        raise RetrievalError("No relevant 'documentos' found")
+    documents, _ = hits
+    if not documents:
+        logger.warning("[X] No relevant 'documento' found. Topic not in documents.")
+        raise RetrievalError("No relevant 'documentos' found. Topic not in documents.")
     
     payload = hits[0][0].payload
     if payload is None or "doc_id" not in payload:

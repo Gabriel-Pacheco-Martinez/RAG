@@ -56,7 +56,7 @@ LIMIT_K_HYBRID = 5
 
 # =====
 # LLM Models
-LLM_SOURCE = LLMSource.GROQ
+LLM_SOURCE = LLMSource.OLLAMA
 GROQ_GENERATOR_MODEL = ChatGroq(model="meta-llama/llama-4-scout-17b-16e-instruct", temperature=0, api_key=GROQ_API_KEY)
 GEMINI_GENERATOR_MODEL = ChatGoogleGenerativeAI(model="gemma-3-1b-it", temperature=0, google_api_key=GEMINI_API_KEY, convert_system_message_to_human=True)
 OLLAMA_GENERATOR_MODEL = ChatOllama(model="llama3:8b", temperature=0, base_url="http://host.docker.internal:11434")
