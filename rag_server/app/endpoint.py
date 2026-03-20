@@ -43,7 +43,7 @@ async def health_check():
 
     response_payload = {
         "staus": 200,
-        "message": "🚀 BNB Chatbot API 'rag_server' is up and running!",
+        "message": "🚀 BNB Chatbot API 'rag_servers' are up and running through NGINX load balancer!",
         "data": {
             "service": "bnb-chatbot",
             "version": "1.0.0"
