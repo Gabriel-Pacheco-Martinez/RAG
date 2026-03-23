@@ -118,7 +118,8 @@ async def llm_generate(state: ChatState) -> ChatState:
 
     # Update state
     state["generate_llm"] = f"""
-        🤖 Este mensaje esta generado por Inteligencia Artifical. Informacion obtenida de la sección **{state["document"]}** del capítulo **{state["chapter"]}**.\n {response}
+        🤖 Este mensaje esta generado por Inteligencia Artifical. Informacion obtenida de la sección **{state["document"]}** del capítulo **{state["chapter"]}**.\n {response} \n
+        👉 Si la información no es exactamente lo que buscabas, puedes intentar reformular tu consulta o añadir más detalles para obtener una respuesta más precisa.
         """
     
     # Ensure conversation_history exists and is a list
