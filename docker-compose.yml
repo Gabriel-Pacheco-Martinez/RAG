@@ -39,7 +39,7 @@ services:
     volumes:
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf
     ports:
-      - "8080:8080"
+      - "8082:8082"
     depends_on:
       - rag_server_1
       - rag_server_2
