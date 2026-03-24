@@ -16,10 +16,10 @@ async def llm_response(state: ChatState) -> ChatState:
         "message": state.get("generate_llm"),
         "data": {
             "topic": state.get("topic_llm"),
-            "rewritten_query": state.get("user_message_str"),
-            "info_source": state.get("info_source"),
-            "context": state.get("context"),
-            "conversation_history": state.get("conversation_history")
+            "rewritten_query": state.get("user_message_str")
+            # "info_source": state.get("info_source"),
+            # "context": state.get("context"),
+            # "conversation_history": state.get("conversation_history")
         }
     }
 
