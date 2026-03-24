@@ -30,7 +30,7 @@ GROQ_API_KEY = os.getenv("GROQ_API_KEY")
 
 # =====
 # Rag Server communication
-RAG_SERVER_URL = "http://nginx:8082"      # Docker
+RAG_SERVER_URL = "http://nginx:8080"      # Docker
 # RAG_SERVER_URL = "http://localhost:8002"    # Localhost
 
 # =====
