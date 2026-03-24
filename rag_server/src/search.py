@@ -1,6 +1,7 @@
 # General
 import asyncio
 from colorama import Fore, Style
+from time import perf_counter
 
 # Numpy 
 import numpy as np
@@ -93,7 +94,9 @@ async def _retreive_best_texto(query: str, dense_embedding: list, sparse_vector:
         raise RetrievalError("No relevant 'textos' found")
 
     # Rerank
+    tr = perf_counter()
     best_text_vectors: list[ScoredPoint] = await _rerank_vectors(hits, query, "textos")
+    logger.info(Fore.LIGHTRED_EX + f"time reranker: {perf_counter() - tr:.3f}s"+Style.RESET_ALL)
     if not best_text_vectors:
         logger.warning("[X] No relevant 'textos' found after reranking")
         raise RetrievalError("No relevant 'textos' found after reranking")
@@ -134,7 +137,9 @@ async def _retreive_best_capitulo(query: str, dense_embedding: list, sparse_vect
         raise RetrievalError("No relevant 'capitulos' found")
 
     # Rerank
+    tr = perf_counter()
     best_cap_vectors: list[ScoredPoint] = await _rerank_vectors(hits, query, "capitulos")
+    logger.info(Fore.LIGHTRED_EX + f"time reranker: {perf_counter() - tr:.3f}s"+Style.RESET_ALL)
     if not best_cap_vectors[0]:
         logger.warning("[X] No most relevant 'capitulos' found")
         raise RetrievalError("No most relevant 'capitulos' found")
@@ -174,13 +179,24 @@ async def _retreive_doc_id_from_topic(topic: str) -> str:
     return doc_id
 
 async def search(request: QueryRequest) -> list[ScoredPoint]:
+    t0 = perf_counter()
     sparse_vector: SparseVector = SparseVector(
         indices=request.sparse_embedding.indices,
         values=request.sparse_embedding.values
     )
+    logger.info(Fore.MAGENTA + f"sparse vector wait: {perf_counter() - t0:.3f}s"+Style.RESET_ALL)
+    
+    t1 = perf_counter()
     best_doc_id: str = await _retreive_doc_id_from_topic(request.topic)
+    logger.info(Fore.MAGENTA + f"doc_id retrieval: {perf_counter() - t1:.3f}s"+Style.RESET_ALL)
+    
+    t2 = perf_counter()
     best_capitulo_id: str = await _retreive_best_capitulo(request.query, request.dense_embedding, sparse_vector, best_doc_id)
+    logger.info(Fore.MAGENTA + f"cap_id retrieval: {perf_counter() - t2:.3f}s"+Style.RESET_ALL)
+    
+    t3 = perf_counter()
     best_texto_vectors: list[ScoredPoint] = await _retreive_best_texto(request.query, request.dense_embedding, sparse_vector, best_capitulo_id)
+    logger.info(Fore.MAGENTA + f"textos retrieval: {perf_counter() - t3:.3f}s"+Style.RESET_ALL)
     return best_texto_vectors
 
     

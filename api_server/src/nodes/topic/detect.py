@@ -1,6 +1,7 @@
 # General 
 from colorama import Fore, Style
 from time import perf_counter
+import asyncio
 
 # LangGraph
 from src.models.state import ChatState
@@ -11,8 +12,8 @@ from typing import Awaitable
 
 # Helpers
 from src.utils.prompts import build_topic_prompt
-from src.utils.llm import call_llm
 from src.utils.llm import extract_json_from_response
+from src.utils.llm import call_llm
 
 # Logging 
 import logging

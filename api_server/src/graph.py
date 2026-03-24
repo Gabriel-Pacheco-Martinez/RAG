@@ -32,7 +32,6 @@ from src.utils.decorators import route_or_error
 # Configuration
 logger = logging.getLogger('uvicorn.error')
 
-
 # =========
 # ERRORS
 def error_handler(state: ChatState) -> ChatState:
@@ -83,9 +82,6 @@ def topic_route(state: ChatState) -> str:
     return "llm_generate"
 
 async def run(request: QueryRequest) -> str:
-    # Create the graph
-    graph = StateGraph(ChatState)
-
     # User message
     user_session_id = request.session_id
     user_message = request.mensaje
@@ -94,38 +90,6 @@ async def run(request: QueryRequest) -> str:
         user_message_format = "text"
     elif isinstance(user_message, bytes):
         user_message_format = "audio"
-
-    # =========
-    # Nodes:
-    graph.add_node("intent_detect", safe_node("intent_detect")(intent_detect))
-    graph.add_node("intent_response", safe_node("intent_response")(intent_response))
-    graph.add_node("read_memory", safe_node("read_memory")(read_memory))
-    graph.add_node("topic_detect", safe_node("topic_detect")(topic_detect))
-    graph.add_node("topic_response", safe_node("topic_response")(topic_response))
-    graph.add_node("llm_generate", safe_node("llm_generate")(llm_generate))
-    graph.add_node("llm_response", safe_node("llm_response")(llm_response))
-    graph.add_node("update_memory", safe_node("update_memory")(update_memory))
-    graph.add_node("error_handler", error_handler)
-
-    # =========
-    # FIXME:Routing-Edges:
-    #   1. Detectar el intent del usuario
-    graph.set_entry_point("intent_detect")
-    # graph.add_conditional_edges("intent_detect", intent_route)
-
-    #   2. Detectar el topic de la pregunta del usuario
-    graph.add_conditional_edges("intent_detect", route_or_error("read_memory"))
-    graph.add_conditional_edges("read_memory", route_or_error("topic_detect"))
-    graph.add_conditional_edges("topic_detect", topic_route)
-
-    #   3. Contestar la pregunta del usuario
-    graph.add_conditional_edges("llm_generate", route_or_error("llm_response"))
-    graph.add_conditional_edges("llm_response", route_or_error("update_memory"))
-    graph.add_conditional_edges("update_memory", route_or_error("__end__"))
-
-    # =========
-    # Execution:
-    app = graph.compile()
 
     initial_state: ChatState = {
         "user_message": user_message,
@@ -136,3 +100,40 @@ async def run(request: QueryRequest) -> str:
     final_state = await app.ainvoke(initial_state)
 
     return final_state["final_answer"]
+
+
+# =========
+# Create the graph
+graph = StateGraph(ChatState)
+
+# =========
+# Nodes:
+graph.add_node("intent_detect", safe_node("intent_detect")(intent_detect))
+graph.add_node("intent_response", safe_node("intent_response")(intent_response))
+graph.add_node("read_memory", safe_node("read_memory")(read_memory))
+graph.add_node("topic_detect", safe_node("topic_detect")(topic_detect))
+graph.add_node("topic_response", safe_node("topic_response")(topic_response))
+graph.add_node("llm_generate", safe_node("llm_generate")(llm_generate))
+graph.add_node("llm_response", safe_node("llm_response")(llm_response))
+graph.add_node("update_memory", safe_node("update_memory")(update_memory))
+graph.add_node("error_handler", error_handler)
+
+# =========
+# FIXME:Routing-Edges:
+#   1. Detectar el intent del usuario
+graph.set_entry_point("intent_detect")
+# graph.add_conditional_edges("intent_detect", intent_route)
+
+#   2. Detectar el topic de la pregunta del usuario
+graph.add_conditional_edges("intent_detect", route_or_error("read_memory"))
+graph.add_conditional_edges("read_memory", route_or_error("topic_detect"))
+graph.add_conditional_edges("topic_detect", topic_route)
+
+#   3. Contestar la pregunta del usuario
+graph.add_conditional_edges("llm_generate", route_or_error("llm_response"))
+graph.add_conditional_edges("llm_response", route_or_error("update_memory"))
+graph.add_conditional_edges("update_memory", route_or_error("__end__"))
+
+# =========
+# Execution:
+app = graph.compile()

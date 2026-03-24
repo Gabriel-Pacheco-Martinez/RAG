@@ -16,14 +16,14 @@ from config.settings import REDIS_TTL_SECONDS
 import logging
 logger = logging.getLogger('uvicorn.error')
 
-def update_memory(state: ChatState) -> ChatState:
+async def update_memory(state: ChatState) -> ChatState:
     # Timer
     state["start_timer_memory_update"] = perf_counter()
 
     # Read Redis data
     session_id = str(state["user_session_id"])
     session_ttl: int = REDIS_TTL_SECONDS
-    session_data: dict[str, str] = REDIS_CLIENT.hgetall(session_id)
+    session_data: dict[str, str] = await REDIS_CLIENT.hgetall(session_id)
     session_data_obj = deserialize_session_data(session_data)
 
     # Update states
@@ -35,8 +35,8 @@ def update_memory(state: ChatState) -> ChatState:
 
     # Update redis data
     session_data = serialize_session_data(session_data_obj)
-    REDIS_CLIENT.hset(session_id, mapping=session_data)
-    REDIS_CLIENT.expire(session_id, session_ttl)
+    await REDIS_CLIENT.hset(session_id, mapping=session_data)
+    await REDIS_CLIENT.expire(session_id, session_ttl)
 
     # Timer
     logger.info(Fore.RED + f"{state['user_session_id']}: " + Fore.CYAN + "[✅] 💿 MEMORY UPDATED: " + Style.RESET_ALL + "it took " + Fore.YELLOW + f"{perf_counter() - state['start_timer_memory_update']:.4f}s ⏱. " + Style.RESET_ALL + f"Session {session_id}: updated with TTL of {session_ttl} seconds.")

@@ -4,6 +4,7 @@ from colorama import Fore, Style
 
 # Redis & Qdrant
 import redis
+from redis import asyncio as aioredis
 from qdrant_client import AsyncQdrantClient
 
 # Langchain
@@ -36,7 +37,7 @@ RAG_SERVER_URL = "http://nginx:8080"      # Docker
 # =====
 # Redis communication
 REDIS_TTL_SECONDS = 900
-REDIS_CLIENT = redis.StrictRedis(
+REDIS_CLIENT = aioredis.Redis(
     host="redis",       # Docker exposed
     # host="localhost",       # Localhost
     port=6379,          

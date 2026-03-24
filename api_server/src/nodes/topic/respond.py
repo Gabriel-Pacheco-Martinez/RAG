@@ -1,7 +1,7 @@
 # LangGraph
 from src.models.state import ChatState
 
-def topic_response(state: ChatState):
+async def topic_response(state: ChatState):
     # There is suggested clarification
     if state.get("suggested_clarification"):
         state["final_answer"] = {

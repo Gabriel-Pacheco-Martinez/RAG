@@ -1,6 +1,7 @@
 # General
 from time import perf_counter
 from colorama import Fore, Style
+import asyncio
 
 # LangGraph
 from src.models.state import ChatState
@@ -12,9 +13,9 @@ from qdrant_client.models import SparseVector
 # Helpers
 from src.nodes.generate.embedder import get_dense_embedding
 from src.nodes.generate.embedder import get_sparse_embedding
+from src.utils.llm import call_llm
 from src.utils.io import read_json
 from src.utils.prompts import build_generator_prompt
-from src.utils.llm import call_llm
 
 # Classes
 from langchain_core.prompt_values import PromptValue
@@ -28,6 +29,9 @@ from config.settings import RAG_SERVER_URL
 # Logging
 import logging
 logger = logging.getLogger('uvicorn.error')
+
+# Global
+rag_client = SearchClient(RAG_SERVER_URL)
 
 def _build_context(vectors: list[dict], textos: dict[str, str]) -> str:
         # General information for all chunks
@@ -73,8 +77,8 @@ async def llm_generate(state: ChatState) -> ChatState:
     query = state.get("user_message_str")
     if not query:
         raise Exception("User message is empty before embedding")
-    dense_embedding = get_dense_embedding(query)
-    sparse_embedding: SparseVector = get_sparse_embedding(query)
+    dense_embedding = await asyncio.to_thread(get_dense_embedding, query)
+    sparse_embedding: SparseVector = await asyncio.to_thread(get_sparse_embedding, query)
 
     logger.info(Fore.CYAN + "[✅] 🧰 Embedding time: " + Style.RESET_ALL + "it took " + Fore.YELLOW + f"{perf_counter() - state['start_timer_embedding']:.4f}s ⏱. ")
 
@@ -88,8 +92,7 @@ async def llm_generate(state: ChatState) -> ChatState:
     topic = state.get("topic_llm")
     if not topic:
         raise Exception("Topic is empty before RAG")
-    client = SearchClient(RAG_SERVER_URL)
-    vectors: list[dict] = await client.search(query, dense_embedding, sparse_embedding, topic)
+    vectors: list[dict] = await rag_client.search(query, dense_embedding, sparse_embedding, topic)
     textos = read_json(WEBSITE_METADATA_FILE_PATH)["textos"]
 
     # Document and chapter
@@ -100,6 +103,7 @@ async def llm_generate(state: ChatState) -> ChatState:
 
     state["document"] = payload_main_vector.get('doc_titulo', '').replace("_", " ").upper()
     state["chapter"] = payload_main_vector.get('cap_titulo', '').lstrip(".").upper()
+
 
     # Build context
     context = _build_context(vectors, textos)

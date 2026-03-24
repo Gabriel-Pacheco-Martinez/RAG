@@ -1,13 +1,9 @@
 # LangGraph
 from src.models.state import ChatState
 
-def intent_response(state: ChatState) -> ChatState:
+async def intent_response(state: ChatState) -> ChatState:
     # Empty intent/"nula"
-    if state.get("intent_llm") == "nula":
-        state["intent_llm"] = "Menu"
-    
-    # Low score on intent
-    if state.get("intent_score", 0) < 0.5:
+    if state.get("intent_llm") == "nula" or state.get("intent_score", 0) < 0.5:
         state["intent_llm"] = "Menu"
 
     # Response state

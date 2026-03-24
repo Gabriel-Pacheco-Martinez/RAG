@@ -17,18 +17,18 @@ from config.settings import REDIS_TTL_SECONDS
 import logging
 logger = logging.getLogger('uvicorn.error')
 
-def read_memory(state: ChatState) -> ChatState:
+async def read_memory(state: ChatState) -> ChatState:
     # Start timer
     state["start_timer_memory_read"] = perf_counter()
 
     session_id = str(state["user_session_id"])
     session_ttl: int = REDIS_TTL_SECONDS
-    session_data: dict[str, str] = REDIS_CLIENT.hgetall(session_id)
+    session_data: dict[str, str] = await REDIS_CLIENT.hgetall(session_id)
     
     # Session just started
     if not session_data:
         # Redis
-        REDIS_CLIENT.hset(session_id, mapping={
+        await REDIS_CLIENT.hset(session_id, mapping={
             "topic_previous": json.dumps(""),
             "conversation_history": json.dumps([]),
             "context": json.dumps(""),
@@ -44,7 +44,7 @@ def read_memory(state: ChatState) -> ChatState:
         state["chapter_previous"] = ""
 
         # Set TTL
-        REDIS_CLIENT.expire(session_id, session_ttl)
+        await REDIS_CLIENT.expire(session_id, session_ttl)
 
         # Timer
         logger.info(Fore.RED + f"{state['user_session_id']}: " + Fore.CYAN + "[✅] 💿 MEMORY READ: " + Style.RESET_ALL + "it took " + Fore.YELLOW + f"{perf_counter() - state['start_timer_memory_read']:.4f}s ⏱. " + Style.RESET_ALL + f"Session {session_id}: created with TTL of {session_ttl} seconds.")

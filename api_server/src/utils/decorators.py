@@ -1,6 +1,7 @@
 # General
 import logging
 import inspect
+import asyncio
 
 # Classes
 from src.models.state import ChatState
@@ -15,7 +16,7 @@ def safe_node(node_name: str):
                 if inspect.iscoroutinefunction(func):
                     return await func(state)
                 else:
-                    return func(state)
+                    return await asyncio.to_thread(func, state)
 
             except Exception as e:
                 state["error_data"] = {
