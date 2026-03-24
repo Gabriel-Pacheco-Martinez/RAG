@@ -95,6 +95,5 @@ GET http://127.0.0.1:8000/health   # api_server
 ```
 
 ```bash
-GET http://127.0.0.1:8080/health   # rag_server
+GET http://127.0.0.1:8082/health   # rag_server
 ```
-
