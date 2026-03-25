@@ -53,7 +53,8 @@ ASYNC_QDRANT_CLIENT = AsyncQdrantClient(
 )
 TOP_K_DENSE = 8
 TOP_K_SPARSE = 8
-LIMIT_K_HYBRID = 5
+LIMIT_N_HYBRID_CAPS = 3
+LIMIT_N_HYBRID_TEXT = 4
 
 # =====
 # LLM Models
@@ -84,7 +85,7 @@ EMBEDDING_N_DIMENSIONS = 384
 try:
     DENSE_MODEL = AutoModel.from_pretrained(f'sentence-transformers/all-MiniLM-L6-v2')
     DENSE_TOKENIZER = AutoTokenizer.from_pretrained(f'sentence-transformers/all-MiniLM-L6-v2')
-    RERANKER_MODEL = CrossEncoder("cross-encoder/ms-marco-MiniLM-L-6-v2")
+    RERANKER_MODEL = CrossEncoder("cross-encoder/ms-marco-MiniLM-L-2-v2")
 except Exception as e:
     raise Exception(f"Error loading HuggingFace models and tokenizers: {e}")
 try:

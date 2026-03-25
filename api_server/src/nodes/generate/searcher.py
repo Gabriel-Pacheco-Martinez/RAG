@@ -16,9 +16,6 @@ from src.models.exceptions import RetrievalError
 # Models
 from src.models.query import QueryRequest
 
-# Helpers
-from src.utils.reranker import rerank_vectors
-
 # Configuration
 from config.settings import RERANKER_MODEL
 from config.settings import TOP_K_DENSE
@@ -35,6 +32,8 @@ logger = logging.getLogger('uvicorn.error')
 async def rerank(points: list[ScoredPoint], query_text: str) -> list[ScoredPoint]:
     # TODO: Check where the model is running
     # logger.info("The reranker model is running on: %s", RERANKER_MODEL.model.device)
+    # await asyncio.sleep(0.1)
+    # return points
 
     # Document pairs
     pairs = []
@@ -45,7 +44,7 @@ async def rerank(points: list[ScoredPoint], query_text: str) -> list[ScoredPoint
             raise RetrievalError("Payload does not contain 'texto' key inside reranker")
         pairs.append((query_text, payload["texto"]))
 
-    # Rerank and sort by score
+    # Rerank and sort by scores
     scores = await asyncio.to_thread(RERANKER_MODEL.predict, pairs, show_progress_bar=False)
     rescored = list(zip(points, scores))
     rescored.sort(key=lambda x: x[1], reverse=True)
@@ -165,12 +164,17 @@ async def _retreive_doc_id_from_topic(topic: str) -> str:
     best_doc_id = points[0].payload["doc_id"]
     return best_doc_id
 
-async def search(request: QueryRequest) -> list[ScoredPoint]:
+async def search(query, dense_embedding, sparse_embedding, topic) -> list[ScoredPoint]:
+    # await asyncio.sleep(0.7)
+    # return [ScoredPoint(id=10,version=10,score=0.5,payload={"texto_id":"10","texto":"VIVIENDA SOCIAL ANTICRETICO...","cap_id":"6","cap_titulo":"Crédito de Vivienda","cap_texto":"CREDITO VIVIENDA...","doc_id":"2","doc_titulo":"creditos","doc_resumen":"Préstamos para personas naturales..."},vector=None,shard_key=None,order_value=None),ScoredPoint(id=11,version=11,score=0.2,payload={"texto_id":"11","texto":"FONDO DE GARANTIA VIVIENDA...","cap_id":"6","cap_titulo":"Crédito de Vivienda","cap_texto":"CREDITO VIVIENDA...","doc_id":"2","doc_titulo":"creditos","doc_resumen":"Préstamos para personas naturales..."},vector=None,shard_key=None,order_value=None)]
     # Create sparse vector
-    sparse_vector: SparseVector = SparseVector(indices=request.sparse_embedding.indices,values=request.sparse_embedding.values)
+    sparse_vector: SparseVector = SparseVector(indices=sparse_embedding.indices,values=sparse_embedding.values)
     
     # Hierarchical retrieval
-    best_doc_id: str = await _retreive_doc_id_from_topic(request.topic)
-    best_capitulo_id: str = await _retreive_best_capitulo(request.query, request.dense_embedding, sparse_vector, best_doc_id)
-    best_texto_vectors: list[ScoredPoint] = await _retreive_best_texto(request.query, request.dense_embedding, sparse_vector, best_capitulo_id)
+    best_doc_id: str = await _retreive_doc_id_from_topic(topic)
+    best_capitulo_id: str = await _retreive_best_capitulo(query, dense_embedding, sparse_vector, best_doc_id)
+    best_texto_vectors: list[ScoredPoint] = await _retreive_best_texto(query, dense_embedding, sparse_vector, best_capitulo_id)
     return best_texto_vectors
+
+
+

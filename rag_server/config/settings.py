@@ -12,8 +12,10 @@ ASYNC_QDRANT_CLIENT = AsyncQdrantClient(
 )
 TOP_K_DENSE = 8
 TOP_K_SPARSE = 8
-LIMIT_K_HYBRID = 5
+LIMIT_N_HYBRID_CAPS = 3
+LIMIT_N_HYBRID_TEXT = 4
 
 # =====
 # Embeddings
-RERANKER_MODEL = CrossEncoder("cross-encoder/ms-marco-MiniLM-L-6-v2")
+# RERANKER_MODEL = CrossEncoder("cross-encoder/ms-marco-MiniLM-L-6-v2")
+RERANKER_MODEL = CrossEncoder("cross-encoder/ms-marco-MiniLM-L-2-v2")

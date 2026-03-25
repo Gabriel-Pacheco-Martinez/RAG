@@ -13,9 +13,10 @@ from qdrant_client.models import SparseVector
 # Helpers
 from src.nodes.generate.embedder import get_dense_embedding
 from src.nodes.generate.embedder import get_sparse_embedding
-from src.utils.llm import call_llm
+from src.nodes.generate.searcher import search
 from src.utils.io import read_json
 from src.utils.prompts import build_generator_prompt
+
 
 # Classes
 from langchain_core.prompt_values import PromptValue
@@ -33,9 +34,17 @@ logger = logging.getLogger('uvicorn.error')
 # Global
 rag_client = SearchClient(RAG_SERVER_URL)
 
+async def call_llm(state, prompt):
+    await asyncio.sleep(1)
+    return "response"
+
+async def create_context():
+    await asyncio.sleep(1)
+    return "context"
+
 def _build_context(vectors: list[dict], textos: dict[str, str]) -> str:
         # General information for all chunks
-        general_payload = vectors[0]["payload"]
+        general_payload = vectors[0].payload
         if general_payload is None:
             logger.warning("[X] General information is empty while building context")
             raise Exception("General information is empty while building context")
@@ -51,7 +60,7 @@ def _build_context(vectors: list[dict], textos: dict[str, str]) -> str:
         # Merge chunk information
         paragraphs = []
         for index, vector in enumerate(vectors):
-            payload = vector["payload"]
+            payload = vector.payload
             if payload is None:
                 logger.warning("[X] Vector information is empty while building context")
                 raise Exception("Vector information is empty while building context")
@@ -92,11 +101,11 @@ async def llm_generate(state: ChatState) -> ChatState:
     topic = state.get("topic_llm")
     if not topic:
         raise Exception("Topic is empty before RAG")
-    vectors: list[dict] = await rag_client.search(query, dense_embedding, sparse_embedding, topic)
+    vectors: list[ScoredPoint] = await search(query, dense_embedding.flatten().tolist(), sparse_embedding, topic)
     textos = read_json(WEBSITE_METADATA_FILE_PATH)["textos"]
 
     # Document and chapter
-    payload_main_vector = vectors[0]["payload"]
+    payload_main_vector = vectors[0].payload
     if payload_main_vector is None:
         logger.warning("[X] Payload is empty before RAG")
         raise Exception("Payload is empty before RAG")
@@ -104,10 +113,12 @@ async def llm_generate(state: ChatState) -> ChatState:
     state["document"] = payload_main_vector.get('doc_titulo', '').replace("_", " ").upper()
     state["chapter"] = payload_main_vector.get('cap_titulo', '').lstrip(".").upper()
 
-
     # Build context
     context = _build_context(vectors, textos)
+    # context = await create_context()
     state["context"] = context
+    # state["document"] = "document"
+    # state["chapter"] = "chapter"
     logger.info(Fore.RED + f"{state['user_session_id']}: " +Fore.CYAN + "[✅] 🧰 RAG ACHIEVED: " + Style.RESET_ALL + "it took " + Fore.YELLOW + f"{perf_counter() - state['start_timer_llm_rag']:.4f}s ⏱. ")
 
     # =======

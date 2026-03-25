@@ -3,6 +3,7 @@ Author: Gabriel Pacheco
 Date: February 2026
 """
 # General
+from contextlib import asynccontextmanager
 from colorama import Fore, Style
 import logging
 
@@ -16,13 +17,24 @@ from src.models.query import QueryRequest
 from fastapi.responses import JSONResponse
 from fastapi import FastAPI
 from fastapi import UploadFile, Form, File
-app = FastAPI(title="BNB CHATBOT")
 
 # Classes
 from src import search
 
+# Helpers
+from src.utils.reranker import start_reranker_worker
+from src.utils.reranker import stop_reranker_worker
+
 # Logging
 logger = logging.getLogger('uvicorn.error')
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    await start_reranker_worker()
+    yield
+    await stop_reranker_worker()
+
+app = FastAPI(title="BNB CHATBOT: RAG SERVER", lifespan=lifespan)
 
 @app.post("/search")
 async def conversation_endpoint(request: QueryRequest):
