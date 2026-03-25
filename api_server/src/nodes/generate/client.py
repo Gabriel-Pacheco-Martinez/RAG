@@ -20,19 +20,15 @@ from src.utils.prompts import build_generator_prompt
 
 # Classes
 from langchain_core.prompt_values import PromptValue
-from src.nodes.generate.api import SearchClient
 
 # Configuration
 from config.settings import EMBEDDING_BATCH_SIZE
 from config.settings import WEBSITE_METADATA_FILE_PATH
-from config.settings import RAG_SERVER_URL
 
 # Logging
 import logging
 logger = logging.getLogger('uvicorn.error')
 
-# Global
-rag_client = SearchClient(RAG_SERVER_URL)
 
 async def call_llm(state, prompt):
     await asyncio.sleep(1)

@@ -15,6 +15,7 @@ from src.models.exceptions import RetrievalError
 
 # Models
 from src.models.query import QueryRequest
+from src.nodes.generate.api import RerankClient
 
 # Configuration
 from config.settings import RERANKER_MODEL
@@ -23,40 +24,15 @@ from config.settings import TOP_K_SPARSE
 from config.settings import LIMIT_N_HYBRID_CAPS
 from config.settings import LIMIT_N_HYBRID_TEXT
 from config.settings import ASYNC_QDRANT_CLIENT
+from config.settings import RERANKER_SERVER_URL
 
 # Logging
 import logging
 logger = logging.getLogger('uvicorn.error')
 
+# Rerank API Client
+rerank_client = RerankClient(RERANKER_SERVER_URL)
 
-async def rerank(points: list[ScoredPoint], query_text: str) -> list[ScoredPoint]:
-    # TODO: Check where the model is running
-    # logger.info("The reranker model is running on: %s", RERANKER_MODEL.model.device)
-    # await asyncio.sleep(0.1)
-    # return points
-
-    # Document pairs
-    pairs = []
-    for point in points:
-        payload = point.payload
-        if not payload or "texto" not in payload:
-            logger.warning("[X] Payload does not contain 'texto' key inside reranker")
-            raise RetrievalError("Payload does not contain 'texto' key inside reranker")
-        pairs.append((query_text, payload["texto"]))
-
-    # Rerank and sort by scores
-    scores = await asyncio.to_thread(RERANKER_MODEL.predict, pairs, show_progress_bar=False)
-    rescored = list(zip(points, scores))
-    rescored.sort(key=lambda x: x[1], reverse=True)
-
-    # Get the top 3 points
-    top_points: list[ScoredPoint] = [point for point, _ in rescored[:3]]
-
-    return top_points
-
-# ==============================================================================
-# Core retrieval functions
-# ==============================================================================
 async def _retreive_best_texto(query: str, dense_embedding: list, sparse_vector: SparseVector, cap_id: str) -> list[ScoredPoint]:
     # Retrieve from Qdrant
     hits: QueryResponse = await ASYNC_QDRANT_CLIENT.query_points(
@@ -134,7 +110,7 @@ async def _retreive_best_capitulo(query: str, dense_embedding: list, sparse_vect
         raise RetrievalError("No relevant 'capitulos' found")
 
     # Rerank
-    reranked_points: list[ScoredPoint] = await rerank(points, query)
+    reranked_points: list[ScoredPoint] = await rerank_client.rerank(points, query)
 
     # Select
     best_cap_id = reranked_points[0].payload["cap_id"]

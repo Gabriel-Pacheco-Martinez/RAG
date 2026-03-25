@@ -13,22 +13,22 @@ services:
       - redis
       - qdrant
 
-  rag_server_1:
-    build: ./rag_server
+  rerank_server_1:
+    build: ./rerank_server
     volumes:
       - hf_cache:/root/.cache/huggingface
     depends_on:
       - qdrant
 
-  rag_server_2:
-    build: ./rag_server
+  rerank_server_2:
+    build: ./rerank_server
     volumes:
       - hf_cache:/root/.cache/huggingface
     depends_on:
       - qdrant
 
-  rag_server_3:
-    build: ./rag_server
+  rerank_server_3:
+    build: ./rerank_server
     volumes:
       - hf_cache:/root/.cache/huggingface
     depends_on:
@@ -41,9 +41,9 @@ services:
     ports:
       - "8082:8080"
     depends_on:
-      - rag_server_1
-      - rag_server_2
-      - rag_server_3
+      - rerank_server_1
+      - rerank_server_2
+      - rerank_server_3
   
   redis:
     image: redis/redis-stack:latest

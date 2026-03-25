@@ -19,30 +19,20 @@ from fastapi import FastAPI
 from fastapi import UploadFile, Form, File
 
 # Classes
-from src import search
-
-# Helpers
-from src.utils.reranker import start_reranker_worker
-from src.utils.reranker import stop_reranker_worker
+from src import rerank
 
 # Logging
 logger = logging.getLogger('uvicorn.error')
 
-@asynccontextmanager
-async def lifespan(app: FastAPI):
-    await start_reranker_worker()
-    yield
-    await stop_reranker_worker()
+app = FastAPI(title="BNB CHATBOT: RAG SERVER")
 
-app = FastAPI(title="BNB CHATBOT: RAG SERVER", lifespan=lifespan)
-
-@app.post("/search")
+@app.post("/rerank")
 async def conversation_endpoint(request: QueryRequest):
     logger.info(Fore.GREEN + "="*50)
     logger.info(Fore.GREEN + "[🔎] Endpoint POST /search reached")
     logger.info(Fore.GREEN + "="*50 + Style.RESET_ALL)
 
-    response = await search.search(request)
+    response = await rerank.rerank(request.points, request.query)
     serialized_response = [point.model_dump() for point in response]
 
     return JSONResponse(content=serialized_response)
@@ -55,7 +45,7 @@ async def health_check():
 
     response_payload = {
         "staus": 200,
-        "message": "🚀 BNB Chatbot API 'rag_servers' are up and running through NGINX load balancer!",
+        "message": "🚀 BNB Chatbot API 'rerank_server' are up and running through NGINX load balancer!",
         "data": {
             "service": "bnb-chatbot",
             "version": "1.0.0"

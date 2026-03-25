@@ -1,6 +1,11 @@
 import httpx
 
-class SearchClient:
+
+# Logging
+import logging
+logger = logging.getLogger('uvicorn.error')
+
+class RerankClient:
 
     def __init__(self, base_url: str):
         self.base_url = base_url
@@ -9,18 +14,17 @@ class SearchClient:
             limits=httpx.Limits(max_connections=100, max_keepalive_connections=20)
         )
 
-    async def search(self, query, dense_embedding, sparse_embedding, topic):
+    async def rerank(self, points, query):
+        logger.info(points)
+        points_serialized = [p.model_dump() if hasattr(p, 'model_dump') else p for p in points]
+        logger.info(points_serialized)
+
 
         payload = {
-            "query": query,
-            "dense_embedding": dense_embedding.flatten().tolist(),
-            "sparse_embedding": {
-                "indices": sparse_embedding.indices,
-                "values": sparse_embedding.values
-            },
-            "topic": topic
+            "points": points,
+            "query": query
         }
 
-        r = await self.client.post(f"{self.base_url}/search", json=payload)
+        r = await self.client.post(f"{self.base_url}/rerank", json=payload)
         r.raise_for_status()
         return r.json()
