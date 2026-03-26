@@ -17,6 +17,8 @@ services:
     build: ./rerank_server
     volumes:
       - hf_cache:/root/.cache/huggingface
+    env_file:
+      - .env
     depends_on:
       - qdrant
 
@@ -24,6 +26,8 @@ services:
     build: ./rerank_server
     volumes:
       - hf_cache:/root/.cache/huggingface
+    env_file:
+      - .env
     depends_on:
       - qdrant
 
@@ -31,6 +35,8 @@ services:
     build: ./rerank_server
     volumes:
       - hf_cache:/root/.cache/huggingface
+    env_file:
+      - .env
     depends_on:
       - qdrant
 
