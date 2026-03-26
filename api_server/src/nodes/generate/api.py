@@ -1,5 +1,11 @@
+# General
 import httpx
 
+# Qdrant
+from qdrant_client.models import ScoredPoint
+
+# Exceptions
+from src.models.exceptions import RerankError
 
 # Logging
 import logging
@@ -14,17 +20,21 @@ class RerankClient:
             limits=httpx.Limits(max_connections=100, max_keepalive_connections=20)
         )
 
-    async def rerank(self, points, query):
-        logger.info(points)
-        points_serialized = [p.model_dump() if hasattr(p, 'model_dump') else p for p in points]
-        logger.info(points_serialized)
+    async def rerank(self, points: list[ScoredPoint], query: str):
 
+        # Convert from list[ScoredPoint] to list[dict]
+        points_serialized: list[dict] = [p.model_dump() if hasattr(p, 'model_dump') else p for p in points]
 
         payload = {
-            "points": points,
+            "points": points_serialized,
             "query": query
         }
 
-        r = await self.client.post(f"{self.base_url}/rerank", json=payload)
-        r.raise_for_status()
-        return r.json()
+        # Post to nginx to contact a rerank server
+        try:
+            r = await self.client.post(f"{self.base_url}/rerank", json=payload)
+            r.raise_for_status()
+            return r.json()
+        except Exception as e:
+            logger.error(f"[X] Error inside the reranker.")
+            raise RerankError(f" Error inside the reranker.")

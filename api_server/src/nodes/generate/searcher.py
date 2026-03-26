@@ -110,10 +110,13 @@ async def _retreive_best_capitulo(query: str, dense_embedding: list, sparse_vect
         raise RetrievalError("No relevant 'capitulos' found")
 
     # Rerank
-    reranked_points: list[ScoredPoint] = await rerank_client.rerank(points, query)
+    reranked_points: list[dict] = await rerank_client.rerank(points, query)
 
     # Select
-    best_cap_id = reranked_points[0].payload["cap_id"]
+    best_cap_id = reranked_points[0].get("payload",{}).get("cap_id")
+    if not best_cap_id:
+        logger.warning("[X] No most relevant 'capitulos' found. Reranker failed.")
+        raise RerankError("No most relevant 'capitulos' found. Reranker failed.")
     return best_cap_id
 
 async def _retreive_doc_id_from_topic(topic: str) -> str:

@@ -32,10 +32,9 @@ async def conversation_endpoint(request: QueryRequest):
     logger.info(Fore.GREEN + "[🔎] Endpoint POST /search reached")
     logger.info(Fore.GREEN + "="*50 + Style.RESET_ALL)
 
-    response = await rerank.rerank(request.points, request.query)
-    serialized_response = [point.model_dump() for point in response]
+    response: list[dict] = await rerank.rerank(request.points, request.query)
 
-    return JSONResponse(content=serialized_response)
+    return JSONResponse(content=response)
 
 @app.get("/health")
 async def health_check():
@@ -45,7 +44,7 @@ async def health_check():
 
     response_payload = {
         "staus": 200,
-        "message": "🚀 BNB Chatbot API 'rerank_server' are up and running through NGINX load balancer!",
+        "message": "🚀 BNB Chatbot API 'rerank_server' is up and running through NGINX load balancer!",
         "data": {
             "service": "bnb-chatbot",
             "version": "1.0.0"

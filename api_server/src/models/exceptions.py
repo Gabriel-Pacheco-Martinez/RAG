@@ -9,3 +9,6 @@ class GuardingError(Exception):
 
 class RetrievalError(Exception):
     pass
+
+class RerankError(Exception):
+    pass
