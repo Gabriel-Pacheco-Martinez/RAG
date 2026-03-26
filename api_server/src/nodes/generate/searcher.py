@@ -12,6 +12,7 @@ from qdrant_client.http.models import QueryResponse
 
 # Exceptions
 from src.models.exceptions import RetrievalError
+from src.models.exceptions import RerankError
 
 # Models
 from src.models.query import QueryRequest
@@ -146,6 +147,7 @@ async def _retreive_doc_id_from_topic(topic: str) -> str:
 async def search(query, dense_embedding, sparse_embedding, topic) -> list[ScoredPoint]:
     # await asyncio.sleep(0.7)
     # return [ScoredPoint(id=10,version=10,score=0.5,payload={"texto_id":"10","texto":"VIVIENDA SOCIAL ANTICRETICO...","cap_id":"6","cap_titulo":"Crédito de Vivienda","cap_texto":"CREDITO VIVIENDA...","doc_id":"2","doc_titulo":"creditos","doc_resumen":"Préstamos para personas naturales..."},vector=None,shard_key=None,order_value=None),ScoredPoint(id=11,version=11,score=0.2,payload={"texto_id":"11","texto":"FONDO DE GARANTIA VIVIENDA...","cap_id":"6","cap_titulo":"Crédito de Vivienda","cap_texto":"CREDITO VIVIENDA...","doc_id":"2","doc_titulo":"creditos","doc_resumen":"Préstamos para personas naturales..."},vector=None,shard_key=None,order_value=None)]
+    
     # Create sparse vector
     sparse_vector: SparseVector = SparseVector(indices=sparse_embedding.indices,values=sparse_embedding.values)
     

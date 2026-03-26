@@ -40,41 +40,36 @@ async def create_context():
 
 def _build_context(vectors: list[dict], textos: dict[str, str]) -> str:
         # General information for all chunks
-        general_payload = vectors[0].payload
+        general_payload = vectors[0].get("payload")
         if general_payload is None:
             logger.warning("[X] General information is empty while building context")
             raise Exception("General information is empty while building context")
 
-        context = f"""
-            DOCUMENTO: {general_payload.get('doc_titulo', '').upper()}
-            Resumen del documento: {general_payload.get('doc_resumen', '')}
-
-            CAPÍTULO: {general_payload.get('cap_titulo', '').upper()}
-            Descripción del capítulo: {general_payload.get('cap_texto', '')}
-        """
+        # Build context
+        context = (
+            f"DOCUMENTO: {general_payload.get('doc_titulo', '').upper()}\n"
+            f"Resumen del documento: {general_payload.get('doc_resumen', '')}\n\n"
+            f"CAPÍTULO: {general_payload.get('cap_titulo', '').upper()}\n"
+            f"Descripción del capítulo: {general_payload.get('cap_texto', '')}\n\n"
+        )
         
         # Merge chunk information
         paragraphs = []
         for index, vector in enumerate(vectors):
-            payload = vector.payload
+            payload = vector.get("payload")
             if payload is None:
                 logger.warning("[X] Vector information is empty while building context")
                 raise Exception("Vector information is empty while building context")
-            paragraph = f"""
-            ---
-            CHUNK {index+1}:
-
-            TEXTO: {textos[payload["texto_id"]]}
-            """.strip()
-            paragraphs.append(paragraph)
-
+            paragraphs.append(
+                f"---\nCHUNK {index + 1}:\n\nTEXTO: {textos[payload['texto_id']]}"
+            )
         return context + "\n\n".join(paragraphs)
 
 
 async def llm_generate(state: ChatState) -> ChatState:
-    # =======
+    # =======================================================
     # EMBEDDING
-    # =======
+    # =======================================================
     # Timer
     state["start_timer_embedding"] = perf_counter()
 
@@ -87,9 +82,9 @@ async def llm_generate(state: ChatState) -> ChatState:
 
     logger.info(Fore.CYAN + "[✅] 🧰 Embedding time: " + Style.RESET_ALL + "it took " + Fore.YELLOW + f"{perf_counter() - state['start_timer_embedding']:.4f}s ⏱. ")
 
-    # =======
+    # =======================================================
     # RAG
-    # =======
+    # =======================================================
     # Timer
     state["start_timer_llm_rag"] = perf_counter()
 
@@ -97,29 +92,30 @@ async def llm_generate(state: ChatState) -> ChatState:
     topic = state.get("topic_llm")
     if not topic:
         raise Exception("Topic is empty before RAG")
+    
     vectors: list[ScoredPoint] = await search(query, dense_embedding.flatten().tolist(), sparse_embedding, topic)
-    textos = read_json(WEBSITE_METADATA_FILE_PATH)["textos"]
+    textos: dict = read_json(WEBSITE_METADATA_FILE_PATH).get("textos", {})
 
     # Document and chapter
-    payload_main_vector = vectors[0].payload
-    if payload_main_vector is None:
+    payload_main = vectors[0].payload
+    if payload_main is None:
         logger.warning("[X] Payload is empty before RAG")
         raise Exception("Payload is empty before RAG")
 
-    state["document"] = payload_main_vector.get('doc_titulo', '').replace("_", " ").upper()
-    state["chapter"] = payload_main_vector.get('cap_titulo', '').lstrip(".").upper()
+    # Update state
+    state["document"] = payload_main.get('doc_titulo', '').replace("_", " ").upper()
+    state["chapter"] = payload_main.get('cap_titulo', '').lstrip(".").upper()
+    state["context"] = _build_context(vectors, textos)
 
-    # Build context
-    context = _build_context(vectors, textos)
-    # context = await create_context()
-    state["context"] = context
+    # state["context"] = await create_context()
     # state["document"] = "document"
     # state["chapter"] = "chapter"
+  
     logger.info(Fore.RED + f"{state['user_session_id']}: " +Fore.CYAN + "[✅] 🧰 RAG ACHIEVED: " + Style.RESET_ALL + "it took " + Fore.YELLOW + f"{perf_counter() - state['start_timer_llm_rag']:.4f}s ⏱. ")
 
-    # =======
+    # =======================================================
     # CLIENT
-    # =======
+    # =======================================================
     # Timer
     state["start_timer_llm_generate"] = perf_counter()
 
@@ -127,11 +123,14 @@ async def llm_generate(state: ChatState) -> ChatState:
     generate_prompt: PromptValue = build_generator_prompt(state)
     response: str = await call_llm(state, generate_prompt)
 
-    # Update state
-    state["generate_llm"] = f"""
-        🤖 Este mensaje esta generado por Inteligencia Artifical. Informacion obtenida de la sección **{state["document"]}** del capítulo **{state["chapter"]}**.\n {response} \n
-        👉 Si la información no es exactamente lo que buscabas, puedes intentar reformular tu consulta o añadir más detalles para obtener una respuesta más precisa.
-        """
+    # Update state. Create response
+    state["generate_llm"] = (
+        f"🤖 Este mensaje esta generado por Inteligencia Artifical. "
+        f"Informacion obtenida de la sección **{state['document']}** "
+        f"del capítulo **{state['chapter']}**.\n{response}\n\n"
+        f"👉 Si la información no es exactamente lo que buscabas, puedes intentar "
+        f"reformular tu consulta o añadir más detalles para obtener una respuesta más precisa."
+    )
     
     # Ensure conversation_history exists and is a list
     conversation_history = state.get("conversation_history")
