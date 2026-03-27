@@ -62,6 +62,23 @@ def build_topic_prompt(state: ChatState) -> PromptValue:
     })
     return prompt
 
+def build_reranking_prompt(points_str: str, query: str) -> PromptValue:
+    # Load files
+    base_prompt = load_prompt("rerank_prompt.txt")
+
+    # Build
+    prompt = ChatPromptTemplate.from_messages([
+        SystemMessagePromptTemplate.from_template(base_prompt),
+        HumanMessagePromptTemplate.from_template("Por favor haz el rerank de los puntos.")
+    ])
+
+    # Call
+    prompt = prompt.invoke({
+        "query": query,
+        "chunks": points_str
+    })
+
+    return prompt
 
 def build_generator_prompt(state: ChatState) -> PromptValue:
     # Load files

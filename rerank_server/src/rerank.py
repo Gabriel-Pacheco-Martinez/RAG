@@ -16,7 +16,6 @@ async def rerank(points: list[dict], query_text: str) -> list[dict]:
     # # logger.info("The reranker model is running on: %s", RERANKER_MODEL.model.device)
     # await asyncio.sleep(0.1)
     # return points
-
     pairs = []
     valid_points = []
 

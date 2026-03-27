@@ -16,7 +16,7 @@ from src.nodes.generate.embedder import get_sparse_embedding
 from src.nodes.generate.searcher import search
 from src.utils.io import read_json
 from src.utils.prompts import build_generator_prompt
-
+from src.utils.llm import call_llm
 
 # Classes
 from langchain_core.prompt_values import PromptValue
@@ -30,17 +30,17 @@ import logging
 logger = logging.getLogger('uvicorn.error')
 
 
-async def call_llm(state, prompt):
-    await asyncio.sleep(1)
-    return "response"
+# async def call_llm(state, prompt):
+#     await asyncio.sleep(1)
+#     return "response"
 
 async def create_context():
     await asyncio.sleep(1)
     return "context"
 
-def _build_context(vectors: list[dict], textos: dict[str, str]) -> str:
+def _build_context(vectors: list[ScoredPoint], textos: dict[str, str]) -> str:
         # General information for all chunks
-        general_payload = vectors[0].get("payload")
+        general_payload = vectors[0].payload
         if general_payload is None:
             logger.warning("[X] General information is empty while building context")
             raise Exception("General information is empty while building context")
@@ -56,7 +56,7 @@ def _build_context(vectors: list[dict], textos: dict[str, str]) -> str:
         # Merge chunk information
         paragraphs = []
         for index, vector in enumerate(vectors):
-            payload = vector.get("payload")
+            payload = vector.payload
             if payload is None:
                 logger.warning("[X] Vector information is empty while building context")
                 raise Exception("Vector information is empty while building context")
@@ -93,7 +93,7 @@ async def llm_generate(state: ChatState) -> ChatState:
     if not topic:
         raise Exception("Topic is empty before RAG")
     
-    vectors: list[ScoredPoint] = await search(query, dense_embedding.flatten().tolist(), sparse_embedding, topic)
+    vectors: list[ScoredPoint] = await search(state, query, dense_embedding.flatten().tolist(), sparse_embedding, topic)
     textos: dict = read_json(WEBSITE_METADATA_FILE_PATH).get("textos", {})
 
     # Document and chapter

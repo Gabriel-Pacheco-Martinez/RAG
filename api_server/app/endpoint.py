@@ -10,7 +10,7 @@ import logging
 import uvicorn 
 
 # Models
-from src.models.query import QueryRequest
+from src.models.query import QueryRequest, SearchPayload
 
 # FastAPI
 from fastapi.responses import JSONResponse
@@ -21,6 +21,9 @@ app = FastAPI(title="BNB CHATBOT")
 # Classes
 from src import graph
 from src import index
+
+# TODO: Delete
+from src.nodes.generate.searcher import search
 
 # Logging
 logger = logging.getLogger('uvicorn.error')
@@ -84,6 +87,11 @@ async def health_check():
 
     return JSONResponse(content=response_payload)
 
+@app.post("/search")
+async def searching(payload: SearchPayload):
+    results = await search(**payload.model_dump()) 
+    dict_results = [result.model_dump() for result in results]
+    return JSONResponse(content=dict_results)
 
 def start_server(host: str = "0.0.0.0", port: int = 8000):
     # Uvicorn
@@ -94,5 +102,5 @@ def start_server(host: str = "0.0.0.0", port: int = 8000):
         reload=False,
         log_level="info",
         log_config="config/logconfig.json",
-        workers=1
+        workers=4
     )

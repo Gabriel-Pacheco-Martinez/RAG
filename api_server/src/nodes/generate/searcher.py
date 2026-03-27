@@ -10,6 +10,9 @@ import numpy as np
 from qdrant_client.models import Filter, FieldCondition, MatchValue, Prefetch, FusionQuery, Fusion, SparseVector, ScoredPoint
 from qdrant_client.http.models import QueryResponse
 
+# Helpers
+from src.nodes.generate.llm_reranker import rerank
+
 # Exceptions
 from src.models.exceptions import RetrievalError
 from src.models.exceptions import RerankError
@@ -74,7 +77,7 @@ async def _retreive_best_texto(query: str, dense_embedding: list, sparse_vector:
     
     return points
 
-async def _retreive_best_capitulo(query: str, dense_embedding: list, sparse_vector: SparseVector, doc_id: str) -> str:
+async def _retreive_best_capitulo(state, query: str, dense_embedding: list, sparse_vector: SparseVector, doc_id: str) -> str:
     # Retrieve from Qdrant
     hits: QueryResponse = await ASYNC_QDRANT_CLIENT.query_points(
         collection_name="capitulos",
@@ -111,7 +114,8 @@ async def _retreive_best_capitulo(query: str, dense_embedding: list, sparse_vect
         raise RetrievalError("No relevant 'capitulos' found")
 
     # Rerank
-    reranked_points: list[dict] = await rerank_client.rerank(points, query)
+    # reranked_points: list[dict] = await rerank_client.rerank(points, query)
+    reranked_points: list[dict] = await rerank(state, points, query)
 
     # Select
     best_cap_id = reranked_points[0].get("payload",{}).get("cap_id")
@@ -144,16 +148,14 @@ async def _retreive_doc_id_from_topic(topic: str) -> str:
     best_doc_id = points[0].payload["doc_id"]
     return best_doc_id
 
-async def search(query, dense_embedding, sparse_embedding, topic) -> list[ScoredPoint]:
-    # await asyncio.sleep(0.7)
-    # return [ScoredPoint(id=10,version=10,score=0.5,payload={"texto_id":"10","texto":"VIVIENDA SOCIAL ANTICRETICO...","cap_id":"6","cap_titulo":"Crédito de Vivienda","cap_texto":"CREDITO VIVIENDA...","doc_id":"2","doc_titulo":"creditos","doc_resumen":"Préstamos para personas naturales..."},vector=None,shard_key=None,order_value=None),ScoredPoint(id=11,version=11,score=0.2,payload={"texto_id":"11","texto":"FONDO DE GARANTIA VIVIENDA...","cap_id":"6","cap_titulo":"Crédito de Vivienda","cap_texto":"CREDITO VIVIENDA...","doc_id":"2","doc_titulo":"creditos","doc_resumen":"Préstamos para personas naturales..."},vector=None,shard_key=None,order_value=None)]
-    
+async def search(state, query, dense_embedding, sparse_embedding, topic) -> list[ScoredPoint]:
+    logger.info(state)
     # Create sparse vector
-    sparse_vector: SparseVector = SparseVector(indices=sparse_embedding.indices,values=sparse_embedding.values)
+    sparse_vector = SparseVector(indices=sparse_embedding.indices, values=sparse_embedding.values)
     
     # Hierarchical retrieval
     best_doc_id: str = await _retreive_doc_id_from_topic(topic)
-    best_capitulo_id: str = await _retreive_best_capitulo(query, dense_embedding, sparse_vector, best_doc_id)
+    best_capitulo_id: str = await _retreive_best_capitulo(state, query, dense_embedding, sparse_vector, best_doc_id)
     best_texto_vectors: list[ScoredPoint] = await _retreive_best_texto(query, dense_embedding, sparse_vector, best_capitulo_id)
     return best_texto_vectors
 
