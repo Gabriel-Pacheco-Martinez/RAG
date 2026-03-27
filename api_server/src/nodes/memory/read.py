@@ -10,8 +10,8 @@ from src.models.state import ChatState
 from src.utils.redis import deserialize_session_data
 
 # Configuration
+from config.settings import settings
 from config.settings import REDIS_CLIENT
-from config.settings import REDIS_TTL_SECONDS
 
 # Logging 
 import logging
@@ -22,7 +22,7 @@ async def read_memory(state: ChatState) -> ChatState:
     state["start_timer_memory_read"] = perf_counter()
 
     session_id = str(state["user_session_id"])
-    session_ttl: int = REDIS_TTL_SECONDS
+    session_ttl: int = settings.REDIS_TTL_SECONDS
     session_data: dict[str, str] = await REDIS_CLIENT.hgetall(session_id)
     
     # Session just started

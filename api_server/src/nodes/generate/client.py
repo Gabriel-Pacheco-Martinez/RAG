@@ -22,8 +22,7 @@ from src.utils.llm import call_llm
 from langchain_core.prompt_values import PromptValue
 
 # Configuration
-from config.settings import EMBEDDING_BATCH_SIZE
-from config.settings import WEBSITE_METADATA_FILE_PATH
+from config.settings import settings
 
 # Logging
 import logging
@@ -94,7 +93,7 @@ async def llm_generate(state: ChatState) -> ChatState:
         raise Exception("Topic is empty before RAG")
     
     vectors: list[ScoredPoint] = await search(state, query, dense_embedding.flatten().tolist(), sparse_embedding, topic)
-    textos: dict = read_json(WEBSITE_METADATA_FILE_PATH).get("textos", {})
+    textos: dict = read_json(settings.WEBSITE_METADATA_FILE_PATH).get("textos", {})
 
     # Document and chapter
     payload_main = vectors[0].payload

@@ -9,14 +9,14 @@ from google.genai import types
 from src.models.exceptions import ConvertionError
 
 # Configuration
+from config.settings import settings
 from config.settings import GEMINI_MULTIMODAL_MODEL
-from config.settings import GEMINI_API_KEY
 
 # Logging
 import logging
 logger = logging.getLogger('uvicorn.error')
 
-client = genai.Client(api_key=GEMINI_API_KEY).aio
+client = genai.Client(api_key=settings.GEMINI_API_KEY).aio
 
 async def convert_audio_to_text(audio_bytes: bytes, mime_type: str = "audio/ogg") -> str:
     """

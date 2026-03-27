@@ -11,8 +11,10 @@ from src.models.state import ChatState
 
 # Configuration
 from config.enums import LLMSource
-from config.settings import LLM_SOURCE
-from config.settings import GROQ_GENERATOR_MODEL, GEMINI_GENERATOR_MODEL, OLLAMA_GENERATOR_MODEL
+from config.settings import settings
+from config.settings import GROQ_GENERATOR_MODEL 
+from config.settings import GEMINI_GENERATOR_MODEL
+from config.settings import OLLAMA_GENERATOR_MODEL
 
 # Logging
 import logging
@@ -20,16 +22,16 @@ logger = logging.getLogger('uvicorn.error')
 
 async def call_llm(state: ChatState, prompt: PromptValue) -> str:
     response_text = ""
-    if  LLM_SOURCE == LLMSource.GROQ:
-        logger.info(Fore.RED + f"{state['user_session_id']}: " + Fore.CYAN + " ☁️🍊 LLM SOURCE USED: " + Style.RESET_ALL + f"{LLM_SOURCE}")
+    if  settings.LLM_SOURCE == LLMSource.GROQ:
+        logger.info(Fore.RED + f"{state['user_session_id']}: " + Fore.CYAN + " ☁️🍊 LLM SOURCE USED: " + Style.RESET_ALL + f"{settings.LLM_SOURCE}")
         response = await GROQ_GENERATOR_MODEL.ainvoke(prompt)
         response_text = response.content.strip()
-    elif LLM_SOURCE == LLMSource.GOOGLE:
-        logger.info(Fore.RED + f"{state['user_session_id']}: " + Fore.CYAN + " ☁️📊 LLM SOURCE USED: " + Style.RESET_ALL + f"{LLM_SOURCE}")
+    elif settings.LLM_SOURCE == LLMSource.GOOGLE:
+        logger.info(Fore.RED + f"{state['user_session_id']}: " + Fore.CYAN + " ☁️📊 LLM SOURCE USED: " + Style.RESET_ALL + f"{settings.LLM_SOURCE}")
         response = await GEMINI_GENERATOR_MODEL.ainvoke(prompt)
         response_text = response.content.strip()
-    elif LLM_SOURCE == LLMSource.OLLAMA:
-        logger.info(Fore.RED + f"{state['user_session_id']}: " + Fore.CYAN + " ☁️🦙 LLM SOURCE USED: " + Style.RESET_ALL + f"{LLM_SOURCE}")
+    elif settings.LLM_SOURCE == LLMSource.OLLAMA:
+        logger.info(Fore.RED + f"{state['user_session_id']}: " + Fore.CYAN + " ☁️🦙 LLM SOURCE USED: " + Style.RESET_ALL + f"{settings.LLM_SOURCE}")
         response = await OLLAMA_GENERATOR_MODEL.ainvoke(prompt)
         response_text = response.content.strip()
     return response_text

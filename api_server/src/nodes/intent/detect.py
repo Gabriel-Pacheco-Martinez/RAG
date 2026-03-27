@@ -19,8 +19,7 @@ from langchain_core.prompt_values import PromptValue
 from typing import Awaitable
 
 # Configution
-from config.settings import MAX_TEXT_SIZE
-from config.settings import MAX_AUDIO_SIZE
+from config.settings import settings
 
 # Logging
 import logging
@@ -34,10 +33,10 @@ async def intent_detect(state: ChatState) -> ChatState:
     # Validate and store message
     user_message_text = ""
     if state["user_message_format"] == "text":
-        validator = TextValidator(state["user_message"], format="text", max_size=MAX_TEXT_SIZE)
+        validator = TextValidator(state["user_message"], format="text", max_size=settings.MAX_TEXT_SIZE)
         user_message_text: str = validator.validate_input()
     elif state["user_message_format"] == "audio":
-        validator = AudioValidator(state["user_message"], format="audio", max_size=MAX_AUDIO_SIZE)
+        validator = AudioValidator(state["user_message"], format="audio", max_size=settings.MAX_AUDIO_SIZE)
         user_message_audio: bytes = validator.validate_input()
         user_message_text: str = await convert_audio_to_text(user_message_audio)
 

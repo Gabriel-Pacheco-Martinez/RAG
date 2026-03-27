@@ -18,10 +18,10 @@ from src.models.exceptions import GuardingError
 
 # Configuration
 from config.enums import GUARDSource
-from config.settings import GUARD_SOURCE
-from config.settings import GUARD_PROBABILITY_THRESHOLD
+from config.settings import settings
 from config.settings import GROQ_PROMPT_GUARD_MODEL 
-from config.settings import HF_PROMPT_GUARD_MODEL, HF_PROMPT_GUARD_TOKENIZER
+from config.settings import HF_PROMPT_GUARD_MODEL
+from config.settings import HF_PROMPT_GUARD_TOKENIZER
 
 # Logging
 import logging
@@ -49,21 +49,21 @@ async def call_prompt_guard(state: ChatState, user_message: str):
     Guard against malicious prompts. Prompts that want to cause Jailbreak.
     """
     try:
-        if GUARD_SOURCE == GUARDSource.GROQ:
-            logger.info(Fore.RED + f"{state['user_session_id']}: " + Fore.CYAN + " ☁️🍊 GUARD SOURCE USED: " + Style.RESET_ALL + f"{GUARD_SOURCE}")
+        if settings.GUARD_SOURCE == GUARDSource.GROQ:
+            logger.info(Fore.RED + f"{state['user_session_id']}: " + Fore.CYAN + " ☁️🍊 GUARD SOURCE USED: " + Style.RESET_ALL + f"{settings.GUARD_SOURCE}")
             model = GROQ_PROMPT_GUARD_MODEL
             prompt = HumanMessage(content=user_message)
             completion = await model.ainvoke([prompt])
             jailbreak_probability = completion.content
-            if float(jailbreak_probability) > GUARD_PROBABILITY_THRESHOLD:
+            if float(jailbreak_probability) > settings.GUARD_PROBABILITY_THRESHOLD:
                 logger.info("Jailbreak detected on malicious prompt")
                 raise GuardingError("Jailbreak detected on malicious prompt")
             
-        elif GUARD_SOURCE == GUARDSource.HUGGING_FACE:
-            logger.info(Fore.RED + f"{state['user_session_id']}: " + Fore.CYAN + " ☁️🤗 GUARD SOURCE USED: " + Style.RESET_ALL + f"{GUARD_SOURCE}")
+        elif settings.GUARD_SOURCE == GUARDSource.HUGGING_FACE:
+            logger.info(Fore.RED + f"{state['user_session_id']}: " + Fore.CYAN + " ☁️🤗 GUARD SOURCE USED: " + Style.RESET_ALL + f"{settings.GUARD_SOURCE}")
             malicious_prob = await asyncio.to_thread(hf_guard_inference, user_message)
 
-            if malicious_prob > GUARD_PROBABILITY_THRESHOLD:
+            if malicious_prob > settings.GUARD_PROBABILITY_THRESHOLD:
                 logger.info("Jailbreak detected on malicious prompt")
                 raise GuardingError("Jailbreak detected on malicious prompt")
 

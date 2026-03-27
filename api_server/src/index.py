@@ -11,10 +11,10 @@ from src.indexing.embedder import Embedder
 from src.indexing.indexer import Indexer
 
 # Configuration
-from config.settings import PDF_RAW_DOCS_PATH, PDF_LOADED_FILE_PATH, PDF_METADATA_FILE_PATH
-from config.settings import WEBSITE_LOADED_FILE_PATH, WEBSITE_METADATA_FILE_PATH
+from config.settings import settings
 from config.settings import ASYNC_QDRANT_CLIENT
-from config.settings import DENSE_MODEL, DENSE_TOKENIZER, EMBEDDING_BATCH_SIZE, EMBEDDING_N_DIMENSIONS
+from config.settings import DENSE_MODEL
+from config.settings import DENSE_TOKENIZER
 
 # Logging
 import logging
@@ -37,20 +37,20 @@ async def run():
     # =======
     # Chunk WEBSITE document
     chunker: object = WebsiteChunker()
-    metadata: dict =chunker.chunk_document(WEBSITE_LOADED_FILE_PATH)
-    chunks: dict = chunker.save_chunks(WEBSITE_METADATA_FILE_PATH, metadata)
-    metadata, chunks = chunker.get_chunks(WEBSITE_METADATA_FILE_PATH)
+    metadata: dict =chunker.chunk_document(settings.WEBSITE_LOADED_FILE_PATH)
+    chunks: dict = chunker.save_chunks(settings.WEBSITE_METADATA_FILE_PATH, metadata)
+    metadata, chunks = chunker.get_chunks(settings.WEBSITE_METADATA_FILE_PATH)
     logger.info("✅ Successfull chunking")
 
     # =======
     # Embed the chunks
-    embedder = Embedder(DENSE_MODEL, DENSE_TOKENIZER, EMBEDDING_BATCH_SIZE)
+    embedder = Embedder(DENSE_MODEL, DENSE_TOKENIZER, settings.EMBEDDING_BATCH_SIZE)
     embeddings_chunks = embedder.embed_chunks(chunks)
     logger.info("✅ Successfull embedding")
 
     # =======
     # Index the embeddings with their metadata
-    indexer = Indexer(ASYNC_QDRANT_CLIENT, EMBEDDING_N_DIMENSIONS)
+    indexer = Indexer(ASYNC_QDRANT_CLIENT, settings.EMBEDDING_N_DIMENSIONS)
     await indexer.index_embeddings(metadata, embeddings_chunks)
     logger.info("✅ Successfull indexing")
 

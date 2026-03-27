@@ -1,5 +1,6 @@
 # General
 import ast
+import asyncio
 
 # Qdrant
 from qdrant_client.models import ScoredPoint
@@ -17,8 +18,12 @@ import logging
 logger = logging.getLogger('uvicorn.error')
 
 async def rerank(state: ChatState, points: list[ScoredPoint], query: str) -> list[dict]:
+    # await asyncio.sleep(0.1)
+    # return points_serialized
+
     # Convert from list[ScoredPoint] to list[dict]
     points_serialized: list[dict] = [p.model_dump() if hasattr(p, 'model_dump') else p for p in points]
+    
     points_str = "\n\n".join(
         f"[{p['id']}] {p['payload']['titulo']}\n{p['payload']['texto']}"
         for p in points_serialized

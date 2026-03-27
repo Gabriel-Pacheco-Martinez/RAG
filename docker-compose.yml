@@ -12,6 +12,55 @@ services:
       - nginx
       - redis
       - qdrant
+    environment:
+      # ===== NGINX
+      NGINX_URL: http://nginx:8080
+
+      # ===== REDIS
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+      REDIS_DB: 0
+      REDIS_DECODE_RESPONSES: true
+      REDIS_TTL_SECONDS: 900
+
+      # ===== QDRANT
+      QDRANT_URL: http://qdrant:6333
+      TOP_K_DENSE: 8
+      TOP_K_SPARSE: 8
+      LIMIT_N_HYBRID_CAPS: 3
+      LIMIT_N_HYBRID_TEXT: 4
+
+      # ===== EMBEDDINGS
+      DENSE_EMBEDDER: sentence-transformers/all-MiniLM-L6-v2
+      SPARSE_EMBEDDER: Qdrant/bm25
+      EMBEDDING_BATCH_SIZE: 16
+      EMBEDDING_N_DIMENSIONS: 384
+
+      # ===== CONSTRAINTS
+      MAX_AUDIO_SIZE: 60000
+      MAX_TEXT_SIZE: 150
+      MAX_MESSAGE_HISTORY_MEMORY: 6
+
+      # ===== MODEL SOURCES (Enums → MUST match exactly)
+      LLM_SOURCE: groq
+      GUARD_SOURCE: huggingface
+
+      # ===== OLLAMA
+      OLLAMA_HOST: http://host.docker.internal:11434
+
+      # ===== LLMs
+      GROQ_LLM: meta-llama/llama-4-scout-17b-16e-instruct
+      GEMINI_LLM: gemma-3-1b-it
+      OLLAMA_LLM: llama3:8b
+
+      # ===== MULTIMODAL
+      GEMINI_MULTIMODAL: gemini-2.5-flash
+
+      # ===== GUARD
+      GUARD_PROBABILITY_THRESHOLD: 0.2
+      GROQ_PROMPT_GUARD: meta-llama/llama-prompt-guard-2-86m
+      HF_PROMPT_GUARD: meta-llama/Llama-Prompt-Guard-2-86M
+
 
   rerank_server_1:
     build: ./rerank_server

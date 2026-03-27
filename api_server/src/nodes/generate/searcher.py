@@ -22,20 +22,15 @@ from src.models.query import QueryRequest
 from src.nodes.generate.api import RerankClient
 
 # Configuration
-from config.settings import RERANKER_MODEL
-from config.settings import TOP_K_DENSE
-from config.settings import TOP_K_SPARSE
-from config.settings import LIMIT_N_HYBRID_CAPS
-from config.settings import LIMIT_N_HYBRID_TEXT
+from config.settings import settings
 from config.settings import ASYNC_QDRANT_CLIENT
-from config.settings import RERANKER_SERVER_URL
 
 # Logging
 import logging
 logger = logging.getLogger('uvicorn.error')
 
 # Rerank API Client
-rerank_client = RerankClient(RERANKER_SERVER_URL)
+rerank_client = RerankClient(settings.NGINX_URL)
 
 async def _retreive_best_texto(query: str, dense_embedding: list, sparse_vector: SparseVector, cap_id: str) -> list[ScoredPoint]:
     # Retrieve from Qdrant
@@ -46,13 +41,13 @@ async def _retreive_best_texto(query: str, dense_embedding: list, sparse_vector:
             Prefetch(
                 query=dense_embedding,
                 using="dense", 
-                limit=TOP_K_DENSE
+                limit=settings.TOP_K_DENSE
             ),
             # Sparse vector search
             Prefetch(
                 query=sparse_vector,
                 using="sparse",
-                limit=TOP_K_SPARSE
+                limit=settings.TOP_K_SPARSE
             )
         ],
         query=FusionQuery(
@@ -66,7 +61,7 @@ async def _retreive_best_texto(query: str, dense_embedding: list, sparse_vector:
                 )
             ]
         ),
-        limit=LIMIT_N_HYBRID_TEXT
+        limit=settings.LIMIT_N_HYBRID_TEXT
     )
 
     # Validate
@@ -86,13 +81,13 @@ async def _retreive_best_capitulo(state, query: str, dense_embedding: list, spar
             Prefetch(
                 query=dense_embedding,
                 using="dense",
-                limit=TOP_K_DENSE,
+                limit=settings.TOP_K_DENSE,
             ),
             # Sparse vector search
             Prefetch(
                 query=sparse_vector,
                 using="sparse",
-                limit=TOP_K_SPARSE
+                limit=settings.TOP_K_SPARSE
             )
         ],
         query=FusionQuery(fusion=Fusion.RRF),
@@ -104,7 +99,7 @@ async def _retreive_best_capitulo(state, query: str, dense_embedding: list, spar
                 )
             ]
         ),
-        limit=LIMIT_N_HYBRID_CAPS
+        limit=settings.LIMIT_N_HYBRID_CAPS
     )
 
     # Validate
