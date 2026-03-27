@@ -144,7 +144,6 @@ async def _retreive_doc_id_from_topic(topic: str) -> str:
     return best_doc_id
 
 async def search(state, query, dense_embedding, sparse_embedding, topic) -> list[ScoredPoint]:
-    logger.info(state)
     # Create sparse vector
     sparse_vector = SparseVector(indices=sparse_embedding.indices, values=sparse_embedding.values)
     

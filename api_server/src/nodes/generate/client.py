@@ -16,7 +16,7 @@ from src.nodes.generate.embedder import get_sparse_embedding
 from src.nodes.generate.searcher import search
 from src.utils.io import read_json
 from src.utils.prompts import build_generator_prompt
-from src.utils.llm import call_llm
+# from src.utils.llm import call_llm
 
 # Classes
 from langchain_core.prompt_values import PromptValue
@@ -29,9 +29,9 @@ import logging
 logger = logging.getLogger('uvicorn.error')
 
 
-# async def call_llm(state, prompt):
-#     await asyncio.sleep(1)
-#     return "response"
+async def call_llm(state, prompt):
+    await asyncio.sleep(1)
+    return "response"
 
 async def create_context():
     await asyncio.sleep(1)
