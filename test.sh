@@ -1,1 +1,1 @@
-npx artillery run artillery/load-test.yml
+docker compose -f docker-compose-monolith.yml up --build

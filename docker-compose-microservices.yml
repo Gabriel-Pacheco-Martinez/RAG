@@ -84,7 +84,7 @@ services:
       RERANKER_MODEL_NAME: "cross-encoder/ms-marco-MiniLM-L-6-v2"
 
   nginx:
-    image: nginx:latest
+    image: nginx:1.29.7-alpine-perl
     volumes:
       - ./nginx/nginx_microservices.conf:/etc/nginx/nginx.conf
     ports:
@@ -98,12 +98,12 @@ services:
       - rerank_server_3
   
   redis:
-    image: redis/redis-stack:latest
+    image: redis/redis-stack:7.4.0-v8
     ports:
       - "6379:6379"
 
   qdrant:
-    image: qdrant/qdrant
+    image: qdrant/qdrant:v1.17
     ports:
       - "6333:6333"
     volumes:
