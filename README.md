@@ -49,12 +49,14 @@ El proyecto fue desarrollado y probado con las siguientes versiones:
 - Nginx `1.29.7`
 
 ## Instructions
-Para construir y ejecutar el proyecto, correr el siguiente comando en el directorio raíz:
+Para construir y ejecutar el proyecto, utiliza uno de los siguientes comandos desde el directorio raíz, según la arquitectura que desees usar. La versión con microservicios realiza el reranking mediante un modelo Transformer desacoplado:
+
 ```bash
-docker compose -f docker-compose-monolith.yml up --build -d
+docker compose -f docker-compose-monolith.yml up --build -d         # Version monolitica
+docker compose -f docker-compose-microservices.yml up --build -d    # Version con microservicios
 ```
 
-PyTorch no debe incluirse en `requirements.txt` debido a la necesidad de gestionar versiones específicas según la arquitectura (CPU vs GPU) y los controladores de CUDA. Por ello, la instalación se realiza directamente en el `Dockerfile` de cada servidor.
+PyTorch no debe incluirse en `requirements.txt` debido a la necesidad de gestionar versiones específicas según la arquitectura (CPU vs GPU) y los controladores de CUDA. Por ello, la instalación se realiza directamente en el `Dockerfile` de cada servicio.
 
 Para entornos CPU, se puede instalar la versión estándar de PyTorch. Si se desea utilizar GPU con soporte CUDA, se debe especificar la versión compatible de CUDA en la línea de instalación del `Dockerfile`. Por ejemplo:
 ```bash
@@ -65,26 +67,35 @@ Para poder construir y ejecutar el proyecto con un depurador, ya sea para correg
 
 ```bash
 docker compose -f docker-compose-monolith.yml -f docker-compose.debug.yml up --build
+docker compose -f docker-compose-microservices.yml -f docker-compose.debug.yml up --build
 ```
 
 
 ## API Endpoints
 Los endpoints de salud no requieren autenticación. Para los demás endpoints, se debe proporcionar una API Key mediante el header `Chatbot-API-Key`.
 
+### **1. Construcción de la base vectorial**
 
-**1.Construcción de la base vectorial**
 Construye o actualiza la base de conocimiento vectorial en Qdrant.
 ```bash
 GET http://127.0.0.1:8082/index
 ```
 
-**2.Conversación con el chatbot**
+**Headers:**
+
+Chatbot-API-Key: <API_KEY>
+
+### **2. Conversación con el chatbot**
 Permite enviar mensajes al chatbot y recibir una respuesta generada por el sistema RAG.
 ```bash
 POST http://127.0.0.1:8082/conversation
 ```
 
-Esquema necesario:
+**Headers:**
+
+Chatbot-API-Key: <API_KEY>
+
+**Body:**
 ```bash
 {
     session_id: int   # Identificador de la sesión conversacional.
@@ -92,7 +103,7 @@ Esquema necesario:
 }
 ```
 
-**3.Health points para las dos APIs**
+### **3. Health points para las dos APIs**
 Permite revisar si los dos endpoints desarrollados "api_server" y "rerank_server" estan sanos y levantados.
 
 ```bash
