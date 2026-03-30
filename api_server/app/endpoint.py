@@ -38,7 +38,7 @@ logger = logging.getLogger('uvicorn.error')
 # API KEY Security
 # ============================================================
 API_KEY = settings.PROTECTION_KEY
-API_KEY_HEADER = APIKeyHeader(name="X-API-Key", auto_error=False)
+API_KEY_HEADER = APIKeyHeader(name="Chatbot-API-Key", auto_error=False)
 
 async def verify_api_key(api_key: str = Security(API_KEY_HEADER)):
     print(f"DEBUG: Expected API Key: {API_KEY}")
