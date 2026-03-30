@@ -5,32 +5,61 @@ Date: February 2026
 # General
 from colorama import Fore, Style
 import logging
+import secrets
 
 # Server
 import uvicorn 
+
+# Helpers
+from src.nodes.generate.searcher import search # FIXME: This is only for testing recall and precision, should be removed in production
 
 # Models
 from src.models.query import QueryRequest, SearchPayload
 
 # FastAPI
 from fastapi.responses import JSONResponse
-from fastapi import FastAPI
+from fastapi import FastAPI, Depends, Security, HTTPException, status
+from fastapi.security import APIKeyHeader
 from fastapi import UploadFile, Form, File
-app = FastAPI(title="BNB CHATBOT")
+from fastapi import APIRouter
 
 # Classes
 from src import graph
 from src import index
 
-# TODO: Delete
-from src.nodes.generate.searcher import search
+# Configuration
+from config.settings import settings
+
 
 # Logging
 logger = logging.getLogger('uvicorn.error')
 
-# ==============================================
+# ============================================================
+# API KEY Security
+# ============================================================
+API_KEY = settings.PROTECTION_KEY
+API_KEY_HEADER = APIKeyHeader(name="X-API-Key", auto_error=False)
+
+async def verify_api_key(api_key: str = Security(API_KEY_HEADER)):
+    print(f"DEBUG: Expected API Key: {API_KEY}")
+    print(f"DEBUG: Received Header: {api_key}")
+    if not api_key or not secrets.compare_digest(api_key, API_KEY):
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="❌ Invalid or missing API key"
+        )
+    return api_key
+
+# ============================================================
+# Routes: Define app and routers
+# ============================================================
+app = FastAPI(title="BNB CHATBOT")
+public_router = APIRouter() # No api key required
+protected_router = APIRouter(dependencies=[Depends(verify_api_key)])
+
+# ============================================================
 # Endpoint: Process that works with audio also
-# ==============================================
+# ============================================================
 # @app.post("/audio")
 # async def audio_endpoint(TextChatbot: str = Form(None), AudioChatbot: UploadFile = File(None)):
 #     logger.info(Fore.GREEN + "="*50)
@@ -47,19 +76,19 @@ logger = logging.getLogger('uvicorn.error')
 
 #     return JSONResponse(content=response)
 
-# ==============================================
+# ============================================================
 # Endpoint: To test recall and precision
-# ==============================================
+# ============================================================
 # @app.post("/search")
 # async def searching(payload: SearchPayload):
 #     results = await search(**payload.model_dump()) 
 #     dict_results = [result.model_dump() for result in results]
 #     return JSONResponse(content=dict_results)
 
-# ==============================================
-# Endpoint: Check health status
-# ==============================================
-@app.get("/health")
+# ============================================================
+# Public Endpoint: Check health status
+# ============================================================
+@public_router.get("/health")
 async def health_check():
     logger.info(Fore.GREEN + "[💚] Endpoint GET /health reached" + Style.RESET_ALL)
 
@@ -74,10 +103,10 @@ async def health_check():
 
     return JSONResponse(content=response_payload)
 
-# ==============================================
-# Endpoint: Index documents into Qdrant DB
-# ==============================================
-@app.get("/index")
+# ============================================================
+# Protected Endpoint: Index documents into Qdrant DB
+# ============================================================
+@protected_router.get("/index")
 async def index_endpoint():
     logger.info(Fore.GREEN + "[📚] Endpoint GET /index reached" + Style.RESET_ALL)
 
@@ -91,10 +120,10 @@ async def index_endpoint():
 
     return JSONResponse(content=response_payload)
 
-# ==============================================
-# Endpoint: Respond a text query
-# ==============================================
-@app.post("/conversation")
+# ============================================================
+# Protected Endpoint: Respond a text query
+# ============================================================
+@protected_router.post("/conversation")
 async def conversation_endpoint(request: QueryRequest):
     logger.info(Fore.GREEN + "="*50)
     logger.info(Fore.GREEN + "[🤖] Endpoint POST /conversation reached")
@@ -104,6 +133,12 @@ async def conversation_endpoint(request: QueryRequest):
 
     return JSONResponse(content=response)
 
+
+# ============================================================
+# START SERVER: Add routes to routers and start Uvicorn server
+# ============================================================
+app.include_router(public_router)
+app.include_router(protected_router)
 def start_server(host: str = "0.0.0.0", port: int = 8000):
     # Uvicorn
     uvicorn.run(

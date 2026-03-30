@@ -36,6 +36,7 @@ class Settings(BaseSettings):
     # Secrets
     GEMINI_API_KEY: str = "GEMINI_API_KEY"
     GROQ_API_KEY: str = "GROQ_API_KEY"
+    PROTECTION_KEY: str = "PROTECTION_KEY"
 
     # NGINX
     NGINX_URL: str = "http://nginx:8080"
