@@ -131,6 +131,16 @@ async def conversation_endpoint(request: QueryRequest):
     # Get response
     response, usage = await graph.run(request)
 
+    # Check if there was an error to return it as an HTTP Exception
+    if isinstance(response, dict) and response.get("status", 200) >= 400:
+        raise HTTPException(
+            status_code=response["status"],
+            detail={
+                "message": response.get("message"),
+                "data": response.get("data") # The raw error_data
+            }
+        )
+
     # Total cost and tokens forever
     await usage_tracker.add(**usage)
     logger.info(Fore.YELLOW + f"📊 Total cost so far: ${usage_tracker.total_cost:.6f} for {usage_tracker.total_input_tokens} input tokens and {usage_tracker.total_output_tokens} output tokens" + Style.RESET_ALL)

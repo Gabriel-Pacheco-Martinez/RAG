@@ -47,23 +47,6 @@ def error_handler(state: ChatState) -> ChatState:
     return state
 
 # =========
-# ROUTE INTENT
-# def intent_route(state: ChatState) -> str:
-#     # Error detected
-#     if state.get("error"):
-#         return "error_handler"
-
-#     # Intent is "preguntas"
-#     if state.get("intent_llm") == "preguntas":
-#         logger.info("User wants a question answered.")
-#         return "read_memory"
-    
-#     # Intent is otherwise
-#     else:
-#         logger.info(f"User wants {state.get('intent_llm')}.")
-#         return "intent_response"
-
-# =========
 # ROUTE TOPIC
 def topic_route(state: ChatState) -> str:
     # Error detected
@@ -139,12 +122,13 @@ graph.add_node("error_handler", error_handler)
 # FIXME:Routing-Edges:
 #   1. Detectar el intent del usuario
 graph.set_entry_point("intent_detect")
-# graph.add_conditional_edges("intent_detect", intent_route)
 
 #   2. Detectar el topic de la pregunta del usuario
 graph.add_conditional_edges("intent_detect", route_or_error("read_memory"))
 graph.add_conditional_edges("read_memory", route_or_error("topic_detect"))
 graph.add_conditional_edges("topic_detect", topic_route)
+graph.add_edge("topic_response", "__end__")
+graph.add_edge("error_handler", "__end__")
 
 #   3. Contestar la pregunta del usuario
 graph.add_conditional_edges("llm_generate", route_or_error("llm_response"))
