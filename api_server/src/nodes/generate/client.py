@@ -28,6 +28,9 @@ from config.settings import settings
 import logging
 logger = logging.getLogger('uvicorn.error')
 
+# async def call_llm(state, prompt):
+#     await asyncio.sleep(1)
+#     return "response"
 
 def _build_context(vectors: list[ScoredPoint], textos: dict[str, str]) -> str:
         # General information for all chunks

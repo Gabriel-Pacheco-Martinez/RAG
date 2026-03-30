@@ -19,6 +19,18 @@ from src.utils.llm import call_llm
 import logging
 logger = logging.getLogger('uvicorn.error')
 
+# async def call_llm(state, prompt):
+#     await asyncio.sleep(0.7)
+#     return """
+# {
+#     "topic_llm": "creditos" ,
+#     "topic_score": 0.95,
+#     "topic_ambiguous": false,
+#     "info_source": "rag",
+#     "rewritten_query": "blah",
+#     "suggested_clarification": null
+# }
+# """
 
 async def topic_detect(state: ChatState) -> ChatState:
     # Timer
