@@ -44,7 +44,8 @@ class Settings(BaseSettings):
     # REDIS
     REDIS_HOST: str = "redis"  # Docker exposed
     REDIS_PORT: int = 6379
-    REDIS_DB: int = 0
+    REDIS_DB_MEMORY: int = 0
+    REDIS_DB_VALIDATOR: int = 1
     REDIS_DECODE_RESPONSES: bool = True
     REDIS_TTL_SECONDS: int = 900
 
@@ -85,6 +86,10 @@ class Settings(BaseSettings):
     INPUT_RATE_PER_M: float = 0.11
     OUTPUT_RATE_PER_M: float = 0.34
 
+    # USER LIMITING
+    MAX_REQUESTS_PER_WINDOW: int = 10
+    WINDOW_SECONDS: int = 1800  # 30 minutes
+
     # GUARD
     GUARD_PROBABILITY_THRESHOLD: float = 0.2
     GROQ_PROMPT_GUARD: str = "meta-llama/llama-prompt-guard-2-86m"
@@ -101,10 +106,17 @@ class Settings(BaseSettings):
 
 settings = Settings()
 
-REDIS_CLIENT = aioredis.Redis(
+REDIS_CLIENT_MEMORY = aioredis.Redis(
     host=settings.REDIS_HOST,
     port=settings.REDIS_PORT,
-    db=settings.REDIS_DB,
+    db=settings.REDIS_DB_MEMORY,
+    decode_responses=settings.REDIS_DECODE_RESPONSES
+)
+
+REDIS_CLIENT_VALIDATOR = aioredis.Redis(
+    host=settings.REDIS_HOST,
+    port=settings.REDIS_PORT,
+    db=settings.REDIS_DB_VALIDATOR,
     decode_responses=settings.REDIS_DECODE_RESPONSES
 )
 

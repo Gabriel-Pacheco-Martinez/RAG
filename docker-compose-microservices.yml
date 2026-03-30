@@ -16,7 +16,8 @@ services:
       # ===== REDIS
       REDIS_HOST: redis
       REDIS_PORT: 6379
-      REDIS_DB: 0
+      REDIS_DB_MEMORY: 0
+      REDIS_DB_VALIDATOR: 1
       REDIS_DECODE_RESPONSES: true
       REDIS_TTL_SECONDS: 900
 
@@ -52,6 +53,14 @@ services:
 
       # ===== MULTIMODAL
       GEMINI_MULTIMODAL: gemini-2.5-flash
+
+      # ===== RATES FOR LLMs
+      INPUT_RATE_PER_M: 0.11
+      OUTPUT_RATE_PER_M: 0.34
+
+      # ===== RATES FOR USER LIMIT
+      MAX_REQUESTS_PER_WINDOW: 10
+      WINDOW_SECONDS: 1800
 
       # ===== GUARD
       GUARD_PROBABILITY_THRESHOLD: 0.2

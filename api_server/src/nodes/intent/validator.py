@@ -1,16 +1,20 @@
 # General
 from typing import Tuple
 from abc import ABC, abstractmethod
+from colorama import Fore, Style
 
 # Exceptions
-from src.models.exceptions import ValidationError
+from src.models.exceptions import ValidationError, RateLimitError
+
+# Classes
+from src.utils.limiter import rate_limiter
 
 # Logging
 import logging
 logger = logging.getLogger('uvicorn.error')
 
 class Validator(ABC):
-    def __init__(self, message_data, format, max_size: int) -> None:
+    def __init__(self, message_data: str, format: str, max_size: int) -> None:
         self.message_data = message_data
         self.format = format
         self.max_size = max_size
@@ -36,3 +40,17 @@ class AudioValidator(Validator):
             raise ValidationError("El audio es demasiado largo.")
         logging.info("User message 'audio' is valid")
         return self.message_data
+
+class RateLimitValidator(Validator):
+    def __init__(self, session_id:int):
+        self.session_id = session_id
+
+    async def validate_input(self):
+        result = await rate_limiter.is_allowed(self.session_id)
+        if not result.allowed:
+            logger.info(Fore.RED + f"Session {self.session_id} exceeded rate limit. Retry after {result.retry_after}s" + Style.RESET_ALL)
+            raise RateLimitError(
+                f"Has alcanzado el límite de 10 preguntas por hora. "
+                f"Intenta de nuevo en {result.retry_after // 60} minutos."
+            )
+        logger.info(f"Session {self.session_id} rate limit OK — {result.remaining} requests remaining")
