@@ -19,9 +19,10 @@
 <p align="center">
   <img src="https://img.shields.io/badge/Python-3.11.10-blue?style=flat-square" alt="Python Version">
   <img src="https://img.shields.io/badge/Docker-27.5.1-lightblue?style=flat-square" alt="Docker Version">
-  <img src="https://img.shields.io/badge/Qdrant-1.16.3-red?style=flat-square" alt="Qdrant Version">
-  <img src="https://img.shields.io/badge/Redis-7.4.7-orange?style=flat-square" alt="Redis Version">
-  <img src="https://img.shields.io/badge/License-Apache%202.0-green?style=flat-square" alt="License">
+  <img src="https://img.shields.io/badge/Qdrant-1.17.0-red?style=flat-square" alt="Qdrant Version">
+  <img src="https://img.shields.io/badge/Redis-7.4.0-orange?style=flat-square" alt="Redis Version">
+  <img src="https://img.shields.io/badge/Nginx-1.29.7-green?style=flat-square" alt="Nginx Vesion">
+  <img src="https://img.shields.io/badge/License-Apache%202.0-purple?style=flat-square" alt="License">
 </p>
 
 
@@ -43,13 +44,14 @@ El proyecto fue desarrollado y probado con las siguientes versiones:
 
 - Docker `27.5.1`
 - Python `3.11.10`
-- Qdrant `1.16.3`
-- Redis `7.4.7`
+- Qdrant `1.17.0`
+- Redis `7.4.0`
+- Nginx `1.29.7`
 
 ## Instructions
 Para construir y ejecutar el proyecto, correr el siguiente comando en el directorio raíz:
 ```bash
-docker compose up --build -d
+docker compose -f docker-compose-monolith.yml up --build -d
 ```
 
 PyTorch no debe incluirse en `requirements.txt` debido a la necesidad de gestionar versiones específicas según la arquitectura (CPU vs GPU) y los controladores de CUDA. Por ello, la instalación se realiza directamente en el `Dockerfile` de cada servidor.
@@ -62,21 +64,24 @@ RUN pip install torch==2.5.1+cu121 --index-url https://download.pytorch.org/whl/
 Para poder construir y ejecutar el proyecto con un depurador, ya sea para corregir errores o para desarrollo, se debe utilizar el siguiente comando para habilitar el modo debug:
 
 ```bash
-docker compose -f docker-compose.yml -f docker-compose.debug.yml up --build
+docker compose -f docker-compose-monolith.yml -f docker-compose.debug.yml up --build
 ```
 
 
 ## API Endpoints
+Los endpoints de salud no requieren autenticación. Para los demás endpoints, se debe proporcionar una API Key mediante el header `Chatbot-API-Key`.
+
+
 **1.Construcción de la base vectorial**
 Construye o actualiza la base de conocimiento vectorial en Qdrant.
 ```bash
-GET http://127.0.0.1:8000/index
+GET http://127.0.0.1:8082/index
 ```
 
-**2.Concersación con el chatbot**
+**2.Conversación con el chatbot**
 Permite enviar mensajes al chatbot y recibir una respuesta generada por el sistema RAG.
 ```bash
-POST http://127.0.0.1:8000/conversation
+POST http://127.0.0.1:8082/conversation
 ```
 
 Esquema necesario:
@@ -88,12 +93,12 @@ Esquema necesario:
 ```
 
 **3.Health points para las dos APIs**
-Permite revisar si los dos endpoints desarrollados "api_server" y "rag_server" estan sanos y levantados.
+Permite revisar si los dos endpoints desarrollados "api_server" y "rerank_server" estan sanos y levantados.
 
 ```bash
-GET http://127.0.0.1:8000/health   # api_server
+GET http://127.0.0.1:8082/api/health   # api_server
 ```
 
 ```bash
-GET http://127.0.0.1:8082/health   # rag_server
+GET http://127.0.0.1:8082/rerank/health   # rerank_server
 ```
