@@ -13,24 +13,12 @@ from typing import Awaitable
 # Helpers
 from src.utils.prompts import build_topic_prompt
 from src.utils.llm import extract_json_from_response
-# from src.utils.llm import call_llm
+from src.utils.llm import call_llm
 
 # Logging 
 import logging
 logger = logging.getLogger('uvicorn.error')
 
-async def call_llm(state, prompt):
-    await asyncio.sleep(0.7)
-    return """
-{
-    "topic_llm": "creditos" ,
-    "topic_score": 0.95,
-    "topic_ambiguous": false,
-    "info_source": "rag",
-    "rewritten_query": "blah",
-    "suggested_clarification": null
-}
-"""
 
 async def topic_detect(state: ChatState) -> ChatState:
     # Timer

@@ -10,6 +10,7 @@ from colorama import Fore, Style
 from src.models.query import QueryRequest
 from src.utils.error_responses import build_error_response
 from src.utils.error_responses import get_error_status_code
+from src.utils.llm import calculate_cost
 
 # LangGraph
 from langgraph.graph import StateGraph
@@ -81,8 +82,8 @@ def topic_route(state: ChatState) -> str:
     # RAG or MEMORY
     return "llm_generate"
 
-async def run(request: QueryRequest) -> str:
-    # User message
+async def run(request: QueryRequest) -> tuple[dict, dict]:
+    # User input message information
     user_session_id = request.session_id
     user_message = request.mensaje
     user_message_format = ""
@@ -94,12 +95,28 @@ async def run(request: QueryRequest) -> str:
     initial_state: ChatState = {
         "user_message": user_message,
         "user_session_id": user_session_id,
-        "user_message_format": user_message_format
+        "user_message_format": user_message_format,
+        "token_count_input": 0,
+        "token_count_output": 0
     }
 
+    # Invoke graph
     final_state = await app.ainvoke(initial_state)
 
-    return final_state["final_answer"]
+    # Cost and tokens calculation
+    input_tokens = final_state['token_count_input']
+    output_tokens = final_state['token_count_output']
+    cost = calculate_cost(input_tokens, output_tokens)
+    logger.info(Fore.RED + f"{final_state['user_session_id']}: " + Fore.YELLOW + f"💰 Estimated cost of the query: ${cost:.6f} for {input_tokens} input tokens and {output_tokens} output tokens" + Style.RESET_ALL)
+
+    usage_data = {
+        "cost": cost,
+        "input_tokens": input_tokens,
+        "output_tokens": output_tokens
+    }
+
+    # Return final answer and usage data
+    return final_state["final_answer"], usage_data
 
 
 # =========

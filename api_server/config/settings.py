@@ -81,6 +81,10 @@ class Settings(BaseSettings):
     # MULTIMODAL
     GEMINI_MULTIMODAL: str = "gemini-2.5-flash"
 
+    # RATES FOR LLMs
+    INPUT_RATE_PER_M: float = 0.11
+    OUTPUT_RATE_PER_M: float = 0.34
+
     # GUARD
     GUARD_PROBABILITY_THRESHOLD: float = 0.2
     GROQ_PROMPT_GUARD: str = "meta-llama/llama-prompt-guard-2-86m"

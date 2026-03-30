@@ -12,6 +12,7 @@ import uvicorn
 
 # Helpers
 from src.nodes.generate.searcher import search # FIXME: This is only for testing recall and precision, should be removed in production
+from src.utils.usage import usage_tracker
 
 # Models
 from src.models.query import QueryRequest, SearchPayload
@@ -41,8 +42,6 @@ API_KEY = settings.PROTECTION_KEY
 API_KEY_HEADER = APIKeyHeader(name="Chatbot-API-Key", auto_error=False)
 
 async def verify_api_key(api_key: str = Security(API_KEY_HEADER)):
-    print(f"DEBUG: Expected API Key: {API_KEY}")
-    print(f"DEBUG: Received Header: {api_key}")
     if not api_key or not secrets.compare_digest(api_key, API_KEY):
         raise HTTPException(
             status_code=status.HTTP_403_FORBIDDEN,
@@ -129,10 +128,14 @@ async def conversation_endpoint(request: QueryRequest):
     logger.info(Fore.GREEN + "[🤖] Endpoint POST /conversation reached")
     logger.info(Fore.GREEN + "="*50 + Style.RESET_ALL)
 
-    response = await graph.run(request)
+    # Get response
+    response, usage = await graph.run(request)
+
+    # Total cost and tokens forever
+    await usage_tracker.add(**usage)
+    logger.info(Fore.YELLOW + f"📊 Total cost so far: ${usage_tracker.total_cost:.6f} for {usage_tracker.total_input_tokens} input tokens and {usage_tracker.total_output_tokens} output tokens" + Style.RESET_ALL)
 
     return JSONResponse(content=response)
-
 
 # ============================================================
 # START SERVER: Add routes to routers and start Uvicorn server
@@ -148,5 +151,5 @@ def start_server(host: str = "0.0.0.0", port: int = 8000):
         reload=False,
         log_level="info",
         log_config="config/logconfig.json",
-        workers=5
+        workers=1
     )

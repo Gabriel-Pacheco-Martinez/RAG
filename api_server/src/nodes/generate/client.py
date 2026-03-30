@@ -16,7 +16,7 @@ from src.nodes.generate.embedder import get_sparse_embedding
 from src.nodes.generate.searcher import search
 from src.utils.io import read_json
 from src.utils.prompts import build_generator_prompt
-# from src.utils.llm import call_llm
+from src.utils.llm import call_llm
 
 # Classes
 from langchain_core.prompt_values import PromptValue
@@ -28,14 +28,6 @@ from config.settings import settings
 import logging
 logger = logging.getLogger('uvicorn.error')
 
-
-async def call_llm(state, prompt):
-    await asyncio.sleep(1)
-    return "response"
-
-async def create_context():
-    await asyncio.sleep(1)
-    return "context"
 
 def _build_context(vectors: list[ScoredPoint], textos: dict[str, str]) -> str:
         # General information for all chunks
@@ -105,10 +97,6 @@ async def llm_generate(state: ChatState) -> ChatState:
     state["document"] = payload_main.get('doc_titulo', '').replace("_", " ").upper()
     state["chapter"] = payload_main.get('cap_titulo', '').lstrip(".").upper()
     state["context"] = _build_context(vectors, textos)
-
-    # state["context"] = await create_context()
-    # state["document"] = "document"
-    # state["chapter"] = "chapter"
   
     logger.info(Fore.RED + f"{state['user_session_id']}: " +Fore.CYAN + "[✅] 🧰 RAG ACHIEVED: " + Style.RESET_ALL + "it took " + Fore.YELLOW + f"{perf_counter() - state['start_timer_llm_rag']:.4f}s ⏱. ")
 

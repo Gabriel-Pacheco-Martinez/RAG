@@ -46,3 +46,5 @@ class ChatState(TypedDict):
 
     # Final answer
     final_answer: NotRequired[dict]
+    token_count_input: NotRequired[int]
+    token_count_output: NotRequired[int]
