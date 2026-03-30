@@ -27,9 +27,9 @@ from src import rerank
 # Logging
 logger = logging.getLogger('uvicorn.error')
 
-app = FastAPI(title="BNB CHATBOT: RAG SERVER")
+app = FastAPI(title="BNB CHATBOT: RERANK SERVER")
 
-@app.get("/health")
+@app.get("/rerank/health")
 async def health_check():
     logger.info(Fore.GREEN + "[💚] Endpoint GET /health reached" + Style.RESET_ALL)
 

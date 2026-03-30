@@ -4,8 +4,6 @@ services:
     build: ./api_server
     volumes:
       - hf_cache:/root/.cache/huggingface
-    ports:
-      - "8000:8000"
     env_file:
       - .env
     depends_on:
@@ -63,6 +61,15 @@ services:
       GUARD_PROBABILITY_THRESHOLD: 0.2
       GROQ_PROMPT_GUARD: meta-llama/llama-prompt-guard-2-86m
       HF_PROMPT_GUARD: meta-llama/Llama-Prompt-Guard-2-86M
+
+  nginx:
+    image: nginx:latest
+    ports:
+      - "8082:8080"
+    volumes:
+      - ./nginx/nginx_monolith.conf:/etc/nginx/nginx.conf
+    depends_on:
+      - api_server
 
   redis:
     image: redis/redis-stack:latest

@@ -87,7 +87,7 @@ protected_router = APIRouter(dependencies=[Depends(verify_api_key)])
 # ============================================================
 # Public Endpoint: Check health status
 # ============================================================
-@public_router.get("/health")
+@public_router.get("/api/health")
 async def health_check():
     logger.info(Fore.GREEN + "[💚] Endpoint GET /health reached" + Style.RESET_ALL)
 
