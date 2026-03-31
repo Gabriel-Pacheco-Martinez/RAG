@@ -14,6 +14,8 @@
   <a href="#requirements">Requirements</a>
   ·
   <a href="#instructions">Instructions</a>
+  ·
+  <a href="#api-endspoints">API Endpoints</a>
 </p>
 
 <p align="center">
@@ -107,7 +109,7 @@ Chatbot-API-Key: <API_KEY>
 Permite revisar si los dos endpoints desarrollados "api_server" y "rerank_server" estan sanos y levantados.
 
 ```bash
-GET http://127.0.0.1:8082/api/health   # api_server
+GET http://127.0.0.1:8082/api/health      # api_server
 ```
 
 ```bash
