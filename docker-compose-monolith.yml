@@ -1,6 +1,8 @@
 services:
 
   api_server:
+    platform: linux/amd64
+    image: chatbot_server:1.0.0
     build: ./api_server
     volumes:
       - hf_cache:/root/.cache/huggingface
@@ -68,6 +70,7 @@ services:
       HF_PROMPT_GUARD: meta-llama/Llama-Prompt-Guard-2-86M
 
   nginx:
+    platform: linux/amd64
     image: nginx:1.29.7-alpine-perl
     ports:
       - "8082:8080"
@@ -77,11 +80,13 @@ services:
       - api_server
 
   redis:
+    platform: linux/amd64
     image: redis/redis-stack:7.4.0-v8
     ports:
       - "6379:6379"
 
   qdrant:
+    platform: linux/amd64
     image: qdrant/qdrant:v1.17
     ports:
       - "6333:6333"
