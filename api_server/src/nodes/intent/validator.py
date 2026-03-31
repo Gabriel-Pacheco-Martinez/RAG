@@ -42,7 +42,7 @@ class AudioValidator(Validator):
         return self.message_data
 
 class RateLimitValidator(Validator):
-    def __init__(self, session_id:int):
+    def __init__(self, session_id:str):
         self.session_id = session_id
 
     async def validate_input(self):
@@ -50,7 +50,7 @@ class RateLimitValidator(Validator):
         if not result.allowed:
             logger.info(Fore.RED + f"Session {self.session_id} exceeded rate limit. Retry after {result.retry_after}s" + Style.RESET_ALL)
             raise RateLimitError(
-                f"Has alcanzado el límite de 10 preguntas por hora. "
+                f"Has alcanzado el límite de preguntas por el momento. "
                 f"Intenta de nuevo en {result.retry_after // 60} minutos."
             )
         logger.info(f"Session {self.session_id} rate limit OK — {result.remaining} requests remaining")

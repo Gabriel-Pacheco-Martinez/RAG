@@ -161,5 +161,5 @@ def start_server(host: str = "0.0.0.0", port: int = 8000):
         reload=False,
         log_level="info",
         log_config="config/logconfig.json",
-        workers=5
+        workers=1
     )

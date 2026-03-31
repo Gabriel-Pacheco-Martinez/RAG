@@ -3,7 +3,7 @@ from typing import Optional, TypedDict, Required, NotRequired
 class ChatState(TypedDict):
     # User
     user_message: Required[str|bytes]
-    user_session_id: Required[int]
+    user_session_id: Required[str]
     user_message_format: Required[str]
     user_message_str: NotRequired[str] 
 
