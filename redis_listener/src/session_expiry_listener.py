@@ -34,6 +34,8 @@ async def listen_for_expirations():
                 port=settings.REDIS_PORT,
                 db=settings.REDIS_DB_MEMORY,
                 decode_responses=settings.REDIS_DECODE_RESPONSES,
+                socket_keepalive=True,
+                socket_timeout=settings.REDIS_TIMEOUT_SECONDS,
             )
 
             await client.ping() 

@@ -14,5 +14,6 @@ class Settings(BaseSettings):
     REDIS_PORT: int = 6379
     REDIS_DB_MEMORY: int = 0
     REDIS_DECODE_RESPONSES: bool = True
+    REDIS_TIMEOUT_SECONDS: int = 5
 
 settings = Settings()

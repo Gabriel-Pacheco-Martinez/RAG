@@ -82,6 +82,7 @@ services:
       REDIS_PORT: 6379
       REDIS_DB_MEMORY: 0
       REDIS_DECODE_RESPONSES: true
+      REDIS_TIMEOUT_SECONDS: 5
 
   nginx:
     # platform: linux/amd64
