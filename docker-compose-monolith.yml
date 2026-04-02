@@ -104,7 +104,6 @@ services:
       - "6379:6379"
     environment:
       - REDIS_ARGS=--notify-keyspace-events Ex
-    # command: redis-server --notify-keyspace-events Ex  
     healthcheck:
       test: ["CMD", "redis-cli", "ping"]
       interval: 5s
