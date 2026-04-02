@@ -10,6 +10,10 @@ import logging
 logger = logging.getLogger('uvicorn.error')
 
 async def llm_response(state: ChatState) -> ChatState:
+    # Check if there is an LLM response in the state
+    if state.get("generate_llm") is None:
+        raise ValueError("LLM response is None")
+
     # UPDATE FINAL STATE
     state["final_answer"] = {
         "status": 200,
