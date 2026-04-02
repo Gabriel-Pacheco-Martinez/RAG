@@ -21,7 +21,7 @@ services:
       REDIS_DB_MEMORY: 0
       REDIS_DB_VALIDATOR: 1
       REDIS_DECODE_RESPONSES: true
-      REDIS_TTL_SECONDS: 10
+      REDIS_TTL_SECONDS: 900
 
       # ===== QDRANT
       QDRANT_URL: http://qdrant:6333

@@ -49,7 +49,6 @@ Si necesitas algo más, puedes volver a escribirnos en cualquier momento y con g
     try:
         async with aiohttp.ClientSession() as session:
             async with session.post(settings.NOTIFY_URL, json=payload, headers=headers) as response:
-                logger.info(response)
 
                 if response.status == 200:
                     logger.info(Fore.GREEN + f"{session_id}: Notification sent successfully." + Style.RESET_ALL)
