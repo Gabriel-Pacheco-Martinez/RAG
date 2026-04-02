@@ -73,6 +73,8 @@ services:
     # platform: linux/amd64
     image: chatbot_redis_listener:1.0.0
     build: ./redis_listener
+    env_file:
+      - .env
     depends_on:
       redis:
         condition: service_healthy

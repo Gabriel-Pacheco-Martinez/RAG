@@ -2,6 +2,7 @@
 import logging.config
 import json
 import asyncio
+import aiohttp
 from colorama import Fore, Style
 from pathlib import Path
 
@@ -21,6 +22,43 @@ logger = logging.getLogger(__name__)
 
 async def handle_expired_session(session_id: str):
     logger.info(Fore.RED + f"{session_id}:" + Style.RESET_ALL + Fore.MAGENTA + " Session expired. Notifying client." + Style.RESET_ALL)
+    
+    message: str = """¡Gracias por escribirnos!
+
+    Fue un gusto ayudarte 🙌
+    Por ahora damos por finalizada la conversación.
+
+    Si necesitas algo más, puedes volver a escribirnos en cualquier momento y con gusto te ayudaremos 💬
+
+    ¡Que tengas un excelente día!"""
+
+
+    payload = {
+        "account": session_id,
+        "success": False,
+        "error_message": message,
+        "receipt_data": None,
+        "transactionCode": 1
+    }
+
+    headers = {
+        "Content-Type": "application/json",
+        "X-Api-Key": settings.NOTIFY_API_KEY
+    }
+
+    try:
+        async with aiohttp.ClientSession() as session:
+            async with session.post(settings.NOTIFY_URL, json=payload, headers=headers) as response:
+                logger.info(response)
+
+                if response.status == 200:
+                    logger.info(Fore.GREEN + f"{session_id}: Notification sent successfully." + Style.RESET_ALL)
+                else:
+                    body = await response.text()
+                    logger.error(Fore.RED + f"{session_id}: Notification failed [{response.status}]: {body}" + Style.RESET_ALL)
+
+    except aiohttp.ClientError as e:
+        logger.error(Fore.RED + f"{session_id}: Failed to reach notification endpoint: {e}" + Style.RESET_ALL)
 
 
 async def listen_for_expirations():

@@ -16,4 +16,8 @@ class Settings(BaseSettings):
     REDIS_DECODE_RESPONSES: bool = True
     REDIS_TIMEOUT_SECONDS: int = 5
 
+    # NOTIFY
+    NOTIFY_URL: str = "https://marketapi.bnb.com.bo/interbank-qr/notify"
+    NOTIFY_API_KEY: str = "NOTIFY_API_KEY"
+
 settings = Settings()

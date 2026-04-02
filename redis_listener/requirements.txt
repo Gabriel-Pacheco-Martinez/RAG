@@ -3,3 +3,4 @@ pydantic-settings==2.2.1
 pydantic_core==2.41.5
 redis==7.2.1
 colorama==0.4.6
+aiohttp==3.13.5
