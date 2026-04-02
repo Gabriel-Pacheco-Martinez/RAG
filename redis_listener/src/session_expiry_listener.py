@@ -25,12 +25,12 @@ async def handle_expired_session(session_id: str):
     
     message: str = """¡Gracias por escribirnos!
 
-    Fue un gusto ayudarte 🙌
-    Por ahora damos por finalizada la conversación.
+Fue un gusto ayudarte 🙌
+Por ahora damos por finalizada la conversación.
 
-    Si necesitas algo más, puedes volver a escribirnos en cualquier momento y con gusto te ayudaremos 💬
+Si necesitas algo más, puedes volver a escribirnos en cualquier momento y con gusto te ayudaremos 💬
 
-    ¡Que tengas un excelente día!"""
+¡Que tengas un excelente día!"""
 
 
     payload = {
