@@ -1,7 +1,7 @@
 services:
 
   api_server:
-    platform: linux/amd64
+    # platform: linux/amd64
     image: chatbot_server:1.0.0
     build: ./api_server
     volumes:
@@ -21,7 +21,7 @@ services:
       REDIS_DB_MEMORY: 0
       REDIS_DB_VALIDATOR: 1
       REDIS_DECODE_RESPONSES: true
-      REDIS_TTL_SECONDS: 900
+      REDIS_TTL_SECONDS: 10
 
       # ===== QDRANT
       QDRANT_URL: http://qdrant:6333
@@ -69,8 +69,22 @@ services:
       GROQ_PROMPT_GUARD: meta-llama/llama-prompt-guard-2-86m
       HF_PROMPT_GUARD: meta-llama/Llama-Prompt-Guard-2-86M
 
+  redis_listener:
+    # platform: linux/amd64
+    image: chatbot_redis_listener:1.0.0
+    build: ./redis_listener
+    depends_on:
+      redis:
+        condition: service_healthy
+    environment:
+      # ===== REDIS
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+      REDIS_DB_MEMORY: 0
+      REDIS_DECODE_RESPONSES: true
+
   nginx:
-    platform: linux/amd64
+    # platform: linux/amd64
     image: nginx:1.29.7-alpine-perl
     ports:
       - "8082:8080"
@@ -80,13 +94,22 @@ services:
       - api_server
 
   redis:
-    platform: linux/amd64
+    # platform: linux/amd64
     image: redis/redis-stack:7.4.0-v8
     ports:
       - "6379:6379"
+    environment:
+      - REDIS_ARGS=--notify-keyspace-events Ex
+    # command: redis-server --notify-keyspace-events Ex  
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+      start_period: 5s
 
   qdrant:
-    platform: linux/amd64
+    # platform: linux/amd64
     image: qdrant/qdrant:v1.17
     ports:
       - "6333:6333"
